@@ -77,17 +77,17 @@ SurfaceItemWayland::SurfaceItemWayland(SurfaceInterface *surface, Item *parent)
     connect(&m_fifoFallbackTimer, &QTimer::timeout, this, &SurfaceItemWayland::handleFifoFallback);
 }
 
-QList<RectF> SurfaceItemWayland::shape() const
+RegionF SurfaceItemWayland::shape() const
 {
-    return {rect()};
+    return RegionF{rect()};
 }
 
-Region SurfaceItemWayland::opaque() const
+RegionF SurfaceItemWayland::opaque() const
 {
     if (m_surface) {
-        return m_surface->opaque();
+        return RegionF(m_surface->opaque());
     }
-    return Region();
+    return RegionF();
 }
 
 SurfaceInterface *SurfaceItemWayland::surface() const
@@ -279,36 +279,24 @@ SurfaceItemXwayland::SurfaceItemXwayland(X11Window *window, Item *parent)
 void SurfaceItemXwayland::handleShapeChange()
 {
     const auto newShape = m_window->shapeRegion();
-    Region newBufferShape;
-    for (const auto &rect : newShape) {
-        newBufferShape |= rect.toAlignedRect();
-    }
-    scheduleRepaint(newBufferShape.xored(m_previousBufferShape));
-    m_previousBufferShape = newBufferShape;
+    scheduleRepaint(newShape.xored(m_previousBufferShape));
+    m_previousBufferShape = newShape;
     discardQuads();
 }
 
-QList<RectF> SurfaceItemXwayland::shape() const
+RegionF SurfaceItemXwayland::shape() const
 {
-    QList<RectF> shape = m_window->shapeRegion();
-    for (RectF &shapePart : shape) {
-        shapePart = shapePart.intersected(rect());
-    }
-    return shape;
+    return m_window->shapeRegion() & rect();
 }
 
-Region SurfaceItemXwayland::opaque() const
+RegionF SurfaceItemXwayland::opaque() const
 {
-    Region shapeRegion;
-    for (const RectF &shapePart : shape()) {
-        shapeRegion += shapePart.toRect();
-    }
     if (!m_window->hasAlpha()) {
-        return shapeRegion;
+        return shape();
     } else {
-        return m_window->opaqueRegion() & shapeRegion;
+        return m_window->opaqueRegion() & shape();
     }
-    return Region();
+    return RegionF();
 }
 #endif
 } // namespace KWin

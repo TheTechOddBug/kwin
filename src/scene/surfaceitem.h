@@ -50,7 +50,7 @@ public:
 
     std::shared_ptr<SyncReleasePoint> bufferReleasePoint() const;
 
-    Region mapFromBuffer(const Region &region) const;
+    RegionF mapFromBuffer(const Region &region) const;
 
     void addDamage(const Region &region);
     void resetDamage();

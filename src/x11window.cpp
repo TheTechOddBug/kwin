@@ -4029,14 +4029,14 @@ void X11Window::checkOutput()
 void X11Window::getWmOpaqueRegion()
 {
     const auto rects = info->opaqueRegion();
-    Region new_opaque_region;
+    RegionF new_opaque_region;
     for (const auto &r : rects) {
-        new_opaque_region += Xcb::fromXNative(Rect(r.pos.x, r.pos.y, r.size.width, r.size.height)).toRect();
+        new_opaque_region += Xcb::fromXNative(Rect(r.pos.x, r.pos.y, r.size.width, r.size.height));
     }
     opaque_region = new_opaque_region;
 }
 
-QList<RectF> X11Window::shapeRegion() const
+RegionF X11Window::shapeRegion() const
 {
     return m_shapeRegion;
 }
@@ -4049,7 +4049,7 @@ void X11Window::updateShapeRegion()
         auto cookie = xcb_shape_get_rectangles_unchecked(kwinApp()->x11Connection(), window(), XCB_SHAPE_SK_BOUNDING);
         UniqueCPtr<xcb_shape_get_rectangles_reply_t> reply(xcb_shape_get_rectangles_reply(kwinApp()->x11Connection(), cookie, nullptr));
         if (reply) {
-            m_shapeRegion.clear();
+            m_shapeRegion = RegionF{};
             const xcb_rectangle_t *rects = xcb_shape_get_rectangles_rectangles(reply.get());
             const int rectCount = xcb_shape_get_rectangles_rectangles_length(reply.get());
             for (int i = 0; i < rectCount; ++i) {
@@ -4498,7 +4498,7 @@ bool X11Window::hitTest(const QPointF &point) const
     if (!m_surface || (m_surface->isMapped() && !m_surface->inputSurfaceAt(mapToLocal(point)))) {
         return false;
     }
-    return std::ranges::any_of(m_shapeRegion, [local = mapToLocal(point)](const RectF &rect) {
+    return std::ranges::any_of(m_shapeRegion.rects(), [local = mapToLocal(point)](const RectF &rect) {
         return rect.contains(local);
     });
 }

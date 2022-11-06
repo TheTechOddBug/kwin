@@ -211,8 +211,8 @@ void ItemRendererQPainter::renderSurfaceItem(QPainter *painter, SurfaceItem *sur
     const qreal xSourceBoxScale = sourceBox.width() / transformedSize.width();
     const qreal ySourceBoxScale = sourceBox.height() / transformedSize.height();
 
-    const QList<RectF> shape = surfaceItem->shape();
-    for (const RectF rect : shape) {
+    const RegionF shape = surfaceItem->shape();
+    for (const RectF &rect : shape.rects()) {
         const QRectF target = surfaceToBufferTransform.map(rect, surfaceItem->size());
         const QRectF source(sourceBox.x() + target.x() * xSourceBoxScale,
                             sourceBox.y() + target.y() * ySourceBoxScale,

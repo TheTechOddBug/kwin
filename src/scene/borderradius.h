@@ -36,7 +36,7 @@ public:
     qreal bottomRight() const;
 
     bool clips(const RectF &rect, const RectF &bounds) const;
-    Region clip(const Region &region, const RectF &bounds) const;
+    RegionF clip(const RegionF &region, const RectF &bounds) const;
 
     BorderRadius scaled(qreal scale) const;
     BorderRadius rounded() const;

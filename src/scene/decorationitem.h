@@ -44,12 +44,12 @@ public:
     ~DecorationRenderer();
 
     Atlas *atlas() const;
-    void render(ItemRenderer *renderer, const Region &region);
+    void render(ItemRenderer *renderer, const RegionF &region);
     void invalidate();
 
     // TODO: Move damage tracking inside DecorationItem.
-    Region damage() const;
-    void addDamage(const Region &region);
+    RegionF damage() const;
+    void addDamage(const RegionF &region);
     void resetDamage();
 
     qreal effectiveDevicePixelRatio() const;
@@ -59,11 +59,11 @@ public:
     void releaseResources();
 
 Q_SIGNALS:
-    void damaged(const Region &region);
+    void damaged(const RegionF &region);
 
 private:
     QPointer<Decoration::DecoratedWindowImpl> m_client;
-    Region m_damage;
+    RegionF m_damage;
     qreal m_devicePixelRatio = 1;
     bool m_imageSizesDirty;
     QImage m_images[4];
@@ -84,8 +84,8 @@ public:
     Atlas *atlas() const;
     Window *window() const;
 
-    QList<RectF> shape() const override final;
-    Region opaque() const override final;
+    RegionF shape() const override final;
+    RegionF opaque() const override final;
 
 private Q_SLOTS:
     void handleDecorationGeometryChanged();

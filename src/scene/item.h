@@ -83,8 +83,8 @@ public:
      */
     RectF boundingRect() const;
 
-    virtual QList<RectF> shape() const;
-    virtual Region opaque() const;
+    virtual RegionF shape() const;
+    virtual RegionF opaque() const;
 
     /**
      * Returns the visual parent of the item. Note that the visual parent differs from
@@ -104,6 +104,11 @@ public:
      */
     Region mapToView(const Region &region, const RenderView *view) const;
     /**
+     * Maps the given @a region from the item's coordinate system to the view's coordinate
+     * system, snapping positions to the view's coordinate grid to match the renderer
+     */
+    RegionF mapToView(const RegionF &region, const RenderView *view) const;
+    /**
      * Maps the given @a rect from the item's coordinate system to the view's coordinate
      * system, snapping positions to the view's coordinate grid to match the renderer
      */
@@ -114,6 +119,11 @@ public:
      * system.
      */
     Region mapToScene(const Region &region) const;
+    /**
+     * Maps the given @a region from the item's coordinate system to the scene's coordinate
+     * system.
+     */
+    RegionF mapToScene(const RegionF &region) const;
     /**
      * Maps the given @a rect from the item's coordinate system to the scene's coordinate
      * system.
@@ -142,13 +152,13 @@ public:
     void setBorderRadius(const BorderRadius &radius);
 
     Rect paintedDeviceArea(RenderView *delegate, const RectF &logicalRect) const;
-    Region paintedDeviceArea(RenderView *delegate, const Region &logicalRegion) const;
+    Region paintedDeviceArea(RenderView *delegate, const RegionF &logicalRegion) const;
 
     void scheduleRepaint(const RectF &region);
     void scheduleSceneRepaint(const RectF &region);
-    void scheduleRepaint(const Region &region);
-    void scheduleSceneRepaint(const Region &region);
-    void scheduleRepaint(RenderView *delegate, const Region &region);
+    void scheduleRepaint(const RegionF &region);
+    void scheduleSceneRepaint(const RegionF &region);
+    void scheduleRepaint(RenderView *delegate, const RegionF &region);
     void scheduleFrame();
     bool hasRepaints(RenderView *view) const;
     Region takeDeviceRepaints(RenderView *delegate);
@@ -206,9 +216,9 @@ private:
     void removeChild(Item *item);
     void updateBoundingRect();
     void updateItemToSceneTransform();
-    void scheduleRepaintInternal(const Region &region);
-    void scheduleRepaintInternal(RenderView *delegate, const Region &region);
-    void scheduleSceneRepaintInternal(const Region &region);
+    void scheduleRepaintInternal(const RegionF &region);
+    void scheduleRepaintInternal(RenderView *delegate, const RegionF &region);
+    void scheduleSceneRepaintInternal(const RegionF &region);
     void markSortedChildItemsDirty();
 
     bool computeEffectiveVisibility() const;

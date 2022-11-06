@@ -26,7 +26,7 @@ DecorationRenderer::DecorationRenderer(Decoration::DecoratedWindowImpl *client)
     , m_imageSizesDirty(true)
 {
     connect(client->decoration(), &KDecoration3::Decoration::damaged, this, [this](const QRegion &region) {
-        addDamage(Region(region));
+        addDamage(RegionF(region));
     });
 
     connect(client->decoration(), &KDecoration3::Decoration::bordersChanged,
@@ -44,17 +44,17 @@ DecorationRenderer::~DecorationRenderer()
 void DecorationRenderer::invalidate()
 {
     if (m_client) {
-        addDamage(m_client->window()->rect().roundedOut());
+        addDamage(m_client->window()->rect());
     }
     m_imageSizesDirty = true;
 }
 
-Region DecorationRenderer::damage() const
+RegionF DecorationRenderer::damage() const
 {
     return m_damage;
 }
 
-void DecorationRenderer::addDamage(const Region &region)
+void DecorationRenderer::addDamage(const RegionF &region)
 {
     m_damage += region;
     Q_EMIT damaged(region);
@@ -62,7 +62,7 @@ void DecorationRenderer::addDamage(const Region &region)
 
 void DecorationRenderer::resetDamage()
 {
-    m_damage = Region();
+    m_damage = RegionF();
 }
 
 qreal DecorationRenderer::effectiveDevicePixelRatio() const
@@ -89,9 +89,9 @@ Atlas *DecorationRenderer::atlas() const
     return m_atlas.get();
 }
 
-void DecorationRenderer::render(ItemRenderer *itemRenderer, const Region &region)
+void DecorationRenderer::render(ItemRenderer *itemRenderer, const RegionF &region)
 {
-    const Rect geometry = region.boundingRect();
+    const RectF geometry = region.boundingRect();
 
     RectF decorationRects[4];
     m_client->window()->layoutDecorationRects(decorationRects[int(DecorationPart::Left)],
@@ -192,7 +192,7 @@ DecorationItem::DecorationItem(KDecoration3::Decoration *decoration, Window *win
             this, &DecorationItem::updateOutline);
 
     connect(m_renderer.get(), &DecorationRenderer::damaged,
-            this, qOverload<const Region &>(&Item::scheduleRepaint));
+            this, qOverload<const RegionF &>(&Item::scheduleRepaint));
 
     setSize(decoration->size());
     updateScale();
@@ -203,36 +203,25 @@ DecorationItem::~DecorationItem()
 {
 }
 
-QList<RectF> DecorationItem::shape() const
+RegionF DecorationItem::shape() const
 {
     RectF left, top, right, bottom;
     m_window->layoutDecorationRects(left, top, right, bottom);
-    return {left, top, right, bottom};
+    return RegionF(left) | top | right | bottom;
 }
 
-Region DecorationItem::opaque() const
+RegionF DecorationItem::opaque() const
 {
     if (m_window->decorationHasAlpha()) {
-        return Region();
+        return RegionF();
+    } else {
+        return shape();
     }
-    RectF left, top, right, bottom;
-    m_window->layoutDecorationRects(left, top, right, bottom);
-
-    // We have to map to integers which has rounding issues
-    // it's safer for a region to be considered transparent than opaque
-    // so always align inwards
-    const QMargins roundingPad = QMargins(1, 1, 1, 1);
-    Region roundedLeft = left.roundedOut().marginsRemoved(roundingPad);
-    Region roundedTop = top.roundedOut().marginsRemoved(roundingPad);
-    Region roundedRight = right.roundedOut().marginsRemoved(roundingPad);
-    Region roundedBottom = bottom.roundedOut().marginsRemoved(roundingPad);
-
-    return roundedLeft | roundedTop | roundedRight | roundedBottom;
 }
 
 void DecorationItem::preprocess()
 {
-    const Region damage = m_renderer->damage();
+    const RegionF damage = m_renderer->damage();
     if (!damage.isEmpty()) {
         m_renderer->render(scene()->renderer(), damage);
         m_renderer->resetDamage();

@@ -209,7 +209,7 @@ void EffectWindow::unrefVisible(const EffectWindowVisibleRef *holder)
 
 void EffectWindow::addRepaint(const Rect &r)
 {
-    d->m_windowItem->scheduleRepaint(Region(r));
+    d->m_windowItem->scheduleRepaint(r);
 }
 
 void EffectWindow::addRepaintFull()

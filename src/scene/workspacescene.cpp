@@ -251,13 +251,14 @@ static bool addCandidates(SceneView *delegate, Item *item, QList<SurfaceItem *> 
         }
     });
 
-    Region opaque = item->opaque();
+    RegionF opaque = item->opaque();
     if (!corners.isEmpty()) {
         const auto &top = corners.top();
         opaque = top.radius.clip(opaque, top.box);
     }
 
-    occluded += item->mapToView(opaque, delegate);
+    // TODO map to device coordiantes instead of this underestimation
+    occluded += item->mapToView(opaque, delegate).roundedIn();
     for (; it != children.rend(); it++) {
         Item *const child = *it;
         if (!delegate->shouldRenderItem(child)) {
@@ -334,10 +335,10 @@ static Rect mapToDevice(SceneView *view, Item *item, const RectF &itemLocal)
     return localLogical.scaled(view->scale()).rounded();
 }
 
-static Region mapToDevice(SceneView *view, Item *item, const Region &itemLocal)
+static Region mapToDevice(SceneView *view, Item *item, const RegionF &itemLocal)
 {
     Region ret;
-    for (const RectF local : itemLocal.rects()) {
+    for (const RectF &local : itemLocal.rects()) {
         ret |= mapToDevice(view, item, local);
     }
     return ret;
@@ -607,12 +608,12 @@ void WorkspaceScene::preparePaintGenericScreen()
 static void addOpaqueRegionRecursive(SceneView *view, Item *item, const std::optional<ClipCorner> &parentCorner, Region &ret)
 {
     const std::optional<ClipCorner> corner = calculateClipCorner(item, parentCorner);
-    Region opaque = item->opaque();
+    RegionF opaque = item->opaque();
     if (corner.has_value()) {
         opaque = corner->radius.clip(item->opaque(), corner->box);
     }
     const Rect deviceRect = snapToPixelGrid(view->mapToDeviceCoordinates(item->mapToView(item->rect(), view)));
-    for (RectF rect : opaque.rects()) {
+    for (const RectF &rect : opaque.rects()) {
         ret |= snapToPixelGrid(view->mapToDeviceCoordinates(item->mapToView(rect, view))) & deviceRect;
     }
     const auto children = item->childItems();

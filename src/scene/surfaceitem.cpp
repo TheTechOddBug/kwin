@@ -96,13 +96,13 @@ void SurfaceItem::setBufferSize(const QSize &size)
     }
 }
 
-Region SurfaceItem::mapFromBuffer(const Region &region) const
+RegionF SurfaceItem::mapFromBuffer(const Region &region) const
 {
     const RectF sourceBox = m_bufferToSurfaceTransform.map(m_bufferSourceBox, m_bufferSize);
     const qreal xScale = m_destinationSize.width() / sourceBox.width();
     const qreal yScale = m_destinationSize.height() / sourceBox.height();
 
-    Region result;
+    RegionF result;
     for (RectF rect : region.rects()) {
         const RectF r = m_bufferToSurfaceTransform.map(rect, m_bufferSize).translated(-sourceBox.topLeft());
         result += RectF(r.x() * xScale, r.y() * yScale, r.width() * xScale, r.height() * yScale).toAlignedRect();
@@ -110,14 +110,14 @@ Region SurfaceItem::mapFromBuffer(const Region &region) const
     return result;
 }
 
-static Region expandRegion(const Region &region, const QMargins &padding)
+static RegionF expandRegion(const RegionF &region, const QMarginsF &padding)
 {
     if (region.isEmpty()) {
-        return Region();
+        return RegionF();
     }
 
-    Region ret;
-    for (const Rect &rect : region.rects()) {
+    RegionF ret;
+    for (const RectF &rect : region.rects()) {
         ret += rect.marginsAdded(padding);
     }
 
@@ -140,11 +140,11 @@ void SurfaceItem::addDamage(const Region &region)
     const RectF sourceBox = m_bufferToSurfaceTransform.map(m_bufferSourceBox, m_bufferSize);
     const qreal xScale = sourceBox.width() / m_destinationSize.width();
     const qreal yScale = sourceBox.height() / m_destinationSize.height();
-    const Region logicalDamage = mapFromBuffer(region);
+    const RegionF logicalDamage = mapFromBuffer(region);
 
     const auto views = scene()->views();
     for (RenderView *view : views) {
-        Region viewDamage = logicalDamage;
+        RegionF viewDamage = logicalDamage;
         const qreal viewScale = view->scale();
         if (xScale != viewScale || yScale != viewScale) {
             // Simplified version of ceil(ceil(0.5 * output_scale / surface_scale) / output_scale)
@@ -199,15 +199,15 @@ void SurfaceItem::preprocess()
 
 WindowQuadList SurfaceItem::buildQuads() const
 {
-    const QList<RectF> region = shape();
+    const RegionF region = shape();
     WindowQuadList quads;
-    quads.reserve(region.count());
+    quads.reserve(region.rects().size());
 
     const RectF sourceBox = m_bufferToSurfaceTransform.map(m_bufferSourceBox, m_bufferSize);
     const qreal xScale = sourceBox.width() / m_destinationSize.width();
     const qreal yScale = sourceBox.height() / m_destinationSize.height();
 
-    for (const RectF rect : region) {
+    for (const RectF &rect : region.rects()) {
         WindowQuad quad;
 
         const QPointF bufferTopLeft = snapToPixelGridF(m_bufferSourceBox.topLeft() + m_surfaceToBufferTransform.map(QPointF(rect.left() * xScale, rect.top() * yScale), sourceBox.size()));
