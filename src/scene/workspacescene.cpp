@@ -207,128 +207,26 @@ static void maybePushCorners(Item *item, QStack<ClipCorner> &corners)
     }
 }
 
-static bool addCandidates(SceneView *delegate, Item *item, QList<SurfaceItem *> &candidates, ssize_t maxCount, Region &occluded, QStack<ClipCorner> &corners)
+static bool checkForBlackBackground(Item *background)
 {
-    if (item->opacity() == 0.0) {
-        return true;
-    }
-    if (item->opacity() != 1.0 || item->hasEffects()) {
+    SurfaceItem *surface = qobject_cast<SurfaceItem *>(background);
+    if (!surface) {
         return false;
     }
-    const QList<Item *> children = item->sortedChildItems();
-    auto it = children.rbegin();
-    for (; it != children.rend(); it++) {
-        Item *const child = *it;
-        if (child->z() < 0) {
-            break;
-        }
-        if (!delegate->shouldRenderItem(child)) {
-            continue;
-        }
-        if (child->isVisible() && !occluded.contains(child->mapToView(child->boundingRect(), delegate).rounded())) {
-            if (!addCandidates(delegate, static_cast<SurfaceItem *>(child), candidates, maxCount, occluded, corners)) {
-                return false;
-            }
-        }
-    }
-    if (occluded.contains(item->mapToView(item->boundingRect(), delegate).rounded())) {
-        return true;
-    }
-    if (delegate->shouldRenderItem(item)) {
-        if (auto surfaceItem = qobject_cast<SurfaceItem *>(item)) {
-            candidates.push_back(surfaceItem);
-            if (candidates.size() > maxCount) {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
-
-    maybePushCorners(item, corners);
-    auto cleanupCorners = qScopeGuard([&corners]() {
-        if (!corners.isEmpty()) {
-            corners.pop();
-        }
-    });
-
-    RegionF opaque = item->opaque();
-    if (!corners.isEmpty()) {
-        const auto &top = corners.top();
-        opaque = top.radius.clip(opaque, top.box);
-    }
-
-    // TODO map to device coordiantes instead of this underestimation
-    occluded += item->mapToView(opaque, delegate).roundedIn();
-    for (; it != children.rend(); it++) {
-        Item *const child = *it;
-        if (!delegate->shouldRenderItem(child)) {
-            continue;
-        }
-        if (child->isVisible() && !occluded.contains(child->mapToView(child->boundingRect(), delegate).rounded())) {
-            if (!addCandidates(delegate, static_cast<SurfaceItem *>(child), candidates, maxCount, occluded, corners)) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
-
-static bool checkForBlackBackground(SurfaceItem *background)
-{
-    if (!background->buffer()
-        || (!background->buffer()->singlePixelAttributes() && !background->buffer()->shmAttributes())
-        || background->buffer()->size() != QSize(1, 1)) {
+    if (!surface->buffer()
+        || (!surface->buffer()->singlePixelAttributes() && !surface->buffer()->shmAttributes())
+        || surface->buffer()->size() != QSize(1, 1)) {
         return false;
     }
-    const GraphicsBufferView view(background->buffer());
+    const GraphicsBufferView view(surface->buffer());
     if (!view.image()) {
         return false;
     }
     const QRgb rgb = view.image()->pixel(0, 0);
     const QVector3D encoded(qRed(rgb) / 255.0, qGreen(rgb) / 255.0, qBlue(rgb) / 255.0);
-    const QVector3D nits = background->colorDescription()->mapTo(encoded, ColorDescription(Colorimetry::BT709, TransferFunction(TransferFunction::linear), 100, 0, std::nullopt, std::nullopt), background->renderingIntent());
+    const QVector3D nits = surface->colorDescription()->mapTo(encoded, ColorDescription(Colorimetry::BT709, TransferFunction(TransferFunction::linear), 100, 0, std::nullopt, std::nullopt), surface->renderingIntent());
     // below 0.1 nits, it shouldn't be noticeable that we replace it with black
     return nits.lengthSquared() <= (0.1 * 0.1);
-}
-
-QList<SurfaceItem *> WorkspaceScene::scanoutCandidates(ssize_t maxCount) const
-{
-    const auto overlayItems = m_overlayItem->childItems();
-    const bool needsRendering = std::ranges::any_of(overlayItems, [this](Item *child) {
-        return child->isVisible()
-            && child->opacity() != 0.0
-            && !child->boundingRect().isEmpty()
-            && painted_delegate->shouldRenderItem(child)
-            && painted_delegate->viewport().intersects(child->mapToView(child->boundingRect(), painted_delegate));
-    });
-    if (needsRendering) {
-        return {};
-    }
-    QList<SurfaceItem *> ret;
-    if (!effects->blocksDirectScanout()) {
-        Region occlusion;
-        QStack<ClipCorner> corners;
-        const auto items = m_containerItem->sortedChildItems();
-        for (Item *item : items | std::views::reverse) {
-            if (!item->isVisible() || !painted_delegate->shouldRenderItem(item) || !painted_delegate->viewport().intersects(item->mapToView(item->boundingRect(), painted_delegate))) {
-                continue;
-            }
-            if (!addCandidates(painted_delegate, item, ret, maxCount + 1, occlusion, corners)) {
-                return {};
-            }
-            if (ret.size() == maxCount + 1 && !checkForBlackBackground(ret.back())) {
-                return {};
-            }
-            if (occlusion.contains(painted_screen->geometry())) {
-                break;
-            }
-        }
-    }
-    if (!ret.empty() && checkForBlackBackground(ret.back())) {
-        ret.pop_back();
-    }
-    return ret;
 }
 
 static Rect mapToDevice(SceneView *view, Item *item, const RectF &itemLocal)
@@ -346,15 +244,23 @@ static Region mapToDevice(SceneView *view, Item *item, const RegionF &itemLocal)
     return ret;
 }
 
-static bool findOverlayCandidates(SceneView *view, Item *item, ssize_t maxTotalCount, ssize_t maxOverlayCount, ssize_t maxUnderlayCount, Region &occupied, Region &opaque, Region &effected, QList<Item *> &overlays, QList<Item *> &underlays, QStack<ClipCorner> &corners)
+static bool findOverlayCandidates(SceneView *view, Item *item, ssize_t maxTotalCount,
+                                  Region &occupied, Region &opaque, Region &effected,
+                                  QList<Item *> &overlays, QList<Item *> &underlays,
+                                  QStack<ClipCorner> &corners, bool &needsCompositedScene)
 {
-    if (!item || !item->isVisible() || item->opacity() == 0.0 || item->boundingRect().isEmpty() || !view->viewport().intersects(item->mapToView(item->boundingRect(), view))) {
+    if (opaque.contains(view->deviceRect())) {
+        return true;
+    }
+    if (!item || !item->isVisible() || item->opacity() == 0.0 || item->boundingRect().isEmpty()
+        || !view->viewport().intersects(item->mapToView(item->boundingRect(), view))) {
         return true;
     }
     if (item->hasEffects()) {
         // can't put this item, any children on items below this one
-        // on an overlay, as we don't know what the effect does
+        // on an overlay/underlay, as we don't know what the effect does
         effected += mapToDevice(view, item, item->boundingRect());
+        needsCompositedScene = true;
         return true;
     }
     maybePushCorners(item, corners);
@@ -371,58 +277,68 @@ static bool findOverlayCandidates(SceneView *view, Item *item, ssize_t maxTotalC
         if (child->z() < 0) {
             break;
         }
-        if (!findOverlayCandidates(view, child, maxTotalCount, maxOverlayCount, maxUnderlayCount, occupied, opaque, effected, overlays, underlays, corners)) {
+        if (!findOverlayCandidates(view, child, maxTotalCount, occupied, opaque, effected, overlays, underlays, corners, needsCompositedScene)) {
             return false;
         }
     }
 
-    // for the Item to be possibly relevant for overlays, it needs to
-    // - be a SurfaceItem (for now at least)
-    // - not be empty
-    // - be the topmost item in the relevant screen area
-    // - regularly get updates
-    // - use dmabufs
-    // - not have any surface-wide opacity (for now)
-    // - not be entirely covered by other opaque windows
-    SurfaceItem *surfaceItem = dynamic_cast<SurfaceItem *>(item);
     const Rect deviceRect = mapToDevice(view, item, item->rect());
-    const Region deviceOpaque = mapToDevice(view, item, item->opaque());
-    if (surfaceItem
-        && !surfaceItem->rect().isEmpty()
-        && surfaceItem->frameTimeEstimation().transform([](const auto t) {
-        return t < std::chrono::nanoseconds(1'000'000'000) / 20;
-    }).value_or(false)
-        && surfaceItem->buffer()->dmabufAttributes()
-        // TODO make the compositor handle item opacity as well
-        && surfaceItem->opacity() == 1.0
-        && !opaque.contains(deviceRect)
-        && !effected.intersects(deviceRect)) {
-        if (occupied.intersects(deviceRect) || (!corners.isEmpty() && corners.top().radius.clips(item->rect(), corners.top().box))) {
-            const bool isOpaque = deviceOpaque.contains(deviceRect);
-            if (!isOpaque) {
-                // only fully opaque items can be used as underlays
+    // if the item is empty or completely covered, ignore it
+    if (!deviceRect.isEmpty() && !opaque.contains(deviceRect)) {
+        // for the Item to be possibly relevant for over- or underlays, it needs to
+        // - be a SurfaceItem (for now at least)
+        // - use dmabufs
+        // - regularly get updates
+        // - not be covered by any effects
+        // - not have any surface-wide opacity (for now)
+        const Region deviceOpaque = mapToDevice(view, item, item->opaque());
+        SurfaceItem *surfaceItem = dynamic_cast<SurfaceItem *>(item);
+        bool isCandidate = surfaceItem
+            && surfaceItem->buffer()->dmabufAttributes()
+            // TODO make the compositor handle item opacity as well
+            && item->opacity() == 1.0
+            && !effected.intersects(deviceRect)
+            && surfaceItem->frameTimeEstimation().transform([](const auto t) {
+            return t < std::chrono::nanoseconds(1'000'000'000) / 20;
+        }).value_or(false);
+        if (isCandidate) {
+            if (occupied.intersects(deviceRect) || (!corners.isEmpty() && corners.top().radius.clips(item->rect(), corners.top().box))) {
+                const bool isOpaque = deviceOpaque.contains(deviceRect);
+                if (!isOpaque) {
+                    // only fully opaque items can be used as underlays
+                    return false;
+                }
+                underlays.push_back(surfaceItem);
+            } else {
+                overlays.push_back(surfaceItem);
+            }
+            // if the scene will need to be composited, we need a layer to put it on,
+            // so the max total number of layers is effectively reduced by one
+            const ssize_t effectiveMax = needsCompositedScene ? maxTotalCount - 1 : maxTotalCount;
+            if (overlays.size() + underlays.size() > effectiveMax) {
+                // If we have to repaint the primary plane anyways, it's not going to provide an efficiency
+                // or latency improvement to put some but not all quickly updating surfaces on overlays,
+                // at least not with the current way we use them.
                 return false;
             }
-            underlays.push_back(surfaceItem);
         } else {
-            overlays.push_back(surfaceItem);
+            occupied += deviceRect;
+            if (!needsCompositedScene
+                && deviceOpaque.contains(view->deviceRect())
+                && checkForBlackBackground(item)) {
+                opaque = deviceOpaque;
+                // completely black background -> this item can be skipped,
+                // and we don't need to consider any items below it either
+                return true;
+            }
+            needsCompositedScene = true;
         }
-        if (overlays.size() + underlays.size() > maxTotalCount
-            || overlays.size() > maxOverlayCount
-            || underlays.size() > maxUnderlayCount) {
-            // If we have to repaint the primary plane anyways, it's not going to provide an efficiency
-            // or latency improvement to put some but not all quickly updating surfaces on overlays,
-            // at least not with the current way we use them.
-            return false;
-        }
-    } else {
-        occupied += deviceRect;
+        opaque += deviceOpaque;
     }
-    opaque += deviceOpaque;
 
     for (; it != children.rend(); it++) {
         Item *const child = *it;
-        if (!findOverlayCandidates(view, child, maxTotalCount, maxOverlayCount, maxUnderlayCount, occupied, opaque, effected, overlays, underlays, corners)) {
+        if (!findOverlayCandidates(view, child, maxTotalCount, occupied, opaque, effected, overlays, underlays, corners, needsCompositedScene)) {
             return false;
         }
     }
@@ -431,19 +347,40 @@ static bool findOverlayCandidates(SceneView *view, Item *item, ssize_t maxTotalC
 
 static const bool s_forceSoftwareCursor = environmentVariableBoolValue("KWIN_FORCE_SW_CURSOR").value_or(false);
 
-Scene::OverlayCandidates WorkspaceScene::overlayCandidates(ssize_t maxTotalCount, ssize_t maxOverlayCount, ssize_t maxUnderlayCount) const
+QList<Item *> WorkspaceScene::layerCandidates(ssize_t maxTotalCount) const
 {
-    const auto fallback = [&]() {
-        if (s_forceSoftwareCursor
-            || maxOverlayCount == 0
-            || !cursorItem()->isVisible()
-            || !painted_delegate->viewport().intersects(cursorItem()->mapToView(cursorItem()->boundingRect(), painted_delegate))) {
-            return OverlayCandidates{};
+    // This algorithm searches for candidates to put on their own layers.
+    // These are the cases we care about:
+    // - compositing. There are either no quickly updating items, or none
+    //   are suitable for direct scanout.
+    //   This case will return [containerItem]
+    // - fullscreen direct scanout. One or more items cover the entire screen,
+    //   and the scene itself does not have to be rendered at all.
+    //   This case will return for example [overlay, overlay, overlay]
+    // - overlay direct scanout. One or more items update quickly, and can be
+    //   put above the scene.
+    //   This case will return for example [containerItem, overlay, overlay]
+    // - underlay direct scanout. One or more items update quickly and require
+    //   compositing above them (because of a composited item on top, or rounded
+    //   corners)
+    //   This case will return for example [underlay, underlay, containerItem]
+    // - mixed underlay and overlay direct scanout.
+    //   This case will return for example [underlay, containerItem, overlay]
+    //
+    // One notable special case is that the cursor is (currently) always treated
+    // as the highest priority item for an overlay, since its responsiveness
+    // is especially noticeable to users.
+
+    const auto fallback = [this, maxTotalCount]() {
+        QList<Item *> ret;
+        if (maxTotalCount > 1
+            && !s_forceSoftwareCursor
+            && cursorItem()->isVisible()
+            && painted_delegate->viewport().intersects(cursorItem()->mapToView(cursorItem()->boundingRect(), painted_delegate))) {
+            ret.push_back(cursorItem());
         }
-        return OverlayCandidates{
-            .overlays = {cursorItem()},
-            .underlays = {},
-        };
+        ret.push_back(containerItem());
+        return ret;
     };
     Region occupied;
     Region opaque;
@@ -451,6 +388,8 @@ Scene::OverlayCandidates WorkspaceScene::overlayCandidates(ssize_t maxTotalCount
     QList<Item *> overlays;
     QList<Item *> underlays;
     QStack<ClipCorner> cornerStack;
+    bool needsCompositedScene = false;
+
     const auto overlayItems = m_overlayItem->sortedChildItems();
     for (Item *item : overlayItems | std::views::reverse) {
         if (!item->isVisible() || !painted_delegate->viewport().intersects(item->mapToView(item->boundingRect(), painted_delegate))) {
@@ -458,33 +397,42 @@ Scene::OverlayCandidates WorkspaceScene::overlayCandidates(ssize_t maxTotalCount
         }
         if (item == cursorItem()) {
             if (s_forceSoftwareCursor) {
+                needsCompositedScene = true;
                 continue;
             }
             // for the time being, prioritize the cursor above all else,
             // even while it's not moving
             overlays.push_back(item);
-            if (overlays.size() > maxOverlayCount || underlays.size() + overlays.size() > maxTotalCount) {
+            // if the scene will need to be composited, we need a layer to put it on,
+            // so the max total number of layers is effectively reduced by one
+            const ssize_t effectiveMax = needsCompositedScene ? maxTotalCount - 1 : maxTotalCount;
+            if (underlays.size() + overlays.size() > effectiveMax) {
                 return fallback();
             }
             continue;
         }
-        if (!findOverlayCandidates(painted_delegate, item, maxTotalCount, maxOverlayCount, maxUnderlayCount, occupied, opaque, effected, overlays, underlays, cornerStack)) {
+        if (!findOverlayCandidates(painted_delegate, item, maxTotalCount, occupied, opaque, effected, overlays, underlays, cornerStack, needsCompositedScene)) {
             return fallback();
         }
     }
+
     if (effects->blocksDirectScanout()) {
-        return fallback();
-    }
-    const auto items = m_containerItem->sortedChildItems();
-    for (Item *item : items | std::views::reverse) {
-        if (!findOverlayCandidates(painted_delegate, item, maxTotalCount, maxOverlayCount, maxUnderlayCount, occupied, opaque, effected, overlays, underlays, cornerStack)) {
+        needsCompositedScene = true;
+    } else {
+        if (!findOverlayCandidates(painted_delegate, m_containerItem.get(), maxTotalCount, occupied, opaque, effected, overlays, underlays, cornerStack, needsCompositedScene)) {
             return fallback();
         }
     }
-    return OverlayCandidates{
-        .overlays = overlays,
-        .underlays = underlays,
-    };
+
+    // NOTE the return list needs to be sorted top to bottom
+    QList<Item *> ret;
+    ret.reserve(underlays.size() + 1 + overlays.size());
+    std::ranges::copy(overlays, std::back_inserter(ret));
+    if (needsCompositedScene || (underlays.empty() && overlays.empty())) {
+        ret.push_back(containerItem());
+    }
+    std::ranges::copy(underlays, std::back_inserter(ret));
+    return ret;
 }
 
 static double getDesiredHdrHeadroom(Item *item)
