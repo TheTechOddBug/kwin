@@ -46,7 +46,7 @@ public:
     virtual QPointF hotspot() const;
     virtual RectF viewport() const = 0;
     virtual qreal scale() const = 0;
-    virtual QList<SurfaceItem *> scanoutCandidates(ssize_t maxCount) const = 0;
+    virtual SurfaceItem *scanoutCandidate() const = 0;
     virtual Region collectDamage() = 0;
     virtual void paint(const RenderTarget &renderTarget, const QPoint &deviceOffset, const Region &deviceRegion) = 0;
     virtual bool shouldRenderItem(Item *item) const;
@@ -113,7 +113,7 @@ public:
     void setScale(qreal scale);
     void setNextPresentationTimestamp(std::chrono::nanoseconds timestamp, uint32_t refreshRate);
 
-    QList<SurfaceItem *> scanoutCandidates(ssize_t maxCount) const override;
+    SurfaceItem *scanoutCandidate() const override;
     virtual void prePaint();
     Region collectDamage() override;
     void paint(const RenderTarget &renderTarget, const QPoint &deviceOffset, const Region &deviceRegion) override;
@@ -158,7 +158,7 @@ public:
     std::chrono::nanoseconds nextPresentationTimestamp() const override;
     uint refreshRate() const override;
     bool isVisible() const override;
-    QList<SurfaceItem *> scanoutCandidates(ssize_t maxCount) const override;
+    SurfaceItem *scanoutCandidate() const override;
     Region collectDamage() override;
     void paint(const RenderTarget &renderTarget, const QPoint &deviceOffset, const Region &deviceRegion) override;
     bool shouldRenderItem(Item *item) const override;
@@ -188,7 +188,7 @@ public:
 
     RectF viewport() const override;
     bool isVisible() const override;
-    QList<SurfaceItem *> scanoutCandidates(ssize_t maxCount) const override;
+    SurfaceItem *scanoutCandidate() const override;
     Region collectDamage() override;
     void paint(const RenderTarget &renderTarget, const QPoint &deviceOffset, const Region &logicalRegion) override;
     bool shouldRenderItem(Item *item) const override;
