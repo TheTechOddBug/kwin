@@ -531,8 +531,8 @@ private Q_SLOTS:
     void slotReloadConfig();
     void updateCurrentActivity(const QString &new_activity);
     // virtual desktop handling
-    void slotCurrentDesktopChanged(VirtualDesktop *previousDesktop, VirtualDesktop *newDesktop);
-    void slotCurrentDesktopChanging(VirtualDesktop *currentDesktop, QPointF delta);
+    void slotCurrentDesktopChanged(VirtualDesktop *previousDesktop, VirtualDesktop *newDesktop, LogicalOutput *output);
+    void slotCurrentDesktopChanging(VirtualDesktop *currentDesktop, QPointF delta, LogicalOutput *output);
     void slotCurrentDesktopChangingCancelled();
     void slotDesktopAdded(VirtualDesktop *desktop);
     void slotDesktopRemoved(VirtualDesktop *desktop);
@@ -548,8 +548,8 @@ Q_SIGNALS:
 
     // Signals required for the scripting interface
     void currentActivityChanged();
-    void currentDesktopChanged(KWin::VirtualDesktop *previousDesktop, KWin::Window *);
-    void currentDesktopChanging(KWin::VirtualDesktop *currentDesktop, QPointF delta, KWin::Window *); // for realtime animations
+    void currentDesktopChanged(KWin::VirtualDesktop *previousDesktop, KWin::VirtualDesktop *newDesktop, KWin::LogicalOutput *output, KWin::Window *);
+    void currentDesktopChanging(KWin::VirtualDesktop *currentDesktop, QPointF delta, KWin::LogicalOutput *output, KWin::Window *); // for realtime animations
     void currentDesktopChangingCancelled();
     void windowAdded(KWin::Window *);
     void windowRemoved(KWin::Window *);
@@ -565,6 +565,7 @@ Q_SIGNALS:
     void outputAdded(KWin::LogicalOutput *);
     void outputRemoved(KWin::LogicalOutput *);
     void outputsChanged();
+    void activeOutputChanged(KWin::LogicalOutput *);
     /**
      * This signal is emitted when the stacking order changed, i.e. a window is risen
      * or lowered
@@ -615,8 +616,8 @@ private:
     //---------------------------------------------------------------------
 
     void closeActivePopup();
-    void updateWindowVisibilityOnDesktopChange(VirtualDesktop *newDesktop);
-    void updateWindowVisibilityAndActivateOnDesktopChange(VirtualDesktop *newDesktop);
+    void updateWindowVisibilityOnDesktopChange(VirtualDesktop *newDesktop, LogicalOutput *output);
+    void updateWindowVisibilityAndActivateOnDesktopChange(VirtualDesktop *newDesktop, LogicalOutput *output);
     void activateWindowOnDesktop(VirtualDesktop *desktop);
     Window *findWindowToActivateOnDesktop(VirtualDesktop *desktop);
     void removeWindow(Window *window);

@@ -205,8 +205,12 @@ var translucencyEffect = {
             }
         }
     },
-    updateAnimation: function () {
-        effects.stackingOrder.forEach(translucencyEffect.updateWindowAnimation);
+    updateAnimation: function (oldDesktop, newDesktop, withWindow, screen) {
+        effects.stackingOrder.forEach((window) => {
+            if (window.screen === screen) {
+                translucencyEffect.updateWindowAnimation(window);
+            }
+        });
     },
     manage: function (window) {
         window.windowDesktopsChanged.connect(translucencyEffect.cancelAnimations);

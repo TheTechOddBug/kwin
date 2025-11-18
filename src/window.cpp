@@ -219,8 +219,9 @@ LogicalOutput *Window::output() const
 void Window::setOutput(LogicalOutput *output)
 {
     if (m_output != output) {
+        LogicalOutput *oldOutput = m_output;
         m_output = output;
-        Q_EMIT outputChanged();
+        Q_EMIT outputChanged(oldOutput);
     }
 }
 
@@ -657,7 +658,7 @@ void Window::autoRaise()
 bool Window::isMostRecentlyRaised() const
 {
     // The last window in the unconstrained stacking order is the most recently raised one.
-    return workspace()->topWindowOnDesktop(VirtualDesktopManager::self()->currentDesktop(), nullptr, true, false) == this;
+    return workspace()->topWindowOnDesktop(VirtualDesktopManager::self()->currentDesktop(output()), nullptr, true, false) == this;
 }
 
 bool Window::wantsTabFocus() const
@@ -783,7 +784,7 @@ void Window::setOnAllDesktops(bool b)
     if (b) {
         setDesktops({});
     } else {
-        setDesktops({VirtualDesktopManager::self()->currentDesktop()});
+        setDesktops({VirtualDesktopManager::self()->currentDesktop(output())});
     }
 }
 
@@ -810,7 +811,7 @@ bool Window::isOnDesktop(VirtualDesktop *desktop) const
 
 bool Window::isOnCurrentDesktop() const
 {
-    return isOnDesktop(VirtualDesktopManager::self()->currentDesktop());
+    return isOnDesktop(VirtualDesktopManager::self()->currentDesktop(output()));
 }
 
 Qt::Edge Window::titlebarPosition() const
@@ -1047,6 +1048,7 @@ bool Window::startInteractiveMoveResize()
 
     setInteractiveMoveResize(true);
     workspace()->setMoveResizeWindow(this);
+    connect(this, &Window::outputChanged, this, &Window::finishInteractiveOutputChange);
 
     m_interactiveMoveResize.initialGeometry = moveResizeGeometry();
     m_interactiveMoveResize.initialOutputId = moveResizeOutput()->uuid();
@@ -1067,6 +1069,7 @@ bool Window::startInteractiveMoveResize()
 
 void Window::finishInteractiveMoveResize(bool cancel)
 {
+    LogicalOutput *oldOutput = m_output;
     const bool wasMove = isInteractiveMove();
     leaveInteractiveMoveResize();
 
@@ -1080,6 +1083,7 @@ void Window::finishInteractiveMoveResize(bool cancel)
             setQuickTileMode(m_interactiveMoveResize.initialQuickTileMode, m_interactiveMoveResize.initialGeometry.center());
             setGeometryRestore(m_interactiveMoveResize.initialGeometryRestore);
         }
+        finishInteractiveOutputChange(oldOutput);
     } else if (moveResizeOutput()->uuid() != m_interactiveMoveResize.initialOutputId) {
         sendToOutput(moveResizeOutput()); // checks rule validity
         const RectF oldScreenArea = m_interactiveMoveResize.initialScreenArea;
@@ -2402,6 +2406,7 @@ void Window::updateCursor()
 
 void Window::leaveInteractiveMoveResize()
 {
+    disconnect(this, &Window::outputChanged, this, &Window::finishInteractiveOutputChange);
     workspace()->setMoveResizeWindow(nullptr);
     setInteractiveMoveResize(false);
     if (workspace()->screenEdges()->isDesktopSwitchingMovingClients()) {
@@ -2866,7 +2871,7 @@ void Window::pointerEnterEvent(const QPointF &globalPos)
         return;
     }
 
-    if (options->isAutoRaise() && !isDesktop() && !isDock() && workspace()->focusChangeEnabled() && globalPos != workspace()->focusMousePosition() && workspace()->topWindowOnDesktop(VirtualDesktopManager::self()->currentDesktop(), options->isSeparateScreenFocus() ? output() : nullptr) != this) {
+    if (options->isAutoRaise() && !isDesktop() && !isDock() && workspace()->focusChangeEnabled() && globalPos != workspace()->focusMousePosition() && workspace()->topWindowOnDesktop(VirtualDesktopManager::self()->currentDesktop(output()), options->isSeparateScreenFocus() ? output() : nullptr) != this) {
         startAutoRaise();
     }
 
@@ -3918,6 +3923,7 @@ void Window::sendToOutput(LogicalOutput *newOutput)
         return;
     }
 
+    LogicalOutput *oldOutput = m_output;
     const RectF oldGeom = moveResizeGeometry();
     const RectF oldScreenArea = workspace()->clientArea(MaximizeArea, this, moveResizeOutput());
     const RectF screenArea = workspace()->clientArea(MaximizeArea, this, newOutput);
@@ -3943,6 +3949,7 @@ void Window::sendToOutput(LogicalOutput *newOutput)
     for (auto it = tso.constBegin(), end = tso.constEnd(); it != end; ++it) {
         (*it)->sendToOutput(newOutput);
     }
+    finishInteractiveOutputChange(oldOutput);
 }
 
 void Window::checkWorkspacePosition(RectF oldGeometry, LogicalOutput *oldOutput)
@@ -4686,6 +4693,37 @@ void Window::setDescription(const QString &description)
         m_description = description;
         Q_EMIT descriptionChanged();
     }
+}
+
+void Window::finishInteractiveOutputChange(LogicalOutput *oldOutput)
+{
+    // We want to preserve the window being on current desktop during interactive output changes:
+    // - interactive move/resize
+    // - "Move to screen" user action
+    // - Move window to another screen via keyboard shortcut.
+    // ...
+    // On the other hand, this behavior doesn't make sense for non-interactive output changes (e.g. if the output is disabled and all the windows are placed
+    // on another output).
+    if (!oldOutput || m_desktops.empty()) {
+        return;
+    }
+
+    VirtualDesktop *currentOutputDesktop = VirtualDesktopManager::self()->currentDesktop(moveResizeOutput());
+
+    if (m_desktops.contains(currentOutputDesktop)) {
+        return;
+    }
+
+    VirtualDesktop *prevOutputDesktop = VirtualDesktopManager::self()->currentDesktop(oldOutput);
+
+    if (currentOutputDesktop == prevOutputDesktop) {
+        return;
+    }
+
+    auto desktops = m_desktops;
+    desktops.removeOne(prevOutputDesktop);
+    desktops.append(currentOutputDesktop);
+    setDesktops(desktops);
 }
 
 void Window::setActivationToken(const QString &token)

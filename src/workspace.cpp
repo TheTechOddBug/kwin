@@ -151,8 +151,8 @@ Workspace::Workspace()
 
 #if KWIN_BUILD_ACTIVITIES
     if (m_activities) {
-        connect(VirtualDesktopManager::self(), &VirtualDesktopManager::currentChanged, this, [this](VirtualDesktop *previous, VirtualDesktop *current) {
-            m_activities->notifyCurrentDesktopChanged(current);
+        connect(VirtualDesktopManager::self(), &VirtualDesktopManager::currentChanged, this, [this](VirtualDesktop *previous, VirtualDesktop *current, LogicalOutput *output) {
+            m_activities->notifyCurrentDesktopChanged(current, output);
         });
     }
 #endif
@@ -202,9 +202,6 @@ void Workspace::init()
 
     connect(this, &Workspace::windowRemoved, m_focusChain.get(), &FocusChain::remove);
     connect(this, &Workspace::windowActivated, m_focusChain.get(), &FocusChain::setActiveWindow);
-    connect(VirtualDesktopManager::self(), &VirtualDesktopManager::currentChanged, m_focusChain.get(), [this]() {
-        m_focusChain->setCurrentDesktop(VirtualDesktopManager::self()->currentDesktop());
-    });
     connect(options, &Options::separateScreenFocusChanged, m_focusChain.get(), &FocusChain::setSeparateScreenFocus);
     m_focusChain->setSeparateScreenFocus(options->isSeparateScreenFocus());
 
@@ -217,6 +214,8 @@ void Workspace::init()
     connect(vds, &VirtualDesktopManager::currentChangingCancelled, this, &Workspace::slotCurrentDesktopChangingCancelled);
     vds->setNavigationWrappingAround(options->isRollOverDesktops());
     connect(options, &Options::rollOverDesktopsChanged, vds, &VirtualDesktopManager::setNavigationWrappingAround);
+    vds->setPerOutputVirtualDesktops(options->isPerOutputVirtualDesktops());
+    connect(options, &Options::perOutputVirtualDesktopsChanged, vds, &VirtualDesktopManager::setPerOutputVirtualDesktops);
     vds->setConfig(config);
 
     // Now we know how many desktops we'll have, thus we initialize the positioning object
@@ -1030,16 +1029,16 @@ void Workspace::slotReconfigure()
     }
 }
 
-void Workspace::slotCurrentDesktopChanged(VirtualDesktop *oldDesktop, VirtualDesktop *newDesktop)
+void Workspace::slotCurrentDesktopChanged(VirtualDesktop *oldDesktop, VirtualDesktop *newDesktop, LogicalOutput *output)
 {
-    updateWindowVisibilityAndActivateOnDesktopChange(newDesktop);
-    Q_EMIT currentDesktopChanged(oldDesktop, m_moveResizeWindow);
+    updateWindowVisibilityAndActivateOnDesktopChange(newDesktop, output);
+    Q_EMIT currentDesktopChanged(oldDesktop, newDesktop, output, m_moveResizeWindow);
 }
 
-void Workspace::slotCurrentDesktopChanging(VirtualDesktop *currentDesktop, QPointF offset)
+void Workspace::slotCurrentDesktopChanging(VirtualDesktop *currentDesktop, QPointF offset, LogicalOutput *output)
 {
     closeActivePopup();
-    Q_EMIT currentDesktopChanging(currentDesktop, offset, m_moveResizeWindow);
+    Q_EMIT currentDesktopChanging(currentDesktop, offset, output, m_moveResizeWindow);
 }
 
 void Workspace::slotCurrentDesktopChangingCancelled()
@@ -1047,7 +1046,7 @@ void Workspace::slotCurrentDesktopChangingCancelled()
     Q_EMIT currentDesktopChangingCancelled();
 }
 
-void Workspace::updateWindowVisibilityOnDesktopChange(VirtualDesktop *newDesktop)
+void Workspace::updateWindowVisibilityOnDesktopChange(VirtualDesktop *newDesktop, LogicalOutput *output)
 {
 #if KWIN_BUILD_X11
     for (auto it = stacking_order.constBegin(); it != stacking_order.constEnd(); ++it) {
@@ -1055,19 +1054,19 @@ void Workspace::updateWindowVisibilityOnDesktopChange(VirtualDesktop *newDesktop
         if (!c) {
             continue;
         }
-        if (!(c->isOnDesktop(newDesktop) && c->isOnCurrentActivity()) && c != m_moveResizeWindow) {
+        if (!(c->isOnDesktop(newDesktop) && c->isOnCurrentActivity() && c->isOnOutput(output)) && c != m_moveResizeWindow) {
             (c)->updateVisibility();
         }
     }
     // Now propagate the change, after hiding, before showing
-    if (rootInfo()) {
-        rootInfo()->setCurrentDesktop(VirtualDesktopManager::self()->current());
+    if (rootInfo() && RootInfo::desktopEnabled() && output == m_activeOutput) {
+        rootInfo()->setCurrentDesktop(newDesktop->x11DesktopNumber());
     }
 #endif
 
     // FIXME: Keep Move/Resize window across activities
 
-    if (m_moveResizeWindow && !m_moveResizeWindow->isOnDesktop(newDesktop)) {
+    if (m_moveResizeWindow && m_moveResizeWindow->output() == output && !m_moveResizeWindow->isOnDesktop(newDesktop)) {
         m_moveResizeWindow->setDesktops({newDesktop});
     }
 
@@ -1077,7 +1076,7 @@ void Workspace::updateWindowVisibilityOnDesktopChange(VirtualDesktop *newDesktop
         if (!c) {
             continue;
         }
-        if (c->isOnDesktop(newDesktop) && c->isOnCurrentActivity()) {
+        if (c->isOnDesktop(newDesktop) && c->isOnCurrentActivity() && c->isOnOutput(output)) {
             c->updateVisibility();
         }
     }
@@ -1087,22 +1086,22 @@ void Workspace::updateWindowVisibilityOnDesktopChange(VirtualDesktop *newDesktop
     }
 }
 
-void Workspace::updateWindowVisibilityAndActivateOnDesktopChange(VirtualDesktop *newDesktop)
+void Workspace::updateWindowVisibilityAndActivateOnDesktopChange(VirtualDesktop *newDesktop, LogicalOutput *output)
 {
     closeActivePopup();
     ++block_focus;
     StackingUpdatesBlocker blocker(this);
-    updateWindowVisibilityOnDesktopChange(newDesktop);
+    updateWindowVisibilityOnDesktopChange(newDesktop, output);
     // Restore the focus on this desktop
     --block_focus;
 
     for (Window *window : std::as_const(m_windows)) {
-        if (!window->isOnDesktop(newDesktop)) {
+        if (!window->isOnDesktop(newDesktop) || !window->isOnOutput(output)) {
             continue;
         }
 
         Tile *tile = nullptr;
-        for (const auto &[output, manager] : m_tileManagers) {
+        for (const auto &[tileOutput, manager] : m_tileManagers) {
             if (Tile *candidate = manager->tileForWindow(window, newDesktop)) {
                 tile = candidate;
             }
@@ -1111,7 +1110,9 @@ void Workspace::updateWindowVisibilityAndActivateOnDesktopChange(VirtualDesktop 
         window->requestTile(tile);
     }
 
-    activateWindowOnDesktop(newDesktop);
+    if (output == m_activeOutput) {
+        activateWindowOnDesktop(newDesktop);
+    }
 }
 
 void Workspace::activateWindowOnDesktop(VirtualDesktop *desktop)
@@ -1184,7 +1185,9 @@ void Workspace::updateCurrentActivity(const QString &new_activity)
         return;
     }
 
-    updateWindowVisibilityAndActivateOnDesktopChange(VirtualDesktopManager::self()->currentDesktop());
+    for (LogicalOutput *output : std::as_const(m_outputs)) {
+        updateWindowVisibilityAndActivateOnDesktopChange(VirtualDesktopManager::self()->currentDesktop(output), output);
+    }
 
     Q_EMIT currentActivityChanged();
 #endif
@@ -1627,7 +1630,7 @@ void Workspace::sendWindowToDesktops(Window *window, const QList<VirtualDesktop 
         raiseWindow(window);
         // but set a new active window on the current desktop
         if (wasActive) {
-            activateWindowOnDesktop(VirtualDesktopManager::self()->currentDesktop());
+            activateWindowOnDesktop(VirtualDesktopManager::self()->currentDesktop(window->output()));
         }
     }
 
@@ -2606,7 +2609,11 @@ LogicalOutput *Workspace::activeOutput() const
 
 void Workspace::setActiveOutput(LogicalOutput *output)
 {
+    if (m_activeOutput == output) {
+        return;
+    }
     m_activeOutput = output;
+    Q_EMIT activeOutputChanged(output);
 }
 
 void Workspace::setActiveOutput(const QPointF &pos)
@@ -3105,7 +3112,7 @@ TileManager *Workspace::tileManager(LogicalOutput *output) const
 
 RootTile *Workspace::rootTile(LogicalOutput *output) const
 {
-    return rootTile(output, VirtualDesktopManager::self()->currentDesktop());
+    return rootTile(output, VirtualDesktopManager::self()->currentDesktop(output));
 }
 
 RootTile *Workspace::rootTile(LogicalOutput *output, VirtualDesktop *desktop) const

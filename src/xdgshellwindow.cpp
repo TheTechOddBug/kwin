@@ -1381,6 +1381,15 @@ QVector<VirtualDesktop *> XdgToplevelWindow::initialDesktops(const std::optional
             }
         }
     }
+
+    // XdgToplevelWindow is first assigned to the current virtual desktop on the active output by the constructor.
+    // However, the application can request that the window is fullscreened on a particular output, which may have a different
+    // desktop. This caused the desktop to change on that output. This happened for Spectacle.
+    // On the other hand there's also installPlasmaShellSurface(), which can reassign it to all desktops before initialize().
+    if (moveResizeOutput() != output() && !desktops().isEmpty()) {
+        return {VirtualDesktopManager::self()->currentDesktop(moveResizeOutput())};
+    }
+
     return desktops();
 }
 

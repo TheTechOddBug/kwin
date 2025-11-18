@@ -245,6 +245,7 @@ public Q_SLOTS:
 
 private:
     VirtualDesktopManager *m_manager;
+    QString m_lastDesktopId;
 };
 
 class PluginManagerDBusInterface : public QObject

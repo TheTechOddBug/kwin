@@ -28,7 +28,6 @@ class OverviewEffect : public QuickSceneEffect
     Q_PROPERTY(bool transitionGestureInProgress READ transitionGestureInProgress NOTIFY transitionGestureInProgressChanged)
     Q_PROPERTY(qreal gridPartialActivationFactor READ gridPartialActivationFactor NOTIFY gridPartialActivationFactorChanged)
     Q_PROPERTY(bool gridGestureInProgress READ gridGestureInProgress NOTIFY gridGestureInProgressChanged)
-    Q_PROPERTY(QPointF desktopOffset READ desktopOffset NOTIFY desktopOffsetChanged)
     Q_PROPERTY(QString searchText MEMBER m_searchText NOTIFY searchTextChanged)
 
 public:
@@ -51,6 +50,7 @@ public:
     qreal gridPartialActivationFactor() const;
     bool gridGestureInProgress() const;
     QPointF desktopOffset() const;
+    Q_INVOKABLE QPointF desktopOffsetForScreen(LogicalOutput *screen) const;
 
     int requestedEffectChainPosition() const override;
     bool borderActivated(ElectricBorder border) override;
@@ -67,7 +67,7 @@ Q_SIGNALS:
     void ignoreMinimizedChanged();
     void filterWindowsChanged();
     void organizedGridChanged();
-    void desktopOffsetChanged();
+    void desktopOffsetChanged(KWin::LogicalOutput *screen);
     void searchTextChanged();
 
 public Q_SLOTS:
@@ -88,8 +88,8 @@ private:
     QTimer *m_shutdownTimer;
     QList<ElectricBorder> m_borderActivate;
     QList<ElectricBorder> m_gridBorderActivate;
+    QHash<LogicalOutput *, QPointF> m_screenDesktopOffsets;
     QString m_searchText;
-    QPointF m_desktopOffset;
     bool m_filterWindows = true;
     int m_animationDuration = 400;
 };

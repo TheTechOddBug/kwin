@@ -146,12 +146,11 @@ EffectsHandler::EffectsHandler(Compositor *compositor, WorkspaceScene *scene)
             Q_EMIT showingDesktopChanged(showing);
         }
     });
-    connect(ws, &Workspace::currentDesktopChanged, this, [this](VirtualDesktop *old, Window *window) {
-        VirtualDesktop *newDesktop = VirtualDesktopManager::self()->currentDesktop();
-        Q_EMIT desktopChanged(old, newDesktop, window ? window->effectWindow() : nullptr);
+    connect(ws, &Workspace::currentDesktopChanged, this, [this](VirtualDesktop *old, VirtualDesktop *newDesktop, LogicalOutput *output, Window *window) {
+        Q_EMIT desktopChanged(old, newDesktop, window ? window->effectWindow() : nullptr, output);
     });
-    connect(ws, &Workspace::currentDesktopChanging, this, [this](VirtualDesktop *currentDesktop, QPointF offset, KWin::Window *window) {
-        Q_EMIT desktopChanging(currentDesktop, offset, window ? window->effectWindow() : nullptr);
+    connect(ws, &Workspace::currentDesktopChanging, this, [this](VirtualDesktop *currentDesktop, QPointF offset, KWin::LogicalOutput *output, KWin::Window *window) {
+        Q_EMIT desktopChanging(currentDesktop, offset, window ? window->effectWindow() : nullptr, output);
     });
     connect(ws, &Workspace::currentDesktopChangingCancelled, this, [this]() {
         Q_EMIT desktopChangingCancelled();
@@ -840,9 +839,9 @@ QString EffectsHandler::currentActivity() const
 #endif
 }
 
-VirtualDesktop *EffectsHandler::currentDesktop() const
+VirtualDesktop *EffectsHandler::currentDesktop(LogicalOutput *output) const
 {
-    return VirtualDesktopManager::self()->currentDesktop();
+    return VirtualDesktopManager::self()->currentDesktop(output);
 }
 
 QList<VirtualDesktop *> EffectsHandler::desktops() const
@@ -850,9 +849,9 @@ QList<VirtualDesktop *> EffectsHandler::desktops() const
     return VirtualDesktopManager::self()->desktops();
 }
 
-void EffectsHandler::setCurrentDesktop(VirtualDesktop *desktop)
+void EffectsHandler::setCurrentDesktop(VirtualDesktop *desktop, LogicalOutput *output)
 {
-    VirtualDesktopManager::self()->setCurrent(desktop);
+    VirtualDesktopManager::self()->setCurrent(desktop, output);
 }
 
 QSize EffectsHandler::desktopGridSize() const

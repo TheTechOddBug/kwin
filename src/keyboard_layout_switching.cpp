@@ -98,6 +98,7 @@ VirtualDesktopPolicy::VirtualDesktopPolicy(Xkb *xkb, KeyboardLayout *layout, con
 {
     connect(VirtualDesktopManager::self(), &VirtualDesktopManager::currentChanged,
             this, &VirtualDesktopPolicy::desktopChanged);
+    connect(workspace(), &Workspace::activeOutputChanged, this, &VirtualDesktopPolicy::desktopChanged);
 
     connect(workspace()->sessionManager(), &SessionManager::prepareSessionSaveRequested, this, [this](const QString &name) {
         clearLayouts();

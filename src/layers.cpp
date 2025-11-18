@@ -311,7 +311,7 @@ void Workspace::raiseOrLowerWindow(Window *window)
         return;
     }
 
-    VirtualDesktop *desktop = VirtualDesktopManager::self()->currentDesktop();
+    VirtualDesktop *desktop = VirtualDesktopManager::self()->currentDesktop(window->output());
     LogicalOutput *output = options->isSeparateScreenFocus() ? window->output() : nullptr;
     Layer layer = computeLayer(window);
 

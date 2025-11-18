@@ -301,10 +301,10 @@ void Workspace::activateWindow(Window *window, bool force)
         ++block_focus;
         switch (options->activationDesktopPolicy()) {
         case Options::ActivationDesktopPolicy::SwitchToOtherDesktop:
-            VirtualDesktopManager::self()->setCurrent(window->desktops().constLast());
+            VirtualDesktopManager::self()->setCurrent(window->desktops().constLast(), window->output());
             break;
         case Options::ActivationDesktopPolicy::BringToCurrentDesktop:
-            window->enterDesktop(VirtualDesktopManager::self()->currentDesktop());
+            window->enterDesktop(VirtualDesktopManager::self()->currentDesktop(window->output()));
             break;
         case Options::ActivationDesktopPolicy::DoNothing:
             break;
@@ -316,7 +316,7 @@ void Workspace::activateWindow(Window *window, bool force)
         ++block_focus;
         // DBUS!
         // first isn't necessarily best, but it's easiest
-        m_activities->setCurrent(window->activities().constFirst(), window->isOnAllDesktops() ? nullptr : window->desktops().front());
+        m_activities->setCurrent(window->activities().constFirst(), window->isOnAllDesktops() ? nullptr : window->desktops().front(), window->output());
         --block_focus;
     }
 #endif
@@ -432,8 +432,8 @@ void Workspace::activateNextWindow(Window *window)
     Window *focusCandidate = nullptr;
 
     if (options->focusPolicyIsReasonable()) {
-        VirtualDesktop *desktop = VirtualDesktopManager::self()->currentDesktop();
         LogicalOutput *output = window ? window->output() : workspace()->activeOutput();
+        VirtualDesktop *desktop = VirtualDesktopManager::self()->currentDesktop(output);
 
         if (!focusCandidate && showingDesktop()) {
             focusCandidate = findDesktop(desktop, output); // to not break the state
@@ -482,7 +482,7 @@ void Workspace::switchToOutput(LogicalOutput *output)
         return;
     }
     closeActivePopup();
-    VirtualDesktop *desktop = VirtualDesktopManager::self()->currentDesktop();
+    VirtualDesktop *desktop = VirtualDesktopManager::self()->currentDesktop(output);
     Window *get_focus = m_focusChain->getForActivation(desktop, output);
     if (get_focus == nullptr) {
         get_focus = findDesktop(desktop, output);

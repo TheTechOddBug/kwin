@@ -299,8 +299,20 @@ VirtualDesktopManagerDBusInterface::VirtualDesktopManagerDBusInterface(VirtualDe
                                                  QStringLiteral("org.kde.KWin.VirtualDesktopManager"),
                                                  this);
 
-    connect(m_manager, &VirtualDesktopManager::currentChanged, this, [this]() {
-        Q_EMIT currentChanged(m_manager->currentDesktop()->id());
+    connect(m_manager, &VirtualDesktopManager::currentChanged, this, [this](VirtualDesktop *oldDesktop, VirtualDesktop *newDesktop, LogicalOutput *output) {
+        if (output != workspace()->activeOutput()) {
+            return;
+        }
+        m_lastDesktopId = newDesktop->id();
+        Q_EMIT currentChanged(m_lastDesktopId);
+    });
+    connect(workspace(), &Workspace::activeOutputChanged, this, [this](LogicalOutput *output) {
+        QString newDesktopId = m_manager->currentDesktop(output)->id();
+        if (m_lastDesktopId == newDesktopId) {
+            return;
+        }
+        m_lastDesktopId = newDesktopId;
+        Q_EMIT currentChanged(m_lastDesktopId);
     });
 
     connect(m_manager, &VirtualDesktopManager::countChanged, this, [this](uint previousCount, uint newCount) {

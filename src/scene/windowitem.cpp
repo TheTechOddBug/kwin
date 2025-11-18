@@ -48,6 +48,7 @@ WindowItem::WindowItem(Window *window, Item *parent)
     connect(window, &Window::activitiesChanged, this, &WindowItem::updateVisibility);
     connect(window, &Window::desktopsChanged, this, &WindowItem::updateVisibility);
     connect(window, &Window::offscreenRenderingChanged, this, &WindowItem::updateVisibility);
+    connect(window, &Window::outputChanged, this, &WindowItem::updateVisibility);
     connect(waylandServer(), &WaylandServer::lockStateChanged, this, &WindowItem::updateVisibility);
     connect(workspace(), &Workspace::currentActivityChanged, this, &WindowItem::updateVisibility);
     connect(workspace(), &Workspace::currentDesktopChanged, this, &WindowItem::updateVisibility);
@@ -161,6 +162,10 @@ bool WindowItem::computeVisibility() const
     }
     if (waylandServer()->isScreenLocked()) {
         return m_window->isLockScreen() || m_window->isInputMethod() || m_window->isLockScreenOverlay();
+    }
+    // The window must remain visible during interactive/move resize, even if it's dragged to a desktop where it can't be due to window rules etc.
+    if (m_window->isInteractiveResize() || m_window->isInteractiveMove()) {
+        return true;
     }
     if (!m_window->isOnCurrentDesktop()) {
         if (m_forceVisibleByDesktopCount == 0) {

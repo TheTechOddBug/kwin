@@ -14,6 +14,7 @@ namespace KWin
 {
 
 class Display;
+class LogicalOutput;
 class PlasmaVirtualDesktopInterface;
 class PlasmaVirtualDesktopInterfacePrivate;
 class PlasmaVirtualDesktopManagementInterfacePrivate;
@@ -57,6 +58,8 @@ public:
      * Removed and destroys the desktop identified by id, if present
      */
     void removeDesktop(const QString &id);
+
+    void setActiveDesktopForOutput(const QString &previousDesktopId, const QString &activeDesktopId, LogicalOutput *output);
 
     /**
      * @returns All the desktops present.
@@ -137,6 +140,9 @@ public:
      */
     uint position() const;
 
+    void enterOutput(const QString &outputName);
+    void leaveOutput(const QString &outputName);
+
     /**
      * Inform the clients that all the properties have been sent, and
      * their client-side representation is complete.
@@ -149,6 +155,12 @@ Q_SIGNALS:
      * it's the decision of the server whether to perform the activation or not.
      */
     void activateRequested();
+
+    /**
+     * Emitted when the client asked to activate this desktop on given output.
+     * It's the decision of the server whether to perform the activation or not.
+     */
+    void enterOutputRequested(const QString &outputName);
 
 private:
     PlasmaVirtualDesktopInterface();

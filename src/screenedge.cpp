@@ -242,10 +242,11 @@ bool Edge::activatesForPointer() const
     }
     const bool isMovingWindow = Workspace::self()->moveResizeWindow() && !Workspace::self()->moveResizeWindow()->isInteractiveResize();
     if (m_edges->isDesktopSwitching() || (m_edges->isDesktopSwitchingMovingClients() && isMovingWindow)) {
-        const bool canSwitch = (isLeft() && VirtualDesktopManager::self()->toLeft(nullptr, options->isRollOverDesktops()) != VirtualDesktopManager::self()->currentDesktop())
-            || (isRight() && VirtualDesktopManager::self()->toRight(nullptr, options->isRollOverDesktops()) != VirtualDesktopManager::self()->currentDesktop())
-            || (isBottom() && VirtualDesktopManager::self()->below(nullptr, options->isRollOverDesktops()) != VirtualDesktopManager::self()->currentDesktop())
-            || (isTop() && VirtualDesktopManager::self()->above(nullptr, options->isRollOverDesktops()) != VirtualDesktopManager::self()->currentDesktop());
+        VirtualDesktop *currentDesktop = VirtualDesktopManager::self()->currentDesktop(m_output);
+        const bool canSwitch = (isLeft() && VirtualDesktopManager::self()->toLeft(currentDesktop, options->isRollOverDesktops()) != currentDesktop)
+            || (isRight() && VirtualDesktopManager::self()->toRight(currentDesktop, options->isRollOverDesktops()) != currentDesktop)
+            || (isBottom() && VirtualDesktopManager::self()->below(currentDesktop, options->isRollOverDesktops()) != currentDesktop)
+            || (isTop() && VirtualDesktopManager::self()->above(currentDesktop, options->isRollOverDesktops()) != currentDesktop);
         if (canSwitch) {
             return true;
         }
@@ -471,7 +472,7 @@ void Edge::switchDesktop(const QPoint &cursorPos)
 {
     QPoint pos(cursorPos);
     VirtualDesktopManager *vds = VirtualDesktopManager::self();
-    VirtualDesktop *oldDesktop = vds->currentDesktop();
+    VirtualDesktop *oldDesktop = vds->currentDesktop(m_output);
     VirtualDesktop *desktop = oldDesktop;
     const int OFFSET = 2;
     if (isLeft()) {
@@ -507,8 +508,8 @@ void Edge::switchDesktop(const QPoint &cursorPos)
             return;
         }
     }
-    vds->setCurrent(desktop);
-    if (vds->currentDesktop() != oldDesktop) {
+    vds->setCurrent(desktop, m_output);
+    if (vds->currentDesktop(m_output) != oldDesktop) {
         m_pushBackBlocked = true;
         input()->pointer()->warp(pos);
         auto unblockPush = [this] {

@@ -256,8 +256,10 @@ Q_SIGNALS:
 
     /*!
      * This signal is emitted when the current virtual desktop changes.
+     *
+     * \a output The screen where the desktop was changed.
      */
-    void currentDesktopChanged(KWin::VirtualDesktop *previous);
+    void currentDesktopChanged(KWin::VirtualDesktop *previous, KWin::VirtualDesktop *current, KWin::LogicalOutput *output);
 
     /*!
      * Emitted whenever the setting on whether navigation in the desktop layout
@@ -357,6 +359,20 @@ public:
     void setCurrentDesktop(VirtualDesktop *desktop);
 
     bool virtualDesktopNavigationWrapsAround() const;
+
+    /*!
+     * \qmlmethod VirtualDesktop Workspace::currentDesktopForScreen(LogicalOutput output)
+     *
+     * Returns current desktop on screen given by \a output.
+     */
+    Q_INVOKABLE KWin::VirtualDesktop *currentDesktopForScreen(KWin::LogicalOutput *output) const;
+
+    /*!
+     * \qmlmethod void Workspace::setCurrentDesktopForScreen(VirtualDesktop desktop, LogicalOutput output)
+     *
+     * Sets current desktop on \a output.
+     */
+    Q_INVOKABLE void setCurrentDesktopForScreen(KWin::VirtualDesktop *desktop, KWin::LogicalOutput *output);
 
     /*!
      * \qmlmethod LogicalOutput Workspace::screenAt(point pos)

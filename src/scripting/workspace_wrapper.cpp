@@ -85,6 +85,28 @@ bool WorkspaceWrapper::virtualDesktopNavigationWrapsAround() const
     return VirtualDesktopManager::self()->isNavigationWrappingAround();
 }
 
+KWin::VirtualDesktop *WorkspaceWrapper::currentDesktopForScreen(KWin::LogicalOutput *output) const
+{
+    if (!output) {
+        qCWarning(KWIN_SCRIPTING) << "Invalid output passed to currentDesktopForScreen";
+        return nullptr;
+    }
+    return VirtualDesktopManager::self()->currentDesktop(output);
+}
+
+void WorkspaceWrapper::setCurrentDesktopForScreen(KWin::VirtualDesktop *desktop, KWin::LogicalOutput *output)
+{
+    if (!desktop) {
+        qCWarning(KWIN_SCRIPTING) << "Invalid desktop passed to setCurrentDesktopForScreen";
+        return;
+    }
+    if (!output) {
+        qCWarning(KWIN_SCRIPTING) << "Invalid output passed to setCurrentDesktopForScreen";
+        return;
+    }
+    VirtualDesktopManager::self()->setCurrent(desktop, output);
+}
+
 Window *WorkspaceWrapper::activeWindow() const
 {
     return workspace()->activeWindow();
@@ -106,7 +128,7 @@ void WorkspaceWrapper::setCurrentActivity(const QString &activity)
 {
 #if KWIN_BUILD_ACTIVITIES
     if (Workspace::self()->activities()) {
-        Workspace::self()->activities()->setCurrent(activity, nullptr);
+        Workspace::self()->activities()->setCurrent(activity, nullptr, nullptr);
     }
 #endif
 }

@@ -171,7 +171,7 @@ bool EffectWindow::isOnCurrentActivity() const
 
 bool EffectWindow::isOnCurrentDesktop() const
 {
-    return isOnDesktop(effects->currentDesktop());
+    return isOnDesktop(effects->currentDesktop(screen()));
 }
 
 bool EffectWindow::isOnDesktop(VirtualDesktop *desktop) const

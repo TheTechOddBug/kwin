@@ -447,7 +447,7 @@ void InternalWindow::commitGeometry(const RectF &rect)
     // The client geometry and the buffer geometry are the same.
     const RectF oldClientGeometry = m_clientGeometry;
     const RectF oldFrameGeometry = m_frameGeometry;
-    const LogicalOutput *oldOutput = m_output;
+    LogicalOutput *oldOutput = m_output;
 
     Q_EMIT frameGeometryAboutToChange();
 
@@ -469,7 +469,7 @@ void InternalWindow::commitGeometry(const RectF &rect)
         Q_EMIT frameGeometryChanged(oldFrameGeometry);
     }
     if (oldOutput != m_output) {
-        Q_EMIT outputChanged();
+        Q_EMIT outputChanged(oldOutput);
     }
 }
 

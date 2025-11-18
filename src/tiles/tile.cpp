@@ -73,7 +73,7 @@ VirtualDesktop *Tile::desktop() const
 
 bool Tile::isActive() const
 {
-    return m_desktop == VirtualDesktopManager::self()->currentDesktop();
+    return m_desktop == VirtualDesktopManager::self()->currentDesktop(m_tiling->output());
 }
 
 bool Tile::supportsResizeGravity(Gravity gravity)

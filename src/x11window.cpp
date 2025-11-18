@@ -40,6 +40,7 @@
 #include <KX11Extras>
 // Qt
 #include <QProcess>
+#include <QScopeGuard>
 // xcb
 #include <xcb/xcb_icccm.h>
 // system
@@ -507,7 +508,7 @@ bool X11Window::manage(xcb_window_t w, bool isMapped)
             if (on_all) {
                 initialDesktops = QList<VirtualDesktop *>{};
             } else if (on_current) {
-                initialDesktops = QList<VirtualDesktop *>{VirtualDesktopManager::self()->currentDesktop()};
+                initialDesktops = QList<VirtualDesktop *>{VirtualDesktopManager::self()->currentDesktop(output())};
             } else if (maincl) {
                 initialDesktops = maincl->desktops();
             }
@@ -554,7 +555,7 @@ bool X11Window::manage(xcb_window_t w, bool isMapped)
         if (isDesktop()) {
             initialDesktops = QList<VirtualDesktop *>{};
         } else {
-            initialDesktops = QList<VirtualDesktop *>{VirtualDesktopManager::self()->currentDesktop()};
+            initialDesktops = QList<VirtualDesktop *>{VirtualDesktopManager::self()->currentDesktop(output())};
         }
     }
     setDesktops(rules()->checkDesktops(*initialDesktops, !isMapped));
@@ -860,7 +861,7 @@ bool X11Window::manage(xcb_window_t w, bool isMapped)
         // If session saving, force showing new windows (i.e. "save file?" dialogs etc.)
         // also force if activation is allowed
         if (!isOnCurrentDesktop() && !isMapped && !session && (allow || isSessionSaving)) {
-            VirtualDesktopManager::self()->setCurrent(desktopId());
+            VirtualDesktopManager::self()->setCurrent(desktopId(), output());
         }
 
         // If the window is on an inactive activity during session saving, temporarily force it to show.
@@ -3248,6 +3249,13 @@ const QPointF X11Window::calculateGravitation(bool invert) const
 // coordinates are in kwin logical
 void X11Window::configureRequest(int value_mask, qreal rx, qreal ry, qreal rw, qreal rh, int gravity, bool from_tool)
 {
+    // X11Window can be moved/resized interactively by the client itself via configureRequest.
+    auto outputChangeConnection = connect(this, &Window::outputChanged, this, [this](LogicalOutput *oldOutput) {
+        finishInteractiveOutputChange(oldOutput);
+    });
+    auto disconnectOutputChange = qScopeGuard([outputChangeConnection]() {
+        disconnect(outputChangeConnection);
+    });
     const int configurePositionMask = XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y;
     const int configureSizeMask = XCB_CONFIG_WINDOW_WIDTH | XCB_CONFIG_WINDOW_HEIGHT;
     const int configureGeometryMask = configurePositionMask | configureSizeMask;
@@ -3573,7 +3581,7 @@ void X11Window::moveResizeInternal(const RectF &rect, MoveResizeMode mode)
     const RectF oldBufferGeometry = m_bufferGeometry;
     const RectF oldFrameGeometry = m_frameGeometry;
     const RectF oldClientGeometry = m_clientGeometry;
-    const LogicalOutput *oldOutput = m_output;
+    LogicalOutput *oldOutput = m_output;
 
     m_frameGeometry = frameGeometry;
     m_clientGeometry = clientGeometry;
@@ -3602,7 +3610,7 @@ void X11Window::moveResizeInternal(const RectF &rect, MoveResizeMode mode)
         Q_EMIT frameGeometryChanged(oldFrameGeometry);
     }
     if (oldOutput != m_output) {
-        Q_EMIT outputChanged();
+        Q_EMIT outputChanged(oldOutput);
     }
     updateShapeRegion();
 }

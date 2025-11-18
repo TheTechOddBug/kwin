@@ -32,6 +32,8 @@ FocusScope {
     property bool organized: false
 
     property bool verticalDesktopBar: KWinComponents.Workspace.desktopGridHeight >= bar.desktopCount && KWinComponents.Workspace.desktopGridHeight != 1
+    property QtObject currentDesktop: KWinComponents.Workspace.currentDesktopForScreen(targetScreen)
+    property point targetScreenDesktopOffset: effect.desktopOffsetForScreen(targetScreen);
 
     // The values of overviewVal and gridVal might not be 0 on startup,
     // but we always want to animate from 0 to those values. So, we initially
@@ -133,7 +135,7 @@ FocusScope {
     }
 
     function switchTo(desktop) {
-        KWinComponents.Workspace.currentDesktop = desktop;
+        KWinComponents.Workspace.setCurrentDesktopForScreen(desktop, targetScreen);
         effect.deactivate();
     }
 
@@ -174,7 +176,7 @@ FocusScope {
         }
         let newIndex = y * container.columns + x;
 
-        KWinComponents.Workspace.currentDesktop = allDesktopHeaps.itemAt(newIndex).desktop
+        KWinComponents.Workspace.setCurrentDesktopForScreen(allDesktopHeaps.itemAt(newIndex).desktop, targetScreen);
         allDesktopHeaps.itemAt(newIndex).nestedHeap.focus = true
         allDesktopHeaps.itemAt(newIndex).selectLastItem(invertedDirection);
         return true;
@@ -295,7 +297,7 @@ FocusScope {
         KWinComponents.DesktopBackground {
             id: backgroundItem
             activity: KWinComponents.Workspace.currentActivity
-            desktop: KWinComponents.Workspace.currentDesktop
+            desktop: currentDesktop
             outputName: targetScreen.name
             visible: false
         }
@@ -344,7 +346,7 @@ FocusScope {
             windowModel: stackModel
             desktopModel: desktopModel
             verticalDesktopBar: container.verticalDesktopBar
-            selectedDesktop: KWinComponents.Workspace.currentDesktop
+            selectedDesktop: currentDesktop
             heap: allDesktopHeaps.currentHeap
         }
     }
@@ -472,7 +474,7 @@ FocusScope {
 
                 required property QtObject desktop
                 required property int index
-                readonly property bool current: KWinComponents.Workspace.currentDesktop === desktop
+                readonly property bool current: currentDesktop === desktop
                 readonly property bool nearCurrent: Math.abs(deltaColumn) <= 1 && Math.abs(deltaRow) <= 1
                 readonly property var nestedHeap: heap
 
@@ -484,14 +486,14 @@ FocusScope {
                 property real column: index % columns
                 // deltaX and deltaY are used to move all the desktops together to 1:1 animate the
                 // switching between different desktops
-                property real deltaX: (!current ? effect.desktopOffset.x :
-                                       column == 0 ? Math.max(0, effect.desktopOffset.x) :
-                                       column == columns - 1 ? Math.min(0, effect.desktopOffset.x) :
-                                       effect.desktopOffset.x)
-                property real deltaY: (!current ? effect.desktopOffset.y :
-                                       row == 0 ? Math.max(0, effect.desktopOffset.y) :
-                                       row == rows - 1 ? Math.min(0, effect.desktopOffset.y) :
-                                       effect.desktopOffset.y)
+                property real deltaX: (!current ? targetScreenDesktopOffset.x :
+                                       column == 0 ? Math.max(0, targetScreenDesktopOffset.x) :
+                                       column == columns - 1 ? Math.min(0, targetScreenDesktopOffset.x) :
+                                           targetScreenDesktopOffset.x)
+                property real deltaY: (!current ? targetScreenDesktopOffset.y :
+                                       row == 0 ? Math.max(0, targetScreenDesktopOffset.y) :
+                                       row == rows - 1 ? Math.min(0, targetScreenDesktopOffset.y) :
+                                           targetScreenDesktopOffset.y)
                 // deltaColumn and deltaRows are the difference between the column/row of this desktop
                 // compared to the column/row of the active one
                 property real deltaColumn: column - allDesktopHeaps.currentBackgroundItem.column - deltaX
@@ -564,7 +566,7 @@ FocusScope {
                         anchors.fill: parent
                         anchors.margins: gridVal !== 0 ? Math.round(mainBackground.current * gridVal * (1.5 / gridScale.xScale)) : 0
                         activity: KWinComponents.Workspace.currentActivity
-                        desktop: KWinComponents.Workspace.currentDesktop
+                        desktop: currentDesktop
                         outputName: targetScreen.name
                         visible: false
                     }
@@ -630,7 +632,7 @@ FocusScope {
                     TapHandler {
                         acceptedButtons: Qt.LeftButton
                         onTapped: {
-                            KWinComponents.Workspace.currentDesktop = mainBackground.desktop;
+                            KWinComponents.Workspace.setCurrentDesktopForScreen(mainBackground.desktop, container.targetScreen);
                             container.effect.deactivate();
                         }
                     }
@@ -810,7 +812,7 @@ FocusScope {
 
     Repeater {
         model: KWinComponents.WindowFilterModel {
-            desktop: KWinComponents.Workspace.currentDesktop
+            desktop: currentDesktop
             screenName: targetScreen.name
             windowModel: stackModel
             windowType: KWinComponents.WindowFilterModel.Dock
@@ -844,5 +846,27 @@ FocusScope {
         // interacting with it, e.g. by adding desktops
         container.verticalDesktopBar = container.verticalDesktopBar
         organized = true
+    }
+
+    Connections {
+        target: effect
+        onDesktopOffsetChanged: (screen) => {
+            if (screen !== container.targetScreen) {
+                return;
+            }
+
+            container.targetScreenDesktopOffset = effect.desktopOffsetForScreen(screen);
+        }
+    }
+
+    Connections {
+        target: KWinComponents.Workspace
+        onCurrentDesktopChanged: (previous, current, screen) => {
+            if (screen !== container.targetScreen) {
+                return;
+            }
+
+            container.currentDesktop = current;
+        }
     }
 }

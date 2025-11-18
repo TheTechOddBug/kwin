@@ -170,7 +170,7 @@ std::optional<PlacementCommand> Placement::placeSmart(const Window *window, cons
     long int overlap, min_overlap = 0;
     int x_optimal, y_optimal;
     int possible;
-    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop() : window->desktops().front();
+    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop(window->output()) : window->desktops().front();
 
     int cxl, cxr, cyt, cyb; // temp coords
     int xl, xr, yt, yb; // temp coords
@@ -531,7 +531,7 @@ RectF Placement::cascadeIfCovering(const Window *window, const RectF &geometry, 
     const QPointF offset = workspace()->cascadeOffset(area);
     Q_ASSERT(!offset.isNull());
 
-    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop() : window->desktops().front();
+    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop(window->output()) : window->desktops().front();
 
     RectF possibleGeo = geometry;
     bool noOverlap = false;
@@ -799,7 +799,7 @@ qreal Workspace::packPositionLeft(const Window *window, qreal oldX, bool leftEdg
     if (oldX <= newX) {
         return oldX;
     }
-    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop() : window->desktops().front();
+    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop(window->output()) : window->desktops().front();
     for (auto it = m_windows.constBegin(), end = m_windows.constEnd(); it != end; ++it) {
         if (isIrrelevant(*it, window, desktop)) {
             continue;
@@ -826,7 +826,7 @@ qreal Workspace::packPositionRight(const Window *window, qreal oldX, bool rightE
     if (oldX >= newX) {
         return oldX;
     }
-    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop() : window->desktops().front();
+    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop(window->output()) : window->desktops().front();
     for (auto it = m_windows.constBegin(), end = m_windows.constEnd(); it != end; ++it) {
         if (isIrrelevant(*it, window, desktop)) {
             continue;
@@ -854,7 +854,7 @@ qreal Workspace::packPositionUp(const Window *window, qreal oldY, bool topEdge) 
     if (oldY <= newY) {
         return oldY;
     }
-    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop() : window->desktops().front();
+    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop(window->output()) : window->desktops().front();
     for (auto it = m_windows.constBegin(), end = m_windows.constEnd(); it != end; ++it) {
         if (isIrrelevant(*it, window, desktop)) {
             continue;
@@ -881,7 +881,7 @@ qreal Workspace::packPositionDown(const Window *window, qreal oldY, bool bottomE
     if (oldY >= newY) {
         return oldY;
     }
-    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop() : window->desktops().front();
+    VirtualDesktop *const desktop = window->isOnCurrentDesktop() ? VirtualDesktopManager::self()->currentDesktop(window->output()) : window->desktops().front();
     for (auto it = m_windows.constBegin(), end = m_windows.constEnd(); it != end; ++it) {
         if (isIrrelevant(*it, window, desktop)) {
             continue;

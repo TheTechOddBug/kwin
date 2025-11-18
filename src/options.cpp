@@ -48,6 +48,7 @@ Options::Options(QObject *parent)
     , m_edgeBarrier(0)
     , m_cornerBarrier(0)
     , m_rollOverDesktops(false)
+    , m_perOutputVirtualDesktops(false)
     , m_focusStealingPreventionLevel(FocusStealingPreventionLevel::None)
     , m_killPingTimeout(0)
     , m_xwaylandCrashPolicy(Options::defaultXwaylandCrashPolicy())
@@ -307,6 +308,15 @@ void Options::setRollOverDesktops(bool rollOverDesktops)
     }
     m_rollOverDesktops = rollOverDesktops;
     Q_EMIT rollOverDesktopsChanged(m_rollOverDesktops);
+}
+
+void Options::setPerOutputVirtualDesktops(bool perOutputVirtualDesktops)
+{
+    if (m_perOutputVirtualDesktops == perOutputVirtualDesktops) {
+        return;
+    }
+    m_perOutputVirtualDesktops = perOutputVirtualDesktops;
+    Q_EMIT perOutputVirtualDesktopsChanged(m_perOutputVirtualDesktops);
 }
 
 void Options::setFocusStealingPreventionLevel(FocusStealingPreventionLevel focusStealingPreventionLevel)
@@ -709,6 +719,7 @@ void Options::syncFromKcfgc()
     setNextFocusPrefersMouse(m_settings->nextFocusPrefersMouse());
     setSeparateScreenFocus(m_settings->separateScreenFocus());
     setRollOverDesktops(m_settings->rollOverDesktops());
+    setPerOutputVirtualDesktops(m_settings->perOutputVirtualDesktops());
     setFocusStealingPreventionLevel(FocusStealingPreventionLevel(m_settings->focusStealingPreventionLevel()));
     setActivationDesktopPolicy(m_settings->activationDesktopPolicy());
     setXwaylandCrashPolicy(m_settings->xwaylandCrashPolicy());

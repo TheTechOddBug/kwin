@@ -219,6 +219,20 @@ KCM.ScrollViewKCM {
                 }
             }
 
+            QQC2.CheckBox {
+                id: perOutputVirtualDesktops
+
+                text: i18n("Switch desktops independently for each screen")
+                enabled: !kcm.virtualDesktopsSettings.isImmutable("perOutputVirtualDesktops")
+                checked: kcm.virtualDesktopsSettings.perOutputVirtualDesktops
+                onToggled: kcm.virtualDesktopsSettings.perOutputVirtualDesktops = checked
+
+                KCM.SettingStateBinding {
+                    configObject: kcm.virtualDesktopsSettings
+                    settingName: "perOutputVirtualDesktops"
+                }
+            }
+
             RowLayout {
                 Layout.fillWidth: true
 

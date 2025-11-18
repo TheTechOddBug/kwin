@@ -322,17 +322,19 @@ public:
     QString currentActivity() const;
     // Desktops
     /**
-     * @returns The current desktop.
+     * @param output The output to return the current desktop for (default = active screen).
+     * @returns The current desktop on screen @a output.
      */
-    VirtualDesktop *currentDesktop() const;
+    VirtualDesktop *currentDesktop(KWin::LogicalOutput *output = nullptr) const;
     /**
      * @returns Total number of desktops currently in existence.
      */
     QList<VirtualDesktop *> desktops() const;
     /**
-     * Set the current desktop to @a desktop.
+     * @param output The output to set the current desktop for (default = active screen).
+     * Set the current desktop to @a desktop on screen @a output.
      */
-    void setCurrentDesktop(KWin::VirtualDesktop *desktop);
+    void setCurrentDesktop(KWin::VirtualDesktop *desktop, KWin::LogicalOutput *output = nullptr);
     /**
      * @returns The size of desktop layout in grid units.
      */
@@ -786,9 +788,10 @@ Q_SIGNALS:
      * @param oldDesktop The previously current desktop
      * @param newDesktop The new current desktop
      * @param with The window which is taken over to the new desktop, can be NULL
+     * @param output The screen where the desktop was changed.
      * @since 4.9
      */
-    void desktopChanged(KWin::VirtualDesktop *oldDesktop, KWin::VirtualDesktop *newDesktop, KWin::EffectWindow *with);
+    void desktopChanged(KWin::VirtualDesktop *oldDesktop, KWin::VirtualDesktop *newDesktop, KWin::EffectWindow *with, KWin::LogicalOutput *output);
 
     /**
      * Signal emitted while desktop is changing for animation.
@@ -796,8 +799,13 @@ Q_SIGNALS:
      * @param offset The current desktop offset.
      * offset.x() = .6 means 60% of the way to the desktop to the right.
      * Positive Values means Up and Right.
+     * @param output The affected screen. If it affects multiple screens, then a separate signal is emitted for each one.
      */
-    void desktopChanging(KWin::VirtualDesktop *currentDesktop, QPointF offset, KWin::EffectWindow *with);
+    void desktopChanging(KWin::VirtualDesktop *currentDesktop, QPointF offset, KWin::EffectWindow *with, KWin::LogicalOutput *output);
+
+    /**
+     * Signal emitted when realtime desktop switching animation is cancelled. It applies to all screens.
+     */
     void desktopChangingCancelled();
     void desktopAdded(KWin::VirtualDesktop *desktop);
     void desktopRemoved(KWin::VirtualDesktop *desktop);

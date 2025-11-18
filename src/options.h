@@ -127,6 +127,10 @@ class KWIN_EXPORT Options : public QObject
      */
     Q_PROPERTY(bool rollOverDesktops READ isRollOverDesktops WRITE setRollOverDesktops NOTIFY rollOverDesktopsChanged)
     /**
+     * Whether virtual desktops are switched independently for each screen.
+     */
+    Q_PROPERTY(bool perOutputVirtualDesktops READ isPerOutputVirtualDesktops WRITE setPerOutputVirtualDesktops NOTIFY perOutputVirtualDesktopsChanged)
+    /**
      * 0 - 4 , see Workspace::allowWindowActivation()
      */
     Q_PROPERTY(KWin::FocusStealingPreventionLevel focusStealingPreventionLevel READ focusStealingPreventionLevel WRITE setFocusStealingPreventionLevel NOTIFY focusStealingPreventionLevelChanged)
@@ -376,6 +380,14 @@ public:
     bool isRollOverDesktops() const
     {
         return m_rollOverDesktops;
+    }
+
+    /**
+     * Whether virtual desktops are switched independently for each screen.
+     */
+    bool isPerOutputVirtualDesktops() const
+    {
+        return m_perOutputVirtualDesktops;
     }
 
     /**
@@ -659,6 +671,7 @@ public:
     void setEdgeBarrier(int edgeBarrier);
     void setCornerBarrier(bool cornerBarrier);
     void setRollOverDesktops(bool rollOverDesktops);
+    void setPerOutputVirtualDesktops(bool perOutputVirtualDesktops);
     void setFocusStealingPreventionLevel(FocusStealingPreventionLevel focusStealingPreventionLevel);
     void setOperationTitlebarDblClick(WindowOperation operationTitlebarDblClick);
     void setOperationMaxButtonLeftClick(WindowOperation op);
@@ -831,6 +844,7 @@ Q_SIGNALS:
     void edgeBarrierChanged();
     void cornerBarrierChanged();
     void rollOverDesktopsChanged(bool enabled);
+    void perOutputVirtualDesktopsChanged(bool enabled);
     void focusStealingPreventionLevelChanged();
     void operationTitlebarDblClickChanged();
     void operationMaxButtonLeftClickChanged();
@@ -889,6 +903,7 @@ private:
     int m_edgeBarrier;
     bool m_cornerBarrier;
     bool m_rollOverDesktops;
+    bool m_perOutputVirtualDesktops;
     FocusStealingPreventionLevel m_focusStealingPreventionLevel;
     int m_killPingTimeout;
     XwaylandCrashPolicy m_xwaylandCrashPolicy;

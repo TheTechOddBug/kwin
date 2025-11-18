@@ -1433,8 +1433,9 @@ Q_SIGNALS:
      * Emitted whenever the Window's screen changes. This can happen either in consequence to
      * a screen being removed/added or if the Window's geometry changes.
      * @since 4.11
+     * @param oldOutput The window's previous output.
      */
-    void outputChanged();
+    void outputChanged(LogicalOutput *oldOutput);
     void skipCloseAnimationChanged();
     /**
      * Emitted whenever the window role of the window changes.
@@ -1810,6 +1811,8 @@ protected:
     void setTargetScale(qreal scale);
 
     void setDescription(const QString &description);
+
+    void finishInteractiveOutputChange(LogicalOutput *oldOutput);
 
     LogicalOutput *m_output = nullptr;
     RectF m_frameGeometry;

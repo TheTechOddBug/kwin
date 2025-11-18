@@ -61,7 +61,7 @@ QString TabBoxHandlerImpl::desktopName(Window *client) const
     if (!client->isOnAllDesktops()) {
         return client->desktops().last()->name();
     }
-    return VirtualDesktopManager::self()->currentDesktop()->name();
+    return VirtualDesktopManager::self()->currentDesktop(client->output())->name();
 }
 
 Window *TabBoxHandlerImpl::nextClientFocusChain(Window *client) const
@@ -841,7 +841,7 @@ void TabBox::CDEWalkThroughWindows(bool forward)
             Workspace::self()->activateWindow(nc);
         } else {
             if (!nc->isOnCurrentDesktop()) {
-                VirtualDesktopManager::self()->setCurrent(nc->desktops().constLast());
+                VirtualDesktopManager::self()->setCurrent(nc->desktops().constLast(), nc->output());
             }
             Workspace::self()->raiseWindow(nc);
         }

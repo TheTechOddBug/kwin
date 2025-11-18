@@ -8,8 +8,13 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 #include "virtualdesktops.h"
+#if KWIN_BUILD_ACTIVITIES
+#include "activities.h"
+#endif
+#include "core/output.h"
 #include "input.h"
 #include "wayland/plasmavirtualdesktop.h"
+#include "workspace.h"
 // KDE
 #include <KConfigGroup>
 #include <KGlobalAccel>
@@ -72,6 +77,11 @@ void VirtualDesktopManager::setVirtualDesktopManagement(PlasmaVirtualDesktopMana
         connect(pvd, &PlasmaVirtualDesktopInterface::activateRequested, this, [this, desktop]() {
             setCurrent(desktop);
         });
+        connect(pvd, &PlasmaVirtualDesktopInterface::enterOutputRequested, this, [this, desktop](const QString &outputName) {
+            if (LogicalOutput *output = workspace()->findOutput(outputName)) {
+                setCurrent(desktop, output);
+            }
+        });
     };
 
     connect(this, &VirtualDesktopManager::desktopAdded, m_virtualDesktopManagement, createPlasmaVirtualDesktop);
@@ -99,19 +109,37 @@ void VirtualDesktopManager::setVirtualDesktopManagement(PlasmaVirtualDesktopMana
         removeVirtualDesktop(id);
     });
 
-    connect(this, &VirtualDesktopManager::currentChanged, m_virtualDesktopManagement, [this]() {
-        const QList<PlasmaVirtualDesktopInterface *> deskIfaces = m_virtualDesktopManagement->desktops();
-        for (auto *deskInt : deskIfaces) {
-            if (deskInt->id() == currentDesktop()->id()) {
-                deskInt->setActive(true);
-            } else {
-                deskInt->setActive(false);
-            }
+    connect(this, &VirtualDesktopManager::currentChanged, m_virtualDesktopManagement, [this](VirtualDesktop *oldDesktop, VirtualDesktop *newDesktop, LogicalOutput *output) {
+        m_virtualDesktopManagement->setActiveDesktopForOutput(oldDesktop->id(), newDesktop->id(), output);
+
+        if (output == workspace()->activeOutput()) {
+            updateLegacyPlasmaVirtualDesktops(newDesktop);
         }
+
+        m_virtualDesktopManagement->scheduleDone();
+    });
+    connect(workspace(), &Workspace::activeOutputChanged, this, [this](LogicalOutput *output) {
+        updateLegacyPlasmaVirtualDesktops(currentDesktop(output));
         m_virtualDesktopManagement->scheduleDone();
     });
 
+    auto initNewOutput = [this](LogicalOutput *output) {
+        VirtualDesktop *desktop = initCurrentDesktopForOutput(output);
+        PlasmaVirtualDesktopInterface *pvd = m_virtualDesktopManagement->desktop(desktop->id());
+        pvd->enterOutput(output->name());
+        m_virtualDesktopManagement->scheduleDone();
+    };
+
+    connect(workspace(), &Workspace::outputAdded, this, initNewOutput);
+    connect(workspace(), &Workspace::outputRemoved, this, [this](LogicalOutput *output) {
+        VirtualDesktop *desktop = currentDesktop(output);
+        PlasmaVirtualDesktopInterface *pvd = m_virtualDesktopManagement->desktop(desktop->id());
+        pvd->leaveOutput(output->name());
+        m_currentDesktops.remove(output);
+    });
+
     std::for_each(m_desktops.constBegin(), m_desktops.constEnd(), createPlasmaVirtualDesktop);
+    std::ranges::for_each(workspace()->outputs(), initNewOutput);
 
     m_virtualDesktopManagement->setRows(rows());
     m_virtualDesktopManagement->scheduleDone();
@@ -277,9 +305,8 @@ void VirtualDesktopManager::moveTo(Direction direction, bool wrap)
 
 VirtualDesktop *VirtualDesktopManager::above(VirtualDesktop *desktop, bool wrap) const
 {
-    Q_ASSERT(m_current);
     if (!desktop) {
-        desktop = m_current;
+        desktop = currentDesktop();
     }
     QPoint coords = m_grid.gridCoords(desktop);
     Q_ASSERT(coords.x() >= 0);
@@ -301,9 +328,8 @@ VirtualDesktop *VirtualDesktopManager::above(VirtualDesktop *desktop, bool wrap)
 
 VirtualDesktop *VirtualDesktopManager::toRight(VirtualDesktop *desktop, bool wrap) const
 {
-    Q_ASSERT(m_current);
     if (!desktop) {
-        desktop = m_current;
+        desktop = currentDesktop();
     }
     QPoint coords = m_grid.gridCoords(desktop);
     Q_ASSERT(coords.x() >= 0);
@@ -325,9 +351,8 @@ VirtualDesktop *VirtualDesktopManager::toRight(VirtualDesktop *desktop, bool wra
 
 VirtualDesktop *VirtualDesktopManager::below(VirtualDesktop *desktop, bool wrap) const
 {
-    Q_ASSERT(m_current);
     if (!desktop) {
-        desktop = m_current;
+        desktop = currentDesktop();
     }
     QPoint coords = m_grid.gridCoords(desktop);
     Q_ASSERT(coords.x() >= 0);
@@ -350,9 +375,8 @@ VirtualDesktop *VirtualDesktopManager::below(VirtualDesktop *desktop, bool wrap)
 
 VirtualDesktop *VirtualDesktopManager::toLeft(VirtualDesktop *desktop, bool wrap) const
 {
-    Q_ASSERT(m_current);
     if (!desktop) {
-        desktop = m_current;
+        desktop = currentDesktop();
     }
     QPoint coords = m_grid.gridCoords(desktop);
     Q_ASSERT(coords.x() >= 0);
@@ -374,9 +398,8 @@ VirtualDesktop *VirtualDesktopManager::toLeft(VirtualDesktop *desktop, bool wrap
 
 VirtualDesktop *VirtualDesktopManager::next(VirtualDesktop *desktop, bool wrap) const
 {
-    Q_ASSERT(m_current);
     if (!desktop) {
-        desktop = m_current;
+        desktop = currentDesktop();
     }
     auto it = std::find(m_desktops.begin(), m_desktops.end(), desktop);
     Q_ASSERT(it != m_desktops.end());
@@ -393,9 +416,8 @@ VirtualDesktop *VirtualDesktopManager::next(VirtualDesktop *desktop, bool wrap) 
 
 VirtualDesktop *VirtualDesktopManager::previous(VirtualDesktop *desktop, bool wrap) const
 {
-    Q_ASSERT(m_current);
     if (!desktop) {
-        desktop = m_current;
+        desktop = currentDesktop();
     }
     auto it = std::find(m_desktops.begin(), m_desktops.end(), desktop);
     Q_ASSERT(it != m_desktops.end());
@@ -518,9 +540,14 @@ void VirtualDesktopManager::removeVirtualDesktop(VirtualDesktop *desktop)
 #endif
     }
 
-    if (m_current == desktop) {
-        m_current = (i < m_desktops.count()) ? m_desktops.at(i) : m_desktops.constLast();
-        Q_EMIT currentChanged(desktop, m_current);
+    VirtualDesktop *newDesktop = (i < m_desktops.count()) ? m_desktops.at(i) : m_desktops.constLast();
+
+    for (const auto &[output, currentDesktop] : m_currentDesktops.asKeyValueRange()) {
+        if (currentDesktop != desktop) {
+            continue;
+        }
+        currentDesktop = newDesktop;
+        Q_EMIT currentChanged(desktop, newDesktop, output);
     }
 
     updateLayout();
@@ -567,35 +594,54 @@ void VirtualDesktopManager::moveVirtualDesktop(VirtualDesktop *desktop, int posi
     Q_EMIT desktopMoved(desktop, position);
 }
 
-uint VirtualDesktopManager::current() const
+uint VirtualDesktopManager::current(LogicalOutput *output) const
 {
-    return m_current ? m_current->x11DesktopNumber() : 0;
+    VirtualDesktop *d = currentDesktop(output);
+    return d ? d->x11DesktopNumber() : 0;
 }
 
-VirtualDesktop *VirtualDesktopManager::currentDesktop() const
+VirtualDesktop *VirtualDesktopManager::currentDesktop(LogicalOutput *output) const
 {
-    return m_current;
+    if (!output) {
+        output = workspace()->activeOutput();
+    }
+    // Fallback is necessary because currentDesktop may be called before initialDesktopForNewOutput.
+    return m_currentDesktops.value(output, initialDesktopForNewOutput(output));
 }
 
-bool VirtualDesktopManager::setCurrent(uint newDesktop)
+bool VirtualDesktopManager::setCurrent(uint newDesktop, LogicalOutput *output)
 {
     if (newDesktop < 1 || newDesktop > count()) {
         return false;
     }
-    auto d = desktopForX11Id(newDesktop);
+    VirtualDesktop *d = desktopForX11Id(newDesktop);
     Q_ASSERT(d);
-    return setCurrent(d);
+    return setCurrent(d, output);
 }
 
-bool VirtualDesktopManager::setCurrent(VirtualDesktop *newDesktop)
+bool VirtualDesktopManager::setCurrent(VirtualDesktop *newDesktop, LogicalOutput *output)
 {
     Q_ASSERT(newDesktop);
-    if (m_current == newDesktop) {
+    if (!output) {
+        output = workspace()->activeOutput();
+    }
+    VirtualDesktop *oldDesktop = m_currentDesktops[output];
+    if (oldDesktop == newDesktop) {
         return false;
     }
-    VirtualDesktop *oldDesktop = currentDesktop();
-    m_current = newDesktop;
-    Q_EMIT currentChanged(oldDesktop, newDesktop);
+    if (m_perOutputVirtualDesktops) {
+        m_currentDesktops[output] = newDesktop;
+        Q_EMIT currentChanged(oldDesktop, newDesktop, output);
+        return true;
+    }
+    for (const auto &[otherOutput, otherDesktop] : m_currentDesktops.asKeyValueRange()) {
+        if (otherDesktop == newDesktop) {
+            continue;
+        }
+        auto oldDesktop = otherDesktop;
+        otherDesktop = newDesktop;
+        Q_EMIT currentChanged(oldDesktop, newDesktop, otherOutput);
+    }
     return true;
 }
 
@@ -612,10 +658,13 @@ void VirtualDesktopManager::setCount(uint count)
     if ((uint)m_desktops.count() > count) {
         const auto desktopsToRemove = m_desktops.mid(count);
         m_desktops.resize(count);
-        if (m_current && desktopsToRemove.contains(m_current)) {
-            VirtualDesktop *oldCurrent = m_current;
-            m_current = m_desktops.last();
-            Q_EMIT currentChanged(oldCurrent, m_current);
+        for (const auto &[output, currentDesktop] : m_currentDesktops.asKeyValueRange()) {
+            if (!desktopsToRemove.contains(currentDesktop)) {
+                continue;
+            }
+            VirtualDesktop *oldDesktop = currentDesktop;
+            currentDesktop = m_desktops.last();
+            Q_EMIT currentChanged(oldDesktop, currentDesktop, output);
         }
         for (auto desktop : desktopsToRemove) {
             Q_EMIT desktopRemoved(desktop);
@@ -645,10 +694,6 @@ void VirtualDesktopManager::setCount(uint count)
             }
 #endif
         }
-    }
-
-    if (!m_current) {
-        m_current = m_desktops.at(0);
     }
 
     updateLayout();
@@ -824,33 +869,44 @@ void VirtualDesktopManager::initShortcuts()
     // These connections decide which desktop to end on after gesture ends
     connect(m_swipeGestureReleasedX.get(), &QAction::triggered, this, &VirtualDesktopManager::gestureReleasedX);
     connect(m_swipeGestureReleasedY.get(), &QAction::triggered, this, &VirtualDesktopManager::gestureReleasedY);
-
-    const auto left = [this](qreal cb) {
-        if (grid().width() > 1) {
-            m_currentDesktopOffset.setX(cb);
-            Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
+    const auto emitCurrentChanging = [this]() {
+        if (m_perOutputVirtualDesktops) {
+            LogicalOutput *output = workspace()->activeOutput();
+            Q_EMIT currentChanging(currentDesktop(output), m_currentDesktopOffset, output);
+        } else {
+            const auto outputs = workspace()->outputs();
+            for (LogicalOutput *output : outputs) {
+                Q_EMIT currentChanging(currentDesktop(output), m_currentDesktopOffset, output);
+            }
         }
     };
-    const auto right = [this](qreal cb) {
+
+    const auto left = [this, emitCurrentChanging](qreal cb) {
+        if (grid().width() > 1) {
+            m_currentDesktopOffset.setX(cb);
+            emitCurrentChanging();
+        }
+    };
+    const auto right = [this, emitCurrentChanging](qreal cb) {
         if (grid().width() > 1) {
             m_currentDesktopOffset.setX(-cb);
-            Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
+            emitCurrentChanging();
         }
     };
     input()->registerTouchpadSwipeShortcut(SwipeDirection::Left, 3, m_swipeGestureReleasedX.get(), left);
     input()->registerTouchpadSwipeShortcut(SwipeDirection::Right, 3, m_swipeGestureReleasedX.get(), right);
     input()->registerTouchpadSwipeShortcut(SwipeDirection::Left, 4, m_swipeGestureReleasedX.get(), left);
     input()->registerTouchpadSwipeShortcut(SwipeDirection::Right, 4, m_swipeGestureReleasedX.get(), right);
-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Down, 3, m_swipeGestureReleasedY.get(), [this](qreal cb) {
+    input()->registerTouchpadSwipeShortcut(SwipeDirection::Down, 3, m_swipeGestureReleasedY.get(), [this, emitCurrentChanging](qreal cb) {
         if (grid().height() > 1) {
             m_currentDesktopOffset.setY(-cb);
-            Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
+            emitCurrentChanging();
         }
     });
-    input()->registerTouchpadSwipeShortcut(SwipeDirection::Up, 3, m_swipeGestureReleasedY.get(), [this](qreal cb) {
+    input()->registerTouchpadSwipeShortcut(SwipeDirection::Up, 3, m_swipeGestureReleasedY.get(), [this, emitCurrentChanging](qreal cb) {
         if (grid().height() > 1) {
             m_currentDesktopOffset.setY(cb);
-            Q_EMIT currentChanging(currentDesktop(), m_currentDesktopOffset);
+            emitCurrentChanging();
         }
     });
     input()->registerTouchscreenSwipeShortcut(SwipeDirection::Left, 3, m_swipeGestureReleasedX.get(), left);
@@ -865,17 +921,18 @@ void VirtualDesktopManager::initShortcuts()
 
 void VirtualDesktopManager::gestureReleasedY()
 {
+    auto current = currentDesktop();
     // Note that if desktop wrapping is disabled and there's no desktop above or below,
     // above() and below() will return the current desktop.
-    VirtualDesktop *target = m_current;
+    VirtualDesktop *target = current;
     if (m_currentDesktopOffset.y() <= -GESTURE_SWITCH_THRESHOLD) {
-        target = above(m_current, isNavigationWrappingAround());
+        target = above(current, isNavigationWrappingAround());
     } else if (m_currentDesktopOffset.y() >= GESTURE_SWITCH_THRESHOLD) {
-        target = below(m_current, isNavigationWrappingAround());
+        target = below(current, isNavigationWrappingAround());
     }
 
     // If the current desktop has not changed, consider that the gesture has been canceled.
-    if (m_current != target) {
+    if (current != target) {
         setCurrent(target);
     } else {
         Q_EMIT currentChangingCancelled();
@@ -887,15 +944,16 @@ void VirtualDesktopManager::gestureReleasedX()
 {
     // Note that if desktop wrapping is disabled and there's no desktop to left or right,
     // toLeft() and toRight() will return the current desktop.
-    VirtualDesktop *target = m_current;
+    VirtualDesktop *current = currentDesktop();
+    VirtualDesktop *target = current;
     if (m_currentDesktopOffset.x() <= -GESTURE_SWITCH_THRESHOLD) {
-        target = toLeft(m_current, isNavigationWrappingAround());
+        target = toLeft(current, isNavigationWrappingAround());
     } else if (m_currentDesktopOffset.x() >= GESTURE_SWITCH_THRESHOLD) {
-        target = toRight(m_current, isNavigationWrappingAround());
+        target = toRight(current, isNavigationWrappingAround());
     }
 
     // If the current desktop has not changed, consider that the gesture has been canceled.
-    if (m_current != target) {
+    if (current != target) {
         setCurrent(target);
     } else {
         Q_EMIT currentChangingCancelled();
@@ -914,6 +972,18 @@ void VirtualDesktopManager::initSwitchToShortcuts()
 
     for (uint i = 5; i <= maximum(); ++i) {
         addAction(toDesktop, toDesktopLabel, i, QKeySequence(), &VirtualDesktopManager::slotSwitchTo);
+    }
+}
+
+void VirtualDesktopManager::updateLegacyPlasmaVirtualDesktops(VirtualDesktop *activeDesktop)
+{
+    const QList<PlasmaVirtualDesktopInterface *> deskIfaces = m_virtualDesktopManagement->desktops();
+    for (auto *deskInt : deskIfaces) {
+        if (deskInt->id() == activeDesktop->id()) {
+            deskInt->setActive(true);
+        } else {
+            deskInt->setActive(false);
+        }
     }
 }
 
@@ -952,6 +1022,32 @@ QAction *VirtualDesktopManager::addAction(const QString &name, const QString &la
     return a;
 }
 
+VirtualDesktop *VirtualDesktopManager::initCurrentDesktopForOutput(LogicalOutput *output)
+{
+    VirtualDesktop *current = m_currentDesktops.value(output, nullptr);
+    if (current) {
+        return current;
+    }
+    return m_currentDesktops[output] = initialDesktopForNewOutput(output);
+}
+
+VirtualDesktop *VirtualDesktopManager::initialDesktopForNewOutput(LogicalOutput *output) const
+{
+    if (!m_perOutputVirtualDesktops && !m_currentDesktops.empty()) {
+        return *m_currentDesktops.begin();
+    }
+#if KWIN_BUILD_ACTIVITIES
+    if (workspace()->activities()) {
+        if (const auto desktopId = workspace()->activities()->findLastDesktopForOutput(output)) {
+            if (VirtualDesktop *desktop = desktopForId(desktopId.value())) {
+                return desktop;
+            }
+        }
+    }
+#endif
+    return m_desktops.first();
+}
+
 void VirtualDesktopManager::slotSwitchTo()
 {
     QAction *act = qobject_cast<QAction *>(sender());
@@ -973,6 +1069,22 @@ void VirtualDesktopManager::setNavigationWrappingAround(bool enabled)
     }
     m_navigationWrapsAround = enabled;
     Q_EMIT navigationWrappingAroundChanged();
+}
+
+void VirtualDesktopManager::setPerOutputVirtualDesktops(bool enabled)
+{
+    if (enabled == m_perOutputVirtualDesktops) {
+        return;
+    }
+    m_perOutputVirtualDesktops = enabled;
+    if (!enabled) {
+        VirtualDesktop *newDesktop = currentDesktop(workspace()->activeOutput());
+        const auto outputs = workspace()->outputs();
+        for (const auto output : outputs) {
+            setCurrent(newDesktop, output);
+        }
+    }
+    Q_EMIT perOutputVirtualDesktopsChanged();
 }
 
 void VirtualDesktopManager::slotDown()
