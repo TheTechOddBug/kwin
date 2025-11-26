@@ -67,6 +67,7 @@ void TestXdgOutput::init()
     m_fakeOutput->setManufacturer("foo");
     m_fakeOutput->setModel("bar");
     m_outputHandle = std::make_unique<LogicalOutput>(m_fakeOutput.get());
+    m_outputHandle->setGeometry(m_fakeOutput->position(), m_fakeOutput->modeSize(), m_fakeOutput->refreshRate(), m_fakeOutput->transform(), m_fakeOutput->scale());
 
     m_serverOutput = new OutputInterface(m_display, m_outputHandle.get(), this);
 
@@ -153,6 +154,7 @@ void TestXdgOutput::testChanges()
 
     // change the logical position
     m_fakeOutput->moveTo(QPoint(1000, 2000));
+    m_outputHandle->setGeometry(m_fakeOutput->position(), m_fakeOutput->modeSize(), m_fakeOutput->refreshRate(), m_fakeOutput->transform(), m_fakeOutput->scale());
     QVERIFY(xdgOutputChanged.wait());
     QCOMPARE(xdgOutputChanged.count(), 1);
     QCOMPARE(xdgOutput->logicalPosition(), QPoint(1000, 2000));
@@ -161,6 +163,7 @@ void TestXdgOutput::testChanges()
 
     // change the logical size
     m_fakeOutput->setScale(2);
+    m_outputHandle->setGeometry(m_fakeOutput->position(), m_fakeOutput->modeSize(), m_fakeOutput->refreshRate(), m_fakeOutput->transform(), m_fakeOutput->scale());
     QVERIFY(xdgOutputChanged.wait());
     QCOMPARE(xdgOutputChanged.count(), 2);
     QEXPECT_FAIL("", "KWayland::Client::XdgOutput incorrectly handles partial updates", Continue);

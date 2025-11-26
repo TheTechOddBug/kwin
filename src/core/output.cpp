@@ -326,17 +326,9 @@ LogicalOutput::LogicalOutput(BackendOutput *backendOutput)
     : m_backendOutput(backendOutput)
 {
     QJSEngine::setObjectOwnership(this, QJSEngine::CppOwnership);
-    connect(backendOutput, &BackendOutput::positionChanged, this, &LogicalOutput::geometryChanged);
-    connect(backendOutput, &BackendOutput::currentModeChanged, this, &LogicalOutput::geometryChanged);
-    connect(backendOutput, &BackendOutput::transformChanged, this, &LogicalOutput::geometryChanged);
-    connect(backendOutput, &BackendOutput::scaleChanged, this, &LogicalOutput::geometryChanged);
-    connect(backendOutput, &BackendOutput::scaleChanged, this, &LogicalOutput::scaleChanged);
-    // TODO dpms being kind of on the backend output and kind of here isn't great
-    connect(backendOutput, &BackendOutput::aboutToChange, this, &LogicalOutput::aboutToChange);
-    connect(backendOutput, &BackendOutput::changed, this, &LogicalOutput::changed);
     connect(backendOutput, &BackendOutput::blendingColorChanged, this, &LogicalOutput::blendingColorChanged);
-    connect(backendOutput, &BackendOutput::transformChanged, this, &LogicalOutput::transformChanged);
-    connect(backendOutput, &BackendOutput::currentModeChanged, this, &LogicalOutput::currentModeChanged);
+    // Workspace will emit "changed" when all the properties have been updated
+    connect(backendOutput, &BackendOutput::aboutToChange, this, &LogicalOutput::aboutToChange);
 }
 
 LogicalOutput::~LogicalOutput()
@@ -389,22 +381,22 @@ QPointF LogicalOutput::mapFromGlobal(const QPointF &pos) const
 
 qreal LogicalOutput::scale() const
 {
-    return m_backendOutput->scale();
+    return m_scale;
 }
 
 Rect LogicalOutput::geometry() const
 {
-    return Rect(m_backendOutput->position(), m_backendOutput->pixelSize() / scale());
+    return m_geometry.rounded();
 }
 
 RectF LogicalOutput::geometryF() const
 {
-    return RectF(m_backendOutput->position(), QSizeF(m_backendOutput->pixelSize()) / scale());
+    return m_geometry;
 }
 
 QSize LogicalOutput::modeSize() const
 {
-    return m_backendOutput->modeSize();
+    return m_modeSize;
 }
 
 QSize LogicalOutput::pixelSize() const
@@ -477,7 +469,7 @@ const std::shared_ptr<ColorDescription> &LogicalOutput::blendingColor() const
 
 OutputTransform LogicalOutput::transform() const
 {
-    return m_backendOutput->transform();
+    return m_transform;
 }
 
 bool LogicalOutput::isInternal() const
@@ -488,6 +480,32 @@ bool LogicalOutput::isInternal() const
 uint32_t LogicalOutput::refreshRate() const
 {
     return m_backendOutput->refreshRate();
+}
+
+void LogicalOutput::setGeometry(const QPoint logicalPosition, const QSize &modeSize, uint32_t refreshRate, OutputTransform transform, double scale)
+{
+    const RectF newGeometry(logicalPosition, transform.map(QSizeF(modeSize)) / scale);
+    const bool geometryChange = m_geometry != newGeometry;
+    const bool transformChange = m_transform != transform;
+    const bool scaleChange = m_scale != scale;
+    const bool modeChanged = m_modeSize != modeSize || m_refreshRate != refreshRate;
+    m_modeSize = modeSize;
+    m_refreshRate = refreshRate;
+    m_geometry = newGeometry;
+    m_transform = transform;
+    m_scale = scale;
+    if (modeChanged) {
+        Q_EMIT currentModeChanged();
+    }
+    if (geometryChange) {
+        Q_EMIT geometryChanged();
+    }
+    if (transformChange) {
+        Q_EMIT transformChanged();
+    }
+    if (scaleChange) {
+        Q_EMIT scaleChanged();
+    }
 }
 
 } // namespace KWin
