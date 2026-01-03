@@ -16,6 +16,7 @@
 #include "core/outputconfiguration.h"
 #include "cursor.h"
 #include "rules.h"
+#include "scene/windowitem.h"
 #include "virtualdesktops.h"
 #include "wayland_server.h"
 #include "window.h"
@@ -69,6 +70,7 @@ private Q_SLOTS:
     void testDesktopsApply();
     void testDesktopsRemember();
     void testDesktopsForce();
+    void testDesktopsForceWithPerOutputDesktopsAndInteractiveMove();
     void testDesktopsApplyNow();
     void testDesktopsForceTemporarily();
 
@@ -226,6 +228,8 @@ void TestXdgShellWindowRules::cleanup()
     // Restore virtual desktops to the initial state.
     VirtualDesktopManager::self()->setCount(1);
     QCOMPARE(VirtualDesktopManager::self()->count(), 1u);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(false);
+    QCOMPARE(VirtualDesktopManager::self()->isPerOutputVirtualDesktops(), false);
 }
 
 void TestXdgShellWindowRules::createTestWindow(ClientFlags flags)
@@ -1430,6 +1434,86 @@ void TestXdgShellWindowRules::testDesktopsForce()
 
     QCOMPARE(m_window->desktops(), {vd2});
     QCOMPARE(VirtualDesktopManager::self()->currentDesktop(), vd2);
+
+    destroyTestWindow();
+}
+
+void TestXdgShellWindowRules::testDesktopsForceWithPerOutputDesktopsAndInteractiveMove()
+{
+    // We need at least two virtual desktop for this test.
+    VirtualDesktopManager::self()->setCount(2);
+    QCOMPARE(VirtualDesktopManager::self()->count(), 2u);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(true);
+    QVERIFY(VirtualDesktopManager::self()->isPerOutputVirtualDesktops());
+    VirtualDesktop *vd1 = VirtualDesktopManager::self()->desktops().at(0);
+    VirtualDesktop *vd2 = VirtualDesktopManager::self()->desktops().at(1);
+
+    setWindowRule("desktops", QStringList{vd2->id()}, int(Rules::Force));
+
+    const auto outputs = workspace()->outputs();
+    QCOMPARE_GE(outputs.size(), 2);
+    LogicalOutput *startOutput = outputs[0];
+    LogicalOutput *endOutput = outputs[1];
+    VirtualDesktopManager::self()->setCurrent(vd2, startOutput);
+    VirtualDesktopManager::self()->setCurrent(vd1, endOutput);
+    workspace()->setActiveOutput(startOutput);
+
+    createTestWindow();
+
+    QVERIFY(m_window);
+    QCOMPARE(workspace()->activeWindow(), m_window);
+    QCOMPARE(m_window->frameGeometry(), RectF(0, 0, 100, 50));
+    m_window->sendToOutput(startOutput);
+    QCOMPARE(m_window->output(), startOutput);
+    workspace()->setActiveWindow(m_window);
+
+    QSignalSpy interactiveMoveResizeStartedSpy(m_window, &Window::interactiveMoveResizeStarted);
+    QSignalSpy moveResizedChangedSpy(m_window, &Window::moveResizedChanged);
+    QSignalSpy interactiveMoveResizeSteppedSpy(m_window, &Window::interactiveMoveResizeStepped);
+    QSignalSpy interactiveMoveResizeFinishedSpy(m_window, &Window::interactiveMoveResizeFinished);
+
+    // begin move
+    QVERIFY(workspace()->moveResizeWindow() == nullptr);
+    QVERIFY(m_window->isActive());
+    QVERIFY(m_window->windowItem()->isVisible());
+    QCOMPARE(m_window->isInteractiveMove(), false);
+    workspace()->slotWindowMove();
+    QCOMPARE(workspace()->moveResizeWindow(), m_window);
+    QCOMPARE(interactiveMoveResizeStartedSpy.count(), 1);
+    QCOMPARE(moveResizedChangedSpy.count(), 1);
+    QCOMPARE(m_window->isInteractiveMove(), true);
+    QCOMPARE(m_window->geometryRestore(), RectF());
+
+    // move the window to endOutput
+    const QPointF cursorPos = Cursors::self()->mouse()->pos();
+
+    for (int i = 0; i < 40; i++) {
+        m_window->keyPressEvent(Qt::Key_Right | Qt::ALT);
+        m_window->updateInteractiveMoveResize(Cursors::self()->mouse()->pos(), Qt::KeyboardModifiers());
+    }
+
+    QCOMPARE(Cursors::self()->mouse()->pos(), cursorPos + QPoint(40 * 32, 0));
+    QCOMPARE(interactiveMoveResizeSteppedSpy.count(), 40);
+    QVERIFY(m_window->isActive());
+    QVERIFY(m_window->windowItem()->isVisible());
+    interactiveMoveResizeSteppedSpy.clear();
+
+    // end move
+    QCOMPARE(interactiveMoveResizeFinishedSpy.count(), 0);
+    m_window->keyPressEvent(Qt::Key_Enter);
+    QCOMPARE(interactiveMoveResizeFinishedSpy.count(), 1);
+    QCOMPARE(moveResizedChangedSpy.count(), 2);
+    QCOMPARE(m_window->isInteractiveMove(), false);
+    QVERIFY(workspace()->moveResizeWindow() == nullptr);
+
+    // The window should appear on the second screen. It should keep its desktop, so it should disappear.
+    QCOMPARE(m_window->desktops(), {vd2});
+    QCOMPARE(m_window->output(), endOutput);
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(endOutput), vd1);
+    QCOMPARE(m_window->isOnCurrentDesktop(), false);
+    // It's not immediate due to scale effect.
+    QTRY_COMPARE_WITH_TIMEOUT(m_window->windowItem()->isVisible(), false, 1000);
+    QCOMPARE(m_window->isActive(), false);
 
     destroyTestWindow();
 }

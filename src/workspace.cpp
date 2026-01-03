@@ -704,6 +704,14 @@ void Workspace::setupWindowConnections(Window *window)
 {
     connect(window, &Window::minimizedChanged, this, std::bind(&Workspace::windowMinimizedChanged, this, window));
     connect(window, &Window::fullScreenChanged, m_screenEdges.get(), &ScreenEdges::checkBlocking);
+    connect(window, &Window::interactiveMoveResizeFinished, this, [this, window]() {
+        // Activate another window if the resized/moved window "disappeared" (e.g. due to force desktop window rule).
+        if (!window->isActive() || window->isOnCurrentDesktop()) {
+            return;
+        }
+
+        activateWindowOnDesktop(VirtualDesktopManager::self()->currentDesktop());
+    });
 }
 
 void Workspace::constrain(Window *below, Window *above)
