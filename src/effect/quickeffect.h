@@ -17,6 +17,7 @@ namespace KWin
 
 class QuickSceneEffect;
 class QuickSceneEffectPrivate;
+class VirtualDesktop;
 
 /*!
  * \qmltype SceneView
@@ -70,6 +71,11 @@ class KWIN_EXPORT QuickSceneView : public OffscreenQuickView
      */
     Q_PROPERTY(QQuickItem *rootItem READ rootItem CONSTANT)
 
+    /*!
+     * \property KWin::QuickSceneView::currentDesktop
+     */
+    Q_PROPERTY(VirtualDesktop *currentDesktop READ currentDesktop WRITE setCurrentDesktop NOTIFY currentDesktopChanged)
+
 public:
     /*!
      * Constructs a scene view for the given \a effect and \a screen.
@@ -82,6 +88,9 @@ public:
 
     QQuickItem *rootItem() const;
     void setRootItem(QQuickItem *item);
+
+    VirtualDesktop *currentDesktop() const;
+    void setCurrentDesktop(VirtualDesktop *desktop);
 
     /*!
      * \internal
@@ -115,6 +124,9 @@ public Q_SLOTS:
      * Schedules a repaint. The view will be repainted at the next available opportunity.
      */
     void scheduleRepaint();
+
+Q_SIGNALS:
+    void currentDesktopChanged(VirtualDesktop *newDesktop);
 
 private:
     QuickSceneEffect *m_effect;

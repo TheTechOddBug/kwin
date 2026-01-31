@@ -32,7 +32,7 @@ FocusScope {
     property bool organized: false
 
     property bool verticalDesktopBar: KWinComponents.Workspace.desktopGridHeight >= bar.desktopCount && KWinComponents.Workspace.desktopGridHeight != 1
-    property QtObject currentDesktop: KWinComponents.Workspace.currentDesktopForScreen(targetScreen)
+    property QtObject currentDesktop: KWinComponents.SceneView.currentDesktop
     property point targetScreenDesktopOffset: effect.desktopOffsetForScreen(targetScreen);
 
     // The values of overviewVal and gridVal might not be 0 on startup,
@@ -135,7 +135,7 @@ FocusScope {
     }
 
     function switchTo(desktop) {
-        KWinComponents.Workspace.setCurrentDesktopForScreen(desktop, targetScreen);
+        KWinComponents.SceneView.currentDesktop = desktop;
         effect.deactivate();
     }
 
@@ -176,7 +176,7 @@ FocusScope {
         }
         let newIndex = y * container.columns + x;
 
-        KWinComponents.Workspace.setCurrentDesktopForScreen(allDesktopHeaps.itemAt(newIndex).desktop, targetScreen);
+        KWinComponents.SceneView.currentDesktop = allDesktopHeaps.itemAt(newIndex).desktop;
         allDesktopHeaps.itemAt(newIndex).nestedHeap.focus = true
         allDesktopHeaps.itemAt(newIndex).selectLastItem(invertedDirection);
         return true;
@@ -632,7 +632,7 @@ FocusScope {
                     TapHandler {
                         acceptedButtons: Qt.LeftButton
                         onTapped: {
-                            KWinComponents.Workspace.setCurrentDesktopForScreen(mainBackground.desktop, container.targetScreen);
+                            container.KWinComponents.SceneView.currentDesktop = mainBackground.desktop;
                             container.effect.deactivate();
                         }
                     }
@@ -856,17 +856,6 @@ FocusScope {
             }
 
             container.targetScreenDesktopOffset = effect.desktopOffsetForScreen(screen);
-        }
-    }
-
-    Connections {
-        target: KWinComponents.Workspace
-        onCurrentDesktopChanged: (previous, current, screen) => {
-            if (screen !== container.targetScreen) {
-                return;
-            }
-
-            container.currentDesktop = current;
         }
     }
 }

@@ -19,7 +19,6 @@ Item {
 
     readonly property QtObject effect: KWinComponents.SceneView.effect
     readonly property QtObject targetScreen: KWinComponents.SceneView.screen
-    property QtObject currentDesktop: KWinComponents.Workspace.currentDesktopForScreen(targetScreen)
 
     property bool animationEnabled: false
     property bool organized: false
@@ -64,7 +63,7 @@ Item {
 
     KWinComponents.DesktopBackground {
         activity: KWinComponents.Workspace.currentActivity
-        desktop: currentDesktop
+        desktop: container.KWinComponents.SceneView.currentDesktop
         outputName: targetScreen.name
 
         layer.enabled: true
@@ -186,7 +185,7 @@ Item {
                     switch (container.effect.mode) {
                         case WindowView.ModeCurrentDesktop:
                         case WindowView.ModeWindowClassCurrentDesktop:
-                            return container.currentDesktop;
+                            return container.KWinComponents.SceneView.currentDesktop;
                         default:
                             return undefined;
                     }
@@ -240,7 +239,7 @@ Item {
         asynchronous: true
 
         model: KWinComponents.WindowFilterModel {
-            desktop: currentDesktop
+            desktop: container.KWinComponents.SceneView.currentDesktop
             screenName: targetScreen.name
             windowModel: stackModel
             windowType: KWinComponents.WindowFilterModel.Dock
@@ -270,15 +269,4 @@ Item {
     }
 
     Component.onCompleted: start();
-
-    Connections {
-        target: KWinComponents.Workspace
-        onCurrentDesktopChanged: (previous, current, screen) => {
-            if (screen !== container.targetScreen) {
-                return;
-            }
-
-            container.currentDesktop = current;
-        }
-    }
 }

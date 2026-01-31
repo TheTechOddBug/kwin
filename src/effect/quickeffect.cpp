@@ -8,6 +8,7 @@
 #include "core/output.h"
 #include "effect/effecthandler.h"
 #include "input_event.h"
+#include "virtualdesktops.h"
 
 #include "logging_p.h"
 
@@ -100,6 +101,13 @@ QuickSceneView::QuickSceneView(QuickSceneEffect *effect, LogicalOutput *screen)
     connect(screen, &LogicalOutput::geometryChanged, this, [this, screen]() {
         setGeometry(screen->geometry());
     });
+    connect(VirtualDesktopManager::self(), &VirtualDesktopManager::currentChanged, this, [this](VirtualDesktop *, VirtualDesktop *newDesktop, LogicalOutput *screen) {
+        if (m_screen != screen) {
+            return;
+        }
+
+        Q_EMIT currentDesktopChanged(newDesktop);
+    });
 
     s_views.insert(window(), this);
 }
@@ -157,6 +165,16 @@ void QuickSceneView::scheduleRepaint()
 {
     markDirty();
     effects->addRepaint(geometry());
+}
+
+VirtualDesktop *QuickSceneView::currentDesktop() const
+{
+    return VirtualDesktopManager::self()->currentDesktop(m_screen);
+}
+
+void QuickSceneView::setCurrentDesktop(VirtualDesktop *desktop)
+{
+    VirtualDesktopManager::self()->setCurrent(desktop, m_screen);
 }
 
 QuickSceneView *QuickSceneView::findView(QQuickItem *item)

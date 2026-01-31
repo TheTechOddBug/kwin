@@ -75,10 +75,10 @@ Item {
                     Keys.onRightPressed: nextItemInFocusChain(!LayoutMirroring.enabled).forceActiveFocus(Qt.TabFocusReason);
 
                     function activate() {
-                        if (KWinComponents.Workspace.currentDesktop === delegate.desktop) {
+                        if (KWinComponents.SceneView.currentDesktop === delegate.desktop) {
                             effect.deactivate()
                         } else {
-                            KWinComponents.Workspace.currentDesktop = delegate.desktop;
+                            KWinComponents.SceneView.currentDesktop = delegate.desktop;
                         }
                     }
 

@@ -39,8 +39,7 @@ FocusScope {
 
     property bool active: false
 
-    property QtObject currentDesktop: KWinComponents.Workspace.currentDesktopForScreen(targetScreen)
-    readonly property QtObject rootTile: KWinComponents.Workspace.rootTile(root.targetScreen, currentDesktop)
+    readonly property QtObject rootTile: KWinComponents.Workspace.rootTile(root.targetScreen, KWinComponents.SceneView.currentDesktop)
 
     Component.onCompleted: {
         root.active = true;
@@ -62,7 +61,7 @@ FocusScope {
         Repeater {
             model: KWinComponents.WindowFilterModel {
                 activity: KWinComponents.Workspace.currentActivity
-                desktop: root.currentDesktop
+                desktop: root.KWinComponents.SceneView.currentDesktop
                 screenName: targetScreen.name
                 windowModel: KWinComponents.WindowModel {}
             }
@@ -271,16 +270,6 @@ FocusScope {
                 text: i18nd("kwin","Close")
                 onClicked: loadLayoutDialog.close()
             }
-        }
-    }
-    Connections {
-        target: KWinComponents.Workspace
-        onCurrentDesktopChanged: (previous, current, screen) => {
-            if (screen !== root.targetScreen) {
-                return;
-            }
-
-            root.currentDesktop = current;
         }
     }
 }
