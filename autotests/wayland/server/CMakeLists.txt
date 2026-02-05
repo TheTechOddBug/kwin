@@ -146,17 +146,3 @@ target_sources(testTextInputV3Interface PRIVATE test_textinputv3_interface.cpp $
 target_link_libraries(testTextInputV3Interface Qt::Test kwin Plasma::KWaylandClient Wayland::Client)
 add_test(NAME kwayland-testTextInputV3Interface COMMAND testTextInputV3Interface)
 ecm_mark_as_test(testTextInputV3Interface)
-
-########################################################
-# Test TextInputV1 Interface
-########################################################
-add_executable(testTextInputV1Interface)
-qt6_generate_wayland_protocol_client_sources(testTextInputV1Interface
-    PRIVATE_CODE
-    FILES
-        ${WaylandProtocols_DATADIR}/unstable/text-input/text-input-unstable-v1.xml
-)
-target_sources(testTextInputV1Interface PRIVATE test_textinputv1_interface.cpp ${TEXTINPUTV1_SRCS})
-target_link_libraries(testTextInputV1Interface Qt::Test kwin Plasma::KWaylandClient Wayland::Client)
-add_test(NAME kwayland-testTextInputV1Interface COMMAND testTextInputV1Interface)
-ecm_mark_as_test(testTextInputV1Interface)
