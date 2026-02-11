@@ -152,7 +152,7 @@ RectF Tile::relativeGeometry() const
 
 RectF Tile::absoluteGeometry() const
 {
-    const RectF geom = workspace()->clientArea(MaximizeArea, m_tiling->output(), m_desktop);
+    const RectF geom = workspace()->clientArea(MaximizeArea, m_tiling->output());
     return RectF(std::round(geom.x() + m_relativeGeometry.x() * geom.width()),
                  std::round(geom.y() + m_relativeGeometry.y() * geom.height()),
                  std::round(m_relativeGeometry.width() * geom.width()),
@@ -161,7 +161,7 @@ RectF Tile::absoluteGeometry() const
 
 RectF Tile::absoluteGeometryInScreen() const
 {
-    const RectF geom = workspace()->clientArea(MaximizeArea, m_tiling->output(), m_desktop);
+    const RectF geom = workspace()->clientArea(MaximizeArea, m_tiling->output());
     return RectF(std::round(m_relativeGeometry.x() * geom.width()),
                  std::round(m_relativeGeometry.y() * geom.height()),
                  std::round(m_relativeGeometry.width() * geom.width()),
