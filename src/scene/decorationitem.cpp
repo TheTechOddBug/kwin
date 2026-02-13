@@ -171,6 +171,11 @@ void DecorationRenderer::render(ItemRenderer *itemRenderer, const Region &region
     }
 }
 
+void DecorationRenderer::releaseResources()
+{
+    m_atlas.reset();
+}
+
 DecorationItem::DecorationItem(KDecoration3::Decoration *decoration, Window *window, Item *parent)
     : Item(parent)
     , m_window(window)
@@ -322,6 +327,11 @@ WindowQuadList DecorationItem::buildQuads() const
     }
 
     return list;
+}
+
+void DecorationItem::releaseResources()
+{
+    m_renderer->releaseResources();
 }
 
 } // namespace KWin
