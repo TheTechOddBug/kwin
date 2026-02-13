@@ -121,9 +121,11 @@ void OutputScreenCastSource::resume()
     m_sceneView = std::make_unique<FilteredSceneView>(kwinApp()->scene(), m_output, m_layer.get(), m_pidToHide);
     m_sceneView->setViewport(m_output->geometryF());
     m_sceneView->setScale(m_output->scale());
+    m_sceneView->setRefreshRate(m_output->refreshRate());
     connect(m_output, &LogicalOutput::changed, m_sceneView.get(), [this]() {
         m_sceneView->setViewport(m_output->geometryF());
         m_sceneView->setScale(m_output->scale());
+        m_sceneView->setRefreshRate(m_output->refreshRate());
     });
 
     m_cursorView = std::make_unique<ItemTreeView>(m_sceneView.get(), kwinApp()->scene()->cursorItem(), m_output, nullptr, nullptr);
