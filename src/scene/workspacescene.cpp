@@ -531,14 +531,6 @@ void WorkspaceScene::prePaint(SceneView *delegate)
 
     createStackingOrder();
 
-    const RenderLoop *renderLoop = painted_screen->backendOutput()->renderLoop();
-    const std::chrono::milliseconds presentTime =
-        std::chrono::duration_cast<std::chrono::milliseconds>(renderLoop->nextPresentationTimestamp());
-
-    if (presentTime > m_expectedPresentTimestamp) {
-        m_expectedPresentTimestamp = presentTime;
-    }
-
     // preparation step
     effects->startPaint();
 
@@ -550,7 +542,7 @@ void WorkspaceScene::prePaint(SceneView *delegate)
     effects->makeOpenGLContextCurrent();
     Q_EMIT preFrameRender();
 
-    effects->prePaintScreen(prePaintData, m_expectedPresentTimestamp);
+    effects->prePaintScreen(prePaintData);
     m_paintContext.deviceDamage = painted_delegate->mapToDeviceCoordinatesAligned(prePaintData.paint) & painted_delegate->deviceRect();
     m_paintContext.mask = prePaintData.mask;
     m_paintContext.phase2Data.clear();
@@ -595,7 +587,7 @@ void WorkspaceScene::preparePaintGenericScreen()
         data.mask = m_paintContext.mask;
         data.devicePaint = Region::infinite(); // no clipping, so doesn't really matter
 
-        effects->prePaintWindow(painted_delegate, windowItem->effectWindow(), data, m_expectedPresentTimestamp);
+        effects->prePaintWindow(painted_delegate, windowItem->effectWindow(), data);
         m_paintContext.phase2Data.append(Phase2Data{
             .item = windowItem,
             .deviceRegion = Region::infinite(),
@@ -634,7 +626,7 @@ void WorkspaceScene::preparePaintSimpleScreen()
             addOpaqueRegionRecursive(painted_delegate, windowItem, std::nullopt, data.deviceOpaque);
         }
 
-        effects->prePaintWindow(painted_delegate, windowItem->effectWindow(), data, m_expectedPresentTimestamp);
+        effects->prePaintWindow(painted_delegate, windowItem->effectWindow(), data);
         m_paintContext.phase2Data.append(Phase2Data{
             .item = windowItem,
             .deviceRegion = data.devicePaint & painted_delegate->deviceRect(),
