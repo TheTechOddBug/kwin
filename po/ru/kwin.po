@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-20 00:47+0000\n"
-"PO-Revision-Date: 2026-02-14 12:34+0200\n"
+"PO-Revision-Date: 2026-02-21 14:09+0200\n"
 "Last-Translator: Alexander Yavorskiy <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
 "Language: ru\n"
@@ -180,10 +180,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "У цветового профиля отсутствуют метки TRC"
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "Не удалось открыть ICC-профиль «%1»"
+msgstr "Не удалось инвертировать тоновые кривые профиля ICC «%1»"
 
 # BUGME: strings from kwin.git/debug_console.ui are not translatable --aspotashev
 #: debug_console.cpp:86
@@ -1434,11 +1433,9 @@ msgstr ""
 "будут потеряны.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "&Завершить %1"
+msgstr "Завершение %1…"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1475,7 +1472,7 @@ msgstr "Не отвечает"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "&Подробности"
 
 #: helpers/killer/killer.cpp:133
 #, kde-format
@@ -3642,17 +3639,15 @@ msgstr "Тип правила назначения разрыва"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "&Скрыть в трансляции экрана"
+msgstr "Скрыть при записи экрана"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "&Скрыть в трансляции экрана"
+msgstr "Тип правила сокрытия из записи экрана"
 
 # BUGME: should not be translatable --aspotashev
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)

@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-20 00:47+0000\n"
-"PO-Revision-Date: 2026-02-15 19:08+0400\n"
+"PO-Revision-Date: 2026-02-21 17:26+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
 "Language: ar\n"
@@ -147,10 +147,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "تشكيلة الألوان تفتقد إلى علامات TRC"
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "فشل في فتح تشكيلة أي سي سي \"%1\""
+msgstr "تعذر عكس منحنيات درجات الألوان في تشكيلة أي سي سي \"%1\""
 
 #: debug_console.cpp:86
 #, kde-format
@@ -1385,11 +1384,9 @@ msgstr ""
 "إغلاق جميع نوافذه. ستُفقد أي بيانات غير محفوظة.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "أ&نهِ %1"
+msgstr "ينهي %1…"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1426,7 +1423,7 @@ msgstr "لا يستجيب"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "التّ&فاصيل"
 
 #: helpers/killer/killer.cpp:133
 #, kde-format
@@ -3574,17 +3571,15 @@ msgstr "نوع القاعدة التمزيق"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "أ&خفِ من تسجيل الشاشة"
+msgstr "أخفِ من تسجيل الشاشة"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "أ&خفِ من تسجيل الشاشة"
+msgstr "نوع قاعدة أخفِ من تسجيل الشاشة"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14

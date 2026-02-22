@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-20 00:47+0000\n"
-"PO-Revision-Date: 2026-02-19 22:07+0100\n"
+"PO-Revision-Date: 2026-02-21 23:05+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
@@ -169,10 +169,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "Kolore-profilak TRC etiketak falta ditu"
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "ICC profila, \"%1\", irekitzea huts egin du"
+msgstr "Ezin izan dira \"%1\" ICC profileko tonu-kurbak alderantzikatu"
 
 #: debug_console.cpp:86
 #, kde-format
@@ -1409,11 +1408,9 @@ msgstr ""
 "gabeko datuak galdu egingo dira.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "&Bukatu %1"
+msgstr "%1 bukatzen…"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1450,7 +1447,7 @@ msgstr "Ez du erantzuten"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "&Xehetasunak"
 
 #: helpers/killer/killer.cpp:133
 #, kde-format
@@ -3612,17 +3609,15 @@ msgstr "Urradura arau mota"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "E&zkutatu pantaila-grabaziotik"
+msgstr "Ezkutatu pantaila-grabaziotik"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "E&zkutatu pantaila-grabaziotik"
+msgstr "Ezkutatu pantaila-grabaziotik arau-mota"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14
