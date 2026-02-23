@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-20 00:47+0000\n"
+"POT-Creation-Date: 2026-02-23 00:46+0000\n"
 "PO-Revision-Date: 2012-06-14 11:29+0700\n"
 "Last-Translator: Khoem Sokhem <khoemsokhem@khmeros.info>\n"
 "Language-Team: Khmer\n"
@@ -2884,7 +2884,7 @@ msgstr "ប្រអប់​បន្សំ​លេចឡើង ៖"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: plugins/translucency/package/contents/ui/config.ui:121
-#: plugins/translucency/package/contents/ui/config.ui:431
+#: plugins/translucency/package/contents/ui/config.ui:441
 #, kde-format
 msgid "Opaque"
 msgstr "ស្រអាប់"
@@ -2898,7 +2898,7 @@ msgstr "ប្រអប់ ៖"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: plugins/translucency/package/contents/ui/config.ui:156
-#: plugins/translucency/package/contents/ui/config.ui:418
+#: plugins/translucency/package/contents/ui/config.ui:428
 #, kde-format
 msgid "Transparent"
 msgstr "ភាព​ថ្លា"
@@ -2909,40 +2909,47 @@ msgstr "ភាព​ថ្លា"
 msgid "Menus:"
 msgstr "ម៉ឺនុយ ៖"
 
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
+#: plugins/translucency/package/contents/ui/config.ui:201
+#, fuzzy, kde-format
+#| msgid "&Fullscreen"
+msgid "Exclude fullscreen windows"
+msgstr "ពេញ​អេក្រង់"
+
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
-#: plugins/translucency/package/contents/ui/config.ui:207
+#: plugins/translucency/package/contents/ui/config.ui:217
 #, fuzzy, kde-format
 #| msgid "Move Window"
 msgid "Moving windows:"
 msgstr "ផ្លាស់ទី​បង្អួច"
 
 #. i18n: ectx: property (text), widget (QLabel, inactive_label)
-#: plugins/translucency/package/contents/ui/config.ui:226
+#: plugins/translucency/package/contents/ui/config.ui:236
 #, fuzzy, kde-format
 #| msgid "Lower Window"
 msgid "Inactive windows:"
 msgstr "បន្ទាប​បង្អួច​ចុះ​ក្រោម"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_IndividualMenuConfig)
-#: plugins/translucency/package/contents/ui/config.ui:267
+#: plugins/translucency/package/contents/ui/config.ui:277
 #, kde-format
 msgid "Set menu translucency independently"
 msgstr "កំណត់​​ភាព​ស្រអាប់​​ម៉ឺនុយ​ដោយ​ឯករាជ្យ"
 
 #. i18n: ectx: property (text), widget (QLabel, dropdownmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:285
+#: plugins/translucency/package/contents/ui/config.ui:295
 #, kde-format
 msgid "Dropdown menus:"
 msgstr "ម៉ឺនុយ​ទម្លាក់​ចុះ ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, popupmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:329
+#: plugins/translucency/package/contents/ui/config.ui:339
 #, kde-format
 msgid "Popup menus:"
 msgstr "ម៉ឺនុយ​លេចឡើង ៖"
 
 #. i18n: ectx: property (text), widget (QLabel, tornoffmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:367
+#: plugins/translucency/package/contents/ui/config.ui:377
 #, kde-format
 msgid "Torn-off menus:"
 msgstr "ម៉ឺនុយ​បិទ ៖"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-20 00:47+0000\n"
+"POT-Creation-Date: 2026-02-23 00:46+0000\n"
 "PO-Revision-Date: 2024-09-27 11:45+0200\n"
 "Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
@@ -2756,7 +2756,7 @@ msgstr "Rozbalovací seznamy:"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: plugins/translucency/package/contents/ui/config.ui:121
-#: plugins/translucency/package/contents/ui/config.ui:431
+#: plugins/translucency/package/contents/ui/config.ui:441
 #, kde-format
 msgid "Opaque"
 msgstr "Neprůhledné"
@@ -2770,7 +2770,7 @@ msgstr "Dialogy:"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: plugins/translucency/package/contents/ui/config.ui:156
-#: plugins/translucency/package/contents/ui/config.ui:418
+#: plugins/translucency/package/contents/ui/config.ui:428
 #, kde-format
 msgid "Transparent"
 msgstr "Průhledný"
@@ -2781,38 +2781,45 @@ msgstr "Průhledný"
 msgid "Menus:"
 msgstr "Nabídky:"
 
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
+#: plugins/translucency/package/contents/ui/config.ui:201
+#, fuzzy, kde-format
+#| msgid "Fullscreen windows"
+msgid "Exclude fullscreen windows"
+msgstr "Okna přes celou obrazovku"
+
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
-#: plugins/translucency/package/contents/ui/config.ui:207
+#: plugins/translucency/package/contents/ui/config.ui:217
 #, kde-format
 msgid "Moving windows:"
 msgstr "Okna v pohybu:"
 
 #. i18n: ectx: property (text), widget (QLabel, inactive_label)
-#: plugins/translucency/package/contents/ui/config.ui:226
+#: plugins/translucency/package/contents/ui/config.ui:236
 #, kde-format
 msgid "Inactive windows:"
 msgstr "Neaktivní okna:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_IndividualMenuConfig)
-#: plugins/translucency/package/contents/ui/config.ui:267
+#: plugins/translucency/package/contents/ui/config.ui:277
 #, kde-format
 msgid "Set menu translucency independently"
 msgstr "Nastavit průhlednost nabídky nezávisle"
 
 #. i18n: ectx: property (text), widget (QLabel, dropdownmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:285
+#: plugins/translucency/package/contents/ui/config.ui:295
 #, kde-format
 msgid "Dropdown menus:"
 msgstr "Rozbalovací nabídky:"
 
 #. i18n: ectx: property (text), widget (QLabel, popupmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:329
+#: plugins/translucency/package/contents/ui/config.ui:339
 #, kde-format
 msgid "Popup menus:"
 msgstr "Vyskakovací nabídky:"
 
 #. i18n: ectx: property (text), widget (QLabel, tornoffmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:367
+#: plugins/translucency/package/contents/ui/config.ui:377
 #, kde-format
 msgid "Torn-off menus:"
 msgstr "Vytržené nabídky:"

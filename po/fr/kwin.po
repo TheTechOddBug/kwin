@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-20 00:47+0000\n"
-"PO-Revision-Date: 2026-01-25 10:15+0100\n"
+"POT-Creation-Date: 2026-02-23 00:46+0000\n"
+"PO-Revision-Date: 2026-02-21 18:29+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -35,7 +35,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Accelerator-Marker: &\n"
 "X-Environment: kde\n"
-"X-Generator: Lokalize 25.12.1\n"
+"X-Generator: Lokalize 25.12.2\n"
 "X-Text-Markup: kde4\n"
 
 #, kde-format
@@ -191,10 +191,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "Les étiquettes « TRC » sont absentes du profil de couleurs."
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "Impossible d'ouvrir le profil « ICC » « %1 »"
+msgstr "Impossible d'inverser les courbes de teintes du profil « ICC » « %1 »"
 
 #: debug_console.cpp:86
 #, kde-format
@@ -1302,7 +1301,7 @@ msgstr "temps"
 #: helpers/dialoghelper/dialoghelper.cpp:46
 #, kde-format
 msgid "The message to show (fullscreen, noborder)"
-msgstr ""
+msgstr "Le message à afficher (Plein écran, sans bordure)"
 
 #: helpers/dialoghelper/dialoghelper.cpp:48 helpers/killer/killer.cpp:145
 #, kde-format
@@ -1316,12 +1315,7 @@ msgid "This helper utility is not supposed to be called directly."
 msgstr "Cet utilitaire d'assistant n'est pas supposé être appelé directement."
 
 #: helpers/dialoghelper/dialoghelper.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window menu instead, activated using the %1 keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
@@ -1329,10 +1323,9 @@ msgid ""
 "%1 keyboard shortcut instead."
 msgstr ""
 "Vous avez sélectionné l'affichage d'une fenêtre en mode « Plein écran ».\n"
-"Si l'application elle-même n'a pas d'option pour annuler le mode « Plein "
-"écran », vous ne pourrez plus le faire au moyen de la souris. Veuillez "
-"utiliser à la place le menu de la fenêtre, activé en utilisant le raccourci "
-"clavier %1."
+"Si l'application elle-même ne possède aucune option pour annuler le mode "
+"« Plein écran », vous ne pourrez plus le faire au moyen de la souris. "
+"Veuillez utiliser à la place le raccourci clavier %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:85
 #, kde-format
@@ -1349,37 +1342,24 @@ msgstr ""
 "clavier %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:93
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window menu instead, activated using the %1 keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
 "mode off you will not be able to disable it again using the mouse."
 msgstr ""
 "Vous avez sélectionné l'affichage d'une fenêtre en mode « Plein écran ».\n"
-"Si l'application elle-même n'a pas d'option pour annuler le mode « Plein "
-"écran », vous ne pourrez plus le faire au moyen de la souris. Veuillez "
-"utiliser à la place le menu de la fenêtre, activé en utilisant le raccourci "
-"clavier %1."
+"Si l'application elle-même ne possède aucune option pour annuler le mode "
+"« Plein écran », vous ne pourrez plus le faire au moyen de la souris."
 
 #: helpers/dialoghelper/dialoghelper.cpp:98
-#, fuzzy, kde-format
-#| msgid "Fullscreen"
+#, kde-format
 msgctxt "@action:button Un-fullscreen"
 msgid "Undo Fullscreen"
-msgstr "Plein écran"
+msgstr "Annuler le mode « Plein écran »"
 
 #: helpers/dialoghelper/dialoghelper.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
@@ -1387,8 +1367,7 @@ msgid ""
 msgstr ""
 "Vous avez sélectionné l'affichage d'une fenêtre sans sa bordure.\n"
 "Sans cette dernière, vous ne pourrez plus retrouver la bordure au moyen de "
-"la souris. Veuillez utiliser à la place le menu de fenêtres, activé en "
-"utilisant le raccourci clavier %1."
+"la souris. Veuillez utiliser à la place le raccourci clavier %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:106
 #, kde-format
@@ -1404,12 +1383,7 @@ msgstr ""
 "utilisant le raccourci clavier %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:112
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
@@ -1417,20 +1391,18 @@ msgid ""
 msgstr ""
 "Vous avez sélectionné l'affichage d'une fenêtre sans sa bordure.\n"
 "Sans cette dernière, vous ne pourrez plus retrouver la bordure au moyen de "
-"la souris. Veuillez utiliser à la place le menu de fenêtres, activé en "
-"utilisant le raccourci clavier %1."
+"la souris."
 
 #: helpers/dialoghelper/dialoghelper.cpp:116
-#, fuzzy, kde-format
-#| msgid "&No Border"
+#, kde-format
 msgctxt "@action:button"
 msgid "Restore Border"
-msgstr "Aucu&ne bordure"
+msgstr "Restaurer la bordure"
 
 #: helpers/dialoghelper/dialoghelper.cpp:133
 #, kde-format
 msgid "Do not show again"
-msgstr ""
+msgstr "Ne plus afficher"
 
 #: helpers/killer/killdialog.cpp:37
 #, kde-kuit-format
@@ -1461,11 +1433,9 @@ msgstr ""
 "filles. Toutes les données non enregistrées seront perdues.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "Fermer l'applica&tion %1"
+msgstr "Fermeture en cours de %1..."
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1502,7 +1472,7 @@ msgstr "Ne répondant plus"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "&Détails"
 
 #: helpers/killer/killer.cpp:133
 #, kde-format
@@ -2887,7 +2857,7 @@ msgstr "Menus contextuels à liste déroulante :"
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label_7)
 #: plugins/translucency/package/contents/ui/config.ui:121
-#: plugins/translucency/package/contents/ui/config.ui:431
+#: plugins/translucency/package/contents/ui/config.ui:441
 #, kde-format
 msgid "Opaque"
 msgstr "Opaque"
@@ -2901,7 +2871,7 @@ msgstr "Boîtes de dialogue :"
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: plugins/translucency/package/contents/ui/config.ui:156
-#: plugins/translucency/package/contents/ui/config.ui:418
+#: plugins/translucency/package/contents/ui/config.ui:428
 #, kde-format
 msgid "Transparent"
 msgstr "Transparent"
@@ -2912,38 +2882,45 @@ msgstr "Transparent"
 msgid "Menus:"
 msgstr "Menus :"
 
+#. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
+#: plugins/translucency/package/contents/ui/config.ui:201
+#, fuzzy, kde-format
+#| msgid "Fullscreen windows"
+msgid "Exclude fullscreen windows"
+msgstr "Fenêtre en plein écran"
+
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
-#: plugins/translucency/package/contents/ui/config.ui:207
+#: plugins/translucency/package/contents/ui/config.ui:217
 #, kde-format
 msgid "Moving windows:"
 msgstr "Déplacement de fenêtres :"
 
 #. i18n: ectx: property (text), widget (QLabel, inactive_label)
-#: plugins/translucency/package/contents/ui/config.ui:226
+#: plugins/translucency/package/contents/ui/config.ui:236
 #, kde-format
 msgid "Inactive windows:"
 msgstr "Fenêtres inactives :"
 
 #. i18n: ectx: property (title), widget (QGroupBox, kcfg_IndividualMenuConfig)
-#: plugins/translucency/package/contents/ui/config.ui:267
+#: plugins/translucency/package/contents/ui/config.ui:277
 #, kde-format
 msgid "Set menu translucency independently"
 msgstr "Définir la transparence de menu indépendamment"
 
 #. i18n: ectx: property (text), widget (QLabel, dropdownmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:285
+#: plugins/translucency/package/contents/ui/config.ui:295
 #, kde-format
 msgid "Dropdown menus:"
 msgstr "Menus déroulants :"
 
 #. i18n: ectx: property (text), widget (QLabel, popupmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:329
+#: plugins/translucency/package/contents/ui/config.ui:339
 #, kde-format
 msgid "Popup menus:"
 msgstr "Menus contextuels :"
 
 #. i18n: ectx: property (text), widget (QLabel, tornoffmenus_label)
-#: plugins/translucency/package/contents/ui/config.ui:367
+#: plugins/translucency/package/contents/ui/config.ui:377
 #, kde-format
 msgid "Torn-off menus:"
 msgstr "Menus déchirés :"
@@ -3676,17 +3653,15 @@ msgstr "Type de règle concernant le déchirement"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "Masquer à partir de la capture vidéo de l'écran"
+msgstr "Masquer dans la capture vidéo"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "Masquer à partir de la capture vidéo de l'écran"
+msgstr "Masquer le type de règle de la copie vidéo"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14
@@ -3958,10 +3933,9 @@ msgid "Maximize Window Horizontally"
 msgstr "Maximiser horizontalement une fenêtre"
 
 #: useractions.cpp:845
-#, fuzzy, kde-format
-#| msgid "Resize Window"
+#, kde-format
 msgid "Restore Window"
-msgstr "Redimensionner une fenêtre"
+msgstr "Restaurer la fenêtre"
 
 #: useractions.cpp:847
 #, kde-format
