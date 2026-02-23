@@ -649,14 +649,14 @@ void OutputConfigurationV2Interface::kde_output_configuration_v2_apply(Resource 
             // disabled outputs to be in negative positions
             const bool enabled = changeset->enabled.value_or(output->isEnabled());
             if (!enabled && (changeset->pos->x() < -1000000 || changeset->pos->y() < -1000000)) {
-                sendFailure(resource, i18n("Position of output %s is way too negative (%d, %d)", output->name(), changeset->pos->x(), changeset->pos->y()));
+                sendFailure(resource, i18n("Position of output %1 is way too negative (%2, %3)", output->name(), changeset->pos->x(), changeset->pos->y()));
                 return;
             } else if (enabled && (changeset->pos->x() < 0 || changeset->pos->y() < 0)) {
-                sendFailure(resource, i18n("Position of enabled output %s is negative (%d, %d)", output->name(), changeset->pos->x(), changeset->pos->y()));
+                sendFailure(resource, i18n("Position of enabled output %1 is negative (%2, %3)", output->name(), changeset->pos->x(), changeset->pos->y()));
                 return;
             }
             if (changeset->pos->x() > 1000000 || changeset->pos->y() > 1000000) {
-                sendFailure(resource, i18n("Position of output %s is way too large (%d, %d)", output->name(), changeset->pos->x(), changeset->pos->y()));
+                sendFailure(resource, i18n("Position of output %1 is way too large (%2, %3)", output->name(), changeset->pos->x(), changeset->pos->y()));
                 return;
             }
         }
