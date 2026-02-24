@@ -184,8 +184,6 @@ public:
 private Q_SLOTS:
     void equals_data();
     void equals();
-    void notEquals_data();
-    void notEquals();
     void empty_data();
     void empty();
     void boundingRect_data();
@@ -243,31 +241,9 @@ void TestRegion::equals()
 
     QCOMPARE(region1 == region2, expected);
     QCOMPARE(region2 == region1, expected);
-}
 
-void TestRegion::notEquals_data()
-{
-    QTest::addColumn<Region>("region1");
-    QTest::addColumn<Region>("region2");
-    QTest::addColumn<bool>("expected");
-
-    QTest::addRow("default and default") << Region() << Region() << false;
-    QTest::addRow("(1,2 3x4) and default") << Region(Rect(1, 2, 3, 4)) << Region() << true;
-    QTest::addRow("(1,2 3x4) and (1,2 3x4)") << Region(Rect(1, 2, 3, 4)) << Region(Rect(1, 2, 3, 4)) << false;
-
-    QTest::addRow("[(1,2 3x4), (5,6 7x8)] and (1,2 3x4)") << (Region(Rect(1, 2, 3, 4)) | Region(Rect(5, 6, 7, 8))) << Region(Rect(1, 2, 3, 4)) << true;
-    QTest::addRow("[(1,2 3x4), (5,6 7x8)] and (5,6 7x8)") << (Region(Rect(1, 2, 3, 4)) | Region(Rect(5, 6, 7, 8))) << Region(Rect(5, 6, 7, 8)) << true;
-    QTest::addRow("[(1,2 3x4), (5,6 7x8)] and [(1,2 3x4), (5,6 7x8)]") << (Region(Rect(1, 2, 3, 4)) | Region(Rect(5, 6, 7, 8))) << (Region(Rect(1, 2, 3, 4)) | Region(Rect(5, 6, 7, 8))) << false;
-}
-
-void TestRegion::notEquals()
-{
-    QFETCH(Region, region1);
-    QFETCH(Region, region2);
-    QFETCH(bool, expected);
-
-    QCOMPARE(region1 != region2, expected);
-    QCOMPARE(region2 != region1, expected);
+    QCOMPARE(region1 != region2, !expected);
+    QCOMPARE(region2 != region1, !expected);
 }
 
 void TestRegion::empty_data()
