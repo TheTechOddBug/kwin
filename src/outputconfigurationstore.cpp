@@ -18,6 +18,7 @@
 #include "utils/orientationsensor.h"
 #include "workspace.h"
 
+#include <QDir>
 #include <QFile>
 #include <QJsonArray>
 #include <QJsonDocument>
@@ -1436,6 +1437,11 @@ void OutputConfigurationStore::save()
     setups["data"] = setupData;
     array.append(setups);
 
+    const QString folderPath = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation);
+    if (!QDir().mkpath(folderPath)) {
+        qCWarning(KWIN_OUTPUT_CONFIG, "Couldn't create config folder for %s", qPrintable(folderPath));
+        return;
+    }
     const QString path = QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + "/kwinoutputconfig.json";
     QFile f(path);
     if (!f.open(QIODevice::WriteOnly)) {
