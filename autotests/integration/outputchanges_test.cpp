@@ -159,10 +159,6 @@ void OutputChangesTest::initTestCase()
 
     QVERIFY(waylandServer()->init(s_socketName));
 
-    // delete the previous output config, to avoid previous runs messing with this one
-    // TODO reset it per test function instead?
-    QFile(QStandardPaths::locate(QStandardPaths::ConfigLocation, QStringLiteral("kwinoutputconfig.json"))).remove();
-
     kwinApp()->start();
     Test::setOutputConfig({
         Rect(0, 0, 1280, 1024),
@@ -177,6 +173,9 @@ void OutputChangesTest::initTestCase()
 
 void OutputChangesTest::init()
 {
+    // delete the previous output config, to avoid previous runs messing with this one
+    workspace()->outputConfigureStore()->clear();
+
     Test::setOutputConfig({
         Rect(0, 0, 1280, 1024),
         Rect(1280, 0, 1280, 1024),
