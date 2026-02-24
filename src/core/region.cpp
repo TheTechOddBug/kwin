@@ -1029,6 +1029,34 @@ Region Region::translated(const QPoint &offset) const
     return result;
 }
 
+RegionF Region::scaled(qreal xScale, qreal yScale) const
+{
+    if (*this == infinite()) {
+        return RegionF::infinite();
+    }
+
+    if (isEmpty()) {
+        return RegionF();
+    } else if (m_rects.isEmpty()) {
+        return RegionF(m_bounds.scaled(xScale, yScale));
+    }
+
+    if (xScale == 1 && yScale == 1) {
+        return RegionF(*this);
+    }
+
+    QList<RectF> scaledRects;
+    scaledRects.reserve(m_rects.size());
+    for (const Rect &rect : m_rects) {
+        scaledRects.append(rect.scaled(xScale, yScale));
+    }
+
+    RegionF result;
+    result.assignSortedRects(scaledRects);
+    result.m_bounds = m_bounds.scaled(xScale, yScale);
+    return result;
+}
+
 Region Region::scaledAndRoundedOut(qreal xScale, qreal yScale) const
 {
     if (*this == infinite()) {

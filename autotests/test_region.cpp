@@ -203,6 +203,8 @@ private Q_SLOTS:
     void intersectedRect();
     void translated_data();
     void translated();
+    void scaled_data();
+    void scaled();
     void scaledAndRoundedOut_data();
     void scaledAndRoundedOut();
     void fromSortedRects();
@@ -525,6 +527,33 @@ void TestRegion::translated()
         const Region translated = region.translated(translation);
         QTEST(translated, "expected");
     }
+}
+
+void TestRegion::scaled_data()
+{
+    QTest::addColumn<Region>("region");
+    QTest::addColumn<qreal>("scale");
+    QTest::addColumn<RegionF>("expected");
+
+    QTest::addRow("empty") << Region() << 2.5 << RegionF();
+
+    QTest::addRow("simple")
+        << Region(Rect(1, 2, 3, 4))
+        << 2.5
+        << RegionF(Rect(1, 2, 3, 4).scaled(2.5));
+
+    QTest::addRow("complex")
+        << (Region(Rect(1, 2, 3, 4)) | Region(Rect(5, 6, 7, 8)))
+        << 2.5
+        << (RegionF(Rect(1, 2, 3, 4).scaled(2.5)) | RegionF(Rect(5, 6, 7, 8).scaled(2.5)));
+}
+
+void TestRegion::scaled()
+{
+    QFETCH(Region, region);
+    QFETCH(qreal, scale);
+
+    QTEST(region.scaled(scale), "expected");
 }
 
 void TestRegion::scaledAndRoundedOut_data()

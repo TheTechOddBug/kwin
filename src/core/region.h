@@ -17,6 +17,8 @@
 namespace KWin
 {
 
+class RegionF;
+
 /*!
  * \class KWin::Region
  * \inmodule KWin
@@ -200,6 +202,20 @@ public:
      * axis, and the \a{offset}\e{.y()} amount along the Y axis.
      */
     Region translated(const QPoint &offset) const;
+
+    /*!
+     * \overload
+     *
+     * Returns a copy of this region that is scaled by the \a scale factor along both the X and Y
+     * axis. Equivalent to scaled(scale, scale).
+     */
+    RegionF scaled(qreal scale) const;
+
+    /*!
+     * Returns a copy of this region that is scaled by the \a xScale factor along the X axis and
+     * the \a yScale along the Y axis.
+     */
+    RegionF scaled(qreal xScale, qreal yScale) const;
 
     /*!
      * \overload
@@ -1008,6 +1024,8 @@ private:
 
     QList<RectF> m_rects;
     RectF m_bounds;
+
+    friend class Region;
 };
 
 inline Region::Region()
@@ -1052,6 +1070,11 @@ inline void Region::translate(int x, int y)
 inline Region Region::translated(int x, int y) const
 {
     return translated(QPoint(x, y));
+}
+
+inline RegionF Region::scaled(qreal scale) const
+{
+    return scaled(scale, scale);
 }
 
 inline Region Region::scaledAndRoundedOut(qreal scale) const
