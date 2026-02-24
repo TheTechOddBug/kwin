@@ -1073,6 +1073,17 @@ public:
     constexpr inline RectF translated(const QPointF &offset) const noexcept;
 
     /*!
+     * Scales this rectangle along both the x and y axis by the given \a scale factor.
+     */
+    constexpr inline void scale(qreal scale) noexcept;
+
+    /*!
+     * Scales this rectangle along the x and y axis by the given \a xScale and \a yScale factors,
+     * respectively.
+     */
+    constexpr inline void scale(qreal xScale, qreal yScale) noexcept;
+
+    /*!
      * Returns a copy of this rectangle with its x and y coordinates scaled by the given \a scale factor.
      */
     constexpr inline RectF scaled(qreal scale) const noexcept;
@@ -2095,6 +2106,19 @@ constexpr inline RectF RectF::translated(qreal dx, qreal dy) const noexcept
 constexpr inline RectF RectF::translated(const QPointF &offset) const noexcept
 {
     return RectF(topLeft() + offset, bottomRight() + offset);
+}
+
+constexpr inline void RectF::scale(qreal factor) noexcept
+{
+    scale(factor, factor);
+}
+
+constexpr inline void RectF::scale(qreal xScale, qreal yScale) noexcept
+{
+    m_left *= xScale;
+    m_right *= xScale;
+    m_top *= yScale;
+    m_bottom *= yScale;
 }
 
 constexpr inline RectF RectF::scaled(qreal scale) const noexcept

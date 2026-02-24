@@ -102,6 +102,8 @@ private Q_SLOTS:
     void translate();
     void translated_data();
     void translated();
+    void scale_data();
+    void scale();
     void scaled_data();
     void scaled();
     void adjust_data();
@@ -1033,6 +1035,32 @@ void TestRectF::translated()
 
     QTEST(rect.translated(offset), "expected");
     QTEST(rect.translated(offset.x(), offset.y()), "expected");
+}
+
+void TestRectF::scale_data()
+{
+    QTest::addColumn<RectF>("rect");
+    QTest::addColumn<qreal>("scale");
+    QTest::addColumn<RectF>("expected");
+
+    QTest::addRow("default x 1.0") << RectF() << 1.0 << RectF();
+    QTest::addRow("default x 2.0") << RectF() << 2.0 << RectF();
+    QTest::addRow("empty x 1.0") << RectF(0, 0, 0, 0) << 1.0 << RectF(0, 0, 0, 0);
+    QTest::addRow("empty x 2.0") << RectF(0, 0, 0, 0) << 2.0 << RectF(0, 0, 0, 0);
+    QTest::addRow("1,1 0,0 x 1.0") << RectF(1, 1, 0, 0) << 1.0 << RectF(1, 1, 0, 0);
+    QTest::addRow("1,1 0,0 x 2.0") << RectF(1, 1, 0, 0) << 2.0 << RectF(2, 2, 0, 0);
+    QTest::addRow("2,3 4,5 x 1.0") << RectF(2, 3, 4, 5) << 1.0 << RectF(2, 3, 4, 5);
+    QTest::addRow("2,3 4,5 x 1.75") << RectF(2, 3, 4, 5) << 1.75 << RectF(3.5, 5.25, 7, 8.75);
+    QTest::addRow("2,3 4,5 x 2.0") << RectF(2, 3, 4, 5) << 2.0 << RectF(4, 6, 8, 10);
+}
+
+void TestRectF::scale()
+{
+    QFETCH(RectF, rect);
+    QFETCH(qreal, scale);
+
+    rect.scale(scale);
+    QTEST(rect, "expected");
 }
 
 void TestRectF::scaled_data()
