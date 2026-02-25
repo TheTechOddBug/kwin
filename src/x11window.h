@@ -199,7 +199,6 @@ public:
     // sets whether the client should be faked as being on all activities (and be shown during session save)
     void setSessionActivityOverride(bool needed);
     bool isClient() const override;
-    bool isOutline() const override;
     bool isUnmanaged() const override;
 
     void cancelFocusOutTimer();
@@ -425,7 +424,6 @@ private:
     int m_blockGeometryUpdates = 0; // > 0 = New geometry is remembered, but not actually set
 
     bool m_unmanaged = false;
-    bool m_outline = false;
     bool m_frameCallbackHeartbeat = false;
     quint64 m_surfaceSerial = 0;
     int m_inflightUnmaps = 0;

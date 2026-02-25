@@ -2055,11 +2055,6 @@ bool X11Window::isUnmanaged() const
     return m_unmanaged;
 }
 
-bool X11Window::isOutline() const
-{
-    return m_outline;
-}
-
 WindowType X11Window::windowType() const
 {
     if (m_unmanaged) {
