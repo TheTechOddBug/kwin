@@ -106,19 +106,23 @@ RegionF BorderRadius::clip(const RegionF &region, const RectF &bounds) const
     RegionF clipped = region;
 
     if (m_topLeft > 0) {
-        clipped = clipped.subtracted(RectF(0, 0, m_topLeft, m_topLeft));
+        clipped -= RectF(QPointF(bounds.left(), bounds.top()),
+                         QPointF(bounds.left() + m_topLeft, bounds.top() + m_topLeft));
     }
 
     if (m_topRight > 0) {
-        clipped = clipped.subtracted(RectF(bounds.x() + bounds.width() - m_topRight, 0, m_topRight, m_topRight));
+        clipped -= RectF(QPointF(bounds.right() - m_topRight, bounds.top()),
+                         QPointF(bounds.right(), bounds.top() + m_topRight));
     }
 
     if (m_bottomRight > 0) {
-        clipped = clipped.subtracted(RectF(bounds.x() + bounds.width() - m_bottomRight, bounds.y() + bounds.height() - m_bottomRight, m_bottomRight, m_bottomRight));
+        clipped -= RectF(QPointF(bounds.right() - m_bottomRight, bounds.bottom() - m_bottomRight),
+                         QPointF(bounds.right(), bounds.bottom()));
     }
 
     if (m_bottomLeft > 0) {
-        clipped = clipped.subtracted(RectF(0, bounds.y() + bounds.height() - m_bottomLeft, m_bottomLeft, m_bottomLeft));
+        clipped -= RectF(QPointF(bounds.left(), bounds.bottom() - m_bottomLeft),
+                         QPointF(bounds.left() + m_bottomLeft, bounds.bottom()));
     }
 
     return clipped;
