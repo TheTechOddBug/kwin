@@ -47,7 +47,8 @@ RuntimeDependencies:
     'plasma/plasma-workspace': '@same' # kscreenlocker needs it
 
 Options:
- ctest-arguments: '--repeat until-pass:3 --timeout 90'
+ ctest-arguments: '--repeat until-pass:3'
+ per-test-timeout: 90
  require-passing-tests-on: ['Linux/Qt6']
  run-tests-on: ['Linux']
  tests-run-in-parallel: True
