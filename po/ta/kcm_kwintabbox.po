@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-10 00:45+0000\n"
+"POT-Creation-Date: 2026-02-26 00:46+0000\n"
 "PO-Revision-Date: 2025-09-28 15:24+0530\n"
 "Last-Translator: Kishore G <kishore96@gmail.com>\n"
 "Language-Team: Tamil <kde-l10n-ta@kde.org>\n"
@@ -294,7 +294,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_DelayTime)
 #: main.ui:704
 #, kde-format
-msgid "Show delay:"
+msgid "Delay:"
 msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DelayTime)

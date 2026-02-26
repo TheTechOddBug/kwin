@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcm_kwintabbox\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-10 00:45+0000\n"
+"POT-Creation-Date: 2026-02-26 00:46+0000\n"
 "PO-Revision-Date: 2026-02-10 12:55+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -305,8 +305,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_DelayTime)
 #: main.ui:704
 #, kde-format
-msgid "Show delay:"
-msgstr "Demora para mostrar:"
+msgid "Delay:"
+msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DelayTime)
 #: main.ui:720
@@ -360,3 +360,6 @@ msgstr "Recorrer las ventanas de la aplicación actual alternativo"
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr ""
 "Recorrer las ventanas de la aplicación actual alternativo (en orden inverso)"
+
+#~ msgid "Show delay:"
+#~ msgstr "Demora para mostrar:"

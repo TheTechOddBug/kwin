@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-10 00:45+0000\n"
+"POT-Creation-Date: 2026-02-26 00:46+0000\n"
 "PO-Revision-Date: 2026-02-10 19:52+0300\n"
 "Last-Translator: Alexander Yavorsky <kekcuha@gmail.com>\n"
 "Language-Team: Russian <kde-russian@lists.kde.ru>\n"
@@ -303,8 +303,8 @@ msgstr "Время ожидания перед выводом переключа
 #. i18n: ectx: property (text), widget (QLabel, label_DelayTime)
 #: main.ui:704
 #, kde-format
-msgid "Show delay:"
-msgstr "Задержка вывода:"
+msgid "Delay:"
+msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DelayTime)
 #: main.ui:720
@@ -357,6 +357,9 @@ msgstr "На одно окно вперёд текущего приложени�
 #, kde-format
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr "На одно окно назад текущего приложения (альтернативный режим)"
+
+#~ msgid "Show delay:"
+#~ msgstr "Задержка вывода:"
 
 #~ msgid "Show Desktop"
 #~ msgstr "Показать рабочий стол"

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-10 00:45+0000\n"
+"POT-Creation-Date: 2026-02-26 00:46+0000\n"
 "PO-Revision-Date: 2026-02-10 11:07+0100\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -305,8 +305,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_DelayTime)
 #: main.ui:704
 #, kde-format
-msgid "Show delay:"
-msgstr "Retard de visualització:"
+msgid "Delay:"
+msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DelayTime)
 #: main.ui:720
@@ -360,3 +360,6 @@ msgstr "Recorre les finestres de l'aplicació actual en alternativa"
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr ""
 "Recorre les finestres de l'aplicació actual en alternativa (a la inversa)"
+
+#~ msgid "Show delay:"
+#~ msgstr "Retard de visualització:"

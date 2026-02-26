@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-10 00:45+0000\n"
+"POT-Creation-Date: 2026-02-26 00:46+0000\n"
 "PO-Revision-Date: 2026-02-19 21:57+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -302,8 +302,8 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QLabel, label_DelayTime)
 #: main.ui:704
 #, kde-format
-msgid "Show delay:"
-msgstr "Erakutsi atzerapena:"
+msgid "Delay:"
+msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DelayTime)
 #: main.ui:720
@@ -357,6 +357,9 @@ msgstr "Ibili uneko aplikazioaren leihoetan zehar beste modu batean"
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr ""
 "Ibili uneko aplikazioaren leihoetan zehar beste modu batean (alderantziz)"
+
+#~ msgid "Show delay:"
+#~ msgstr "Erakutsi atzerapena:"
 
 #~ msgid "Show Desktop"
 #~ msgstr "Erakutsi mahaigaina"

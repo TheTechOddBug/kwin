@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-10 00:45+0000\n"
+"POT-Creation-Date: 2026-02-26 00:46+0000\n"
 "PO-Revision-Date: 2026-02-10 07:35+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -294,8 +294,8 @@ msgstr "დრო მილიწამებში, რომლის შე�
 #. i18n: ectx: property (text), widget (QLabel, label_DelayTime)
 #: main.ui:704
 #, kde-format
-msgid "Show delay:"
-msgstr "დაყოვნების ჩვენება:"
+msgid "Delay:"
+msgstr ""
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DelayTime)
 #: main.ui:720
@@ -348,6 +348,9 @@ msgstr "მიმდინარე აპლიკაციის ფანჯ�
 #, kde-format
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr "მიმდინარე აპლიკაციის ფანჯრებში ალტერნატიული გავლა (პირიქით)"
+
+#~ msgid "Show delay:"
+#~ msgstr "დაყოვნების ჩვენება:"
 
 #~ msgid "Show Desktop"
 #~ msgstr "სამუშაო მაგიდის ჩვენება"

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-24 00:47+0000\n"
-"PO-Revision-Date: 2026-02-16 16:41+0100\n"
+"PO-Revision-Date: 2026-02-25 19:35+0100\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -159,10 +159,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "В цветовия профил липсват TRC тагове"
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "Неуспешно отваряне на ICC профил „%1“"
+msgstr "Не можаха да се обърнат тоналните криви на ICC профила \"%1\""
 
 #: debug_console.cpp:86
 #, kde-format
@@ -1400,11 +1399,9 @@ msgstr ""
 "прозорци. Незаписаните данни ще бъдат загубени.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "&Прекратяване на %1"
+msgstr "Прекратяване на %1…"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1441,7 +1438,7 @@ msgstr "Не отговаря"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "&Подробности"
 
 #: helpers/killer/killer.cpp:133
 #, kde-format
@@ -2830,10 +2827,9 @@ msgstr "Менюта:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
 #: plugins/translucency/package/contents/ui/config.ui:201
-#, fuzzy, kde-format
-#| msgid "Fullscreen windows"
+#, kde-format
 msgid "Exclude fullscreen windows"
-msgstr "Прозорци на цял екран"
+msgstr "Изключване на прозорци на цял екран"
 
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
 #: plugins/translucency/package/contents/ui/config.ui:217
@@ -3598,17 +3594,15 @@ msgstr "Тип правило за разкъсване"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "&Скриване от предаване на екрана"
+msgstr "Скриване при предаване на екрана"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "&Скриване от предаване на екрана"
+msgstr "Правила за скриване при предаване на екрана"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14
@@ -4260,7 +4254,7 @@ msgstr ""
 #: wayland/outputmanagement_v2.cpp:630
 #, kde-format
 msgid "%1 cannot mirror itself"
-msgstr ""
+msgstr "%1 не може да се отрази огледално"
 
 #: wayland/outputmanagement_v2.cpp:637
 #, kde-format
@@ -4274,22 +4268,19 @@ msgstr ""
 "Не може да се добави персонализиран режим с честота на опресняване нула Hz"
 
 #: wayland/outputmanagement_v2.cpp:652
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too negative (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr "Позицията на изхода %s е прекалено отрицателна (%d, %d)"
+msgstr "Позицията на изхода %1 е прекалено отрицателна (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:655
-#, fuzzy, kde-format
-#| msgid "Position of enabled output %s is negative (%d, %d)"
+#, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr "Позицията на изхода %s е отрицателна (%d, %d)"
+msgstr "Позицията на изхода %1 е отрицателна (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:659
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too large (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr "Позицията на изхода %s е прекалено голяма (%d, %d)"
+msgstr "Позицията на изхода %1 е прекалено голяма (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:676
 #, kde-format

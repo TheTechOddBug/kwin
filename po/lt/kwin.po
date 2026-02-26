@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-24 00:47+0000\n"
-"PO-Revision-Date: 2026-02-21 02:13+0200\n"
+"PO-Revision-Date: 2026-02-25 14:10+0200\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -2849,10 +2849,9 @@ msgstr "Meniu:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
 #: plugins/translucency/package/contents/ui/config.ui:201
-#, fuzzy, kde-format
-#| msgid "Fullscreen windows"
+#, kde-format
 msgid "Exclude fullscreen windows"
-msgstr "Viso ekrano langai"
+msgstr "Išbraukti viso ekrano langus"
 
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
 #: plugins/translucency/package/contents/ui/config.ui:217
@@ -4277,7 +4276,7 @@ msgstr ""
 #: wayland/outputmanagement_v2.cpp:630
 #, kde-format
 msgid "%1 cannot mirror itself"
-msgstr ""
+msgstr "%1 negali savęs dubliuoti"
 
 #: wayland/outputmanagement_v2.cpp:637
 #, kde-format
@@ -4291,22 +4290,19 @@ msgstr ""
 "Negalima pridėti tinkintos veiksenos, kurios atnaujinimo dažnis būtų 0 Hz"
 
 #: wayland/outputmanagement_v2.cpp:652
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too negative (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr "Išvedimo %s pozicija yra pernelyg neigiama (%d, %d)"
+msgstr "Išvedimo %1 pozicija yra pernelyg neigiama (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:655
-#, fuzzy, kde-format
-#| msgid "Position of enabled output %s is negative (%d, %d)"
+#, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr "Įjungto išvedimo %s pozicija yra neigiama (%d, %d)"
+msgstr "Įjungto išvedimo %1 pozicija yra neigiama (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:659
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too large (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr "Išvedimo %s pozicija yra pernelyg didelė (%d, %d)"
+msgstr "Išvedimo %1 pozicija yra pernelyg didelė (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:676
 #, kde-format
