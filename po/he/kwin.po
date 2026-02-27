@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-02-24 00:47+0000\n"
-"PO-Revision-Date: 2026-02-23 21:32+0200\n"
+"PO-Revision-Date: 2026-02-26 08:57+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -4247,7 +4247,7 @@ msgstr "השבתת כל צדי הפלט דרך שינויי הגדרות אסו�
 #: wayland/outputmanagement_v2.cpp:630
 #, kde-format
 msgid "%1 cannot mirror itself"
-msgstr ""
+msgstr "%1 לא יכול להיות שיקוף של עצמו"
 
 #: wayland/outputmanagement_v2.cpp:637
 #, kde-format
@@ -4260,22 +4260,19 @@ msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr "לא ניתן להוסיף מצב מותאם אישית עם קצב ריענון של אפס הרץ"
 
 #: wayland/outputmanagement_v2.cpp:652
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too negative (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr "המקום של הפלט %s הוא שלילי מדי (%d, %d)"
+msgstr "המקום של הפלט %1 הוא שלילי מדי (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:655
-#, fuzzy, kde-format
-#| msgid "Position of enabled output %s is negative (%d, %d)"
+#, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr "המקום של הפלט %s שהופעל הוא שלילי (%d, %d)"
+msgstr "המקום של הפלט %1 שהופעל הוא שלילי (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:659
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too large (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr "המקום של הפלט %s הוא גדול מדי (%d, %d)"
+msgstr "המקום של הפלט %1 הוא גדול מדי (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:676
 #, kde-format

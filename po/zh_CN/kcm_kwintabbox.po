@@ -344,6 +344,3 @@ msgstr "遍历当前应用程序窗口备选"
 #, kde-format
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr "遍历当前应用程序窗口备选 (反向)"
-
-#~ msgid "Show delay:"
-#~ msgstr "显示延迟："

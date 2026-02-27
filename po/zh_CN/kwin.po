@@ -148,10 +148,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "ICC 色彩特性文件缺少 TRC 标签"
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "打开 ICC 色彩特性文件“%1”失败"
+msgstr ""
 
 #: debug_console.cpp:86
 #, kde-format
@@ -1383,11 +1382,9 @@ msgstr ""
 "存的数据都将丢失。</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "终止 %1(&T)"
+msgstr ""
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -2799,10 +2796,9 @@ msgstr "菜单："
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
 #: plugins/translucency/package/contents/ui/config.ui:201
-#, fuzzy, kde-format
-#| msgid "Fullscreen windows"
+#, kde-format
 msgid "Exclude fullscreen windows"
-msgstr "全屏窗口"
+msgstr ""
 
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
 #: plugins/translucency/package/contents/ui/config.ui:217
@@ -3567,17 +3563,15 @@ msgstr "画面撕裂规则类型"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "在录屏中隐藏(&H)"
+msgstr ""
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "在录屏中隐藏(&H)"
+msgstr ""
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14
@@ -4240,22 +4234,19 @@ msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr "无法添加一个刷新率为零的自定义模式"
 
 #: wayland/outputmanagement_v2.cpp:652
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too negative (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr "输出 %s 的位置负值偏移过大 (%d, %d)"
+msgstr ""
 
 #: wayland/outputmanagement_v2.cpp:655
-#, fuzzy, kde-format
-#| msgid "Position of enabled output %s is negative (%d, %d)"
+#, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr "启用的输出 %s 的位置是负值 (%d, %d)"
+msgstr ""
 
 #: wayland/outputmanagement_v2.cpp:659
-#, fuzzy, kde-format
-#| msgid "Position of output %s is way too large (%d, %d)"
+#, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr "输出 %s 的位置太大 (%d, %d)"
+msgstr ""
 
 #: wayland/outputmanagement_v2.cpp:676
 #, kde-format
