@@ -10,7 +10,6 @@
 // own
 #include "outline.h"
 // KWin
-#include "compositor.h"
 #include "main.h"
 #include "scripting/scripting.h"
 #include "utils/common.h"
@@ -30,7 +29,6 @@ namespace KWin
 Outline::Outline()
     : m_active(false)
 {
-    connect(Compositor::self(), &Compositor::compositingToggled, this, &Outline::compositingChanged);
 }
 
 Outline::~Outline() = default;
@@ -105,14 +103,6 @@ void Outline::createHelper()
         return;
     }
     m_visual = std::make_unique<OutlineVisual>(this);
-}
-
-void Outline::compositingChanged()
-{
-    m_visual.reset();
-    if (m_active) {
-        show();
-    }
 }
 
 const Rect &Outline::geometry() const

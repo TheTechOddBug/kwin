@@ -100,9 +100,6 @@ public:
 
     bool isActive() const;
 
-private Q_SLOTS:
-    void compositingChanged();
-
 Q_SIGNALS:
     void activeChanged();
     void geometryChanged();
