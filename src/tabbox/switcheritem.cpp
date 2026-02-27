@@ -8,7 +8,6 @@
 */
 #include "switcheritem.h"
 // KWin
-#include "compositor.h"
 #include "core/output.h"
 #include "tabboxhandler.h"
 #include "workspace.h"
@@ -34,7 +33,6 @@ SwitcherItem::SwitcherItem(QObject *parent)
         }
     });
     connect(workspace(), &Workspace::outputsChanged, this, &SwitcherItem::screenGeometryChanged);
-    connect(Compositor::self(), &Compositor::compositingToggled, this, &SwitcherItem::compositingChanged);
 }
 
 SwitcherItem::~SwitcherItem()
