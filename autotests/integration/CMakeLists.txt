@@ -144,7 +144,7 @@ integrationTest(NAME testOutputChanges SRCS outputchanges_test.cpp OPTIONAL_LIBS
 integrationTest(NAME testTiles SRCS tiles_test.cpp OPTIONAL_LIBS XCB::ICCCM)
 integrationTest(NAME testFractionalScaling SRCS fractional_scaling_test.cpp)
 integrationTest(NAME testMoveResize SRCS move_resize_window_test.cpp)
-integrationTest(NAME testPlasmaWindow SRCS plasmawindow_test.cpp OPTIONAL_LIBS XCB::ICCCM)
+integrationTest(NAME testPlasmaWindow SRCS plasmawindow_test.cpp OPTIONAL_LIBS XCB::ICCCM PROPERTIES RUN_SERIAL TRUE)
 integrationTest(NAME testQuickTiling SRCS quick_tiling_test.cpp LIBS KDecoration3::KDecoration OPTIONAL_LIBS XCB::ICCCM)
 integrationTest(NAME testStackingOrder SRCS stacking_order_test.cpp OPTIONAL_LIBS XCB::ICCCM)
 integrationTest(NAME testDbusInterface SRCS dbus_interface_test.cpp OPTIONAL_LIBS XCB::ICCCM)
