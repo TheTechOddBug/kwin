@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-24 00:47+0000\n"
+"POT-Creation-Date: 2026-02-28 00:46+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -54,22 +54,22 @@ msgstr "- 输出已禁用"
 msgid "- Output dimmed"
 msgstr "- 输出已变暗"
 
-#: backends/x11/x11_windowed_backend.cpp:497
+#: backends/x11/x11_windowed_backend.cpp:496
 #, kde-format
 msgid "Press right control to ungrab input"
 msgstr "按右 Ctrl 键释放输入"
 
-#: backends/x11/x11_windowed_backend.cpp:497
+#: backends/x11/x11_windowed_backend.cpp:496
 #, kde-format
 msgid "Press right control key to grab input"
 msgstr "按右 Ctrl 键抓取输入"
 
-#: backends/x11/x11_windowed_backend.cpp:498
+#: backends/x11/x11_windowed_backend.cpp:497
 #, kde-format
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland 显示特效混合器"
 
-#: compositor.cpp:604
+#: compositor.cpp:590
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "由于显卡重置，桌面效果已重启。"
@@ -150,7 +150,7 @@ msgstr "ICC 色彩特性文件缺少 TRC 标签"
 #: core/iccprofile.cpp:534
 #, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr ""
+msgstr "无法反转 ICC 特性文件“%1”的阶调曲线曲线"
 
 #: debug_console.cpp:86
 #, kde-format
@@ -1384,7 +1384,7 @@ msgstr ""
 #: helpers/killer/killdialog.cpp:66
 #, kde-format
 msgid "Terminating %1…"
-msgstr ""
+msgstr "正在终止 %1…"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1421,7 +1421,7 @@ msgstr "没有响应"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "详细信息(&D)"
 
 #: helpers/killer/killer.cpp:133
 #, kde-format
@@ -1553,59 +1553,59 @@ msgstr "禁用配置选项"
 msgid "Indicate that KWin has recently crashed n times"
 msgstr "显示 KWin 最近崩溃了 N 次"
 
-#: main_wayland.cpp:305
+#: main_wayland.cpp:307
 #, kde-format
 msgid "Start a rootless Xwayland server."
 msgstr "启动无 root 权限的 Xwayland 服务器。"
 
-#: main_wayland.cpp:308
+#: main_wayland.cpp:310
 #, kde-format
 msgid ""
 "Name of the Wayland socket to listen on. If not set \"wayland-0\" is used."
 msgstr "要监听的 Wayland 套接字名称。如果未设置，则使用“wayland-0”。"
 
-#: main_wayland.cpp:312
+#: main_wayland.cpp:314
 #, kde-format
 msgid "The X11 Display to use in windowed mode on platform X11."
 msgstr "X11 平台上窗口模式要使用的 X11 显示器。"
 
-#: main_wayland.cpp:316
+#: main_wayland.cpp:318
 #, kde-format
 msgid "The Wayland Display to use in windowed mode on platform Wayland."
 msgstr "Wayland 平台上窗口模式要使用的 Wayland 显示器。"
 
-#: main_wayland.cpp:318
+#: main_wayland.cpp:320
 #, kde-format
 msgid "Render to a virtual framebuffer."
 msgstr "渲染到虚拟帧缓冲区。"
 
-#: main_wayland.cpp:320
+#: main_wayland.cpp:322
 #, kde-format
 msgid "The width for windowed mode. Default width is 1024."
 msgstr "窗口模式的宽度。默认宽度为 1024。"
 
-#: main_wayland.cpp:324
+#: main_wayland.cpp:326
 #, kde-format
 msgid "The height for windowed mode. Default height is 768."
 msgstr "窗口模式的高度。默认高度为 768。"
 
-#: main_wayland.cpp:329
+#: main_wayland.cpp:331
 #, kde-format
 msgid "Whether or not to make windowed mode fullscreen"
 msgstr "是否将窗口模式全屏显示"
 
-#: main_wayland.cpp:333
+#: main_wayland.cpp:335
 #, kde-format
 msgid "The scale for windowed mode. Default value is 1."
 msgstr "窗口模式下的缩放倍数。默认值是 1。"
 
-#: main_wayland.cpp:338
+#: main_wayland.cpp:340
 #, kde-format
 msgid ""
 "The number of windows to open as outputs in windowed mode. Default value is 1"
 msgstr "在窗口模式中作为输出打开的窗口数量。默认值为 1。"
 
-#: main_wayland.cpp:343
+#: main_wayland.cpp:345
 #, kde-format
 msgid ""
 "Wayland socket to use for incoming connections. This can be combined with --"
@@ -1613,70 +1613,70 @@ msgid ""
 msgstr ""
 "用于传入连接的 Wayland 套接字。此套接字可以与 --socket 合并命名该套接字"
 
-#: main_wayland.cpp:347
+#: main_wayland.cpp:349
 #, kde-format
 msgid ""
 "XWayland socket to use for Xwayland's incoming connections. This can be set "
 "multiple times"
 msgstr "用于 Xwayland 传入连接的 XWayland 套接字。此套接字可被多次设置"
 
-#: main_wayland.cpp:351
+#: main_wayland.cpp:353
 #, kde-format
 msgid "Name of the xwayland display that has been pre-set up"
 msgstr "预设置的 xwayland 显示器名称"
 
-#: main_wayland.cpp:355
+#: main_wayland.cpp:357
 #, kde-format
 msgid "Name of the xauthority file "
 msgstr "xauthority 文件名称 "
 
-#: main_wayland.cpp:359
+#: main_wayland.cpp:361
 #, kde-format
 msgid "Exits this instance so it can be restarted by kwin_wayland_wrapper."
 msgstr "退出这个实例以便让 kwin_wayland_wrapper 将其重新启动。"
 
-#: main_wayland.cpp:361
+#: main_wayland.cpp:363
 #, kde-format
 msgid "Render through drm node."
 msgstr "通过 drm 节点渲染。"
 
-#: main_wayland.cpp:362
+#: main_wayland.cpp:364
 #, kde-format
 msgid ""
 "Extract locale information from locale1 rather than the user's configuration"
 msgstr "从 locale1 提取本地化信息，而不从用户配置中提取。"
 
-#: main_wayland.cpp:389
+#: main_wayland.cpp:391
 #, kde-format
 msgid "Input method that KWin starts."
 msgstr "KWin 启动的输入法。"
 
-#: main_wayland.cpp:395
+#: main_wayland.cpp:397
 #, kde-format
 msgid "Starts the session in locked mode."
 msgstr "在锁定模式下启动会话。"
 
-#: main_wayland.cpp:399
+#: main_wayland.cpp:401
 #, kde-format
 msgid "Starts the session without lock screen support."
 msgstr "在没有锁屏支持的状态下启动会话。"
 
-#: main_wayland.cpp:404
+#: main_wayland.cpp:406
 #, kde-format
 msgid "Starts the session without global shortcuts support."
 msgstr "在没有全局快捷键支持的情况状态下启动会话。"
 
-#: main_wayland.cpp:409
+#: main_wayland.cpp:411
 #, kde-format
 msgid "Disable KActivities integration."
 msgstr "禁用 KActivities 集成。"
 
-#: main_wayland.cpp:414
+#: main_wayland.cpp:416
 #, kde-format
 msgid "Exit after the session application, which is started by KWin, closed."
 msgstr "在会话应用程序 (由 KWin 启动) 关闭后退出。"
 
-#: main_wayland.cpp:419
+#: main_wayland.cpp:421
 #, kde-format
 msgid "Applications to start once Wayland and Xwayland server are started"
 msgstr "Wayland 和 Xwayland 服务器启动后立即启动的应用程序"
@@ -2125,25 +2125,25 @@ msgctxt "Duration of rotation"
 msgid "Default"
 msgstr "默认"
 
-#: plugins/mouseclick/mouseclick.cpp:39
+#: plugins/mouseclick/mouseclick.cpp:42
 #: plugins/mouseclick/mouseclick_config.cpp:43
 #, kde-format
 msgid "Toggle Mouse Click Animation"
 msgstr "打开/关闭鼠标点击动效"
 
-#: plugins/mouseclick/mouseclick.cpp:46
+#: plugins/mouseclick/mouseclick.cpp:49
 #, kde-format
 msgctxt "Left mouse button"
 msgid "Left"
 msgstr "左键"
 
-#: plugins/mouseclick/mouseclick.cpp:47
+#: plugins/mouseclick/mouseclick.cpp:50
 #, kde-format
 msgctxt "Middle mouse button"
 msgid "Middle"
 msgstr "中键"
 
-#: plugins/mouseclick/mouseclick.cpp:48
+#: plugins/mouseclick/mouseclick.cpp:51
 #, kde-format
 msgctxt "Right mouse button"
 msgid "Right"
@@ -2798,7 +2798,7 @@ msgstr "菜单："
 #: plugins/translucency/package/contents/ui/config.ui:201
 #, kde-format
 msgid "Exclude fullscreen windows"
-msgstr ""
+msgstr "排除全屏窗口"
 
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
 #: plugins/translucency/package/contents/ui/config.ui:217
@@ -3565,13 +3565,13 @@ msgstr "画面撕裂规则类型"
 #: rulesettings.kcfg:467
 #, kde-format
 msgid "Hide from screencast"
-msgstr ""
+msgstr "在录屏中隐藏"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
 #, kde-format
 msgid "Hide from screencast rule type"
-msgstr ""
+msgstr "在录屏中隐藏规则类型"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14
@@ -4221,7 +4221,7 @@ msgstr "不允许通过配置更改禁用所有输出"
 #: wayland/outputmanagement_v2.cpp:630
 #, kde-format
 msgid "%1 cannot mirror itself"
-msgstr ""
+msgstr "%1 不能镜像自己"
 
 #: wayland/outputmanagement_v2.cpp:637
 #, kde-format
@@ -4236,30 +4236,36 @@ msgstr "无法添加一个刷新率为零的自定义模式"
 #: wayland/outputmanagement_v2.cpp:652
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr ""
+msgstr "输出 %1 的位置负值偏移过大 (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:655
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr ""
+msgstr "启用的输出 %1 的位置是负值 (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:659
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr ""
+msgstr "输出 %1 的位置太大 (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:676
 #, kde-format
 msgid "The driver rejected the output configuration"
 msgstr "驱动程序拒绝了输出配置"
 
-#: window.cpp:3140
+#: wayland/outputmanagement_v2.cpp:679
+#, fuzzy, kde-format
+#| msgid "The Alt key is now active."
+msgid "The session is not active"
+msgstr "Alt 键已激活。"
+
+#: window.cpp:3125
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "(没有响应)"
 
-#: workspace.cpp:1745
+#: workspace.cpp:1748
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""

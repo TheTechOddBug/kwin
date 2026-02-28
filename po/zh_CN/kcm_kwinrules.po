@@ -570,7 +570,7 @@ msgstr "允许画面撕裂"
 #: rulesmodel.cpp:732
 #, kde-format
 msgid "Hide from Screencast"
-msgstr ""
+msgstr "在录屏中隐藏"
 
 #: rulesmodel.cpp:784
 #, kde-format

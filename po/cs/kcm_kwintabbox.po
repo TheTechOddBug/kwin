@@ -297,7 +297,7 @@ msgstr ""
 #: main.ui:704
 #, kde-format
 msgid "Delay:"
-msgstr ""
+msgstr "Prodleva:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, kcfg_DelayTime)
 #: main.ui:720
