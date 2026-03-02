@@ -27,6 +27,10 @@ set_target_properties(kwin PROPERTIES
 target_compile_definitions(kwin PRIVATE
     -DTRANSLATION_DOMAIN=\"kwin\"
 )
+target_compile_definitions(kwin PUBLIC
+    -DVULKAN_HPP_NO_EXCEPTIONS=1
+    -DVULKAN_HPP_ASSERT_ON_RESULT=void
+)
 
 target_sources(kwin PRIVATE
     3rdparty/xcursor.c
@@ -221,6 +225,9 @@ target_sources(kwin PRIVATE
     virtualdesktops.cpp
     virtualdesktopsdbustypes.cpp
     virtualkeyboard_dbus.cpp
+    vulkan/vulkan_device.cpp
+    vulkan/vulkan_logging.cpp
+    vulkan/vulkan_texture.cpp
     wayland_server.cpp
     waylandshellintegration.cpp
     waylandwindow.cpp
@@ -245,6 +252,7 @@ target_link_libraries(kwin
         KF6::WindowSystem
         epoxy::epoxy
         Libdrm::Libdrm
+        Vulkan::Vulkan
 
     PRIVATE
         Qt::Concurrent
@@ -624,8 +632,8 @@ install(FILES
     opengl/eglswapchain.h
     opengl/eglutils_p.h
     opengl/glframebuffer.h
-    opengl/gllut3D.h
     opengl/gllut.h
+    opengl/gllut3D.h
     opengl/glplatform.h
     opengl/glrendertimequery.h
     opengl/glshader.h
@@ -667,6 +675,13 @@ install(FILES
     scene/windowitem.h
     scene/workspacescene.h
     DESTINATION ${KDE_INSTALL_INCLUDEDIR}/kwin/scene COMPONENT Devel
+)
+
+install(FILES
+    vulkan/vulkan_device.h
+    vulkan/vulkan_logging.h
+    vulkan/vulkan_texture.h
+    DESTINATION ${KDE_INSTALL_INCLUDEDIR}/kwin/vulkan COMPONENT Devel
 )
 
 ecm_generate_qdoc(kwin kwin.qdocconf)

@@ -9,6 +9,7 @@
 #include "virtual_backend.h"
 
 #include "core/drmdevice.h"
+#include "core/gpumanager.h"
 #include "core/renderdevice.h"
 #include "virtual_egl_backend.h"
 #include "virtual_output.h"

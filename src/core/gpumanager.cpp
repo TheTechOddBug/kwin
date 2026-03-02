@@ -9,6 +9,7 @@
 #include "gpumanager.h"
 #include "drmdevice.h"
 #include "utils/common.h"
+#include "utils/envvar.h"
 #include "utils/udev.h"
 
 #include <QSocketNotifier>
@@ -36,6 +37,7 @@ GpuManager::GpuManager()
 
 GpuManager::~GpuManager()
 {
+    m_renderDevices.clear();
 }
 
 const std::vector<std::unique_ptr<RenderDevice>> &GpuManager::renderDevices() const
