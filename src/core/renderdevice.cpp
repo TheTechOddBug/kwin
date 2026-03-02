@@ -66,12 +66,25 @@ static vk::raii::Instance createVulkanInstance(const vk::raii::Context &context)
     return std::move(instance);
 }
 
+static FormatModifierMap getImportFormats(EglDisplay *eglDisplay, VulkanDevice *vulkanDevice)
+{
+    FormatModifierMap ret;
+    if (eglDisplay) {
+        ret = eglDisplay->allSupportedDrmFormats();
+    }
+    if (vulkanDevice) {
+        ret = ret.merged(vulkanDevice->supportedFormats());
+    }
+    return ret;
+}
+
 RenderDevice::RenderDevice(std::unique_ptr<DrmDevice> &&device, std::unique_ptr<EglDisplay> &&display)
     : m_device(std::move(device))
     , m_display(std::move(display))
     , m_vulkanInstance(createVulkanInstance(m_vulkanContext))
 {
     createVulkanDevice();
+    m_allImportableFormats = getImportFormats(m_display.get(), m_vulkanDevice.get());
 }
 
 RenderDevice::~RenderDevice()
@@ -148,6 +161,11 @@ EGLImageKHR RenderDevice::importBufferAsImage(GraphicsBuffer *buffer, int plane,
 VulkanDevice *RenderDevice::vulkanDevice() const
 {
     return m_vulkanDevice.get();
+}
+
+const FormatModifierMap &RenderDevice::allImportableFormats() const
+{
+    return m_allImportableFormats;
 }
 
 static constexpr std::array s_requiredVulkanExtensions = {
