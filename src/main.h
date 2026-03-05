@@ -17,7 +17,6 @@
 #include <KSharedConfig>
 #include <memory>
 // Qt
-#include <QAbstractNativeEventFilter>
 #include <QApplication>
 #include <QProcessEnvironment>
 
@@ -46,12 +45,6 @@ class Compositor;
 class Window;
 class WorkspaceScene;
 class GpuManager;
-
-class XcbEventFilter : public QAbstractNativeEventFilter
-{
-public:
-    bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) override;
-};
 
 class X11EventFilterContainer : public QObject
 {
@@ -232,9 +225,6 @@ public:
     bool supportsGlobalShortcuts() const;
     void setSupportsGlobalShortcuts(bool set);
 
-    void installNativeX11EventFilter();
-    void removeNativeX11EventFilter();
-
     void createAtoms();
     void destroyAtoms();
 
@@ -331,7 +321,6 @@ private:
 #if KWIN_BUILD_X11
     QList<QPointer<X11EventFilterContainer>> m_eventFilters;
     QList<QPointer<X11EventFilterContainer>> m_genericEventFilters;
-    std::unique_ptr<XcbEventFilter> m_eventFilter;
 #endif
     std::unique_ptr<WorkspaceScene> m_scene;
     bool m_followLocale1 = false;

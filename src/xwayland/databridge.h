@@ -8,11 +8,10 @@
 */
 #pragma once
 
-#include "effect/globals.h"
-
-#include <QAbstractNativeEventFilter>
 #include <QObject>
 #include <QPoint>
+
+#include <xcb/xcb.h>
 
 namespace KWin
 {
@@ -33,7 +32,7 @@ class Primary;
  *
  * Exists only once per Xwayland session.
  */
-class DataBridge : public QObject, public QAbstractNativeEventFilter
+class DataBridge : public QObject
 {
     Q_OBJECT
 
@@ -47,7 +46,7 @@ public:
         return m_dnd;
     }
 
-    bool nativeEventFilter(const QByteArray &eventType, void *message, qintptr *result) override;
+    bool dispatchEvent(xcb_generic_event_t *event);
 
 private:
     void init();
