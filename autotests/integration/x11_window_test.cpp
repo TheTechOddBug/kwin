@@ -105,6 +105,7 @@ private Q_SLOTS:
     void testCloseInactiveTransient();
     void testCloseGroupTransient();
     void testCloseInactiveGroupTransient();
+    void testTransientOnAnotherOutputWithPerOutputDesktops();
     void testModal();
     void testGroupModal();
     void testCloseModal();
@@ -2528,6 +2529,37 @@ void X11WindowTest::testCloseInactiveGroupTransient()
     xcb_flush(c.get());
     QVERIFY(dialogClosedSpy.wait());
     QCOMPARE(workspace()->activeWindow(), unrelated);
+}
+
+void X11WindowTest::testTransientOnAnotherOutputWithPerOutputDesktops()
+{
+    // This test verifies that when a transient is opened on another output, it's opened on that output's current desktop instead of the parent's desktop.
+
+    VirtualDesktopManager::self()->setCount(2);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(true);
+
+    auto outputs = workspace()->outputs();
+    QCOMPARE(outputs.count(), 2);
+    const auto desktops = VirtualDesktopManager::self()->desktops();
+    VirtualDesktopManager::self()->setCurrent(desktops[0], outputs[0]);
+    VirtualDesktopManager::self()->setCurrent(desktops[1], outputs[1]);
+
+    // Create a parent and a child windows.
+    Test::XcbConnectionPtr c = Test::createX11Connection();
+    QVERIFY(!xcb_connection_has_error(c.get()));
+    X11Window *parent = createWindow(c.get(), Rect(0, 0, 100, 200));
+    X11Window *child = createWindow(c.get(), Rect(Xcb::toXNative(1500), 0, 100, 200), [&c, &parent](xcb_window_t windowId) {
+        xcb_icccm_set_wm_transient_for(c.get(), windowId, parent->window());
+    });
+    QVERIFY(child->isTransient());
+    QCOMPARE(child->transientFor(), parent);
+    QVERIFY(parent->hasTransient(child, true));
+    QCOMPARE(parent->output(), outputs[0]);
+    QCOMPARE(parent->desktops(), {desktops[0]});
+    QCOMPARE(child->output(), outputs[1]);
+    QCOMPARE(child->desktops(), {desktops[1]});
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[0]), desktops[0]);
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[1]), desktops[1]);
 }
 
 void X11WindowTest::testModal()
