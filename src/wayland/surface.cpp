@@ -708,6 +708,8 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
     if (!bufferRef) {
         // we can't present an unmapped surface
         current->presentationFeedback.reset();
+        // fifo barriers on an unmapped surface would never be cleared
+        current->fifoBarrier = false;
     }
 
     if (current->buffer) {
