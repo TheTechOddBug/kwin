@@ -48,6 +48,8 @@ private Q_SLOTS:
     void testFifoOnSubsurfaceOfUnmappedToplevel();
     void testFifoOnSubsurfaceOfUnmappedSubsurface();
     void testFifoOnSubsurfaceOfUnmappedSubsurfaceInitiallyMapped();
+    void testFifoWithExplicitReset_data();
+    void testFifoWithExplicitReset();
 };
 
 class FifoV1Surface : public QObject, public QtWayland::wp_fifo_v1
@@ -550,6 +552,55 @@ void FifoTest::testFifoOnSubsurfaceOfUnmappedSubsurfaceInitiallyMapped()
     QVERIFY(spy0.wait());
     QVERIFY(spy1.count() || spy1.wait());
     QVERIFY(spy2.count() || spy2.wait());
+}
+
+void FifoTest::testFifoWithExplicitReset_data()
+{
+    QTest::addColumn<bool>("destroyShellFirst");
+
+    QTest::addRow("destroy shell first") << true;
+    QTest::addRow("unmap first") << false;
+}
+
+void FifoTest::testFifoWithExplicitReset()
+{
+    // This test verifies that pending transactions with fifo barriers
+    // will not be stuck when the shell surface is destroyed
+
+    std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
+    std::unique_ptr<Test::XdgToplevel> shellSurface(Test::createXdgToplevelSurface(surface.get()));
+    auto window = Test::renderAndWaitForShown(surface.get(), QSize(100, 50), Qt::blue);
+    QVERIFY(window);
+
+    auto fifo = std::make_unique<FifoV1Surface>(Test::fifoManager()->get_fifo(*surface));
+
+    std::array<std::unique_ptr<Test::WpPresentationFeedback>, 2> frames;
+    for (int i = 0; i < 2; i++) {
+        frames[i] = std::make_unique<Test::WpPresentationFeedback>(Test::presentationTime()->feedback(*surface));
+        fifo->set_barrier();
+        fifo->wait_barrier();
+        surface->commit(KWayland::Client::Surface::CommitFlag::None);
+    }
+
+    QFETCH(bool, destroyShellFirst);
+    if (destroyShellFirst) {
+        shellSurface.reset();
+    }
+    surface->attachBuffer(static_cast<wl_buffer *>(nullptr), QPoint());
+    surface->commit(KWayland::Client::Surface::CommitFlag::None);
+    shellSurface.reset();
+
+    // the surface transactions must not be blocked anymore
+    QSignalSpy first(frames[0].get(), &Test::WpPresentationFeedback::discarded);
+    QSignalSpy second(frames[1].get(), &Test::WpPresentationFeedback::discarded);
+    QVERIFY(first.wait());
+    QVERIFY(second.count() || second.wait());
+
+    shellSurface = Test::createXdgToplevelSurface(surface.get());
+    fifo->set_barrier();
+    fifo->wait_barrier();
+    auto window2 = Test::renderAndWaitForShown(surface.get(), QSize(100, 50), Qt::blue);
+    QVERIFY(window2 && window2->isShown());
 }
 
 }
