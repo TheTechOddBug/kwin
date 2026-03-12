@@ -109,7 +109,7 @@ TextInputChangeCause convertChangeCause(uint32_t cause)
 
 void TextInputV3State::resetPending()
 {
-    pending.cursorRectangle = Rect();
+    pending.cursorRectangle = RectF();
     pending.surroundingTextChangeCause = TextInputChangeCause::InputMethod;
     pending.contentHints = TextInputContentHints(TextInputContentHint::None);
     pending.contentPurpose = TextInputContentPurpose::Normal;
@@ -372,11 +372,14 @@ void TextInputV3InterfacePrivate::zwp_text_input_v3_set_cursor_rectangle(Resourc
     if (!state) {
         return;
     }
+    if (!surface) {
+        return;
+    }
     // zwp_text_input_v3_set_cursor_rectangle is no-op if enabled request is not pending
     if (!state->pending.enabled) {
         return;
     }
-    state->pending.cursorRectangle = Rect(x, y, width, height);
+    state->pending.cursorRectangle = Rect(x, y, width, height).scaled(1.0 / surface->scaleOverride());
 }
 
 void TextInputV3InterfacePrivate::zwp_text_input_v3_set_text_change_cause(Resource *resource, uint32_t cause)
@@ -532,7 +535,7 @@ QPointer<SurfaceInterface> TextInputV3Interface::surface() const
     return d->surface;
 }
 
-Rect TextInputV3Interface::cursorRectangle() const
+RectF TextInputV3Interface::cursorRectangle() const
 {
     if (auto state = d->stateForFocusedSurface()) {
         return state->cursorRectangle;

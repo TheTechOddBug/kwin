@@ -25,7 +25,7 @@ struct TextInputV3State
 
     struct
     {
-        Rect cursorRectangle;
+        RectF cursorRectangle;
         TextInputChangeCause surroundingTextChangeCause = TextInputChangeCause::InputMethod;
         TextInputContentHints contentHints = TextInputContentHint::None;
         TextInputContentPurpose contentPurpose = TextInputContentPurpose::Normal;
@@ -38,7 +38,7 @@ struct TextInputV3State
         quint32 preeditCursorEnd = 0;
     } pending;
 
-    Rect cursorRectangle;
+    RectF cursorRectangle;
     TextInputContentHints contentHints = TextInputContentHint::None;
     TextInputContentPurpose contentPurpose = TextInputContentPurpose::Normal;
 
