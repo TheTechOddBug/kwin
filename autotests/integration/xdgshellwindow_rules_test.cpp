@@ -163,6 +163,9 @@ private Q_SLOTS:
     void testMatchAfterNameChange();
     void testNotEnabled();
 
+    void testMatchTransientParent_data();
+    void testMatchTransientParent();
+
 private:
     void createTestWindow(ClientFlags flags = None);
     void mapClientToSurface(QSize clientSize, ClientFlags flags = None);
@@ -3161,6 +3164,59 @@ void TestXdgShellWindowRules::testCloseableForceTemporarily()
     QVERIFY(m_window->isCloseable());
 
     destroyTestWindow();
+}
+
+void TestXdgShellWindowRules::testMatchTransientParent_data()
+{
+    QTest::addColumn<bool>("hasTransientParent");
+
+    QTest::newRow("has transient") << true;
+    QTest::newRow("does not have transient") << false;
+}
+
+void TestXdgShellWindowRules::testMatchTransientParent()
+{
+    QFETCH(bool, hasTransientParent);
+
+    const QString ruleGroupName = QStringLiteral("transient-test-rule");
+    m_config->group(QStringLiteral("General")).writeEntry("rules", QStringList{ruleGroupName});
+    KConfigGroup group = m_config->group(ruleGroupName);
+
+    group.writeEntry("above", true);
+    group.writeEntry("aboverule", int(Rules::Force));
+
+    group.writeEntry("wmclass", "org.kde.foo");
+    group.writeEntry("wmclasscomplete", false);
+    group.writeEntry("wmclassmatch", int(Rules::ExactMatch));
+    group.writeEntry("hastransientparent", hasTransientParent);
+    group.writeEntry("hastransientparentmatch", int(Rules::ExactBoolMatch));
+    group.sync();
+
+    workspace()->slotReconfigure();
+
+    std::unique_ptr<KWayland::Client::Surface> parentSurface(Test::createSurface());
+    std::unique_ptr<Test::XdgToplevel> parentToplevel(Test::createXdgToplevelSurface(parentSurface.get()));
+
+    auto surfaceWithParent = Test::createSurface();
+    auto toplevelWithParent = Test::createXdgToplevelSurface(surfaceWithParent.get(), [&parentToplevel](Test::XdgToplevel *toplevel) {
+        toplevel->set_app_id(QStringLiteral("org.kde.foo"));
+        toplevel->set_parent(parentToplevel->object());
+    });
+
+    auto windowWithParent = Test::renderAndWaitForShown(surfaceWithParent.get(), QSize(100, 50), Qt::blue);
+    QVERIFY(windowWithParent);
+    QVERIFY(windowWithParent->isActive());
+    QCOMPARE(windowWithParent->keepAbove(), hasTransientParent);
+
+    auto surfaceWithOutParent = Test::createSurface();
+    auto toplevelWithOutParent = Test::createXdgToplevelSurface(surfaceWithOutParent.get(), [](Test::XdgToplevel *toplevel) {
+        toplevel->set_app_id(QStringLiteral("org.kde.foo"));
+    });
+
+    auto windowWithOutParent = Test::renderAndWaitForShown(surfaceWithOutParent.get(), QSize(100, 50), Qt::green);
+    QVERIFY(windowWithOutParent);
+    QVERIFY(windowWithOutParent->isActive());
+    QCOMPARE(windowWithOutParent->keepAbove(), !hasTransientParent);
 }
 
 WAYLANDTEST_MAIN(TestXdgShellWindowRules)
