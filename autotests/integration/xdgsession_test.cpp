@@ -64,8 +64,6 @@ void TestXdgSession::initTestCase()
     qRegisterMetaType<KWin::Window *>();
     qRegisterMetaType<KWayland::Client::Output *>();
 
-    qputenv("KWIN_WAYLAND_SUPPORT_XX_SESSION_MANAGER", "1");
-
     QVERIFY(waylandServer()->init(qAppName()));
 
     kwinApp()->start();

@@ -93,7 +93,7 @@ qt6_generate_wayland_protocol_client_sources(xdgsessiontest
     PRIVATE_CODE
     NO_INCLUDE_CORE_ONLY
     FILES
-     ${PROJECT_SOURCE_DIR}/src/wayland/protocols/xx-session-management-v1.xml
+     ${WaylandProtocols_DATADIR}/staging/xdg-session-management/xdg-session-management-v1.xml
      ${WaylandProtocols_DATADIR}/stable/xdg-shell/xdg-shell.xml
 )
 target_link_libraries(xdgsessiontest

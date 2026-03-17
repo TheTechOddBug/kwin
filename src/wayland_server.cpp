@@ -377,13 +377,10 @@ bool WaylandServer::init()
     m_tabletManagerV2 = new TabletManagerV2Interface(m_display, m_display);
     m_keyboardShortcutsInhibitManager = new KeyboardShortcutsInhibitManagerV1Interface(m_display, m_display);
 
-    if (qEnvironmentVariableIntValue("KWIN_WAYLAND_SUPPORT_XX_SESSION_MANAGER") == 1) {
-        const int defaultStoreSizeInBytes = 5 * 1024 * 1024;
-        const int expectedSessionSizeInBytes = 512;
-        auto storage = std::make_unique<XdgSessionStorageV1>(QStringLiteral("kwinsession"), defaultStoreSizeInBytes, expectedSessionSizeInBytes);
-
-        new XdgSessionManagerV1Interface(m_display, std::move(storage), m_display);
-    }
+    const int defaultStoreSizeInBytes = 5 * 1024 * 1024;
+    const int expectedSessionSizeInBytes = 512;
+    auto storage = std::make_unique<XdgSessionStorageV1>(QStringLiteral("kwinsession"), defaultStoreSizeInBytes, expectedSessionSizeInBytes);
+    new XdgSessionManagerV1Interface(m_display, std::move(storage), m_display);
 
     m_xdgDecorationManagerV1 = new XdgDecorationManagerV1Interface(m_display, m_display);
     connect(m_xdgDecorationManagerV1, &XdgDecorationManagerV1Interface::decorationCreated, this, [this](XdgToplevelDecorationV1Interface *decoration) {
