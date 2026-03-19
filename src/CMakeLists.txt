@@ -164,6 +164,7 @@ target_sources(kwin PRIVATE
     rulebooksettings.cpp
     rules.cpp
     scene/atlas.cpp
+    scene/backgroundeffectitem.cpp
     scene/borderoutline.cpp
     scene/borderradius.cpp
     scene/cursoritem.cpp
@@ -648,14 +649,15 @@ install(FILES
 
 install(FILES
     scene/atlas.h
+    scene/backgroundeffectitem.h
     scene/borderoutline.h
     scene/borderradius.h
     scene/cursoritem.h
     scene/decorationitem.h
     scene/dndiconitem.h
     scene/imageitem.h
-    scene/itemgeometry.h
     scene/item.h
+    scene/itemgeometry.h
     scene/itemrenderer.h
     scene/itemrenderer_opengl.h
     scene/itemrenderer_qpainter.h
