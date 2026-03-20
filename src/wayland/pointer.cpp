@@ -82,6 +82,7 @@ void PointerInterfacePrivate::pointer_set_cursor(Resource *resource, uint32_t se
         } else {
             surface->setRole(&cursorRole);
         }
+        surface->nextRoleGeneration();
     }
 
     if (!cursor) {
@@ -406,6 +407,9 @@ PointerSurfaceCursor::PointerSurfaceCursor()
 
 PointerSurfaceCursor::~PointerSurfaceCursor()
 {
+    if (d->surface) {
+        d->surface->nextRoleGeneration();
+    }
 }
 
 QPointF PointerSurfaceCursor::hotspot() const
