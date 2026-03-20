@@ -45,6 +45,9 @@ private Q_SLOTS:
     void testFifoOnSubsurfaces();
     void testBarrierNotClearedByEmptyCommit();
     void testFifoOnUnmappedSurface();
+    void testFifoOnSubsurfaceOfUnmappedToplevel();
+    void testFifoOnSubsurfaceOfUnmappedSubsurface();
+    void testFifoOnSubsurfaceOfUnmappedSubsurfaceInitiallyMapped();
 };
 
 class FifoV1Surface : public QObject, public QtWayland::wp_fifo_v1
@@ -434,6 +437,113 @@ void FifoTest::testFifoOnUnmappedSurface()
     window.m_surface->commit(KWayland::Client::Surface::CommitFlag::None);
 
     // all frames should be immediately discarded
+    QSignalSpy spy0(frames[0].get(), &Test::WpPresentationFeedback::discarded);
+    QSignalSpy spy1(frames[1].get(), &Test::WpPresentationFeedback::discarded);
+    QSignalSpy spy2(frames[2].get(), &Test::WpPresentationFeedback::discarded);
+    QVERIFY(spy0.wait());
+    QVERIFY(spy1.count() || spy1.wait());
+    QVERIFY(spy2.count() || spy2.wait());
+}
+
+void FifoTest::testFifoOnSubsurfaceOfUnmappedToplevel()
+{
+    // This test verifies that transactions on subsurfaces of a toplevel
+    // that is never mapped don't get stuck because of fifo barriers
+
+    Test::XdgToplevelWindow window;
+
+    auto surface = Test::createSurface();
+    auto subsurface = Test::createSubSurface(surface.get(), window.m_surface.get());
+    subsurface->setMode(KWayland::Client::SubSurface::Mode::Desynchronized);
+    std::array<std::unique_ptr<Test::WpPresentationFeedback>, 3> frames;
+
+    Test::render(surface.get(), QSize(100, 100), Qt::blue);
+
+    auto fifo = std::make_unique<FifoV1Surface>(Test::fifoManager()->get_fifo(*surface));
+    for (size_t i = 0; i < frames.size(); i++) {
+        fifo->set_barrier();
+        fifo->wait_barrier();
+        frames[i] = std::make_unique<Test::WpPresentationFeedback>(Test::presentationTime()->feedback(*surface));
+        surface->commit(KWayland::Client::Surface::CommitFlag::None);
+    }
+    surface->commit(KWayland::Client::Surface::CommitFlag::None);
+
+    QSignalSpy spy0(frames[0].get(), &Test::WpPresentationFeedback::discarded);
+    QSignalSpy spy1(frames[1].get(), &Test::WpPresentationFeedback::discarded);
+    QSignalSpy spy2(frames[2].get(), &Test::WpPresentationFeedback::discarded);
+    QVERIFY(spy0.wait());
+    QVERIFY(spy1.count() || spy1.wait());
+    QVERIFY(spy2.count() || spy2.wait());
+}
+
+void FifoTest::testFifoOnSubsurfaceOfUnmappedSubsurface()
+{
+    // This test verifies that transactions on subsurfaces of a subsurface
+    // that is never mapped don't get stuck because of fifo barriers
+
+    Test::XdgToplevelWindow window;
+    QVERIFY(window.show());
+
+    auto parentSurface = Test::createSurface();
+    auto parentSubsurface = Test::createSubSurface(parentSurface.get(), window.m_surface.get());
+    parentSubsurface->setMode(KWayland::Client::SubSurface::Mode::Desynchronized);
+
+    auto surface = Test::createSurface();
+    auto subsurface = Test::createSubSurface(surface.get(), parentSurface.get());
+    subsurface->setMode(KWayland::Client::SubSurface::Mode::Desynchronized);
+    std::array<std::unique_ptr<Test::WpPresentationFeedback>, 3> frames;
+
+    Test::render(surface.get(), QSize(100, 100), Qt::blue);
+
+    auto fifo = std::make_unique<FifoV1Surface>(Test::fifoManager()->get_fifo(*surface));
+    for (size_t i = 0; i < frames.size(); i++) {
+        fifo->set_barrier();
+        fifo->wait_barrier();
+        frames[i] = std::make_unique<Test::WpPresentationFeedback>(Test::presentationTime()->feedback(*surface));
+        surface->commit(KWayland::Client::Surface::CommitFlag::None);
+    }
+    surface->commit(KWayland::Client::Surface::CommitFlag::None);
+
+    QSignalSpy spy0(frames[0].get(), &Test::WpPresentationFeedback::discarded);
+    QSignalSpy spy1(frames[1].get(), &Test::WpPresentationFeedback::discarded);
+    QSignalSpy spy2(frames[2].get(), &Test::WpPresentationFeedback::discarded);
+    QVERIFY(spy0.wait());
+    QVERIFY(spy1.count() || spy1.wait());
+    QVERIFY(spy2.count() || spy2.wait());
+}
+
+void FifoTest::testFifoOnSubsurfaceOfUnmappedSubsurfaceInitiallyMapped()
+{
+    // This test verifies that transactions on subsurfaces of a subsurface
+    // that gets mapped after being mapped don't get stuck because of fifo barriers
+
+    Test::XdgToplevelWindow window;
+    QVERIFY(window.show());
+
+    auto parentSurface = Test::createSurface();
+    auto parentSubsurface = Test::createSubSurface(parentSurface.get(), window.m_surface.get());
+    parentSubsurface->setMode(KWayland::Client::SubSurface::Mode::Desynchronized);
+    Test::render(parentSurface.get(), QSize(100, 100), Qt::red);
+
+    auto surface = Test::createSurface();
+    auto subsurface = Test::createSubSurface(surface.get(), parentSurface.get());
+    subsurface->setMode(KWayland::Client::SubSurface::Mode::Desynchronized);
+    std::array<std::unique_ptr<Test::WpPresentationFeedback>, 3> frames;
+
+    Test::render(surface.get(), QSize(100, 100), Qt::blue);
+
+    auto fifo = std::make_unique<FifoV1Surface>(Test::fifoManager()->get_fifo(*surface));
+    // queue some commits
+    for (size_t i = 0; i < frames.size(); i++) {
+        fifo->set_barrier();
+        fifo->wait_barrier();
+        frames[i] = std::make_unique<Test::WpPresentationFeedback>(Test::presentationTime()->feedback(*surface));
+        surface->commit(KWayland::Client::Surface::CommitFlag::None);
+    }
+    // and unmap the parent surface
+    parentSurface->attachBuffer((wl_buffer *)nullptr);
+    parentSurface->commit(KWayland::Client::Surface::CommitFlag::None);
+
     QSignalSpy spy0(frames[0].get(), &Test::WpPresentationFeedback::discarded);
     QSignalSpy spy1(frames[1].get(), &Test::WpPresentationFeedback::discarded);
     QSignalSpy spy2(frames[2].get(), &Test::WpPresentationFeedback::discarded);

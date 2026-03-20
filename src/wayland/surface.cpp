@@ -705,12 +705,6 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
     if (bufferRef && current->releasePoint) {
         bufferRef->addReleasePoint(current->releasePoint);
     }
-    if (!bufferRef) {
-        // we can't present an unmapped surface
-        current->presentationFeedback.reset();
-        // fifo barriers on an unmapped surface would never be cleared
-        current->fifoBarrier = false;
-    }
 
     if (current->buffer) {
         bufferSourceBox = computeBufferSourceBox();
@@ -751,6 +745,27 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
         inputRegion = RegionF();
         opaqueRegion = RegionF();
     }
+    if (visibilityChanged) {
+        updateEffectiveMapped();
+    }
+    if (!q->isMapped()) {
+        // we can't present an unmapped surface
+        current->presentationFeedback.reset();
+        // fifo barriers on an unmapped surface would never be cleared
+        current->fifoBarrier = false;
+        // Since transactions get applied on child surfaces first and ancestors
+        // afterwards, we also need to apply the same on all child surfaces
+        for (SubSurfaceInterface *child : std::as_const(current->subsurface.below)) {
+            auto priv = SurfaceInterfacePrivate::get(child->surface());
+            priv->current->presentationFeedback.reset();
+            priv->current->fifoBarrier = false;
+        }
+        for (SubSurfaceInterface *child : std::as_const(current->subsurface.above)) {
+            auto priv = SurfaceInterfacePrivate::get(child->surface());
+            priv->current->presentationFeedback.reset();
+            priv->current->fifoBarrier = false;
+        }
+    }
 
     if (opaqueRegionChanged) {
         Q_EMIT q->opaqueChanged(opaqueRegion);
@@ -760,9 +775,6 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
     }
     if (transformChanged) {
         Q_EMIT q->bufferTransformChanged(current->bufferTransform);
-    }
-    if (visibilityChanged) {
-        updateEffectiveMapped();
     }
     if (bufferSourceBox != oldBufferSourceBox) {
         Q_EMIT q->bufferSourceBoxChanged();
