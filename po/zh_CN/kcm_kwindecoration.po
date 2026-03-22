@@ -130,7 +130,7 @@ msgstr "请求的主题“%1”已经设置为窗口装饰主题。"
 #, kde-format
 msgid ""
 "Successfully applied the pointer theme %1 to your current Plasma session"
-msgstr ""
+msgstr "成功应用指针主题 %1 到当前 Plasma 会话"
 
 #: kwin-applywindowdecoration.cpp:105
 #, kde-format

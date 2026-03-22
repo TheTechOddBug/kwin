@@ -1,8 +1,8 @@
 # translation of kwin.po to
-# Version: $Revision: 1732682 $
+# Version: $Revision: 1732857 $
 # translation of kwin.po to Polish
 # translation of kwin.po to
-# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026 Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>
 # Norbert Popiołek <norbert@kde.com.pl>
 # Michał Rudolf <mrudolf@kdewebdev.org>, 2002.
 # Michal Rudolf <mrudolf@kdewebdev.org>, 2002, 2003.
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-20 00:45+0000\n"
-"PO-Revision-Date: 2025-12-06 15:39+0100\n"
+"PO-Revision-Date: 2026-03-21 06:36+0100\n"
 "Last-Translator: Łukasz Wojniłowicz <lukasz.wojnilowicz@gmail.com>\n"
 "Language-Team: pl\n"
 "Language: pl\n"
@@ -170,10 +170,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "Brakuje znaczników TRC w profilu barw"
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "Nie udało się otworzyć profilu ICC \"%1\""
+msgstr "Nie udało się odwrócić krzywych odcieni dla profilu ICC \"%1\""
 
 #: debug_console.cpp:86
 #, kde-format
@@ -1281,7 +1280,7 @@ msgstr "czas"
 #: helpers/dialoghelper/dialoghelper.cpp:46
 #, kde-format
 msgid "The message to show (fullscreen, noborder)"
-msgstr ""
+msgstr "Wiadomość do pokazania (na całym ekranie, bez obramowań)"
 
 #: helpers/dialoghelper/dialoghelper.cpp:48 helpers/killer/killer.cpp:146
 #, kde-format
@@ -1296,12 +1295,7 @@ msgstr ""
 "To narzędzie pomocnicze nie jest przeznaczone do bezpośredniego uruchamiania."
 
 #: helpers/dialoghelper/dialoghelper.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window menu instead, activated using the %1 keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
@@ -1310,8 +1304,7 @@ msgid ""
 msgstr ""
 "Zaznaczyłeś, aby wyświetlić okno w trybie pełnoekranowym. Nie będzie można "
 "powrócić z tego trybu przy użyciu myszy, jeśli sam program tego nie "
-"umożliwia. Aby z niego powrócić, należy wywołać menu okna przy użyciu skrótu "
-"%1."
+"umożliwia. Zamiast tego naciśnij skrót klawiszowy %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:85
 #, kde-format
@@ -1327,36 +1320,24 @@ msgstr ""
 "%1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:93
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window menu instead, activated using the %1 keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
 "mode off you will not be able to disable it again using the mouse."
 msgstr ""
-"Zaznaczyłeś, aby wyświetlić okno w trybie pełnoekranowym. Nie będzie można "
-"powrócić z tego trybu przy użyciu myszy, jeśli sam program tego nie "
-"umożliwia. Aby z niego powrócić, należy wywołać menu okna przy użyciu skrótu "
-"%1."
+"Zaznaczyłeś, aby wyświetlić okno w trybie pełnoekranowym.\n"
+"Nie będzie można powrócić z tego trybu przy użyciu myszy, jeśli sam program "
+"tego nie umożliwia."
 
 #: helpers/dialoghelper/dialoghelper.cpp:98
-#, fuzzy, kde-format
-#| msgid "Fullscreen"
+#, kde-format
 msgctxt "@action:button Un-fullscreen"
 msgid "Undo Fullscreen"
-msgstr "Pełny ekran"
+msgstr "Wyjdź z trybu całego ekranu"
 
 #: helpers/dialoghelper/dialoghelper.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
@@ -1364,7 +1345,7 @@ msgid ""
 msgstr ""
 "Zaznaczyłeś, aby wyświetlić okno bez jego obramowania.\n"
 "Nie będzie można przywrócić tego obramowania przy użyciu myszy. Aby je "
-"przywrócić, należy wywołać menu okna przy użyciu skrótu %1."
+"przywrócić, naciśnij skrót klawiszowy %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:106
 #, kde-format
@@ -1379,32 +1360,25 @@ msgstr ""
 "przywrócić, należy wywołać menu okna przy użyciu skrótu %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:112
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
 "the mouse."
 msgstr ""
 "Zaznaczyłeś, aby wyświetlić okno bez jego obramowania.\n"
-"Nie będzie można przywrócić tego obramowania przy użyciu myszy. Aby je "
-"przywrócić, należy wywołać menu okna przy użyciu skrótu %1."
+"Nie będzie można przywrócić tego obramowania przy użyciu myszy."
 
 #: helpers/dialoghelper/dialoghelper.cpp:116
-#, fuzzy, kde-format
-#| msgid "&No Border"
+#, kde-format
 msgctxt "@action:button"
 msgid "Restore Border"
-msgstr "Bez obramowa&nia"
+msgstr "Przywróć obramowanie"
 
 #: helpers/dialoghelper/dialoghelper.cpp:133
 #, kde-format
 msgid "Do not show again"
-msgstr ""
+msgstr "Nie pokazuj ponownie"
 
 #: helpers/killer/killdialog.cpp:37
 #, kde-kuit-format
@@ -1435,11 +1409,9 @@ msgstr ""
 "okien jej podległych oraz utratę niezapisanych danych.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "&Zakończ %1"
+msgstr "Kończenie %1…"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1476,7 +1448,7 @@ msgstr "Nie odpowiada"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "&Szczegóły"
 
 #: helpers/killer/killer.cpp:134
 #, kde-format
@@ -1955,15 +1927,13 @@ msgstr[2] "%1 sekund"
 
 #. i18n: ectx: property (text), widget (QLabel, label_InactivityDuration)
 #: plugins/hidecursor/hidecursor_config.ui:17
-#, fuzzy, kde-format
-#| msgid "Hide cursor on inactivity:"
+#, kde-format
 msgid "Hide pointer on inactivity:"
-msgstr "Ukryj wskaźnik myszy przy jego bezruchu:"
+msgstr "Ukryj wskaźnik myszy przy bezruchu:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideOnTyping)
 #: plugins/hidecursor/hidecursor_config.ui:24
-#, fuzzy, kde-format
-#| msgid "Hide cursor on typing"
+#, kde-format
 msgid "Hide pointer on typing"
 msgstr "Ukryj wskaźnik myszy podczas pisania"
 
@@ -2883,10 +2853,9 @@ msgstr "Menu:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
 #: plugins/translucency/package/contents/ui/config.ui:201
-#, fuzzy, kde-format
-#| msgid "Fullscreen windows"
+#, kde-format
 msgid "Exclude fullscreen windows"
-msgstr "Okna pełnoekranowe"
+msgstr "Wyklucz okna pełnoekranowe"
 
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
 #: plugins/translucency/package/contents/ui/config.ui:217
@@ -3651,17 +3620,15 @@ msgstr "Rodzaj zasady cięcia"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "&Ukryj z udostępnienia ekranu"
+msgstr "Ukryj z udostępnienia ekranu"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "&Ukryj z udostępnienia ekranu"
+msgstr "Zasada ukryci z udostępnienia ekranu"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14
@@ -3673,7 +3640,7 @@ msgstr "Okno dialogowe"
 #: shortcutdialog.ui:25
 #, kde-format
 msgid "..."
-msgstr "..."
+msgstr "…"
 
 #: sm.cpp:421
 #, kde-format
@@ -3929,10 +3896,9 @@ msgid "Maximize Window Horizontally"
 msgstr "Zmaksymalizuj okno w poziomie"
 
 #: useractions.cpp:843
-#, fuzzy, kde-format
-#| msgid "Resize Window"
+#, kde-format
 msgid "Restore Window"
-msgstr "Rozpocznij zmianę rozmiaru okna"
+msgstr "Przywróć okno"
 
 #: useractions.cpp:845
 #, kde-format
@@ -4313,32 +4279,32 @@ msgstr ""
 #: wayland/outputmanagement_v2.cpp:631
 #, kde-format
 msgid "%1 cannot mirror itself"
-msgstr ""
+msgstr "%1 nie może odbić lustrzanie samego siebie"
 
 #: wayland/outputmanagement_v2.cpp:638
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
-msgstr ""
+msgstr "Nie można dodać własnego trybu o zerowym rozmiarze"
 
 #: wayland/outputmanagement_v2.cpp:642
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
-msgstr ""
+msgstr "Nie można dodać własnego trybu o odświeżaniu równym zero Hz"
 
 #: wayland/outputmanagement_v2.cpp:653
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr ""
+msgstr "Położenie wyjścia %1 jest zbyt ujemne (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:656
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr ""
+msgstr "Położenie włączonego wyjścia %1 jest zbyt ujemne (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:660
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr ""
+msgstr "Położenie wyjścia %1 jest zbyt dodatnie (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:677
 #, kde-format
@@ -4346,10 +4312,9 @@ msgid "The driver rejected the output configuration"
 msgstr "Sterownik odrzucił ustawienia wyjść"
 
 #: wayland/outputmanagement_v2.cpp:680
-#, fuzzy, kde-format
-#| msgid "The Alt key is now active."
+#, kde-format
 msgid "The session is not active"
-msgstr "Naciśnięto klawisz Alt."
+msgstr "Posiedzenie nie jest bieżące"
 
 #: window.cpp:3123
 #, kde-format
@@ -4383,7 +4348,7 @@ msgstr ""
 #: xwayland/xwaylandlauncher.cpp:293
 #, kde-format
 msgid "Xwayland has crashed"
-msgstr "Xwayland napotkał usterkę"
+msgstr "Xwayland wysypał się"
 
 #~ msgid "Buttons"
 #~ msgstr "Przyciski"
