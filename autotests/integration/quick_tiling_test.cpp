@@ -117,6 +117,7 @@ private Q_SLOTS:
     void testCloseTiledWindowX11();
     void testScript_data();
     void testScript();
+    void testDontChangeTileWhenDesktopChangesOnAnotherOutput();
     void testDontCrashWithMaximizeWindowRule();
     void testRestoreFromTiled();
     void testRestorePriorityOrder();
@@ -166,6 +167,7 @@ void QuickTilingTest::cleanup()
 
     // discard window rules
     workspace()->rulebook()->load();
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(false);
 }
 
 void QuickTilingTest::testQuickTiling_data()
@@ -2302,6 +2304,72 @@ void QuickTilingTest::testScript()
     QEXPECT_FAIL("maximize", "Geometry changed called twice for maximize", Continue);
     QCOMPARE(frameGeometryChangedSpy.count(), 1);
     QCOMPARE(window->frameGeometry(), expectedGeometry);
+}
+
+void QuickTilingTest::testDontChangeTileWhenDesktopChangesOnAnotherOutput()
+{
+    auto vds = VirtualDesktopManager::self();
+    vds->setPerOutputVirtualDesktops(true);
+    const auto desktops = vds->desktops();
+    const auto outputs = workspace()->outputs();
+
+    Test::XdgToplevelWindow window;
+    QVERIFY(window.show());
+    window.m_window->setOnAllDesktops(true);
+
+    // We have to receive a configure event when the window becomes active.
+    QVERIFY(window.waitSurfaceConfigure());
+
+    auto applyTileLayout = [](CustomTile *tile, qreal left, qreal right) {
+        const auto previousKiddos = tile->childTiles();
+        for (Tile *kiddo : previousKiddos) {
+            tile->destroyChild(kiddo);
+        }
+
+        tile->split(Tile::LayoutDirection::Horizontal);
+        tile->childTiles().at(0)->setRelativeGeometry(RectF(0, 0, left, 1.0));
+
+        QCOMPARE(tile->childTiles().at(0)->relativeGeometry(), RectF(0, 0, left, 1));
+        QCOMPARE(tile->childTiles().at(1)->relativeGeometry(), RectF(left, 0, right, 1));
+    };
+    applyTileLayout(workspace()->rootTile(outputs.at(0), desktops.at(0)), 0.4, 0.6);
+    applyTileLayout(workspace()->rootTile(outputs.at(0), desktops.at(1)), 0.35, 0.65);
+    applyTileLayout(workspace()->rootTile(outputs.at(1), desktops.at(0)), 0.3, 0.7);
+    applyTileLayout(workspace()->rootTile(outputs.at(1), desktops.at(1)), 0.25, 0.75);
+    LogicalOutput *tileOutput = outputs.at(0);
+    LogicalOutput *otherOutput = outputs.at(1);
+    VirtualDesktop *quickTileDesktop = vds->desktopForX11Id(1);
+    VirtualDesktop *customTileDesktop = vds->desktopForX11Id(2);
+    Tile *quickTile = workspace()->tileManager(tileOutput)->quickRootTile(quickTileDesktop)->tileForMode(QuickTileFlag::Left);
+    Tile *customTile = workspace()->rootTile(tileOutput, customTileDesktop)->childTile(1);
+    const RectF originalGeometry = window.m_window->frameGeometry();
+
+    vds->setCurrent(quickTileDesktop, tileOutput);
+    quickTile->manage(window.m_window);
+    QCOMPARE(window.m_window->tile(), nullptr);
+    QCOMPARE(window.m_window->requestedTile(), quickTile);
+    QCOMPARE(window.m_window->frameGeometry(), originalGeometry);
+    QVERIFY(window.handleConfigure());
+    QCOMPARE(window.m_window->tile(), quickTile);
+    QCOMPARE(window.m_window->requestedTile(), quickTile);
+    QCOMPARE(window.m_window->frameGeometry(), quickTile->windowGeometry());
+
+    vds->setCurrent(customTileDesktop, tileOutput);
+    customTile->manage(window.m_window);
+    QVERIFY(window.handleConfigure());
+    QCOMPARE(window.m_window->tile(), customTile);
+    QCOMPARE(window.m_window->requestedTile(), customTile);
+    QCOMPARE(window.m_window->frameGeometry(), customTile->windowGeometry());
+
+    vds->setCurrent(customTileDesktop, otherOutput);
+    QCOMPARE(window.m_window->tile(), customTile);
+    QCOMPARE(window.m_window->requestedTile(), customTile);
+    QCOMPARE(window.m_window->frameGeometry(), customTile->windowGeometry());
+
+    vds->setCurrent(quickTileDesktop, otherOutput);
+    QCOMPARE(window.m_window->tile(), customTile);
+    QCOMPARE(window.m_window->requestedTile(), customTile);
+    QCOMPARE(window.m_window->frameGeometry(), customTile->windowGeometry());
 }
 
 void QuickTilingTest::testDontCrashWithMaximizeWindowRule()

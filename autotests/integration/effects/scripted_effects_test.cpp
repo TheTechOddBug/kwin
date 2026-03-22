@@ -41,6 +41,7 @@ private Q_SLOTS:
     void cleanup();
 
     void testEffectsHandler();
+    void testEffectsHandlerPerOutputDesktops();
     void testEffectsContext();
     void testShortcuts();
     void testAnimations_data();
@@ -142,7 +143,10 @@ void ScriptedEffectsTest::initTestCase()
     qputenv("KWIN_COMPOSE", QByteArrayLiteral("O2"));
     qputenv("KWIN_EFFECTS_FORCE_ANIMATIONS", "1");
     kwinApp()->start();
-    Test::setOutputConfig({Rect(0, 0, 1280, 1024)});
+    Test::setOutputConfig({
+        Rect(0, 0, 1280, 1024),
+        Rect(1280, 0, 1280, 1024),
+    });
 
     KWin::VirtualDesktopManager::self()->setCount(2);
 }
@@ -160,6 +164,7 @@ void ScriptedEffectsTest::cleanup()
     QVERIFY(effects->loadedEffects().isEmpty());
 
     KWin::VirtualDesktopManager::self()->setCurrent(1);
+    KWin::VirtualDesktopManager::self()->setPerOutputVirtualDesktops(false);
 }
 
 void ScriptedEffectsTest::testEffectsHandler()
@@ -204,6 +209,31 @@ void ScriptedEffectsTest::testEffectsHandler()
     waitFor("desktopChanged - 1 2");
 }
 
+void ScriptedEffectsTest::testEffectsHandlerPerOutputDesktops()
+{
+    KWin::VirtualDesktopManager::self()->setPerOutputVirtualDesktops(true);
+    const auto outputs = workspace()->outputs();
+    QCOMPARE_GE(outputs.size(), 2);
+    KWin::VirtualDesktopManager::self()->setCurrent(1, outputs[0]);
+    KWin::VirtualDesktopManager::self()->setCurrent(1, outputs[1]);
+    // this triggers and tests some of the signals in EffectHandler, which is exposed to JS as context property "effects"
+    auto *effect = new ScriptedEffectWithDebugSpy; // cleaned up in ::clean
+    QSignalSpy effectOutputSpy(effect, &ScriptedEffectWithDebugSpy::testOutput);
+    auto waitFor = [&effectOutputSpy](const QString &expected) {
+        QVERIFY(effectOutputSpy.count() > 0 || effectOutputSpy.wait());
+        QCOMPARE(effectOutputSpy.first().first(), expected);
+        effectOutputSpy.removeFirst();
+    };
+    QVERIFY(effect->load("effectsHandlerPerOutputDesktops"));
+
+    // desktop management
+    KWin::VirtualDesktopManager::self()->setCurrent(2, outputs[0]);
+    waitFor(QStringLiteral("desktopChanged - 1 2 %1").arg(outputs[0]->name()));
+
+    KWin::VirtualDesktopManager::self()->setCurrent(2, outputs[1]);
+    waitFor(QStringLiteral("desktopChanged - 1 2 %1").arg(outputs[1]->name()));
+}
+
 void ScriptedEffectsTest::testEffectsContext()
 {
     // this tests misc non-objects exposed to the script engine: animationTime, displaySize, use of external enums
@@ -211,7 +241,7 @@ void ScriptedEffectsTest::testEffectsContext()
     auto *effect = new ScriptedEffectWithDebugSpy; // cleaned up in ::clean
     QSignalSpy effectOutputSpy(effect, &ScriptedEffectWithDebugSpy::testOutput);
     QVERIFY(effect->load("effectContext"));
-    QCOMPARE(effectOutputSpy[0].first(), "1280x1024");
+    QCOMPARE(effectOutputSpy[0].first(), "2560x1024");
     QCOMPARE(effectOutputSpy[1].first(), "100");
     QCOMPARE(effectOutputSpy[2].first(), "2");
     QCOMPARE(effectOutputSpy[3].first(), "0");

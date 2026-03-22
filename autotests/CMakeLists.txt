@@ -38,6 +38,8 @@ target_link_libraries(testVirtualDesktops
     KF6::GlobalAccel
     KF6::I18n
     KF6::WindowSystem
+
+    Plasma::Activities
 )
 add_test(NAME kwin-testVirtualDesktops COMMAND testVirtualDesktops)
 ecm_mark_as_test(testVirtualDesktops)

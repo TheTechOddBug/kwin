@@ -148,6 +148,7 @@ private Q_SLOTS:
     void testMirroring();
 
     void testAutoBrightness();
+    void testPerOutputDesktopsOutputToggle();
     void testTemporaryDpmsHotplug();
 };
 
@@ -187,6 +188,8 @@ void OutputChangesTest::init()
 void OutputChangesTest::cleanup()
 {
     Test::destroyWaylandConnection();
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(false);
+    VirtualDesktopManager::self()->setCount(1);
 }
 
 void OutputChangesTest::testWindowSticksToOutputAfterOutputIsDisabled()
@@ -2407,6 +2410,57 @@ void OutputChangesTest::testAutoBrightness()
     curve.adjust(0.4, 100);
     COMPARE_RANGE(curve.sample(100), 0.4, eta);
     COMPARE_RANGE(curve.sample(101), 0.4, laxEta);
+}
+
+void OutputChangesTest::testPerOutputDesktopsOutputToggle()
+{
+    // This test verifies per-output desktops work with output hotplugging/unplugging.
+
+    const auto outputs = kwinApp()->outputBackend()->outputs();
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(true);
+    VirtualDesktopManager::self()->setCount(3);
+    const auto desktops = VirtualDesktopManager::self()->desktops();
+    VirtualDesktopManager::self()->setCurrent(desktops[1], workspace()->outputs()[0]);
+    VirtualDesktopManager::self()->setCurrent(desktops[2], workspace()->outputs()[1]);
+    QCOMPARE(VirtualDesktopManager::self()->current(workspace()->outputs()[0]), desktops[1]->x11DesktopNumber());
+    QCOMPARE(VirtualDesktopManager::self()->current(workspace()->outputs()[1]), desktops[2]->x11DesktopNumber());
+
+    // Create a window.
+    Test::XdgToplevelWindow window;
+    QVERIFY(window.show());
+
+    // Move the window to the right output.
+    window.m_window->move(QPointF(1280 + 50, 100));
+    window.m_window->setDesktops({desktops[2]});
+    QCOMPARE(window.m_window->output()->backendOutput(), outputs[1]);
+    QCOMPARE(window.m_window->frameGeometry(), RectF(1280 + 50, 100, 100, 100));
+    QCOMPARE(window.m_window->desktops(), {desktops[2]});
+
+    // Disable the right output.
+    OutputConfiguration config1;
+    {
+        auto changeSet = config1.changeSet(outputs[1]);
+        changeSet->enabled = false;
+    }
+    workspace()->applyOutputConfiguration(config1);
+
+    // The window will be moved to the left monitor.
+    QCOMPARE(window.m_window->output()->backendOutput(), outputs[0]);
+    QCOMPARE(window.m_window->frameGeometry(), RectF(50, 100, 100, 100));
+    QCOMPARE(window.m_window->desktops(), {desktops[2]});
+
+    // Enable the right monitor.
+    OutputConfiguration config2;
+    {
+        auto changeSet = config2.changeSet(outputs[1]);
+        changeSet->enabled = true;
+    }
+    workspace()->applyOutputConfiguration(config2);
+
+    // The window will be moved back to the right monitor.
+    QCOMPARE(window.m_window->output()->backendOutput(), outputs[1]);
+    QCOMPARE(window.m_window->frameGeometry(), RectF(1280 + 50, 100, 100, 100));
+    QCOMPARE(window.m_window->desktops(), {desktops[2]});
 }
 
 void OutputChangesTest::testTemporaryDpmsHotplug()

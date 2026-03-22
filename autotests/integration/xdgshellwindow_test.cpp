@@ -63,6 +63,7 @@ private Q_SLOTS:
     void testFullscreen();
     void testUserCanSetFullscreen();
     void testSendFullScreenWindowToAnotherOutput();
+    void testFullscreenPerOutputVirtualDesktops();
 
     void testMaximizeHorizontal();
     void testMaximizeVertical();
@@ -272,6 +273,8 @@ void TestXdgShellWindow::init()
     workspace()->setActiveOutput(QPoint(640, 512));
     // put mouse in the middle of screen one
     KWin::input()->pointer()->warp(QPoint(640, 512));
+    VirtualDesktopManager::self()->setCount(1);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(false);
 }
 
 void TestXdgShellWindow::cleanup()
@@ -543,6 +546,55 @@ void TestXdgShellWindow::testSendFullScreenWindowToAnotherOutput()
     QCOMPARE(window->frameGeometry(), RectF(1280, 0, 1280, 1024));
     QCOMPARE(window->fullscreenGeometryRestore(), RectF(1280 + 10, 20, 100, 50));
     QCOMPARE(window->output(), outputs[1]);
+}
+
+void TestXdgShellWindow::testFullscreenPerOutputVirtualDesktops()
+{
+    // This test verifies that opening a fullscreen window on inactive output doesn't cause it to switch the output's desktop
+
+    const auto outputs = workspace()->outputs();
+    VirtualDesktopManager::self()->setCount(2);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(true);
+    const auto desktops = VirtualDesktopManager::self()->desktops();
+    VirtualDesktopManager::self()->setCurrent(desktops[0], outputs[0]);
+    VirtualDesktopManager::self()->setCurrent(desktops[1], outputs[1]);
+
+    QCOMPARE(workspace()->activeOutput(), outputs[0]);
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[0]), desktops[0]);
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[1]), desktops[1]);
+
+    std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
+    std::unique_ptr<Test::XdgToplevel> shellSurface(Test::createXdgToplevelSurface(surface.get(), Test::CreationSetup::CreateOnly));
+
+    QSignalSpy windowAddedSpy(workspace(), &Workspace::windowAdded);
+    QSignalSpy configureRequestedSpy(shellSurface->xdgSurface(), &Test::XdgSurface::configureRequested);
+
+    shellSurface->set_fullscreen(*Test::waylandOutput(outputs[1]->name()));
+
+    // Tell the compositor that we want to map the surface.
+    surface->commit(KWayland::Client::Surface::CommitFlag::None);
+
+    // The compositor will respond with a configure event.
+    QVERIFY(configureRequestedSpy.wait());
+    QCOMPARE(configureRequestedSpy.count(), 1);
+    shellSurface->xdgSurface()->ack_configure(configureRequestedSpy.last().at(0).value<quint32>());
+
+    // Now we can attach a buffer with actual data to the surface.
+    Test::render(surface.get(), QSize(100, 50), Qt::blue);
+    QVERIFY(windowAddedSpy.wait());
+    QCOMPARE(windowAddedSpy.count(), 1);
+    Window *window = windowAddedSpy.last().first().value<Window *>();
+    QVERIFY(window);
+    QCOMPARE(window->readyForPainting(), true);
+    QCOMPARE(window->output(), outputs[1]);
+
+    // Make sure that the virtual desktop assignment didn't change
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[0]), desktops[0]);
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[1]), desktops[1]);
+
+    // Destroy the test window.
+    shellSurface.reset();
+    QVERIFY(Test::waitForWindowClosed(window));
 }
 
 void TestXdgShellWindow::testMaximizedToFullscreen_data()

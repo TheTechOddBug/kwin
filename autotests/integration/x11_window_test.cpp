@@ -57,6 +57,7 @@ private Q_SLOTS:
     void testInteractiveMoveUnmaximizeInitiallyHorizontal();
     void testInteractiveMoveUnmaximizeVertical();
     void testInteractiveMoveUnmaximizeInitiallyVertical();
+    void testConfigureRequestMoveWithPerOutputDesktops();
     void testFullScreen();
     void testInitiallyFullScreen();
     void testRequestFullScreen();
@@ -154,11 +155,13 @@ void X11WindowTest::initTestCase()
 void X11WindowTest::init()
 {
     VirtualDesktopManager::self()->setCount(2);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(false);
 
     QFETCH_GLOBAL(qreal, scale);
     kwinApp()->setXwaylandScale(scale);
 
     QVERIFY(Test::setupWaylandConnection());
+    workspace()->setActiveOutput(workspace()->outputs()[0]);
 }
 
 void X11WindowTest::cleanup()
@@ -730,6 +733,49 @@ void X11WindowTest::testInteractiveMoveUnmaximizeInitiallyVertical()
     // Finish interactive move.
     window->keyPressEvent(Qt::Key_Enter);
     QCOMPARE(interactiveMoveResizeFinishedSpy.count(), 1);
+}
+
+void X11WindowTest::testConfigureRequestMoveWithPerOutputDesktops()
+{
+    // This test verifies that x11 window moved to another output via configure request will be moved to the output's current virtual desktop as well.
+
+    VirtualDesktopManager::self()->setCount(2);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(true);
+
+    auto outputs = workspace()->outputs();
+    QCOMPARE(outputs.count(), 2);
+    const auto desktops = VirtualDesktopManager::self()->desktops();
+    VirtualDesktopManager::self()->setCurrent(desktops[0], outputs[0]);
+    VirtualDesktopManager::self()->setCurrent(desktops[1], outputs[1]);
+
+    // Create the window on output 0, desktop 0
+    Test::XcbConnectionPtr c = Test::createX11Connection();
+    QVERIFY(!xcb_connection_has_error(c.get()));
+    X11Window *window = createWindow(c.get(), Rect(100, 100, 100, 200));
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[0]), desktops[0]);
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[1]), desktops[1]);
+    QCOMPARE(window->output(), outputs[0]);
+    QCOMPARE(window->desktops(), {desktops[0]});
+
+    // Move the window to output 1
+    QSignalSpy frameGeometryChangedSpy(window, &Window::frameGeometryChanged);
+    const uint32_t values[] = {
+        Xcb::toXNative(1500), /* x */
+        Xcb::toXNative(0), /* y */
+        Xcb::toXNative(100), /* width */
+        Xcb::toXNative(200) /* height */
+    };
+    xcb_configure_window(c.get(), window->window(),
+                         XCB_CONFIG_WINDOW_X | XCB_CONFIG_WINDOW_Y | XCB_CONFIG_WINDOW_HEIGHT | XCB_CONFIG_WINDOW_WIDTH,
+                         values);
+    xcb_flush(c.get());
+    QVERIFY(frameGeometryChangedSpy.wait());
+
+    // The window should be moved to output 1's current desktop (1). The current desktops should stay the same on both outputs.
+    QCOMPARE(window->output(), outputs[1]);
+    QCOMPARE(window->desktops(), {desktops[1]});
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[0]), desktops[0]);
+    QCOMPARE(VirtualDesktopManager::self()->currentDesktop(outputs[1]), desktops[1]);
 }
 
 void X11WindowTest::testFullScreen()

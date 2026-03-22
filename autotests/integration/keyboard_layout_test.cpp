@@ -58,6 +58,7 @@ private Q_SLOTS:
     void testChangeLayoutThroughDBus();
     void testPerLayoutShortcut();
     void testVirtualDesktopPolicy();
+    void testVirtualDesktopPolicyWithPerOutputDesktops();
     void testWindowPolicy();
     void testApplicationPolicy();
     void testNumLock();
@@ -155,6 +156,7 @@ void KeyboardLayoutTest::init()
 void KeyboardLayoutTest::cleanup()
 {
     Test::destroyWaylandConnection();
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(false);
 }
 
 void KeyboardLayoutTest::testReconfigure()
@@ -366,6 +368,60 @@ void KeyboardLayoutTest::testVirtualDesktopPolicy()
     QVERIFY(deletedDesktopSpy.wait());
     resetLayouts();
     QCOMPARE(layoutGroup.keyList().filter(QStringLiteral("LayoutDefault")).count(), 1);
+}
+
+void KeyboardLayoutTest::testVirtualDesktopPolicyWithPerOutputDesktops()
+{
+    layoutGroup.writeEntry("LayoutList", QStringLiteral("us,de(neo),de"), KConfig::Notify);
+    layoutGroup.writeEntry("SwitchMode", QStringLiteral("Desktop"), KConfig::Notify);
+    layoutGroup.sync();
+
+    reconfigureLayouts();
+    auto xkb = input()->keyboard()->xkb();
+    QCOMPARE(xkb->numberOfLayouts(), 3u);
+    QCOMPARE(xkb->layoutName(), QStringLiteral("English (US)"));
+
+    VirtualDesktopManager::self()->setCount(4);
+    QCOMPARE(VirtualDesktopManager::self()->count(), 4u);
+    VirtualDesktopManager::self()->setPerOutputVirtualDesktops(true);
+    QCOMPARE(VirtualDesktopManager::self()->isPerOutputVirtualDesktops(), true);
+    auto desktops = VirtualDesktopManager::self()->desktops();
+    QCOMPARE(desktops.count(), 4);
+    workspace()->setActiveOutput(workspace()->outputs().at(0));
+
+    // give desktops different layouts
+    uint desktop, layout;
+    for (desktop = 0; desktop < VirtualDesktopManager::self()->count(); ++desktop) {
+        // switch to another virtual desktop
+        VirtualDesktopManager::self()->setCurrent(desktops.at(desktop));
+        QCOMPARE(desktops.at(desktop), VirtualDesktopManager::self()->currentDesktop());
+        // should be reset to English
+        QCOMPARE(xkb->currentLayout(), 0);
+        // change first desktop to German
+        layout = (desktop + 1) % xkb->numberOfLayouts();
+        changeLayout(layout).waitForFinished();
+        QCOMPARE(xkb->currentLayout(), layout);
+    }
+
+    // imitate app restart to test layouts saving feature
+    resetLayouts();
+
+    desktop = 1;
+    layout = (desktop + 1) % xkb->numberOfLayouts();
+
+    // check that layout changes with desktop on active output.
+    VirtualDesktopManager::self()->setCurrent(desktops.at(desktop), workspace()->outputs().at(0));
+    QCOMPARE(xkb->currentLayout(), layout);
+
+    // check that layout is unaffected by desktop changes on inactive output.
+    desktop = 2;
+    VirtualDesktopManager::self()->setCurrent(desktops.at(desktop), workspace()->outputs().at(1));
+    QCOMPARE(xkb->currentLayout(), layout);
+
+    // check that layout is changed with active output change.
+    workspace()->setActiveOutput(workspace()->outputs().at(1));
+    layout = (desktop + 1) % xkb->numberOfLayouts();
+    QCOMPARE(xkb->currentLayout(), layout);
 }
 
 void KeyboardLayoutTest::testWindowPolicy()
