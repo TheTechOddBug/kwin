@@ -234,8 +234,6 @@ void WobblyWindowsEffect::prePaintWindow(RenderView *view, EffectWindow *w, Wind
 {
     auto infoIt = windows.find(w);
     if (infoIt != windows.end()) {
-        data.setTransformed();
-
         std::chrono::milliseconds delta = infoIt->clock.tick(view);
         while (delta.count() > 0) {
             const auto dt = std::min(delta, integrationStep);
@@ -244,6 +242,10 @@ void WobblyWindowsEffect::prePaintWindow(RenderView *view, EffectWindow *w, Wind
             if (!updateWindowWobblyDatas(w, dt.count())) {
                 break;
             }
+        }
+
+        if (windows.contains(w)) {
+            data.setTransformed();
         }
     }
 
