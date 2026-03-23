@@ -200,19 +200,19 @@ void OutputChangesTest::testWindowSticksToOutputAfterOutputIsDisabled()
     QVERIFY(window);
 
     // Move the window to some predefined position so the test is more robust.
-    window->move(QPoint(42, 67));
-    QCOMPARE(window->frameGeometry(), RectF(42, 67, 100, 50));
+    window->move(QPoint(1280 + 42, 0 + 67));
+    QCOMPARE(window->frameGeometry(), RectF(1280 + 42, 0 + 67, 100, 50));
 
     // Disable the output where the window is on.
     OutputConfiguration config;
     {
-        auto changeSet = config.changeSet(outputs[0]);
+        auto changeSet = config.changeSet(outputs[1]);
         changeSet->enabled = false;
     }
     workspace()->applyOutputConfiguration(config);
 
-    // The window will be sent to the second output, which is at (1280, 0).
-    QCOMPARE(window->frameGeometry(), RectF(1280 + 42, 0 + 67, 100, 50));
+    // The window will be sent to the second output, which is at (0, 0).
+    QCOMPARE(window->frameGeometry(), RectF(0 + 42, 0 + 67, 100, 50));
 }
 
 void OutputChangesTest::testWindowSticksToOutputAfterAnotherOutputIsDisabled()
@@ -270,12 +270,13 @@ void OutputChangesTest::testWindowSticksToOutputAfterOutputIsMoved()
 
     {
         OutputConfiguration config;
-        config.changeSet(outputs[0])->pos = QPoint(20, 20);
+        config.changeSet(outputs[0])->pos = QPoint(1280 + 20, 1024 + 20);
+        config.changeSet(outputs[1])->pos = QPoint(0, 0);
         workspace()->applyOutputConfiguration(config);
     }
 
     // Move the window to some predefined position so the test is more robust.
-    window.m_window->move(QPoint(42, 67));
+    window.m_window->move(QPoint(1280 + 42, 1024 + 67));
     if (tileMode != QuickTileFlag::None) {
         // this ensures any configure events up to this point were received
         QVERIFY(Test::waylandSync());
@@ -283,14 +284,14 @@ void OutputChangesTest::testWindowSticksToOutputAfterOutputIsMoved()
         window.m_window->setQuickTileModeAtCurrentPosition(tileMode);
         QVERIFY(window.handleConfigure());
     } else {
-        QCOMPARE(window.m_window->frameGeometry(), RectF(42, 67, 100, 50));
+        QCOMPARE(window.m_window->frameGeometry(), RectF(1280 + 42, 1024 + 67, 100, 50));
     }
     const RectF oldGeometry = window.m_window->frameGeometry();
 
     // move the first output
     {
         OutputConfiguration config;
-        config.changeSet(outputs[0])->pos = QPoint(0, 40);
+        config.changeSet(outputs[0])->pos = QPoint(1280 + 0, 1024 + 40);
         workspace()->applyOutputConfiguration(config);
     }
 

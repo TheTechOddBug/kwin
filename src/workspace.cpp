@@ -1346,6 +1346,13 @@ void Workspace::updateOutputs()
     // Re-create m_outputs list, creating new outputs as necessary
     // Removed outputs will be unreferenced later
     m_outputs.clear();
+    // we need to normalize output positions, as some applications
+    // make assumptions about output positions starting at 0,0
+    QPoint topLeftMostCoordinates = QPoint(std::numeric_limits<int>::max(), std::numeric_limits<int>::max());
+    for (BackendOutput *output : newBackendOutputs) {
+        topLeftMostCoordinates.setX(std::min(topLeftMostCoordinates.x(), output->position().x()));
+        topLeftMostCoordinates.setY(std::min(topLeftMostCoordinates.y(), output->position().y()));
+    }
     for (BackendOutput *output : newBackendOutputs) {
         const auto existing = std::ranges::find_if(oldLogicalOutputs, [output](LogicalOutput *logical) {
             return output == logical->backendOutput();
@@ -1356,7 +1363,7 @@ void Workspace::updateOutputs()
             m_outputs.push_back(*existing);
         }
         // update geometry
-        m_outputs.back()->setGeometry(output->position(), output->modeSize(), output->refreshRate(), output->transform(), output->scale());
+        m_outputs.back()->setGeometry(output->position() - topLeftMostCoordinates, output->modeSize(), output->refreshRate(), output->transform(), output->scale());
         if (existing != oldLogicalOutputs.end()) {
             Q_EMIT m_outputs.back()->changed();
         }
