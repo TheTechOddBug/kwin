@@ -271,9 +271,23 @@ public:
     constexpr inline void setBottom(int bottom) noexcept;
 
     /*!
+     * Returns the x coordinate of the center of the rectangle.
+     *
+     * \sa center(), verticalCenter(), moveHorizontalCenter()
+     */
+    constexpr inline int horizontalCenter() const noexcept;
+
+    /*!
+     * Returns the y coordinate of the center of the rectangle.
+     *
+     * \sa center(), horizontalCenter(), moveVerticalCenter()
+     */
+    constexpr inline int verticalCenter() const noexcept;
+
+    /*!
      * Returns the center point of the rectangle.
      *
-     * \sa moveCenter()
+     * \sa moveCenter(), horizontalCenter(), verticalCenter()
      */
     constexpr inline QPoint center() const noexcept;
 
@@ -338,10 +352,28 @@ public:
     constexpr inline void setBottomLeft(const QPoint &point) noexcept;
 
     /*!
+     * Moves the rectangle so the x coordinate of its center point is at the specified position
+     * \a center. This does not change the width of the rectangle or the coordinates of the top and
+     * bottom edge.
+     *
+     * \sa horizontalCenter()
+     */
+    constexpr inline void moveHorizontalCenter(int center) noexcept;
+
+    /*!
+     * Moves the rectangle so the y coordinate of its center point is at the specified position
+     * \a center. This does not change the height of the rectangle or the coordinates of the left and
+     * right edge.
+     *
+     * \sa verticalCenter()
+     */
+    constexpr inline void moveVerticalCenter(int center) noexcept;
+
+    /*!
      * Moves the rectangle so its center point is at the specified position \a point. This does not
      * change the size of the rectangle.
      *
-     * \sa center()
+     * \sa center(), moveHorizontalCenter(), moveVerticalCenter()
      */
     constexpr inline void moveCenter(const QPoint &point) noexcept;
 
@@ -895,9 +927,23 @@ public:
     constexpr inline void setBottom(qreal bottom) noexcept;
 
     /*!
+     * Returns the x coordinate of the center of the rectangle.
+     *
+     * \sa center(), verticalCenter(), moveHorizontalCenter()
+     */
+    constexpr inline qreal horizontalCenter() const noexcept;
+
+    /*!
+     * Returns the y coordinate of the center of the rectangle.
+     *
+     * \sa center(), horizontalCenter(), moveVerticalCenter()
+     */
+    constexpr inline qreal verticalCenter() const noexcept;
+
+    /*!
      * Returns the center point of the rectangle.
      *
-     * \sa moveCenter()
+     * \sa moveCenter(), horizontalCenter(), verticalCenter()
      */
     constexpr inline QPointF center() const noexcept;
 
@@ -962,10 +1008,28 @@ public:
     constexpr inline void setBottomLeft(const QPointF &point) noexcept;
 
     /*!
+     * Moves the rectangle so the x coordinate of its center point is at the specified position
+     * \a center. This does not change the width of the rectangle or the coordinates of the top and
+     * bottom edge.
+     *
+     * \sa horizontalCenter()
+     */
+    constexpr inline void moveHorizontalCenter(qreal center) noexcept;
+
+    /*!
+     * Moves the rectangle so the y coordinate of its center point is at the specified position
+     * \a center. This does not change the height of the rectangle or the coordinates of the left and
+     * right edge.
+     *
+     * \sa verticalCenter()
+     */
+    constexpr inline void moveVerticalCenter(qreal center) noexcept;
+
+    /*!
      * Moves the rectangle so its center point is at the specified position \a point. This does not
      * change the size of the rectangle.
      *
-     * \sa center()
+     * \sa center(), moveHorizontalCenter(), moveVerticalCenter()
      */
     constexpr inline void moveCenter(const QPointF &point) noexcept;
 
@@ -1473,9 +1537,19 @@ constexpr inline void Rect::setBottom(int bottom) noexcept
     m_bottom = bottom;
 }
 
+constexpr inline int Rect::horizontalCenter() const noexcept
+{
+    return m_left + (m_right - m_left) / 2;
+}
+
+constexpr inline int Rect::verticalCenter() const noexcept
+{
+    return m_top + (m_bottom - m_top) / 2;
+}
+
 constexpr inline QPoint Rect::center() const noexcept
 {
-    return QPoint(m_left + (m_right - m_left) / 2, m_top + (m_bottom - m_top) / 2);
+    return QPoint(horizontalCenter(), verticalCenter());
 }
 
 constexpr inline QPoint Rect::topLeft() const noexcept
@@ -1522,10 +1596,20 @@ constexpr inline void Rect::setBottomLeft(const QPoint &point) noexcept
     setBottom(point.y());
 }
 
+constexpr inline void Rect::moveHorizontalCenter(int center) noexcept
+{
+    moveLeft(center - width() / 2);
+}
+
+constexpr inline void Rect::moveVerticalCenter(int center) noexcept
+{
+    moveTop(center - height() / 2);
+}
+
 constexpr inline void Rect::moveCenter(const QPoint &point) noexcept
 {
-    moveLeft(point.x() - width() / 2);
-    moveTop(point.y() - height() / 2);
+    moveHorizontalCenter(point.x());
+    moveVerticalCenter(point.y());
 }
 
 constexpr inline void Rect::moveLeft(int left) noexcept
@@ -1963,9 +2047,19 @@ constexpr inline void RectF::setBottom(qreal bottom) noexcept
     m_bottom = bottom;
 }
 
+constexpr inline qreal RectF::horizontalCenter() const noexcept
+{
+    return m_left + (m_right - m_left) / 2;
+}
+
+constexpr inline qreal RectF::verticalCenter() const noexcept
+{
+    return m_top + (m_bottom - m_top) / 2;
+}
+
 constexpr inline QPointF RectF::center() const noexcept
 {
-    return QPointF(m_left + (m_right - m_left) / 2, m_top + (m_bottom - m_top) / 2);
+    return QPointF(horizontalCenter(), verticalCenter());
 }
 
 constexpr inline QPointF RectF::topLeft() const noexcept
@@ -2012,10 +2106,20 @@ constexpr inline void RectF::setBottomLeft(const QPointF &point) noexcept
     setBottom(point.y());
 }
 
+constexpr inline void RectF::moveHorizontalCenter(qreal center) noexcept
+{
+    moveLeft(center - width() / 2);
+}
+
+constexpr inline void RectF::moveVerticalCenter(qreal center) noexcept
+{
+    moveTop(center - height() / 2);
+}
+
 constexpr inline void RectF::moveCenter(const QPointF &point) noexcept
 {
-    moveLeft(point.x() - width() * 0.5);
-    moveTop(point.y() - height() * 0.5);
+    moveHorizontalCenter(point.x());
+    moveVerticalCenter(point.y());
 }
 
 constexpr inline void RectF::moveLeft(qreal left) noexcept

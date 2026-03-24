@@ -678,8 +678,11 @@ void TestRect::center_data()
 void TestRect::center()
 {
     QFETCH(Rect, rect);
+    QFETCH(QPoint, center);
 
-    QTEST(rect.center(), "center");
+    QCOMPARE(rect.center(), center);
+    QCOMPARE(rect.horizontalCenter(), center.x());
+    QCOMPARE(rect.verticalCenter(), center.y());
 }
 
 void TestRect::moveCenter_data()
@@ -706,8 +709,18 @@ void TestRect::moveCenter()
     QFETCH(Rect, rect);
     QFETCH(QPoint, center);
 
-    rect.moveCenter(center);
-    QCOMPARE(rect.center(), center);
+    {
+        Rect moved = rect;
+        moved.moveCenter(center);
+        QCOMPARE(moved.center(), center);
+    }
+
+    {
+        Rect moved = rect;
+        moved.moveHorizontalCenter(center.x());
+        moved.moveVerticalCenter(center.y());
+        QCOMPARE(moved.center(), center);
+    }
 }
 
 void TestRect::topLeft_data()
