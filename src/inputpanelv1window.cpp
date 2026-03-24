@@ -110,10 +110,10 @@ void InputPanelV1Window::resetPosition()
 
         // if it fits, align within available area
         if (geo.width() < availableArea.width()) {
-            geo.moveLeft(availableArea.left() + (availableArea.width() - geo.width()) / 2);
+            geo.moveHorizontalCenter(availableArea.horizontalCenter());
         } else { // otherwise align to be centred within the screen
             const RectF outputArea = activeOutput->geometry();
-            geo.moveLeft(outputArea.left() + (outputArea.width() - geo.width()) / 2);
+            geo.moveHorizontalCenter(outputArea.horizontalCenter());
         }
 
         geo.moveBottom(availableArea.bottom());
