@@ -94,7 +94,7 @@ static void rearrangeLayer(const QList<LayerShellV1Window *> &windows, Rect *wor
         } else if (shellSurface->anchor() & Qt::RightEdge) {
             geometry.moveRight(bounds.right());
         } else {
-            geometry.moveLeft(bounds.left() + (bounds.width() - geometry.width()) / 2);
+            geometry.moveHorizontalCenter(bounds.horizontalCenter());
         }
 
         if ((shellSurface->anchor() & AnchorVertical) && geometry.height() == 0) {
@@ -105,7 +105,7 @@ static void rearrangeLayer(const QList<LayerShellV1Window *> &windows, Rect *wor
         } else if (shellSurface->anchor() & Qt::BottomEdge) {
             geometry.moveBottom(bounds.bottom());
         } else {
-            geometry.moveTop(bounds.top() + (bounds.height() - geometry.height()) / 2);
+            geometry.moveVerticalCenter(bounds.verticalCenter());
         }
 
         if ((shellSurface->anchor() & AnchorHorizontal) == AnchorHorizontal) {
