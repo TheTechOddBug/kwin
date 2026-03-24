@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-20 00:45+0000\n"
-"PO-Revision-Date: 2026-03-13 11:11+0000\n"
+"POT-Creation-Date: 2026-03-24 00:45+0000\n"
+"PO-Revision-Date: 2026-03-23 17:26+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -1334,11 +1334,10 @@ msgstr ""
 "staðinn, sem hægt er að opna með flýtilyklinum %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:98
-#, fuzzy, kde-format
-#| msgid "Fullscreen"
+#, kde-format
 msgctxt "@action:button Un-fullscreen"
 msgid "Undo Fullscreen"
-msgstr "Fylla skjá"
+msgstr "Afturkalla að fylla skjá"
 
 #: helpers/dialoghelper/dialoghelper.cpp:101
 #, fuzzy, kde-format
@@ -1385,16 +1384,15 @@ msgstr ""
 "aðgerðavalmynd gluggans í staðinn sem hægt er að opna með flýtilyklinum %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:116
-#, fuzzy, kde-format
-#| msgid "&No Border"
+#, kde-format
 msgctxt "@action:button"
 msgid "Restore Border"
-msgstr "E&nginn rammi"
+msgstr "Endurheimta ramma"
 
 #: helpers/dialoghelper/dialoghelper.cpp:133
 #, kde-format
 msgid "Do not show again"
-msgstr ""
+msgstr "Ekki sýna aftur"
 
 #: helpers/killer/killdialog.cpp:37
 #, kde-kuit-format
@@ -1424,11 +1422,9 @@ msgstr ""
 "emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "&Stöðva %1"
+msgstr "Stöðva %1…"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1465,7 +1461,7 @@ msgstr "Svarar ekki"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "&Nánar"
 
 #: helpers/killer/killer.cpp:134
 #, kde-format
@@ -1521,7 +1517,7 @@ msgstr ""
 "Veldu glugga til að þvinga lokun með vinstrismelli eða færsluhnappi.\n"
 "Ýttu á Esc eða hægrismelltu til að hætta við."
 
-#: main.cpp:171 plugins/mouseclick/mouseclick_config.cpp:40
+#: main.cpp:168 plugins/mouseclick/mouseclick_config.cpp:40
 #: plugins/mousemark/mousemark_config.cpp:43
 #: plugins/overview/kcm/overvieweffectkcm.cpp:35
 #: plugins/thumbnailaside/thumbnailaside_config.cpp:46
@@ -1532,67 +1528,67 @@ msgstr ""
 msgid "KWin"
 msgstr "KWin"
 
-#: main.cpp:173 main.cpp:197
+#: main.cpp:170 main.cpp:194
 #, kde-format
 msgid "KDE window manager"
 msgstr "Gluggastjóri KDE"
 
-#: main.cpp:175
+#: main.cpp:172
 #, kde-format
 msgid "(c) 1999-2019, The KDE Developers"
 msgstr "(C) -1999-2019, KDE-þróunarteymið"
 
-#: main.cpp:177
+#: main.cpp:174
 #, kde-format
 msgid "Matthias Ettrich"
 msgstr "Matthias Ettrich"
 
-#: main.cpp:178
+#: main.cpp:175
 #, kde-format
 msgid "Cristian Tibirna"
 msgstr "Cristian Tibirna"
 
-#: main.cpp:179
+#: main.cpp:176
 #, kde-format
 msgid "Daniel M. Duley"
 msgstr "Daniel M. Duley"
 
-#: main.cpp:180
+#: main.cpp:177
 #, kde-format
 msgid "Luboš Luňák"
 msgstr "Luboš Luňák"
 
-#: main.cpp:181
+#: main.cpp:178
 #, kde-format
 msgid "Martin Flöser"
 msgstr "Martin Flöser"
 
-#: main.cpp:182
+#: main.cpp:179
 #, kde-format
 msgid "David Edmundson"
 msgstr "David Edmundson"
 
-#: main.cpp:183
+#: main.cpp:180
 #, kde-format
 msgid "Roman Gilg"
 msgstr "Roman Gilg"
 
-#: main.cpp:184
+#: main.cpp:181
 #, kde-format
 msgid "Vlad Zahorodnii"
 msgstr "Vlad Zahorodnii"
 
-#: main.cpp:185
+#: main.cpp:182
 #, kde-format
 msgid "Xaver Hugl"
 msgstr "Xaver Hugl"
 
-#: main.cpp:194
+#: main.cpp:191
 #, kde-format
 msgid "Disable configuration options"
 msgstr "Gera grunnstillingarvalkosti óvirka"
 
-#: main.cpp:195
+#: main.cpp:192
 #, kde-format
 msgid "Indicate that KWin has recently crashed n times"
 msgstr "Gefa til kynna að KWin hafi nýlega hrunið n sinnum"
@@ -1939,15 +1935,13 @@ msgstr[1] "%1 sekúndur"
 
 #. i18n: ectx: property (text), widget (QLabel, label_InactivityDuration)
 #: plugins/hidecursor/hidecursor_config.ui:17
-#, fuzzy, kde-format
-#| msgid "Hide cursor on inactivity:"
+#, kde-format
 msgid "Hide pointer on inactivity:"
 msgstr "Fela bendil við aðgerðaleysi:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideOnTyping)
 #: plugins/hidecursor/hidecursor_config.ui:24
-#, fuzzy, kde-format
-#| msgid "Hide cursor on typing"
+#, kde-format
 msgid "Hide pointer on typing"
 msgstr "Fela bendil við innslátt"
 
@@ -2859,10 +2853,9 @@ msgstr "Valmyndir:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
 #: plugins/translucency/package/contents/ui/config.ui:201
-#, fuzzy, kde-format
-#| msgid "Fullscreen windows"
+#, kde-format
 msgid "Exclude fullscreen windows"
-msgstr "Gluggar sem fylla skjá"
+msgstr "Undanskilja glugga sem fylla skjá"
 
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
 #: plugins/translucency/package/contents/ui/config.ui:217
@@ -3627,10 +3620,9 @@ msgstr "Regla af gerðinni Rifgalli"
 
 #. i18n: ectx: label, entry (excludefromcapture), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:467
-#, fuzzy, kde-format
-#| msgid "&Hide from Screencast"
+#, kde-format
 msgid "Hide from screencast"
-msgstr "&Fela frá skjávörpun"
+msgstr "Fela frá skjávörpun"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
@@ -3905,10 +3897,9 @@ msgid "Maximize Window Horizontally"
 msgstr "Fullstækka glugga lárétt"
 
 #: useractions.cpp:843
-#, fuzzy, kde-format
-#| msgid "Resize Window"
+#, kde-format
 msgid "Restore Window"
-msgstr "Breyta stærð glugga"
+msgstr "Endurheimta glugga"
 
 #: useractions.cpp:845
 #, kde-format
@@ -4289,7 +4280,7 @@ msgstr ""
 #: wayland/outputmanagement_v2.cpp:631
 #, kde-format
 msgid "%1 cannot mirror itself"
-msgstr ""
+msgstr "%1 má ekki spegla sjálfan sig"
 
 #: wayland/outputmanagement_v2.cpp:638
 #, kde-format
@@ -4322,10 +4313,9 @@ msgid "The driver rejected the output configuration"
 msgstr "Rekillinn hafnaði grunnstillingu úttaksins"
 
 #: wayland/outputmanagement_v2.cpp:680
-#, fuzzy, kde-format
-#| msgid "The Alt key is now active."
+#, kde-format
 msgid "The session is not active"
-msgstr "Alt-lykillinn er nú virkur."
+msgstr "Setan er ekki virk"
 
 #: window.cpp:3123
 #, kde-format
@@ -4333,7 +4323,7 @@ msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "(svarar ekki)"
 
-#: workspace.cpp:1752
+#: workspace.cpp:1751
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""
