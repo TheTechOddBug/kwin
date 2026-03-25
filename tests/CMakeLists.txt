@@ -11,6 +11,7 @@ function (kwin_add_demo name)
     )
 endfunction()
 
+kwin_add_demo(fractional-scaling)
 kwin_add_demo(pip)
 
 if(KWIN_BUILD_X11)
