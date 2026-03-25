@@ -187,6 +187,10 @@ Workspace::Workspace()
     init();
 }
 
+static const double s_autoBrightnessDeadzone = environmentVariableIntValue("KWIN_AUTO_BRIGHTNESS_DEADZONE").transform([](int percent) {
+    return percent / 100.0;
+}).value_or(0.2);
+
 void Workspace::init()
 {
     KSharedConfigPtr config = kwinApp()->config();
@@ -274,7 +278,7 @@ void Workspace::init()
             return;
         }
         const double relativeLux = *m_lightSensor->reading() / *m_luxAtLastBrightnessAdjust;
-        if (relativeLux > 1.1 || relativeLux < 0.9) {
+        if (relativeLux > 1 + s_autoBrightnessDeadzone || relativeLux < 1 - s_autoBrightnessDeadzone) {
             m_delayedLightTimer->start();
         }
     });
@@ -286,7 +290,7 @@ void Workspace::init()
         }
         // check again if brightness is still changed as much as when the timer was started
         const double relativeLux = *m_lightSensor->reading() / *m_luxAtLastBrightnessAdjust;
-        if (relativeLux > 1.1 || relativeLux < 0.9) {
+        if (relativeLux > 1 + s_autoBrightnessDeadzone || relativeLux < 1 - s_autoBrightnessDeadzone) {
             applyLightChanges();
         }
     });
