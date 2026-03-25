@@ -170,7 +170,6 @@ public:
     Region bufferDamage;
     bool mapped = false;
     qreal serverScale = 1.0;
-    qreal pendingServerScale = 1.0;
     qreal clientToCompositorScale = 1.0;
     qreal compositorToClientScale = 1.0;
 

@@ -471,10 +471,9 @@ SurfaceInterface::SurfaceInterface(CompositorInterface *compositor, wl_resource 
     d->init(resource);
     d->client = ClientConnection::get(d->resource()->client());
 
-    d->pendingServerScale = d->client->scaleOverride();
-    d->serverScale = d->pendingServerScale;
+    d->serverScale = d->client->scaleOverride();
     connect(d->client, &ClientConnection::scaleOverrideChanged, this, [this]() {
-        d->pendingServerScale = d->client->scaleOverride();
+        d->serverScale = d->client->scaleOverride();
     });
 }
 
@@ -690,7 +689,6 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
         // we can't present an unmapped surface
         current->presentationFeedback.reset();
     }
-    serverScale = pendingServerScale;
 
     if (current->buffer) {
         bufferSourceBox = computeBufferSourceBox();
