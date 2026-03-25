@@ -255,7 +255,7 @@ KCM.ScrollViewKCM {
 
                     icon.name: "configure"
 
-                    onClicked: kcm.configureAnimation()
+                    onClicked: kcm.configureAnimation(this)
                 }
 
                 QQC2.Button {
@@ -263,7 +263,7 @@ KCM.ScrollViewKCM {
 
                     icon.name: "dialog-information"
 
-                    onClicked: kcm.showAboutAnimation()
+                    onClicked: kcm.showAboutAnimation(this)
                 }
 
                 Item {

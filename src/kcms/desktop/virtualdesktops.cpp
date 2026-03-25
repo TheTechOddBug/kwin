@@ -95,24 +95,24 @@ bool VirtualDesktops::isDefaults() const
     return m_data->isDefaults();
 }
 
-void VirtualDesktops::configureAnimation()
+void VirtualDesktops::configureAnimation(QQuickItem *context)
 {
     const QModelIndex index = m_data->animationsModel()->index(m_data->animationsModel()->animationIndex(), 0);
     if (!index.isValid()) {
         return;
     }
 
-    m_data->animationsModel()->requestConfigure(index, nullptr);
+    m_data->animationsModel()->requestConfigure(index, context);
 }
 
-void VirtualDesktops::showAboutAnimation()
+void VirtualDesktops::showAboutAnimation(QQuickItem *context)
 {
     const QModelIndex index = m_data->animationsModel()->index(m_data->animationsModel()->animationIndex(), 0);
     if (!index.isValid()) {
         return;
     }
 
-    m_data->animationsModel()->requestAbout(index, nullptr);
+    m_data->animationsModel()->requestAbout(index, context);
 }
 
 bool VirtualDesktops::isSaveNeeded() const
