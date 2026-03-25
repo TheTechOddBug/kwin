@@ -189,7 +189,7 @@ public:
             } else {
                 surface->setRole(&cursorRole);
             }
-            hotspot /= surface->client()->scaleOverride();
+            hotspot /= (surface->serverScale() * surface->clientToCompositorScale());
         }
 
         TabletSurfaceCursorV2 *c = m_cursors[resource->client()];

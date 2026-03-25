@@ -280,17 +280,24 @@ public:
     static SurfaceInterface *get(wl_resource *native);
 
     /**
-     * @see ClientConnection::setScaleOverride
+     * The scale factor forced by the server side. Mainly intended towards scaling Xwayland surfaces.
      */
-    qreal scaleOverride() const;
+    qreal serverScale() const;
+
+    /**
+     * The logical coordinate scale factor applied by the client. The coordinates in client
+     * requests will be scaled by this scale factor.
+     */
+    qreal clientToCompositorScale() const;
+
+    /**
+     * The logical coordinate scale factor applied by the compositor. The coordinates in events
+     * sent by the compositor will be scaled by this scale factor.
+     */
+    qreal compositorToClientScale() const;
+
     /**
      * Convert a coordinate from kwin logical space to surface logical space
-     * @internal
-     */
-    QPoint toSurfaceLocal(const QPoint &point) const;
-    /**
-     * Convert a coordinate from kwin logical space to surface logical space
-     * @internal
      */
     QPointF toSurfaceLocal(const QPointF &point) const;
 

@@ -113,7 +113,7 @@ void SubSurfaceInterfacePrivate::subsurface_set_position(Resource *resource, int
 
     SurfaceInterfacePrivate *parentPrivate = SurfaceInterfacePrivate::get(parent);
 
-    parentPrivate->pending->subsurface.position[q] = QPoint(x, y);
+    parentPrivate->pending->subsurface.position[q] = QPointF(x, y) / parent->clientToCompositorScale();
     parentPrivate->pending->committed |= SurfaceState::Field::SubsurfacePosition;
 }
 
@@ -282,7 +282,7 @@ void SubSurfaceInterface::parentApplyState()
 {
     auto parentPrivate = SurfaceInterfacePrivate::get(d->parent);
     if (parentPrivate->current->committed & SurfaceState::Field::SubsurfacePosition) {
-        const QPointF pos = QPointF(parentPrivate->current->subsurface.position[this]) / d->parent->scaleOverride();
+        const QPointF pos = parentPrivate->current->subsurface.position[this];
         if (d->position != pos) {
             d->position = pos;
             Q_EMIT positionChanged(pos);

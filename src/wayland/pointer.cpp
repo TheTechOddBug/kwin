@@ -87,7 +87,7 @@ void PointerInterfacePrivate::pointer_set_cursor(Resource *resource, uint32_t se
     if (!cursor) {
         cursor = std::make_unique<PointerSurfaceCursor>();
     }
-    cursor->d->hotspot = QPointF(hotspot_x, hotspot_y) / focusedSurface->client()->scaleOverride();
+    cursor->d->hotspot = QPointF(hotspot_x, hotspot_y) / (focusedSurface->serverScale() * focusedSurface->clientToCompositorScale());
     cursor->d->surface = surface;
 
     Q_EMIT q->cursorChanged(cursor.get());

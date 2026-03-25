@@ -268,7 +268,7 @@ void ShadowInterfacePrivate::org_kde_kwin_shadow_set_left_offset(Resource *resou
         return;
     }
     pending.flags = Commit::Flags(pending.flags | Commit::Offset);
-    pending.offset.setLeft(wl_fixed_to_double(offset) / surface->scaleOverride());
+    pending.offset.setLeft(wl_fixed_to_double(offset) / surface->clientToCompositorScale());
 }
 
 void ShadowInterfacePrivate::org_kde_kwin_shadow_set_top_offset(Resource *resource, wl_fixed_t offset)
@@ -277,7 +277,7 @@ void ShadowInterfacePrivate::org_kde_kwin_shadow_set_top_offset(Resource *resour
         return;
     }
     pending.flags = Commit::Flags(pending.flags | Commit::Offset);
-    pending.offset.setTop(wl_fixed_to_double(offset) / surface->scaleOverride());
+    pending.offset.setTop(wl_fixed_to_double(offset) / surface->clientToCompositorScale());
 }
 
 void ShadowInterfacePrivate::org_kde_kwin_shadow_set_right_offset(Resource *resource, wl_fixed_t offset)
@@ -286,7 +286,7 @@ void ShadowInterfacePrivate::org_kde_kwin_shadow_set_right_offset(Resource *reso
         return;
     }
     pending.flags = Commit::Flags(pending.flags | Commit::Offset);
-    pending.offset.setRight(wl_fixed_to_double(offset) / surface->scaleOverride());
+    pending.offset.setRight(wl_fixed_to_double(offset) / surface->clientToCompositorScale());
 }
 
 void ShadowInterfacePrivate::org_kde_kwin_shadow_set_bottom_offset(Resource *resource, wl_fixed_t offset)
@@ -295,7 +295,7 @@ void ShadowInterfacePrivate::org_kde_kwin_shadow_set_bottom_offset(Resource *res
         return;
     }
     pending.flags = Commit::Flags(pending.flags | Commit::Offset);
-    pending.offset.setBottom(wl_fixed_to_double(offset) / surface->scaleOverride());
+    pending.offset.setBottom(wl_fixed_to_double(offset) / surface->clientToCompositorScale());
 }
 
 ShadowInterfacePrivate::ShadowInterfacePrivate(ShadowInterface *_q, wl_resource *resource)

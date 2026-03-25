@@ -283,7 +283,7 @@ void SurfaceInterfacePrivate::surface_attach(Resource *resource, struct ::wl_res
             return;
         }
     } else {
-        pending->offset = QPoint(x, y);
+        pending->offset = QPointF(x, y) / clientToCompositorScale;
     }
 
     pending->committed |= SurfaceState::Field::Buffer;
@@ -320,14 +320,14 @@ void SurfaceInterfacePrivate::surface_frame(Resource *resource, uint32_t callbac
 void SurfaceInterfacePrivate::surface_set_opaque_region(Resource *resource, struct ::wl_resource *region)
 {
     RegionInterface *r = RegionInterface::get(region);
-    pending->opaque = r ? r->region() : Region();
+    pending->opaque = r ? r->region().scaled(1.0 / clientToCompositorScale) : RegionF();
     pending->committed |= SurfaceState::Field::Opaque;
 }
 
 void SurfaceInterfacePrivate::surface_set_input_region(Resource *resource, struct ::wl_resource *region)
 {
     RegionInterface *r = RegionInterface::get(region);
-    pending->input = r ? r->region() : Region::infinite();
+    pending->input = r ? r->region().scaled(1.0 / clientToCompositorScale) : RegionF::infinite();
     pending->committed |= SurfaceState::Field::Input;
 }
 
@@ -343,7 +343,7 @@ void SurfaceInterfacePrivate::surface_commit(Resource *resource)
     }
 
     if ((pending->committed & SurfaceState::Field::Buffer) && !pending->buffer) {
-        pending->damage = Region();
+        pending->damage = RegionF();
         pending->bufferDamage = Region();
     }
 
@@ -460,7 +460,7 @@ void SurfaceInterfacePrivate::surface_damage_buffer(Resource *resource, int32_t 
 
 void SurfaceInterfacePrivate::surface_offset(Resource *resource, int32_t x, int32_t y)
 {
-    pending->offset = QPoint(x, y);
+    pending->offset = QPointF(x, y) / clientToCompositorScale;
 }
 
 SurfaceInterface::SurfaceInterface(CompositorInterface *compositor, wl_resource *resource)
@@ -471,10 +471,10 @@ SurfaceInterface::SurfaceInterface(CompositorInterface *compositor, wl_resource 
     d->init(resource);
     d->client = ClientConnection::get(d->resource()->client());
 
-    d->pendingScaleOverride = d->client->scaleOverride();
-    d->scaleOverride = d->pendingScaleOverride;
+    d->pendingServerScale = d->client->scaleOverride();
+    d->serverScale = d->pendingServerScale;
     connect(d->client, &ClientConnection::scaleOverrideChanged, this, [this]() {
-        d->pendingScaleOverride = d->client->scaleOverride();
+        d->pendingServerScale = d->client->scaleOverride();
     });
 }
 
@@ -617,7 +617,7 @@ void SurfaceState::mergeInto(SurfaceState *target)
     wl_list_init(&frameCallbacks);
 
     target->damage |= damage;
-    damage = Region();
+    damage = RegionF();
     target->bufferDamage |= bufferDamage;
     bufferDamage = Region();
     target->viewport.sourceGeometry = viewport.sourceGeometry;
@@ -690,7 +690,7 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
         // we can't present an unmapped surface
         current->presentationFeedback.reset();
     }
-    scaleOverride = pendingScaleOverride;
+    serverScale = pendingServerScale;
 
     if (current->buffer) {
         bufferSourceBox = computeBufferSourceBox();
@@ -702,27 +702,27 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
         } else {
             surfaceSize = current->bufferTransform.map(current->buffer->size() / current->bufferScale);
         }
-        surfaceSize /= scaleOverride;
+        surfaceSize /= serverScale;
 
         const RectF surfaceRect = RectF(QPointF(0, 0), surfaceSize);
         const Rect bufferRect = Rect(QPoint(0, 0), current->buffer->size());
 
         inputRegion = current->input
-            .scaled(1.0 / scaleOverride)
-            .intersected(surfaceRect);
+                          .scaled(1.0 / serverScale)
+                          .intersected(surfaceRect);
 
         if (!current->buffer->hasAlphaChannel()) {
             opaqueRegion = surfaceRect;
         } else {
             opaqueRegion = current->opaque
-                .scaled(1.0 / scaleOverride)
-                .intersected(surfaceRect);
+                               .scaled(1.0 / serverScale)
+                               .intersected(surfaceRect);
         }
 
         bufferDamage = current->bufferDamage
-                           .united(mapToBuffer(current->damage.scaled(1.0 / scaleOverride).intersected(surfaceRect)))
+                           .united(mapToBuffer(current->damage.scaled(1.0 / serverScale).intersected(surfaceRect)))
                            .intersected(bufferRect);
-        current->damage = Region();
+        current->damage = RegionF();
         current->bufferDamage = Region();
     } else {
         surfaceSize = QSizeF(0, 0);
@@ -731,8 +731,6 @@ void SurfaceInterfacePrivate::applyState(SurfaceState *next)
         inputRegion = RegionF();
         opaqueRegion = RegionF();
     }
-
-    blurRegion = current->blurRegion.scaled(1.0 / scaleOverride);
 
     if (opaqueRegionChanged) {
         Q_EMIT q->opaqueChanged(opaqueRegion);
@@ -898,7 +896,7 @@ GraphicsBuffer *SurfaceInterface::buffer() const
 
 QPointF SurfaceInterface::offset() const
 {
-    return QPointF(d->current->offset) / d->scaleOverride;
+    return QPointF(d->current->offset) / d->serverScale;
 }
 
 SurfaceInterface *SurfaceInterface::get(wl_resource *native)
@@ -966,7 +964,7 @@ ShadowInterface *SurfaceInterface::shadow() const
 
 RegionF SurfaceInterface::blurRegion() const
 {
-    return d->blurRegion;
+    return d->current->blurRegion;
 }
 
 SlideInterface *SurfaceInterface::slideOnShowHide() const
@@ -1158,25 +1156,32 @@ QPointF SurfaceInterface::mapToChild(SurfaceInterface *child, const QPointF &poi
     return local;
 }
 
-qreal SurfaceInterface::scaleOverride() const
+qreal SurfaceInterface::serverScale() const
 {
-    return d->scaleOverride;
+    return d->serverScale;
 }
 
-QPoint SurfaceInterface::toSurfaceLocal(const QPoint &point) const
+qreal SurfaceInterface::clientToCompositorScale() const
 {
-    return QPoint(point.x() * d->scaleOverride, point.y() * d->scaleOverride);
+    return d->clientToCompositorScale;
+}
+
+qreal SurfaceInterface::compositorToClientScale() const
+{
+    return d->compositorToClientScale;
 }
 
 QPointF SurfaceInterface::toSurfaceLocal(const QPointF &point) const
 {
-    return QPointF(point.x() * d->scaleOverride, point.y() * d->scaleOverride);
+    return QPointF(point.x() * d->serverScale * d->compositorToClientScale,
+                   point.y() * d->serverScale * d->compositorToClientScale);
 }
 
 QSizeF SurfaceInterface::snappedSize(const QSizeF &size) const
 {
-    return QSizeF(std::round(size.width() * d->scaleOverride) / d->scaleOverride,
-                  std::round(size.height() * d->scaleOverride) / d->scaleOverride);
+    const qreal scale = d->serverScale * d->compositorToClientScale;
+    return QSizeF(std::round(size.width() * scale) / scale,
+                  std::round(size.height() * scale) / scale);
 }
 
 PresentationModeHint SurfaceInterface::presentationModeHint() const

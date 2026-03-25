@@ -85,7 +85,7 @@ ExtBackgroundEffectSurfaceV1::~ExtBackgroundEffectSurfaceV1()
     if (m_surface) {
         SurfaceInterfacePrivate *surfPriv = SurfaceInterfacePrivate::get(m_surface);
         surfPriv->extBackgroundeffect = nullptr;
-        surfPriv->pending->blurRegion = Region{};
+        surfPriv->pending->blurRegion = RegionF{};
         surfPriv->pending->committed |= SurfaceState::Field::Blur;
     }
 }
@@ -109,9 +109,9 @@ void ExtBackgroundEffectSurfaceV1::ext_background_effect_surface_v1_set_blur_reg
     SurfaceInterfacePrivate *surfPriv = SurfaceInterfacePrivate::get(m_surface);
     if (region) {
         const auto interface = RegionInterface::get(region);
-        surfPriv->pending->blurRegion = interface->region();
+        surfPriv->pending->blurRegion = interface->region().scaled(1.0 / m_surface->clientToCompositorScale());
     } else {
-        surfPriv->pending->blurRegion = Region{};
+        surfPriv->pending->blurRegion = RegionF{};
     }
     surfPriv->pending->committed |= SurfaceState::Field::Blur;
 }

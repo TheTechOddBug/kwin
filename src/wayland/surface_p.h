@@ -69,14 +69,14 @@ struct SurfaceState
     void mergeInto(SurfaceState *target);
 
     Fields committed;
-    Region damage = Region();
+    RegionF damage = RegionF();
     Region bufferDamage = Region();
-    Region opaque = Region();
-    Region input = Region::infinite();
+    RegionF opaque = RegionF();
+    RegionF input = RegionF::infinite();
     qint32 bufferScale = 1;
     OutputTransform bufferTransform = OutputTransform::Normal;
     wl_list frameCallbacks;
-    QPoint offset = QPoint();
+    QPointF offset = QPointF();
     QPointer<GraphicsBuffer> buffer;
     QPointer<ShadowInterface> shadow;
     QPointer<SlideInterface> slide;
@@ -97,7 +97,7 @@ struct SurfaceState
     EncodingRange range = EncodingRange::Full;
     bool fifoBarrier = false;
     bool hasFifoWaitCondition = false;
-    Region blurRegion;
+    RegionF blurRegion;
 
     struct
     {
@@ -108,13 +108,13 @@ struct SurfaceState
         QList<SubSurfaceInterface *> above;
 
         // Subsurface position is here because it is a part of the parent surface's state.
-        QHash<SubSurfaceInterface *, QPoint> position;
+        QHash<SubSurfaceInterface *, QPointF> position;
     } subsurface;
 
     struct
     {
         RectF sourceGeometry = RectF();
-        QSize destinationSize = QSize();
+        QSizeF destinationSize = QSizeF();
     } viewport;
 
     std::unordered_map<RawSurfaceExtension *, std::unique_ptr<RawSurfaceAttachedState>> extensions;
@@ -166,12 +166,13 @@ public:
 
     RegionF inputRegion;
     RegionF opaqueRegion;
-    RegionF blurRegion;
     GraphicsBufferRef bufferRef;
     Region bufferDamage;
     bool mapped = false;
-    qreal scaleOverride = 1.;
-    qreal pendingScaleOverride = 1.;
+    qreal serverScale = 1.0;
+    qreal pendingServerScale = 1.0;
+    qreal clientToCompositorScale = 1.0;
+    qreal compositorToClientScale = 1.0;
 
     Transaction *firstTransaction = nullptr;
     Transaction *lastTransaction = nullptr;

@@ -262,7 +262,7 @@ void XdgSurfaceInterfacePrivate::xdg_surface_set_window_geometry(Resource *resou
         return;
     }
 
-    pending->windowGeometry = Rect(x, y, width, height).scaled(1.0 / surface->scaleOverride());
+    pending->windowGeometry = Rect(x, y, width, height).scaled(1.0 / surface->clientToCompositorScale());
 }
 
 void XdgSurfaceInterfacePrivate::xdg_surface_ack_configure(Resource *resource, uint32_t serial)
@@ -448,7 +448,7 @@ void XdgToplevelInterfacePrivate::xdg_toplevel_show_window_menu(Resource *resour
     }
 
     SeatInterface *seat = SeatInterface::get(seatResource);
-    Q_EMIT q->windowMenuRequested(seat, QPointF(x, y) / xdgSurfacePrivate->surface->scaleOverride(), serial);
+    Q_EMIT q->windowMenuRequested(seat, QPointF(x, y) / xdgSurfacePrivate->surface->clientToCompositorScale(), serial);
 }
 
 void XdgToplevelInterfacePrivate::xdg_toplevel_move(Resource *resource, ::wl_resource *seatResource, uint32_t serial)
@@ -522,8 +522,8 @@ void XdgToplevelInterfacePrivate::xdg_toplevel_set_max_size(Resource *resource, 
         return;
     }
 
-    pending->maximumSize = QSizeF(width / surface->scaleOverride(),
-                                  height / surface->scaleOverride());
+    pending->maximumSize = QSizeF(width / surface->clientToCompositorScale(),
+                                  height / surface->clientToCompositorScale());
 }
 
 void XdgToplevelInterfacePrivate::xdg_toplevel_set_min_size(Resource *resource, int32_t width, int32_t height)
@@ -537,8 +537,8 @@ void XdgToplevelInterfacePrivate::xdg_toplevel_set_min_size(Resource *resource, 
         return;
     }
 
-    pending->minimumSize = QSizeF(width / surface->scaleOverride(),
-                                  height / surface->scaleOverride());
+    pending->minimumSize = QSizeF(width / surface->clientToCompositorScale(),
+                                  height / surface->clientToCompositorScale());
 }
 
 void XdgToplevelInterfacePrivate::xdg_toplevel_set_maximized(Resource *resource)
@@ -711,7 +711,7 @@ quint32 XdgToplevelInterface::sendConfigure(const QSizeF &size, const States &st
     const QByteArray xdgStates = QByteArray::fromRawData(reinterpret_cast<char *>(statesData), sizeof(uint32_t) * i);
     const quint32 serial = xdgSurface()->shell()->display()->nextSerial();
 
-    const QSize nativeSize = (size * d->xdgSurface->surface()->scaleOverride()).toSize();
+    const QSize nativeSize = (size * d->xdgSurface->surface()->compositorToClientScale()).toSize();
     d->send_configure(nativeSize.width(), nativeSize.height(), xdgStates);
 
     auto xdgSurfacePrivate = XdgSurfaceInterfacePrivate::get(xdgSurface());
@@ -729,7 +729,7 @@ void XdgToplevelInterface::sendClose()
 void XdgToplevelInterface::sendConfigureBounds(const QSizeF &size)
 {
     if (d->resource()->version() >= XDG_TOPLEVEL_CONFIGURE_BOUNDS_SINCE_VERSION) {
-        const QSize nativeSize = (size * d->xdgSurface->surface()->scaleOverride()).toSize();
+        const QSize nativeSize = (size * d->xdgSurface->surface()->compositorToClientScale()).toSize();
         d->send_configure_bounds(nativeSize.width(), nativeSize.height());
     }
 }
@@ -788,7 +788,7 @@ XdgPopupInterfacePrivate::XdgPopupInterfacePrivate(XdgPopupInterface *popup, Xdg
 void XdgPopupInterfacePrivate::attachTo(SurfaceInterface *parent)
 {
     parentSurface = parent;
-    positioner.setParentScale(parent->scaleOverride());
+    positioner.setParentScale(parent->clientToCompositorScale());
 }
 
 void XdgPopupInterfacePrivate::apply(XdgPopupCommit *commit)
@@ -865,7 +865,7 @@ XdgPopupInterface::XdgPopupInterface(XdgSurfaceInterface *xdgSurface, SurfaceInt
     surfacePrivate->pending = d->pending;
 
     d->positioner = positioner;
-    d->positioner.setPopupScale(xdgSurface->surface()->scaleOverride());
+    d->positioner.setPopupScale(xdgSurface->surface()->clientToCompositorScale());
     if (parentSurface) {
         d->attachTo(parentSurface);
     }
@@ -917,7 +917,7 @@ quint32 XdgPopupInterface::sendConfigure(const RectF &rect)
 {
     const quint32 serial = xdgSurface()->shell()->display()->nextSerial();
 
-    const Rect nativeRect = rect.scaled(d->xdgSurface->surface()->scaleOverride()).rounded();
+    const Rect nativeRect = rect.scaled(d->xdgSurface->surface()->compositorToClientScale()).rounded();
     d->send_configure(nativeRect.x(), nativeRect.y(), nativeRect.width(), nativeRect.height());
 
     auto xdgSurfacePrivate = XdgSurfaceInterfacePrivate::get(xdgSurface());

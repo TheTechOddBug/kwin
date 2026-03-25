@@ -77,7 +77,7 @@ void RelativePointerV1Interface::sendRelativeMotion(const QPointF &delta, const 
         return;
     }
 
-    auto scaleOverride = pointer->focusedSurface()->scaleOverride();
+    const QPointF scaledDelta = pointer->focusedSurface()->toSurfaceLocal(delta);
 
     ClientConnection *focusedClient = pointer->focusedSurface()->client();
     const QList<Resource *> pointerResources = resourceMap().values(focusedClient->client());
@@ -86,8 +86,8 @@ void RelativePointerV1Interface::sendRelativeMotion(const QPointF &delta, const 
             send_relative_motion(pointerResource->handle,
                                  time.count() >> 32,
                                  time.count() & 0xffffffff,
-                                 wl_fixed_from_double(delta.x() * scaleOverride),
-                                 wl_fixed_from_double(delta.y() * scaleOverride),
+                                 wl_fixed_from_double(scaledDelta.x()),
+                                 wl_fixed_from_double(scaledDelta.y()),
                                  wl_fixed_from_double(deltaNonAccelerated.x()),
                                  wl_fixed_from_double(deltaNonAccelerated.y()));
         }

@@ -297,7 +297,7 @@ void TextInputV2InterfacePrivate::sendInputPanelState()
     }
     const QList<Resource *> textInputs = textInputsForClient(focusedSurface->client());
     for (auto resource : textInputs) {
-        const Rect nativeOverlappedSurfaceArea = overlappedSurfaceArea.scaled(focusedSurface->scaleOverride()).rounded();
+        const Rect nativeOverlappedSurfaceArea = overlappedSurfaceArea.scaled(focusedSurface->compositorToClientScale()).rounded();
         send_input_panel_state(resource->handle,
                                inputPanelVisible ? ZWP_TEXT_INPUT_V2_INPUT_PANEL_VISIBILITY_VISIBLE : ZWP_TEXT_INPUT_V2_INPUT_PANEL_VISIBILITY_HIDDEN,
                                nativeOverlappedSurfaceArea.x(),
@@ -394,7 +394,7 @@ void TextInputV2InterfacePrivate::zwp_text_input_v2_set_cursor_rectangle(Resourc
     if (!focusedSurface) {
         return;
     }
-    const RectF rect = Rect(x, y, width, height).scaled(1.0 / focusedSurface->scaleOverride());
+    const RectF rect = Rect(x, y, width, height).scaled(1.0 / focusedSurface->clientToCompositorScale());
     if (cursorRectangle != rect) {
         cursorRectangle = rect;
         Q_EMIT q->cursorRectangleChanged(cursorRectangle);

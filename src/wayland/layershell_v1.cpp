@@ -174,8 +174,8 @@ void LayerSurfaceV1InterfacePrivate::zwlr_layer_surface_v1_set_size(Resource *re
     if (Q_UNLIKELY(!surface)) {
         return;
     }
-    pending->desiredSize = QSizeF(width / surface->scaleOverride(),
-                                  height / surface->scaleOverride());
+    pending->desiredSize = QSizeF(width / surface->clientToCompositorScale(),
+                                  height / surface->clientToCompositorScale());
 }
 
 void LayerSurfaceV1InterfacePrivate::zwlr_layer_surface_v1_set_anchor(Resource *resource, uint32_t anchor)
@@ -227,7 +227,7 @@ void LayerSurfaceV1InterfacePrivate::zwlr_layer_surface_v1_set_exclusive_zone(Re
     if (Q_UNLIKELY(!surface)) {
         return;
     }
-    pending->exclusiveZone = zone / surface->scaleOverride();
+    pending->exclusiveZone = zone / surface->clientToCompositorScale();
 }
 
 void LayerSurfaceV1InterfacePrivate::zwlr_layer_surface_v1_set_margin(Resource *, int32_t top, int32_t right, int32_t bottom, int32_t left)
@@ -235,10 +235,10 @@ void LayerSurfaceV1InterfacePrivate::zwlr_layer_surface_v1_set_margin(Resource *
     if (Q_UNLIKELY(!surface)) {
         return;
     }
-    pending->margins = QMarginsF(left / surface->scaleOverride(),
-                                 top / surface->scaleOverride(),
-                                 right / surface->scaleOverride(),
-                                 bottom / surface->scaleOverride());
+    pending->margins = QMarginsF(left / surface->clientToCompositorScale(),
+                                 top / surface->clientToCompositorScale(),
+                                 right / surface->clientToCompositorScale(),
+                                 bottom / surface->clientToCompositorScale());
 }
 
 void LayerSurfaceV1InterfacePrivate::zwlr_layer_surface_v1_set_keyboard_interactivity(Resource *resource, uint32_t keyboard_interactivity)
@@ -508,7 +508,7 @@ quint32 LayerSurfaceV1Interface::sendConfigure(const QSizeF &size)
     const uint32_t serial = d->shell->display()->nextSerial();
     d->state.serials << serial;
 
-    const QSize nativeSize = (size * d->surface->scaleOverride()).toSize();
+    const QSize nativeSize = (size * d->surface->compositorToClientScale()).toSize();
     d->send_configure(serial, nativeSize.width(), nativeSize.height());
     d->state.configured = true;
 

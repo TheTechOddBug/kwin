@@ -379,7 +379,7 @@ void TextInputV3InterfacePrivate::zwp_text_input_v3_set_cursor_rectangle(Resourc
     if (!state->pending.enabled) {
         return;
     }
-    state->pending.cursorRectangle = Rect(x, y, width, height).scaled(1.0 / surface->scaleOverride());
+    state->pending.cursorRectangle = Rect(x, y, width, height).scaled(1.0 / surface->clientToCompositorScale());
 }
 
 void TextInputV3InterfacePrivate::zwp_text_input_v3_set_text_change_cause(Resource *resource, uint32_t cause)
