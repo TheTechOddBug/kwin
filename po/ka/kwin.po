@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-24 00:45+0000\n"
+"POT-Creation-Date: 2026-03-25 00:46+0000\n"
 "PO-Revision-Date: 2026-03-20 03:45+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -3711,119 +3711,119 @@ msgstr "ტაბლეტი გადატანილია %1-ზე"
 msgid "Tablets switched outputs"
 msgstr "ტაბლეტებმა გამოტანები გადართეს"
 
-#: useractions.cpp:224
+#: useractions.cpp:217
 #, kde-format
 msgid "&Move"
 msgstr "&გადატანა"
 
-#: useractions.cpp:229
+#: useractions.cpp:222
 #, kde-format
 msgid "&Resize"
 msgstr "&ზომის შეცვლა"
 
-#: useractions.cpp:234
+#: useractions.cpp:227
 #, kde-format
 msgid "Keep &Above Others"
 msgstr "დანარჩენი ფანჯრების ზემოთ &ქონა"
 
-#: useractions.cpp:240
+#: useractions.cpp:233
 #, kde-format
 msgid "Keep &Below Others"
 msgstr "სხვა ფანჯრების &ქვემოთ ქონა"
 
-#: useractions.cpp:246
+#: useractions.cpp:239
 #, kde-format
 msgid "&Fullscreen"
 msgstr "&მთელ ეკრანზე"
 
-#: useractions.cpp:252
+#: useractions.cpp:245
 #, kde-format
 msgid "&No Titlebar and Frame"
 msgstr "&სათაურისა და ჩარჩოს გარეშე"
 
-#: useractions.cpp:258
+#: useractions.cpp:251
 #, kde-format
 msgid "&Hide from Screencast"
 msgstr "დამალვა ე&კრანის ვიდეოჩანაწერიდან"
 
-#: useractions.cpp:266
+#: useractions.cpp:259
 #, kde-format
 msgid "Set Window Short&cut…"
 msgstr "ფანჯრის &მალსახობის დაყენება…"
 
-#: useractions.cpp:272
+#: useractions.cpp:265
 #, kde-format
 msgid "Configure Special &Window Settings…"
 msgstr "&ფანჯრის სპეციალური პარამეტრების მორგება…"
 
-#: useractions.cpp:277
+#: useractions.cpp:270
 #, kde-format
 msgid "Configure S&pecial Application Settings…"
 msgstr "აპლიკაციის ს&პეციალური პარამეტრების მორგება…"
 
-#: useractions.cpp:283
+#: useractions.cpp:276
 #, kde-format
 msgid "Ma&ximize"
 msgstr "&აკეცვა"
 
-#: useractions.cpp:289
+#: useractions.cpp:282
 #, kde-format
 msgid "Mi&nimize"
 msgstr "&ჩაკეცვა"
 
-#: useractions.cpp:295
+#: useractions.cpp:288
 #, kde-format
 msgid "&More Actions"
 msgstr "&მეტი ქმედება"
 
-#: useractions.cpp:300
+#: useractions.cpp:293
 #, kde-format
 msgid "&Close"
 msgstr "&დახურვა"
 
-#: useractions.cpp:366
+#: useractions.cpp:359
 #, kde-format
 msgid "&Extensions"
 msgstr "&გაფართოებები"
 
-#: useractions.cpp:416
+#: useractions.cpp:409
 #, kde-format
 msgid "&Desktops"
 msgstr "&სამუშაო მაგიდები"
 
-#: useractions.cpp:432
+#: useractions.cpp:425
 #, kde-format
 msgid "Move to &Screen"
 msgstr "&ეკრანზე გადატანა"
 
-#: useractions.cpp:448
+#: useractions.cpp:441
 #, kde-format
 msgid "Show in &Activities"
 msgstr "აქტივობებში &ჩვენება"
 
-#: useractions.cpp:464
+#: useractions.cpp:457
 #, kde-format
 msgid "&All Desktops"
 msgstr "&ყველა სამუშაო მაგიდა"
 
-#: useractions.cpp:499 useractions.cpp:631
+#: useractions.cpp:492 useractions.cpp:624
 #, kde-format
 msgid "Move to %1"
 msgstr "%1-ზე გადატანა"
 
-#: useractions.cpp:513
+#: useractions.cpp:506
 #, kde-format
 msgctxt "Create a new desktop and add the window to that desktop"
 msgid "Add to &New Desktop"
 msgstr "&ახალ სამუშაო მაგიდაზე დამატება"
 
-#: useractions.cpp:525
+#: useractions.cpp:518
 #, kde-format
 msgctxt "Create a new desktop and move the window to that desktop"
 msgid "Move to New Desktop"
 msgstr "ახალ სამუშაო მაგიდაზე გადატანა"
 
-#: useractions.cpp:556
+#: useractions.cpp:549
 #, kde-format
 msgctxt ""
 "@item:inmenu List of all Screens to send a window to. First argument is a "
@@ -3831,369 +3831,369 @@ msgctxt ""
 msgid "Screen &%1 (%2)"
 msgstr "ეკრანი &%1 (%2)"
 
-#: useractions.cpp:583
+#: useractions.cpp:576
 #, kde-format
 msgid "&All Activities"
 msgstr "&ყველა აქტივობა"
 
-#: useractions.cpp:751
+#: useractions.cpp:740
 #, kde-format
 msgctxt "'%1' is a keyboard shortcut like 'ctrl+w'"
 msgid "<b>%1</b> is already in use"
 msgstr "<b>%1</b> უკვე გამოიყენება"
 
-#: useractions.cpp:753
+#: useractions.cpp:742
 #, kde-format
 msgctxt "keyboard shortcut '%1' is used by action '%2' in application '%3'"
 msgid "<b>%1</b> is used by %2 in %3"
 msgstr "<b>%1</b> გამოიყენება %2 -ის მიერ %3-ში"
 
-#: useractions.cpp:833
+#: useractions.cpp:822
 #, kde-format
 msgid "Window Menu"
 msgstr "ფანჯრის მენიუ"
 
-#: useractions.cpp:835
+#: useractions.cpp:824
 #, kde-format
 msgid "Close Window"
 msgstr "ფანჯრის დახურვა"
 
-#: useractions.cpp:837
+#: useractions.cpp:826
 #, kde-format
 msgid "Maximize Window"
 msgstr "ფანჯრის გადიდება"
 
-#: useractions.cpp:839
+#: useractions.cpp:828
 #, kde-format
 msgid "Maximize Window Vertically"
 msgstr "ფანჯრის გადიდება ვერტიკალურად"
 
-#: useractions.cpp:841
+#: useractions.cpp:830
 #, kde-format
 msgid "Maximize Window Horizontally"
 msgstr "ფანჯრის გადიდება ჰორიზონტალურად"
 
-#: useractions.cpp:843
+#: useractions.cpp:832
 #, kde-format
 msgid "Restore Window"
 msgstr "ფანჯრის აღდგენა"
 
-#: useractions.cpp:845
+#: useractions.cpp:834
 #, kde-format
 msgid "Minimize Window"
 msgstr "ფანჯრის ჩაკეცვა"
 
-#: useractions.cpp:847
+#: useractions.cpp:836
 #, kde-format
 msgid "Move Window"
 msgstr "ფანჯრის გადაადგილება"
 
-#: useractions.cpp:849
+#: useractions.cpp:838
 #, kde-format
 msgid "Resize Window"
 msgstr "ფანჯრის ზომის შეცვლა"
 
-#: useractions.cpp:851
+#: useractions.cpp:840
 #, kde-format
 msgid "Raise Window"
 msgstr "ფანჯრის ამოწევა"
 
-#: useractions.cpp:853
+#: useractions.cpp:842
 #, kde-format
 msgid "Lower Window"
 msgstr "ფანჯრის ჩაწევა"
 
-#: useractions.cpp:855
+#: useractions.cpp:844
 #, kde-format
 msgid "Toggle Window Raise/Lower"
 msgstr "ფანრის ჩაწევა/აწევის გადართვა"
 
-#: useractions.cpp:857
+#: useractions.cpp:846
 #, kde-format
 msgid "Make Window Fullscreen"
 msgstr "ფანჯრის მთელ ეკრანზე გატანა"
 
-#: useractions.cpp:859
+#: useractions.cpp:848
 #, kde-format
 msgid "Toggle Window Titlebar and Frame"
 msgstr "ფანჯრის სათაურის ზოლისა და ჩარჩოს ხილვადობის გადართვა"
 
-#: useractions.cpp:861
+#: useractions.cpp:850
 #, kde-format
 msgid "Keep Window Above Others"
 msgstr "ფანჯრის დანარჩენი ფანჯრების ზემოთ &ქონა"
 
-#: useractions.cpp:863
+#: useractions.cpp:852
 #, kde-format
 msgid "Keep Window Below Others"
 msgstr "ფანჯრის დანარჩენი ფანჯრების ქვემოთ &ქონა"
 
-#: useractions.cpp:865
+#: useractions.cpp:854
 #, kde-format
 msgid "Activate Window Demanding Attention"
 msgstr "ყურადღების მომთხოვნ ფანჯარაზე გადართვა"
 
-#: useractions.cpp:867
+#: useractions.cpp:856
 #, kde-format
 msgid "Setup Window Shortcut"
 msgstr "ფანჯრის მალსახმობის მორგება"
 
-#: useractions.cpp:869
+#: useractions.cpp:858
 #, kde-format
 msgid "Move Window to the Center"
 msgstr "ფანჯრის ცენტრისკენ გადატანა"
 
-#: useractions.cpp:871
+#: useractions.cpp:860
 #, kde-format
 msgid "Move Window Right"
 msgstr "ფანჯრის მარჯვენივ გადატანა"
 
-#: useractions.cpp:873
+#: useractions.cpp:862
 #, kde-format
 msgid "Move Window Left"
 msgstr "ფანჯრის მარცხნივ გადატანა"
 
-#: useractions.cpp:875
+#: useractions.cpp:864
 #, kde-format
 msgid "Move Window Up"
 msgstr "ფანჯრის მაღლა ატანა"
 
-#: useractions.cpp:877
+#: useractions.cpp:866
 #, kde-format
 msgid "Move Window Down"
 msgstr "ფანჯრის დაბლა ჩამოტანა"
 
-#: useractions.cpp:879
+#: useractions.cpp:868
 #, kde-format
 msgid "Expand Window Horizontally"
 msgstr "ფანჯრის ჰორიზონტალური გაფართოება"
 
-#: useractions.cpp:881
+#: useractions.cpp:870
 #, kde-format
 msgid "Expand Window Vertically"
 msgstr "ფანჯრის ვერტიკალური გაფართოება"
 
-#: useractions.cpp:883
+#: useractions.cpp:872
 #, kde-format
 msgid "Shrink Window Horizontally"
 msgstr "ფანჯრის ჰორიზონტალურად შემცირება"
 
-#: useractions.cpp:885
+#: useractions.cpp:874
 #, kde-format
 msgid "Shrink Window Vertically"
 msgstr "ფანჯრის ვერტიკალურად შემცირება"
 
-#: useractions.cpp:887
+#: useractions.cpp:876
 #, kde-format
 msgid "Quick Tile Window to the Left"
 msgstr "ფანჯრის ეკრანის მარცხენა მხარეს გაშლა"
 
-#: useractions.cpp:889
+#: useractions.cpp:878
 #, kde-format
 msgid "Quick Tile Window to the Right"
 msgstr "ფანჯრის ეკრანის მარჯვენა მხარეს გაშლა"
 
-#: useractions.cpp:891
+#: useractions.cpp:880
 #, kde-format
 msgid "Quick Tile Window to the Top"
 msgstr "ფანჯრის ეკრანის ზედა მხარეს გაშლა"
 
-#: useractions.cpp:893
+#: useractions.cpp:882
 #, kde-format
 msgid "Quick Tile Window to the Bottom"
 msgstr "ფანჯრის ეკრანის ქვედა მხარეს გაშლა"
 
-#: useractions.cpp:895
+#: useractions.cpp:884
 #, kde-format
 msgid "Quick Tile Window to the Top Left"
 msgstr "ფანჯრის ეკრანის ზედა მარცხენა მხარეს გაშლა"
 
-#: useractions.cpp:897
+#: useractions.cpp:886
 #, kde-format
 msgid "Quick Tile Window to the Bottom Left"
 msgstr "ფანჯრის ეკრანის ქვედა მარცხენა მხარეს გაშლა"
 
-#: useractions.cpp:899
+#: useractions.cpp:888
 #, kde-format
 msgid "Quick Tile Window to the Top Right"
 msgstr "ფანჯრის ეკრანის ზედა მარჯვენა მხარეს გაშლა"
 
-#: useractions.cpp:901
+#: useractions.cpp:890
 #, kde-format
 msgid "Quick Tile Window to the Bottom Right"
 msgstr "ფანჯრის ეკრანის ქვედა მარჯვენა მხარეს გაშლა"
 
-#: useractions.cpp:903
+#: useractions.cpp:892
 #, kde-format
 msgid "Switch to Window Above"
 msgstr "ზედა ფანჯარაზე გადართვა"
 
-#: useractions.cpp:905
+#: useractions.cpp:894
 #, kde-format
 msgid "Switch to Window Below"
 msgstr "ქვედა ფანჯარაზე გადართვა"
 
-#: useractions.cpp:907
+#: useractions.cpp:896
 #, kde-format
 msgid "Switch to Window to the Right"
 msgstr "მარჯვენა ფანჯარაზე გადართვა"
 
-#: useractions.cpp:909
+#: useractions.cpp:898
 #, kde-format
 msgid "Switch to Window to the Left"
 msgstr "მარცხენა ფანჯარაზე გადართვა"
 
-#: useractions.cpp:911
+#: useractions.cpp:900
 #, kde-format
 msgid "Increase Opacity of Active Window by 5%"
 msgstr "აქტიური ფანჯრის გაუმჭვირვალობის 5%-ით გაზრდა"
 
-#: useractions.cpp:913
+#: useractions.cpp:902
 #, kde-format
 msgid "Decrease Opacity of Active Window by 5%"
 msgstr "აქტიური ფანჯრის გაუმჭვირვალობის 5%-ით შემცირება"
 
-#: useractions.cpp:916
+#: useractions.cpp:905
 #, kde-format
 msgid "Keep Window on All Desktops"
 msgstr "ფანჯრის ყველა სამუშაო მაგიდაზე ჩვენება"
 
-#: useractions.cpp:919
+#: useractions.cpp:908
 #, kde-format
 msgid "Custom Quick Tile Window to the Left"
 msgstr "მორგებული სწრაფი მოზაიკის ფანჯარა მარცხნივ"
 
-#: useractions.cpp:921
+#: useractions.cpp:910
 #, kde-format
 msgid "Custom Quick Tile Window to the Right"
 msgstr "მორგებული სწრაფი მოზაიკის ფანჯარა მარჯვნივ"
 
-#: useractions.cpp:923
+#: useractions.cpp:912
 #, kde-format
 msgid "Custom Quick Tile Window to the Top"
 msgstr "მორგებული სწრაფი მოზაიკის ფანჯარა ზემოთ"
 
-#: useractions.cpp:925
+#: useractions.cpp:914
 #, kde-format
 msgid "Custom Quick Tile Window to the Bottom"
 msgstr "მორგებული სწრაფი მოზაიკის ფანჯარა ქვემოთ"
 
-#: useractions.cpp:936
+#: useractions.cpp:925
 #, kde-format
 msgid "Window to Desktop %1"
 msgstr "ფანჯრის გადატანა მაგიდაზე %1"
 
-#: useractions.cpp:938
+#: useractions.cpp:927
 #, kde-format
 msgid "Window to Next Desktop"
 msgstr "ფანჯრის შემდეგ სამუშაო მაგიდაზე გადატანა"
 
-#: useractions.cpp:939
+#: useractions.cpp:928
 #, kde-format
 msgid "Window to Previous Desktop"
 msgstr "ფანჯრის წინა სამუშაო მაგიდაზე გადატანა"
 
-#: useractions.cpp:940
+#: useractions.cpp:929
 #, kde-format
 msgid "Window One Desktop to the Right"
 msgstr "ფანჯარა ერთი სამუშაო მაგიდით მარჯვნივ"
 
-#: useractions.cpp:942
+#: useractions.cpp:931
 #, kde-format
 msgid "Window One Desktop to the Left"
 msgstr "ფანჯარა ერთი სამუშაო მაგიდით მარცხნივ"
 
-#: useractions.cpp:944
+#: useractions.cpp:933
 #, kde-format
 msgid "Window One Desktop Up"
 msgstr "ფანჯარა ერთი სამუშაო მაგიდით ზემოთ"
 
-#: useractions.cpp:946
+#: useractions.cpp:935
 #, kde-format
 msgid "Window One Desktop Down"
 msgstr "ფანჯარა ერთი სამუშაო მაგიდით ქვემოთ"
 
-#: useractions.cpp:950
+#: useractions.cpp:939
 #, kde-format
 msgid "Move Window to Screen %1"
 msgstr "ფანჯრის %1-ე ეკრანზე გადატანა"
 
-#: useractions.cpp:957
+#: useractions.cpp:946
 #, kde-format
 msgid "Move Window to Next Screen"
 msgstr "ფანჯრის შემდეგ ეკრანზე გადატანა"
 
-#: useractions.cpp:959
+#: useractions.cpp:948
 #, kde-format
 msgid "Move Window to Previous Screen"
 msgstr "ფანჯრის წინა ეკრანზე გადატანა"
 
-#: useractions.cpp:961
+#: useractions.cpp:950
 #, kde-format
 msgid "Move Window One Screen to the Right"
 msgstr "ფანჯრის ერთი ეკრანით მარჯვნივ გაწევა"
 
-#: useractions.cpp:963
+#: useractions.cpp:952
 #, kde-format
 msgid "Move Window One Screen to the Left"
 msgstr "ფანჯრის ერთი ეკრანით მარცხნივ გაწევა"
 
-#: useractions.cpp:965
+#: useractions.cpp:954
 #, kde-format
 msgid "Move Window One Screen Up"
 msgstr "ფანჯრის ერთი ეკრანით მაღლა აწევა"
 
-#: useractions.cpp:967
+#: useractions.cpp:956
 #, kde-format
 msgid "Move Window One Screen Down"
 msgstr "ფანჯრის ერთი ეკრანით დაბლა ჩამოწევა"
 
-#: useractions.cpp:971
+#: useractions.cpp:960
 #, kde-format
 msgid "Switch to Screen %1"
 msgstr "%1-ე ეკრანზე გადართვა"
 
-#: useractions.cpp:978
+#: useractions.cpp:967
 #, kde-format
 msgid "Switch to Next Screen"
 msgstr "შემდეგ ეკრანზე გადართვა"
 
-#: useractions.cpp:979
+#: useractions.cpp:968
 #, kde-format
 msgid "Switch to Previous Screen"
 msgstr "წინა ეკრანზე გადართვა"
 
-#: useractions.cpp:980
+#: useractions.cpp:969
 #, kde-format
 msgid "Switch to Screen to the Right"
 msgstr "მარჯვნივ მდებარე ეკრანზე გადართვა"
 
-#: useractions.cpp:982
+#: useractions.cpp:971
 #, kde-format
 msgid "Switch to Screen to the Left"
 msgstr "მარცხნივ მდებარე ეკრანზე გადართვა"
 
-#: useractions.cpp:984
+#: useractions.cpp:973
 #, kde-format
 msgid "Switch to Screen Above"
 msgstr "ზემო ეკრანზე გადართვა"
 
-#: useractions.cpp:986
+#: useractions.cpp:975
 #, kde-format
 msgid "Switch to Screen Below"
 msgstr "ქვედა ეკრანზე გადართვა"
 
-#: useractions.cpp:989
+#: useractions.cpp:978
 #, kde-format
 msgid "Peek at Desktop"
 msgstr "სამუშაო მაგიდაზე გაჭვრეტა"
 
-#: useractions.cpp:992
+#: useractions.cpp:981
 #, kde-format
 msgid "Kill Window"
 msgstr "ფანჯრის ნაძალადევი დაღუპვა"
 
-#: useractions.cpp:1057
+#: useractions.cpp:1046
 #, kde-format
 msgid "Activate Window (%1)"
 msgstr "ფანჯრის გააქტიურება (%1)"
@@ -4300,7 +4300,7 @@ msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "(არ პასუხობს)"
 
-#: workspace.cpp:1751
+#: workspace.cpp:1756
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""

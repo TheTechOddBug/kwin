@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-24 00:45+0000\n"
+"POT-Creation-Date: 2026-03-25 00:46+0000\n"
 "PO-Revision-Date: 2002-10-26 11:38SAST\n"
 "Last-Translator: Lwandle Mgidlana <lwandle@translate.org.za>\n"
 "Language-Team: Xhosa <xhosa@translate.org.za>\n"
@@ -3706,124 +3706,124 @@ msgstr ""
 msgid "Tablets switched outputs"
 msgstr ""
 
-#: useractions.cpp:224
+#: useractions.cpp:217
 #, kde-format
 msgid "&Move"
 msgstr "&Shukuma"
 
-#: useractions.cpp:229
+#: useractions.cpp:222
 #, fuzzy, kde-format
 msgid "&Resize"
 msgstr "&Ubungakanani"
 
-#: useractions.cpp:234
+#: useractions.cpp:227
 #, fuzzy, kde-format
 msgid "Keep &Above Others"
 msgstr "Ukuhamba kwe Window"
 
-#: useractions.cpp:240
+#: useractions.cpp:233
 #, fuzzy, kde-format
 msgid "Keep &Below Others"
 msgstr "Window Esezantsi"
 
-#: useractions.cpp:246
+#: useractions.cpp:239
 #, fuzzy, kde-format
 msgid "&Fullscreen"
 msgstr "Udubulo lwekhusi Lwefestile"
 
-#: useractions.cpp:252
+#: useractions.cpp:245
 #, kde-format
 msgid "&No Titlebar and Frame"
 msgstr ""
 
-#: useractions.cpp:258
+#: useractions.cpp:251
 #, kde-format
 msgid "&Hide from Screencast"
 msgstr ""
 
-#: useractions.cpp:266
+#: useractions.cpp:259
 #, fuzzy, kde-format
 msgid "Set Window Short&cut…"
 msgstr "Udubulo lwekhusi Lwefestile"
 
-#: useractions.cpp:272
+#: useractions.cpp:265
 #, fuzzy, kde-format
 msgid "Configure Special &Window Settings…"
 msgstr "&Izicwangciso Zendawo Yokugcina"
 
-#: useractions.cpp:277
+#: useractions.cpp:270
 #, fuzzy, kde-format
 msgid "Configure S&pecial Application Settings…"
 msgstr "&Izicwangciso Zendawo Yokugcina"
 
-#: useractions.cpp:283
+#: useractions.cpp:276
 #, kde-format
 msgid "Ma&ximize"
 msgstr "&Yandisa"
 
-#: useractions.cpp:289
+#: useractions.cpp:282
 #, kde-format
 msgid "Mi&nimize"
 msgstr "&Nciphisa"
 
-#: useractions.cpp:295
+#: useractions.cpp:288
 #, kde-format
 msgid "&More Actions"
 msgstr ""
 
-#: useractions.cpp:300
+#: useractions.cpp:293
 #, kde-format
 msgid "&Close"
 msgstr ""
 
-#: useractions.cpp:366
+#: useractions.cpp:359
 #, kde-format
 msgid "&Extensions"
 msgstr ""
 
-#: useractions.cpp:416
+#: useractions.cpp:409
 #, fuzzy, kde-format
 #| msgid "&All Desktops"
 msgid "&Desktops"
 msgstr "&Zonke ii Desktops"
 
-#: useractions.cpp:432
+#: useractions.cpp:425
 #, fuzzy, kde-format
 #| msgid "To &Desktop"
 msgid "Move to &Screen"
 msgstr "&Kwi Desktop"
 
-#: useractions.cpp:448
+#: useractions.cpp:441
 #, kde-format
 msgid "Show in &Activities"
 msgstr ""
 
-#: useractions.cpp:464
+#: useractions.cpp:457
 #, kde-format
 msgid "&All Desktops"
 msgstr "&Zonke ii Desktops"
 
-#: useractions.cpp:499 useractions.cpp:631
+#: useractions.cpp:492 useractions.cpp:624
 #, fuzzy, kde-format
 #| msgid "To &Desktop"
 msgid "Move to %1"
 msgstr "&Kwi Desktop"
 
-#: useractions.cpp:513
+#: useractions.cpp:506
 #, fuzzy, kde-format
 #| msgid "Switch to Desktop 1"
 msgctxt "Create a new desktop and add the window to that desktop"
 msgid "Add to &New Desktop"
 msgstr "Tshintsha kwi Desktop 1"
 
-#: useractions.cpp:525
+#: useractions.cpp:518
 #, fuzzy, kde-format
 #| msgid "To &Desktop"
 msgctxt "Create a new desktop and move the window to that desktop"
 msgid "Move to New Desktop"
 msgstr "&Kwi Desktop"
 
-#: useractions.cpp:556
+#: useractions.cpp:549
 #, fuzzy, kde-format
 #| msgid "Window to Desktop 1"
 msgctxt ""
@@ -3832,383 +3832,383 @@ msgctxt ""
 msgid "Screen &%1 (%2)"
 msgstr "Window kwi Desktop 1"
 
-#: useractions.cpp:583
+#: useractions.cpp:576
 #, kde-format
 msgid "&All Activities"
 msgstr ""
 
-#: useractions.cpp:751
+#: useractions.cpp:740
 #, kde-format
 msgctxt "'%1' is a keyboard shortcut like 'ctrl+w'"
 msgid "<b>%1</b> is already in use"
 msgstr ""
 
-#: useractions.cpp:753
+#: useractions.cpp:742
 #, kde-format
 msgctxt "keyboard shortcut '%1' is used by action '%2' in application '%3'"
 msgid "<b>%1</b> is used by %2 in %3"
 msgstr ""
 
-#: useractions.cpp:833
+#: useractions.cpp:822
 #, fuzzy, kde-format
 #| msgid "Windows"
 msgid "Window Menu"
 msgstr "Windows"
 
-#: useractions.cpp:835
+#: useractions.cpp:824
 #, fuzzy, kde-format
 msgid "Close Window"
 msgstr "Bulala Window"
 
-#: useractions.cpp:837
+#: useractions.cpp:826
 #, fuzzy, kde-format
 msgid "Maximize Window"
 msgstr "&Yandisa"
 
-#: useractions.cpp:839
+#: useractions.cpp:828
 #, fuzzy, kde-format
 msgid "Maximize Window Vertically"
 msgstr "Window Yenziwenkulu Nkqo"
 
-#: useractions.cpp:841
+#: useractions.cpp:830
 #, fuzzy, kde-format
 msgid "Maximize Window Horizontally"
 msgstr "Yenza i Window Ibenkulu"
 
-#: useractions.cpp:843
+#: useractions.cpp:832
 #, fuzzy, kde-format
 msgid "Restore Window"
 msgstr "Bulala Window"
 
-#: useractions.cpp:845
+#: useractions.cpp:834
 #, fuzzy, kde-format
 msgid "Minimize Window"
 msgstr "&Nciphisa"
 
-#: useractions.cpp:847
+#: useractions.cpp:836
 #, fuzzy, kde-format
 msgid "Move Window"
 msgstr "Windows"
 
-#: useractions.cpp:849
+#: useractions.cpp:838
 #, fuzzy, kde-format
 msgid "Resize Window"
 msgstr "Bulala Window"
 
-#: useractions.cpp:851
+#: useractions.cpp:840
 #, fuzzy, kde-format
 msgid "Raise Window"
 msgstr "Bulala Window"
 
-#: useractions.cpp:853
+#: useractions.cpp:842
 #, fuzzy, kde-format
 msgid "Lower Window"
 msgstr "Windows"
 
-#: useractions.cpp:855
+#: useractions.cpp:844
 #, kde-format
 msgid "Toggle Window Raise/Lower"
 msgstr "Dlala Nge window Nyusa/Hlisa"
 
-#: useractions.cpp:857
+#: useractions.cpp:846
 #, fuzzy, kde-format
 msgid "Make Window Fullscreen"
 msgstr "Udubulo lwekhusi Lwefestile"
 
-#: useractions.cpp:859
+#: useractions.cpp:848
 #, fuzzy, kde-format
 msgid "Toggle Window Titlebar and Frame"
 msgstr "Window Esezantsi"
 
-#: useractions.cpp:861
+#: useractions.cpp:850
 #, fuzzy, kde-format
 msgid "Keep Window Above Others"
 msgstr "Ukuhamba kwe Window"
 
-#: useractions.cpp:863
+#: useractions.cpp:852
 #, fuzzy, kde-format
 msgid "Keep Window Below Others"
 msgstr "Window Esezantsi"
 
-#: useractions.cpp:865
+#: useractions.cpp:854
 #, kde-format
 msgid "Activate Window Demanding Attention"
 msgstr ""
 
-#: useractions.cpp:867
+#: useractions.cpp:856
 #, fuzzy, kde-format
 msgid "Setup Window Shortcut"
 msgstr "&Izicwangciso Zendawo Yokugcina"
 
-#: useractions.cpp:869
+#: useractions.cpp:858
 #, fuzzy, kde-format
 msgid "Move Window to the Center"
 msgstr "Windows"
 
-#: useractions.cpp:871
+#: useractions.cpp:860
 #, fuzzy, kde-format
 msgid "Move Window Right"
 msgstr "Windows"
 
-#: useractions.cpp:873
+#: useractions.cpp:862
 #, fuzzy, kde-format
 msgid "Move Window Left"
 msgstr "Windows"
 
-#: useractions.cpp:875
+#: useractions.cpp:864
 #, fuzzy, kde-format
 msgid "Move Window Up"
 msgstr "Windows"
 
-#: useractions.cpp:877
+#: useractions.cpp:866
 #, fuzzy, kde-format
 msgid "Move Window Down"
 msgstr "Windows"
 
-#: useractions.cpp:879
+#: useractions.cpp:868
 #, fuzzy, kde-format
 msgid "Expand Window Horizontally"
 msgstr "Yenza i Window Ibenkulu"
 
-#: useractions.cpp:881
+#: useractions.cpp:870
 #, fuzzy, kde-format
 msgid "Expand Window Vertically"
 msgstr "Window Yenziwenkulu Nkqo"
 
-#: useractions.cpp:883
+#: useractions.cpp:872
 #, fuzzy, kde-format
 msgid "Shrink Window Horizontally"
 msgstr "Yenza i Window Ibenkulu"
 
-#: useractions.cpp:885
+#: useractions.cpp:874
 #, fuzzy, kde-format
 msgid "Shrink Window Vertically"
 msgstr "Window Yenziwenkulu Nkqo"
 
-#: useractions.cpp:887
+#: useractions.cpp:876
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Left"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:889
+#: useractions.cpp:878
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Right"
 msgstr "Phakamisa i Window"
 
-#: useractions.cpp:891
+#: useractions.cpp:880
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Top"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:893
+#: useractions.cpp:882
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Bottom"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:895
+#: useractions.cpp:884
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Top Left"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:897
+#: useractions.cpp:886
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Bottom Left"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:899
+#: useractions.cpp:888
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Top Right"
 msgstr "Phakamisa i Window"
 
-#: useractions.cpp:901
+#: useractions.cpp:890
 #, fuzzy, kde-format
 msgid "Quick Tile Window to the Bottom Right"
 msgstr "Phakamisa i Window"
 
-#: useractions.cpp:903
+#: useractions.cpp:892
 #, fuzzy, kde-format
 #| msgid "Switch to Desktop 10"
 msgid "Switch to Window Above"
 msgstr "Tshintsha kwi Desktop 10"
 
-#: useractions.cpp:905
+#: useractions.cpp:894
 #, fuzzy, kde-format
 #| msgid "Switch to Previous Desktop"
 msgid "Switch to Window Below"
 msgstr "Tshintsha kwi Desktop Edlulileyo"
 
-#: useractions.cpp:907
+#: useractions.cpp:896
 #, fuzzy, kde-format
 msgid "Switch to Window to the Right"
 msgstr "Phakamisa i Window"
 
-#: useractions.cpp:909
+#: useractions.cpp:898
 #, fuzzy, kde-format
 msgid "Switch to Window to the Left"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:911
+#: useractions.cpp:900
 #, kde-format
 msgid "Increase Opacity of Active Window by 5%"
 msgstr ""
 
-#: useractions.cpp:913
+#: useractions.cpp:902
 #, kde-format
 msgid "Decrease Opacity of Active Window by 5%"
 msgstr ""
 
-#: useractions.cpp:916
+#: useractions.cpp:905
 #, fuzzy, kde-format
 msgid "Keep Window on All Desktops"
 msgstr "Window & Dektop"
 
-#: useractions.cpp:919
+#: useractions.cpp:908
 #, fuzzy, kde-format
 msgid "Custom Quick Tile Window to the Left"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:921
+#: useractions.cpp:910
 #, fuzzy, kde-format
 msgid "Custom Quick Tile Window to the Right"
 msgstr "Phakamisa i Window"
 
-#: useractions.cpp:923
+#: useractions.cpp:912
 #, fuzzy, kde-format
 msgid "Custom Quick Tile Window to the Top"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:925
+#: useractions.cpp:914
 #, fuzzy, kde-format
 msgid "Custom Quick Tile Window to the Bottom"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:936
+#: useractions.cpp:925
 #, fuzzy, kde-format
 #| msgid "Window to Desktop 1"
 msgid "Window to Desktop %1"
 msgstr "Window kwi Desktop 1"
 
-#: useractions.cpp:938
+#: useractions.cpp:927
 #, kde-format
 msgid "Window to Next Desktop"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:939
+#: useractions.cpp:928
 #, kde-format
 msgid "Window to Previous Desktop"
 msgstr "Window kwi Desktop Edlulileyo"
 
-#: useractions.cpp:940
+#: useractions.cpp:929
 #, fuzzy, kde-format
 msgid "Window One Desktop to the Right"
 msgstr "Tshintsha Enye i Desktop Ekunene"
 
-#: useractions.cpp:942
+#: useractions.cpp:931
 #, fuzzy, kde-format
 msgid "Window One Desktop to the Left"
 msgstr "Tshintsha Enye i Desktop Ekhohlo"
 
-#: useractions.cpp:944
+#: useractions.cpp:933
 #, fuzzy, kde-format
 msgid "Window One Desktop Up"
 msgstr "Window & Dektop"
 
-#: useractions.cpp:946
+#: useractions.cpp:935
 #, fuzzy, kde-format
 msgid "Window One Desktop Down"
 msgstr "Tshintsha i Desktop Enye Ezantsi"
 
-#: useractions.cpp:950
+#: useractions.cpp:939
 #, fuzzy, kde-format
 #| msgid "Window to Desktop 1"
 msgid "Move Window to Screen %1"
 msgstr "Window kwi Desktop 1"
 
-#: useractions.cpp:957
+#: useractions.cpp:946
 #, fuzzy, kde-format
 #| msgid "Window to Next Desktop"
 msgid "Move Window to Next Screen"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:959
+#: useractions.cpp:948
 #, fuzzy, kde-format
 #| msgid "Window to Previous Desktop"
 msgid "Move Window to Previous Screen"
 msgstr "Window kwi Desktop Edlulileyo"
 
-#: useractions.cpp:961
+#: useractions.cpp:950
 #, fuzzy, kde-format
 msgid "Move Window One Screen to the Right"
 msgstr "Tshintsha Enye i Desktop Ekunene"
 
-#: useractions.cpp:963
+#: useractions.cpp:952
 #, fuzzy, kde-format
 msgid "Move Window One Screen to the Left"
 msgstr "Tshintsha Enye i Desktop Ekhohlo"
 
-#: useractions.cpp:965
+#: useractions.cpp:954
 #, fuzzy, kde-format
 #| msgid "Window to Desktop 2"
 msgid "Move Window One Screen Up"
 msgstr "Window kwi Desktop 2"
 
-#: useractions.cpp:967
+#: useractions.cpp:956
 #, fuzzy, kde-format
 msgid "Move Window One Screen Down"
 msgstr "Tshintsha i Desktop Enye Ezantsi"
 
-#: useractions.cpp:971
+#: useractions.cpp:960
 #, fuzzy, kde-format
 #| msgid "Switch to Desktop 1"
 msgid "Switch to Screen %1"
 msgstr "Tshintsha kwi Desktop 1"
 
-#: useractions.cpp:978
+#: useractions.cpp:967
 #, fuzzy, kde-format
 #| msgid "Switch to Next Desktop"
 msgid "Switch to Next Screen"
 msgstr "Tshintsha kwi Desktop Elandelayo"
 
-#: useractions.cpp:979
+#: useractions.cpp:968
 #, fuzzy, kde-format
 #| msgid "Switch to Previous Desktop"
 msgid "Switch to Previous Screen"
 msgstr "Tshintsha kwi Desktop Edlulileyo"
 
-#: useractions.cpp:980
+#: useractions.cpp:969
 #, fuzzy, kde-format
 msgid "Switch to Screen to the Right"
 msgstr "Phakamisa i Window"
 
-#: useractions.cpp:982
+#: useractions.cpp:971
 #, fuzzy, kde-format
 msgid "Switch to Screen to the Left"
 msgstr "Window kwi Desktop Elandelayo"
 
-#: useractions.cpp:984
+#: useractions.cpp:973
 #, fuzzy, kde-format
 #| msgid "Switch to Desktop 10"
 msgid "Switch to Screen Above"
 msgstr "Tshintsha kwi Desktop 10"
 
-#: useractions.cpp:986
+#: useractions.cpp:975
 #, fuzzy, kde-format
 #| msgid "Switch to Desktop 10"
 msgid "Switch to Screen Below"
 msgstr "Tshintsha kwi Desktop 10"
 
-#: useractions.cpp:989
+#: useractions.cpp:978
 #, fuzzy, kde-format
 #| msgid "To &Desktop"
 msgid "Peek at Desktop"
 msgstr "&Kwi Desktop"
 
-#: useractions.cpp:992
+#: useractions.cpp:981
 #, kde-format
 msgid "Kill Window"
 msgstr "Bulala Window"
 
-#: useractions.cpp:1057
+#: useractions.cpp:1046
 #, kde-format
 msgid "Activate Window (%1)"
 msgstr ""
@@ -4315,7 +4315,7 @@ msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr ""
 
-#: workspace.cpp:1751
+#: workspace.cpp:1756
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""
