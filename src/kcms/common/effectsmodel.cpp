@@ -13,6 +13,7 @@
 
 #include <kwin_effects_interface.h>
 
+#include <KAboutApplicationDialog>
 #include <KAboutData>
 #include <KCMultiDialog>
 #include <KConfigGroup>
@@ -591,6 +592,58 @@ void EffectsModel::requestConfigure(const QModelIndex &index, QQuickItem *contex
         dialog->setWindowModality(Qt::WindowModal);
     }
 
+    dialog->open();
+}
+
+void EffectsModel::requestAbout(const QModelIndex &index, QQuickItem *context)
+{
+    if (!index.isValid()) {
+        return;
+    }
+
+    const QString name = index.data(EffectsModel::NameRole).toString();
+    const QString comment = index.data(EffectsModel::DescriptionRole).toString();
+    const QString author = index.data(EffectsModel::AuthorNameRole).toString();
+    const QString email = index.data(EffectsModel::AuthorEmailRole).toString();
+    const QString website = index.data(EffectsModel::WebsiteRole).toString();
+    const QString version = index.data(EffectsModel::VersionRole).toString();
+    const QString license = index.data(EffectsModel::LicenseRole).toString();
+    const QString icon = index.data(EffectsModel::IconNameRole).toString();
+
+    const KAboutLicense::LicenseKey licenseType = KAboutLicense::byKeyword(license).key();
+
+    KAboutData aboutData(
+        name, // Plugin name
+        name, // Display name
+        version, // Version
+        comment, // Short description
+        licenseType, // License
+        QString(), // Copyright statement
+        QString(), // Other text
+        website.toLatin1() // Home page
+    );
+    aboutData.setProgramLogo(icon);
+
+    const QStringList authors = author.split(',');
+    const QStringList emails = email.split(',');
+
+    if (authors.count() == emails.count()) {
+        int i = 0;
+        for (const QString &author : authors) {
+            if (!author.isEmpty()) {
+                aboutData.addAuthor(i18n(author.toUtf8()), QString(), emails[i]);
+            }
+            i++;
+        }
+    }
+
+    auto *dialog = new KAboutApplicationDialog(aboutData);
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    if (context && context->window()) {
+        dialog->winId(); // so it creates windowHandle
+        dialog->windowHandle()->setTransientParent(QQuickRenderControl::renderWindowFor(context->window()));
+        dialog->setWindowModality(Qt::WindowModal);
+    }
     dialog->open();
 }
 

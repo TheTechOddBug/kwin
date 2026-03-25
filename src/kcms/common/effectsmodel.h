@@ -227,6 +227,14 @@ public:
      */
     void requestConfigure(const QModelIndex &index, QQuickItem *context);
 
+    /**
+     * Shows an about dialog for a given effect.
+     *
+     * @param index An effect represented by the given index.
+     * @param context The context in which to open configuration dialog.
+     */
+    void requestAbout(const QModelIndex &index, QQuickItem *context);
+
 Q_SIGNALS:
     /**
      * This signal is emitted when the model is loaded or reloaded.

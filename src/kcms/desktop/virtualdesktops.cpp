@@ -112,46 +112,7 @@ void VirtualDesktops::showAboutAnimation()
         return;
     }
 
-    const QString name = index.data(AnimationsModel::NameRole).toString();
-    const QString comment = index.data(AnimationsModel::DescriptionRole).toString();
-    const QString author = index.data(AnimationsModel::AuthorNameRole).toString();
-    const QString email = index.data(AnimationsModel::AuthorEmailRole).toString();
-    const QString website = index.data(AnimationsModel::WebsiteRole).toString();
-    const QString version = index.data(AnimationsModel::VersionRole).toString();
-    const QString license = index.data(AnimationsModel::LicenseRole).toString();
-    const QString icon = index.data(AnimationsModel::IconNameRole).toString();
-
-    const KAboutLicense::LicenseKey licenseType = KAboutLicense::byKeyword(license).key();
-
-    KAboutData aboutData(
-        name, // Plugin name
-        name, // Display name
-        version, // Version
-        comment, // Short description
-        licenseType, // License
-        QString(), // Copyright statement
-        QString(), // Other text
-        website.toLatin1() // Home page
-    );
-    aboutData.setProgramLogo(icon);
-
-    const QStringList authors = author.split(',');
-    const QStringList emails = email.split(',');
-
-    if (authors.count() == emails.count()) {
-        int i = 0;
-        for (const QString &author : authors) {
-            if (!author.isEmpty()) {
-                aboutData.addAuthor(i18n(author.toUtf8()), QString(), emails[i]);
-            }
-            i++;
-        }
-    }
-
-    QPointer<KAboutApplicationDialog> aboutPlugin = new KAboutApplicationDialog(aboutData);
-    aboutPlugin->exec();
-
-    delete aboutPlugin;
+    m_data->animationsModel()->requestAbout(index, nullptr);
 }
 
 bool VirtualDesktops::isSaveNeeded() const
