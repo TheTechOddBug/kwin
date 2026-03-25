@@ -1,4 +1,17 @@
-add_subdirectory(pip)
+include(ExternalProject)
+
+function (kwin_add_demo name)
+    ExternalProject_Add(
+        ${name}
+        BUILD_ALWAYS TRUE
+        SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/${name}
+        PREFIX ${CMAKE_CURRENT_BINARY_DIR}/${name}
+        INSTALL_COMMAND ""
+        TEST_COMMAND ""
+    )
+endfunction()
+
+kwin_add_demo(pip)
 
 if(KWIN_BUILD_X11)
     set(normalhintsbasesizetest_SRCS normalhintsbasesizetest.cpp)
