@@ -49,7 +49,7 @@ FractionalScaleV1Interface::FractionalScaleV1Interface(SurfaceInterface *surface
     , surface(surface)
 {
     SurfaceInterfacePrivate *surfacePrivate = SurfaceInterfacePrivate::get(surface);
-    surfacePrivate->fractionalScaleExtension = this;
+    surfacePrivate->fractionalScaleV1 = this;
     if (surfacePrivate->preferredBufferScale.has_value()) {
         setPreferredScale(surfacePrivate->preferredBufferScale.value());
     }
@@ -59,13 +59,13 @@ FractionalScaleV1Interface::~FractionalScaleV1Interface()
 {
     if (surface) {
         SurfaceInterfacePrivate *surfacePrivate = SurfaceInterfacePrivate::get(surface);
-        surfacePrivate->fractionalScaleExtension = nullptr;
+        surfacePrivate->fractionalScaleV1 = nullptr;
     }
 }
 
 FractionalScaleV1Interface *FractionalScaleV1Interface::get(SurfaceInterface *surface)
 {
-    return SurfaceInterfacePrivate::get(surface)->fractionalScaleExtension;
+    return SurfaceInterfacePrivate::get(surface)->fractionalScaleV1;
 }
 
 void FractionalScaleV1Interface::setPreferredScale(qreal scale)

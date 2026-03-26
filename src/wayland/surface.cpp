@@ -11,6 +11,7 @@
 #include "compositor.h"
 #include "display.h"
 #include "fractionalscale_v1_p.h"
+#include "fractionalscale_v2.h"
 #include "idleinhibit_v1_p.h"
 #include "linux_drm_syncobj_v1.h"
 #include "linuxdmabufv1clientbuffer.h"
@@ -1226,8 +1227,11 @@ void SurfaceInterface::setPreferredBufferScale(qreal scale)
     }
     d->preferredBufferScale = scale;
 
-    if (d->fractionalScaleExtension) {
-        d->fractionalScaleExtension->setPreferredScale(scale);
+    if (d->fractionalScaleV1) {
+        d->fractionalScaleV1->setPreferredScale(scale);
+    }
+    if (d->fractionalScaleV2) {
+        d->fractionalScaleV2->setCompositorToClientScale(scale);
     }
     if (d->resource()->version() >= WL_SURFACE_PREFERRED_BUFFER_SCALE_SINCE_VERSION) {
         d->send_preferred_buffer_scale(std::ceil(scale));

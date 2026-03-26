@@ -27,6 +27,7 @@ class ViewportInterface;
 class ContentTypeV1Interface;
 class TearingControlV1Interface;
 class FractionalScaleV1Interface;
+class FractionalScaleV2;
 class PresentationTimeFeedback;
 class ColorSurfaceV1;
 class ColorFeedbackSurfaceV1;
@@ -191,7 +192,8 @@ public:
     ViewportInterface *viewportExtension = nullptr;
     std::unique_ptr<LinuxDmaBufV1Feedback> dmabufFeedbackV1;
     QPointer<ContentTypeV1Interface> contentTypeInterface;
-    FractionalScaleV1Interface *fractionalScaleExtension = nullptr;
+    FractionalScaleV1Interface *fractionalScaleV1 = nullptr;
+    FractionalScaleV2 *fractionalScaleV2 = nullptr;
     ClientConnection *client = nullptr;
     TearingControlV1Interface *tearing = nullptr;
     ColorSurfaceV1 *colorSurface = nullptr;
