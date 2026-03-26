@@ -2895,6 +2895,7 @@ RectF Window::iconGeometry() const
         return RectF();
     }
 
+    const QPointF center = m_frameGeometry.center();
     int minDistance = INT_MAX;
     Window *candidatePanel = nullptr;
     RectF candidateGeom;
@@ -2905,7 +2906,7 @@ RectF Window::iconGeometry() const
         if (!panel) {
             continue;
         }
-        const int distance = QPointF(panel->pos() - pos()).manhattanLength();
+        const int distance = QPointF(panel->m_frameGeometry.center() - center).manhattanLength();
         if (distance < minDistance) {
             minDistance = distance;
             candidatePanel = panel;
