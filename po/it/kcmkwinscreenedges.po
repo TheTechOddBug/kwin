@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kcmkwinscreenedges\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-20 00:45+0000\n"
-"PO-Revision-Date: 2026-03-17 16:40+0100\n"
+"PO-Revision-Date: 2026-03-20 12:00+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
 "Language: it\n"
@@ -92,16 +92,13 @@ msgstr "Attiva selettore delle finestre alternativo"
 
 #. i18n: ectx: property (text), widget (QLabel, infoLabel)
 #: main.ui:23
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can trigger an action by pushing the mouse cursor against the "
-#| "corresponding screen edge or corner."
+#, kde-format
 msgid ""
 "You can trigger an action by pushing the mouse pointer against the "
 "corresponding screen edge or corner."
 msgstr ""
 "Puoi innescare un'azione spingendo il puntatore del mouse contro il bordo o "
-"l'angolo dello schermo corrispondente"
+"l'angolo dello schermo corrispondente."
 
 #. i18n: ectx: property (text), widget (QLabel, quickMaximizeLabel)
 #: main.ui:67
@@ -165,10 +162,7 @@ msgstr "della parte più esterna dello schermo"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, desktopSwitchLabel)
 #: main.ui:174
-#, fuzzy, kde-format
-#| msgid ""
-#| "Change desktop when the mouse cursor is pushed against the edge of the "
-#| "screen"
+#, kde-format
 msgid ""
 "Change desktop when the mouse pointer is pushed against the edge of the "
 "screen"
@@ -203,16 +197,13 @@ msgstr "Sempre abilitata"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, activationDelayLabel)
 #: main.ui:206
-#, fuzzy, kde-format
-#| msgid ""
-#| "Amount of time required for the mouse cursor to be pushed against the "
-#| "edge of the screen before the action is triggered"
+#, kde-format
 msgid ""
 "Amount of time required for the mouse pointer to be pushed against the edge "
 "of the screen before the action is triggered"
 msgstr ""
-"Tempo che il puntatore del mouse deve sostare sul bordo dello schermo prima "
-"di innescare un'azione"
+"Tempo necessario affinché il puntatore del mouse venga spinto contro il "
+"bordo dello schermo prima che venga attivata l'azione"
 
 #. i18n: ectx: property (text), widget (QLabel, activationDelayLabel)
 #: main.ui:209
@@ -251,13 +242,7 @@ msgstr "Barri&era degli angoli:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_CornerBarrier)
 #: main.ui:280
-#, fuzzy, kde-format
-#| msgid ""
-#| "Here you can enable or disable the virtual corner barrier between "
-#| "screens. The barrier prevents the cursor from moving to another screen "
-#| "when it is already touching a screen corner. This makes it easier to "
-#| "trigger user interface elements like maximized windows' close buttons "
-#| "when using multiple screens."
+#, kde-format
 msgid ""
 "Here you can enable or disable the virtual corner barrier between screens. "
 "The barrier prevents the pointer from moving to another screen when it is "
@@ -265,11 +250,11 @@ msgid ""
 "interface elements like maximized windows' close buttons when using multiple "
 "screens."
 msgstr ""
-"Qui puoi abilitare o disabilitare la barriera virtuale degli angoli tra gli "
+"Qui è possibile attivare o disattivare la barriera virtuale angolare tra gli "
 "schermi. La barriera impedisce al puntatore di spostarsi su un altro schermo "
-"quando sta già toccando un angolo dello schermo. Ciò semplifica "
-"l'attivazione di elementi dell'interfaccia utente come i pulsanti di "
-"chiusura delle finestre ingrandite quando si utilizzano più schermi."
+"quando si trova già a contatto con un angolo di uno schermo. Ciò facilita "
+"l'attivazione di elementi dell'interfaccia utente, come i pulsanti di "
+"chiusura delle finestre massimizzate, quando si utilizzano più schermi."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CornerBarrier)
 #: main.ui:283
@@ -302,9 +287,7 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_EdgeBarrier)
 #: main.ui:303
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Additional distance cursor needs to travel to cross screen edges."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Additional distance the pointer needs to travel to cross screen edges."
 msgstr ""
