@@ -120,6 +120,10 @@ private Q_SLOTS:
     void intersects();
     void intersected_data();
     void intersected();
+    void normalized_data();
+    void normalized();
+    void span_data();
+    void span();
     void rounded_data();
     void rounded();
     void roundedIn_data();
@@ -1338,6 +1342,44 @@ void TestRectF::intersected()
         tmp &= rect1;
         QTEST(tmp, "result");
     }
+}
+
+void TestRectF::normalized_data()
+{
+    QTest::addColumn<RectF>("rect");
+    QTest::addColumn<RectF>("normalized");
+
+    QTest::addRow("empty") << RectF() << RectF();
+    QTest::addRow("positive width and height") << RectF(QPointF(0.1, 0.2), QPointF(0.3, 0.4)) << RectF(QPointF(0.1, 0.2), QPointF(0.3, 0.4));
+    QTest::addRow("negative width") << RectF(QPointF(0.1, 0.2), QPointF(-0.3, 0.4)) << RectF(QPointF(-0.3, 0.2), QPointF(0.1, 0.4));
+    QTest::addRow("negative height") << RectF(QPointF(0.1, 0.2), QPointF(0.3, -0.4)) << RectF(QPointF(0.1, -0.4), QPointF(0.3, 0.2));
+    QTest::addRow("negative width and height") << RectF(QPointF(0.1, 0.2), QPointF(-0.3, -0.4)) << RectF(QPointF(-0.3, -0.4), QPointF(0.1, 0.2));
+}
+
+void TestRectF::normalized()
+{
+    QFETCH(RectF, rect);
+    QTEST(rect.normalized(), "normalized");
+}
+
+void TestRectF::span_data()
+{
+    QTest::addColumn<QPointF>("point1");
+    QTest::addColumn<QPointF>("point2");
+    QTest::addColumn<RectF>("rect");
+
+    QTest::addRow("empty") << QPointF() << QPointF() << RectF();
+    QTest::addRow("top-left + bottom-right") << QPointF(0.1, 0.2) << QPointF(0.3, 0.4) << RectF(QPointF(0.1, 0.2), QPointF(0.3, 0.4));
+    QTest::addRow("top-right + bottom-left") << QPointF(0.3, 0.2) << QPointF(0.1, 0.4) << RectF(QPointF(0.1, 0.2), QPointF(0.3, 0.4));
+    QTest::addRow("top-left + bottom-left") << QPointF(0.1, 0.2) << QPointF(0.1, 0.4) << RectF(QPointF(0.1, 0.2), QPointF(0.1, 0.4));
+}
+
+void TestRectF::span()
+{
+    QFETCH(QPointF, point1);
+    QFETCH(QPointF, point2);
+    QTEST(RectF::span(point1, point2), "rect");
+    QTEST(RectF::span(point2, point1), "rect");
 }
 
 void TestRectF::rounded_data()

@@ -606,6 +606,21 @@ public:
     constexpr inline bool intersects(const Rect &other) const noexcept;
 
     /*!
+     * Returns a normalized rectangle, i.e. a rectangle that has no negative width or height.
+     *
+     * The rectangle will be normalized by swapping edges. If the width() is negative, the left()
+     * and right() edges will be swapped; if the height() is negative, the top() and bottom() edges
+     * will be swapped.
+     */
+    constexpr inline Rect normalized() const noexcept;
+
+    /*!
+     * Returns a rectangle that spans between two points \a point1 and \a point2. The specified
+     * points can indicate the coordinates of any two rectangle corners.
+     */
+    static constexpr inline Rect span(const QPoint &point1, const QPoint &point2) noexcept;
+
+    /*!
      * Returns \c true if this rectangle and the \a other rectangle are equal; otherwise returns \c false.
      */
     constexpr inline bool operator==(const Rect &other) const noexcept;
@@ -1273,6 +1288,21 @@ public:
     constexpr inline bool intersects(const RectF &other) const noexcept;
 
     /*!
+     * Returns a normalized rectangle, i.e. a rectangle that has no negative width or height.
+     *
+     * The rectangle will be normalized by swapping edges. If the width() is negative, the left()
+     * and right() edges will be swapped; if the height() is negative, the top() and bottom() edges
+     * will be swapped.
+     */
+    constexpr inline RectF normalized() const noexcept;
+
+    /*!
+     * Returns a rectangle that spans between two points \a point1 and \a point2. The specified
+     * points can indicate the coordinates of any two rectangle corners.
+     */
+    static constexpr inline RectF span(const QPointF &point1, const QPointF &point2) noexcept;
+
+    /*!
      * Returns a copy of this rectangle with its left, top, right, and bottom edge coordinates rounded
      * to the nearest integers.
      *
@@ -1822,6 +1852,17 @@ constexpr inline bool Rect::intersects(const Rect &other) const noexcept
         && top() < other.bottom() && other.top() < bottom();
 }
 
+constexpr inline Rect Rect::normalized() const noexcept
+{
+    return Rect(QPoint(std::min(left(), right()), std::min(top(), bottom())),
+                QPoint(std::max(left(), right()), std::max(top(), bottom())));
+}
+
+constexpr inline Rect Rect::span(const QPoint &point1, const QPoint &point2) noexcept
+{
+    return Rect(point1, point2).normalized();
+}
+
 constexpr inline bool Rect::operator==(const Rect &other) const noexcept
 {
     return m_left == other.m_left && m_top == other.m_top && m_right == other.m_right && m_bottom == other.m_bottom;
@@ -2344,6 +2385,17 @@ constexpr inline bool RectF::intersects(const RectF &other) const noexcept
     }
     return left() < other.right() && other.left() < right()
         && top() < other.bottom() && other.top() < bottom();
+}
+
+constexpr inline RectF RectF::normalized() const noexcept
+{
+    return RectF(QPointF(std::min(left(), right()), std::min(top(), bottom())),
+                 QPointF(std::max(left(), right()), std::max(top(), bottom())));
+}
+
+constexpr inline RectF RectF::span(const QPointF &point1, const QPointF &point2) noexcept
+{
+    return RectF(point1, point2).normalized();
 }
 
 constexpr inline Rect RectF::rounded() const noexcept
