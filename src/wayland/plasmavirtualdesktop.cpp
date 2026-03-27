@@ -5,7 +5,6 @@
 */
 #include "plasmavirtualdesktop.h"
 #include "display.h"
-#include "output.h"
 #include "wayland/quirks.h"
 
 #include <QDebug>
@@ -216,16 +215,16 @@ void PlasmaVirtualDesktopManagementInterface::removeDesktop(const QString &id)
     }
 }
 
-void PlasmaVirtualDesktopManagementInterface::setActiveDesktopForOutput(const QString &previousDesktopId, const QString &activeDesktopId, LogicalOutput *output)
+void PlasmaVirtualDesktopManagementInterface::setActiveDesktopForOutput(const QString &previousDesktopId, const QString &activeDesktopId, const QString &outputName)
 {
     PlasmaVirtualDesktopInterface *activeDesktop = desktop(activeDesktopId);
     if (activeDesktop) {
-        activeDesktop->sendOutputEntered(output->name());
+        activeDesktop->enterOutput(outputName);
     }
 
     PlasmaVirtualDesktopInterface *previousDesktop = desktop(previousDesktopId);
     if (previousDesktop) {
-        previousDesktop->leaveOutput(output->name());
+        previousDesktop->leaveOutput(outputName);
     }
 }
 

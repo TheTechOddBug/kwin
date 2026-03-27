@@ -14,7 +14,6 @@ namespace KWin
 {
 
 class Display;
-class LogicalOutput;
 class PlasmaVirtualDesktopInterface;
 class PlasmaVirtualDesktopInterfacePrivate;
 class PlasmaVirtualDesktopManagementInterfacePrivate;
@@ -59,7 +58,7 @@ public:
      */
     void removeDesktop(const QString &id);
 
-    void setActiveDesktopForOutput(const QString &previousDesktopId, const QString &activeDesktopId, LogicalOutput *output);
+    void setActiveDesktopForOutput(const QString &previousDesktopId, const QString &activeDesktopId, const QString &outputName);
 
     /**
      * @returns All the desktops present.

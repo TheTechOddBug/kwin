@@ -36,6 +36,7 @@ private Q_SLOTS:
     void testConnectNewClient();
     void testDestroy();
     void testActivate();
+    void testOutputEntered();
 
     void testEnterLeaveDesktop();
     void testAllDesktops();
@@ -365,6 +366,36 @@ void TestVirtualDesktop::testActivate()
         }
     }
     QVERIFY(deactivatedSpy.wait());
+}
+
+void TestVirtualDesktop::testOutputEntered()
+{
+    // rebuild some desktops
+    testCreate();
+
+    QString outputName1("Output 1");
+    QString outputName2("Output 2");
+    KWin::PlasmaVirtualDesktopInterface *desktop1Int = m_plasmaVirtualDesktopManagementInterface->desktops().at(0);
+    KWin::PlasmaVirtualDesktopInterface *desktop2Int = m_plasmaVirtualDesktopManagementInterface->desktops().at(1);
+    KWayland::Client::PlasmaVirtualDesktop *desktop1 = m_plasmaVirtualDesktopManagement->desktops().at(0);
+    KWayland::Client::PlasmaVirtualDesktop *desktop2 = m_plasmaVirtualDesktopManagement->desktops().at(1);
+
+    QSignalSpy outputEnteredSpy1(desktop1, &KWayland::Client::PlasmaVirtualDesktop::outputEntered);
+    QSignalSpy outputEnteredSpy2(desktop2, &KWayland::Client::PlasmaVirtualDesktop::outputEntered);
+
+    m_plasmaVirtualDesktopManagementInterface->setActiveDesktopForOutput({}, desktop1Int->id(), outputName1);
+    QVERIFY(outputEnteredSpy1.wait());
+    QCOMPARE(m_plasmaVirtualDesktopManagement->currentDesktopByOutputName(outputName1), desktop1);
+    QCOMPARE(m_plasmaVirtualDesktopManagement->currentDesktopByOutputName(outputName2), nullptr);
+
+    m_plasmaVirtualDesktopManagementInterface->setActiveDesktopForOutput({}, desktop2Int->id(), outputName2);
+    QVERIFY(outputEnteredSpy2.wait());
+    QCOMPARE(m_plasmaVirtualDesktopManagement->currentDesktopByOutputName(outputName1), desktop1);
+    QCOMPARE(m_plasmaVirtualDesktopManagement->currentDesktopByOutputName(outputName2), desktop2);
+
+    QSignalSpy enterOutputRequestedSpy2(desktop2Int, &KWin::PlasmaVirtualDesktopInterface::enterOutputRequested);
+    desktop2->requestEnterOutput(outputName1);
+    QVERIFY(enterOutputRequestedSpy2.wait());
 }
 
 void TestVirtualDesktop::testEnterLeaveDesktop()

@@ -110,7 +110,7 @@ void VirtualDesktopManager::setVirtualDesktopManagement(PlasmaVirtualDesktopMana
     });
 
     connect(this, &VirtualDesktopManager::currentChanged, m_virtualDesktopManagement, [this](VirtualDesktop *oldDesktop, VirtualDesktop *newDesktop, LogicalOutput *output) {
-        m_virtualDesktopManagement->setActiveDesktopForOutput(oldDesktop->id(), newDesktop->id(), output);
+        m_virtualDesktopManagement->setActiveDesktopForOutput(oldDesktop->id(), newDesktop->id(), output->name());
 
         if (output == workspace()->activeOutput()) {
             updateLegacyPlasmaVirtualDesktops(newDesktop);
