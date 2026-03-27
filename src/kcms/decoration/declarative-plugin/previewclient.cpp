@@ -426,8 +426,8 @@ void PreviewClient::requestToggleShade()
 
 SETTER(const QString &, setCaption, caption)
 SETTER(const QString &, setIconName, iconName)
-SETTER(int, setWidth, width)
-SETTER(int, setHeight, height)
+SETTER(qreal, setWidth, width)
+SETTER(qreal, setHeight, height)
 
 SETTER2(setActive, active)
 SETTER2(setCloseable, closeable)

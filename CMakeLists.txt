@@ -455,6 +455,7 @@ add_definitions(
     -DQT_NO_CAST_TO_ASCII
     -DQT_NO_FOREACH
     -DQT_NO_CONTEXTLESS_CONNECT
+    -DQT_NO_NARROWING_CONVERSIONS_IN_CONNECT
 
     # Prevent EGL headers from including platform headers, in particular Xlib.h.
     -DMESA_EGL_NO_X11_HEADERS

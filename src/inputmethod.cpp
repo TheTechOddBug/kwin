@@ -526,7 +526,7 @@ void InputMethod::keysymReceived(quint32 serial, quint32 time, quint32 sym, Keyb
     }
 }
 
-void InputMethod::commitString(qint32 serial, const QString &text)
+void InputMethod::commitString(quint32 serial, const QString &text)
 {
     if (auto t2 = waylandServer()->seat()->textInputV2(); t2 && t2->isEnabled()) {
         t2->commitString(text);
