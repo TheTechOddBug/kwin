@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-26 00:46+0000\n"
+"POT-Creation-Date: 2026-03-27 00:47+0000\n"
 "PO-Revision-Date: 2026-03-24 10:34+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -4272,7 +4272,7 @@ msgstr "رفض السائق ضبط الإخراج"
 msgid "The session is not active"
 msgstr "الجلسة ليست نشطة"
 
-#: window.cpp:3123
+#: window.cpp:3124
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"

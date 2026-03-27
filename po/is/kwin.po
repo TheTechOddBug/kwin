@@ -12,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-26 00:46+0000\n"
-"PO-Revision-Date: 2026-03-24 09:47+0000\n"
+"POT-Creation-Date: 2026-03-27 00:47+0000\n"
+"PO-Revision-Date: 2026-03-26 11:06+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -1286,12 +1286,7 @@ msgid "This helper utility is not supposed to be called directly."
 msgstr "Það á ekki að ræsa þetta hjálparverkfæri handvirkt."
 
 #: helpers/dialoghelper/dialoghelper.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window menu instead, activated using the %1 keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
@@ -1300,8 +1295,8 @@ msgid ""
 msgstr ""
 "Þú hefur valið að sýna glugga fullstækkaðan.\n"
 "Ef forritið er ekki með þann valkost að slökkva á fullstækkun verður ekki "
-"hægt að gera hana óvirka aftur með músinni: notaðu aðgerðavalmynd gluggans í "
-"staðinn, sem hægt er að opna með flýtilyklinum %1."
+"hægt að gera hana óvirka aftur með músinni: notaðu í staðinn %1 "
+"flýtilykilinn."
 
 #: helpers/dialoghelper/dialoghelper.cpp:85
 #, kde-format
@@ -1317,21 +1312,15 @@ msgstr ""
 "staðinn, sem hægt er að opna með flýtilyklinum %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:93
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window menu instead, activated using the %1 keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
 "mode off you will not be able to disable it again using the mouse."
 msgstr ""
 "Þú hefur valið að sýna glugga fullstækkaðan.\n"
-"Ef forritið er ekki með þann valkost að slökkva á fullstækkun verður ekki "
-"hægt að gera hana óvirka aftur með músinni: notaðu aðgerðavalmynd gluggans í "
-"staðinn, sem hægt er að opna með flýtilyklinum %1."
+"Ef sjálft forritið er ekki með þann valkost að slökkva á fullstækkun verður "
+"ekki hægt að gera hana óvirka aftur með músinni."
 
 #: helpers/dialoghelper/dialoghelper.cpp:98
 #, kde-format
@@ -1340,20 +1329,15 @@ msgid "Undo Fullscreen"
 msgstr "Afturkalla að fylla skjá"
 
 #: helpers/dialoghelper/dialoghelper.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
 "the mouse: use the %1 keyboard shortcut instead."
 msgstr ""
 "Þú hefur valið að birta gluggann án rammans.\n"
-"Án ramma getur þú ekki virkjað rammann aftur með músinni: notaðu "
-"aðgerðavalmynd gluggans í staðinn sem hægt er að opna með flýtilyklinum %1."
+"Án rammans getur þú ekki virkjað rammann aftur með músinni: notaðu í staðinn "
+"%1 flýtilykilinn."
 
 #: helpers/dialoghelper/dialoghelper.cpp:106
 #, kde-format
@@ -1368,20 +1352,14 @@ msgstr ""
 "aðgerðavalmynd gluggans í staðinn sem hægt er að opna með flýtilyklinum %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:112
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
 "the mouse."
 msgstr ""
 "Þú hefur valið að birta gluggann án rammans.\n"
-"Án ramma getur þú ekki virkjað rammann aftur með músinni: notaðu "
-"aðgerðavalmynd gluggans í staðinn sem hægt er að opna með flýtilyklinum %1."
+"Án rammans getur þú ekki virkjað rammann aftur með músinni."
 
 #: helpers/dialoghelper/dialoghelper.cpp:116
 #, kde-format
@@ -4294,17 +4272,17 @@ msgstr "Get ekki bætt við sérsniðnum ham með uppfærslutíðni upp á núll
 #: wayland/outputmanagement_v2.cpp:653
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr ""
+msgstr "Staðsetning úttaksins %1 er allt of neikvæð (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:656
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr ""
+msgstr "Staðsetning virkjaða úttaksins %1 er neikvæð (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:660
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr ""
+msgstr "Staðsetning úttaksins %1 er allt of stór (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:677
 #, kde-format
@@ -4316,7 +4294,7 @@ msgstr "Rekillinn hafnaði grunnstillingu úttaksins"
 msgid "The session is not active"
 msgstr "Setan er ekki virk"
 
-#: window.cpp:3123
+#: window.cpp:3124
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"

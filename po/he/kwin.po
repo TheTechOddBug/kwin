@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-03-26 00:46+0000\n"
+"POT-Creation-Date: 2026-03-27 00:47+0000\n"
 "PO-Revision-Date: 2026-03-20 08:01+0200\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -4284,7 +4284,7 @@ msgstr "מנהל ההתקן דחה את הגדרות הפלט"
 msgid "The session is not active"
 msgstr "ההפעלה לא פעילה."
 
-#: window.cpp:3123
+#: window.cpp:3124
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
