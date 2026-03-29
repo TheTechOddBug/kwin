@@ -25,7 +25,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-28 00:45+0000\n"
-"PO-Revision-Date: 2026-03-26 18:13+0100\n"
+"PO-Revision-Date: 2026-03-27 08:30+0100\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -1953,15 +1953,13 @@ msgstr[1] "%1 secondes"
 
 #. i18n: ectx: property (text), widget (QLabel, label_InactivityDuration)
 #: plugins/hidecursor/hidecursor_config.ui:17
-#, fuzzy, kde-format
-#| msgid "Hide pointer on inactivity:"
+#, kde-format
 msgid "Hide pointer on inactivity:"
 msgstr "Masquer le pointeur lorsque inactif :"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideOnTyping)
 #: plugins/hidecursor/hidecursor_config.ui:24
-#, fuzzy, kde-format
-#| msgid "Hide pointer on typing"
+#, kde-format
 msgid "Hide pointer on typing"
 msgstr "Masquer le pointeur lors de la saisie"
 

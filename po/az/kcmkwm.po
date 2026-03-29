@@ -1,13 +1,14 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2026 This file is copyright:
 # This file is distributed under the same license as the kwin package.
 #
-# Xəyyam Qocayev <xxmn77@gmail.com>, 2020, 2021, 2022.
+# SPDX-FileCopyrightText: 2026 X əyyam
+# SPDX-FileCopyrightText: 2026 Kheyyam <xxmn77@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-13 00:45+0000\n"
-"PO-Revision-Date: 2022-10-18 00:03+0400\n"
+"PO-Revision-Date: 2026-03-29 02:08+0400\n"
 "Last-Translator: Kheyyam <xxmn77@gmail.com>\n"
 "Language-Team: Azerbaijani <kde-i18n-doc@kde.org>\n"
 "Language: az\n"
@@ -15,13 +16,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 22.08.2\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_1)
 #: actions.ui:20
 #, kde-format
 msgid "Inactive Inner Window Actions"
-msgstr "Qeyri-altiv pəncərənin daxili"
+msgstr "Qeyri-aktiv pəncərə daxilində"
 
 #. i18n: ectx: property (text), widget (QLabel, label_1)
 #. i18n: ectx: property (text), widget (QLabel, label_5)
@@ -648,13 +649,13 @@ msgstr "Pəncərələrin aktişləşdirilməsi qaydaları."
 #, kde-format
 msgctxt "sassa asas"
 msgid "Click to focus"
-msgstr "Fokuslamaq üçün vurun"
+msgstr "Vurmaqla fokus"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, windowFocusPolicy)
 #: focus.ui:41
 #, kde-format
 msgid "Click to focus (mouse precedence)"
-msgstr "Fokuslamaq üçün vurun (siçanın üstünlüyü)"
+msgstr "Vurmaqla fokus (siçanın üstünlüyü)"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, windowFocusPolicy)
 #: focus.ui:46
@@ -672,13 +673,13 @@ msgstr "Kursor ilə fokuslamaq (siçanın üstünlüyü)"
 #: focus.ui:56
 #, kde-format
 msgid "Focus under mouse"
-msgstr "Kursorun altından fokuslamaq"
+msgstr "Fokus kursor altında"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, windowFocusPolicy)
 #: focus.ui:61
 #, kde-format
 msgid "Focus strictly under mouse"
-msgstr "Kursorun tam altından fokuslamaq"
+msgstr "Fokus yalnız kursor altında"
 
 #. i18n: ectx: property (text), widget (QLabel, delayFocusOnLabel)
 #: focus.ui:69
@@ -707,7 +708,7 @@ msgstr " ms"
 #: focus.ui:101
 #, kde-format
 msgid "Focus &stealing prevention:"
-msgstr "Fokusun dəyişdirilməsinin qarşısının alınması &səviyyəsi:"
+msgstr "Fokusun &dəyişiminin əngəllənməsi:"
 
 #. i18n: ectx: property (whatsThis), widget (QComboBox, kcfg_FocusStealingPreventionLevel)
 #: focus.ui:114
@@ -819,7 +820,7 @@ msgstr "Çox yüksək"
 #: focus.ui:146
 #, kde-format
 msgid "Raising windows:"
-msgstr "Pəncərələri önə çıxarmaq:"
+msgstr "Pəncərələri önə çıxartmaq:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_ClickRaise)
 #: focus.ui:153
@@ -852,7 +853,7 @@ msgstr ""
 #: focus.ui:168
 #, kde-format
 msgid "&Raise on hover, delayed by:"
-msgstr "Üzə&rində saxlamaqla önə çıxma müddəti:"
+msgstr "Üzə&rində olduqda önə çıxma müddəti:"
 
 #. i18n: ectx: property (whatsThis), widget (QSpinBox, kcfg_AutoRaiseInterval)
 #: focus.ui:178
@@ -1225,9 +1226,8 @@ msgid ""
 "<em>Click to focus:</em> A window becomes active when you click into it. "
 "This behavior is common on other operating systems and likely what you want."
 msgstr ""
-"<em>Fokus üçün klik:</em>Pəncərə daxilinə və ya başlığına klikləndikdə "
-"aktivləşir. Siz ola bilsin ki, bununla başqa əməliyyat sistemlərindən "
-"tanışsını."
+"<em>Fokus üçün klik:</em> Pəncərə daxilinə vurduqda aktivləşir. Bu başqa "
+"əməliyyat sistemlərində də belədir və güman ki, buna artıq vərdiş etmisiniz."
 
 #: windows.cpp:96
 #, kde-format
