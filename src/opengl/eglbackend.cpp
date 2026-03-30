@@ -184,18 +184,18 @@ void EglBackend::initWayland()
 
     m_tranches.append({
         .device = m_renderDevice->eglDisplay()->renderDevNode().value_or(scanoutDevice->deviceId()),
-        .flags = {},
+        .flags = LinuxDmaBufV1Feedback::TrancheFlag::Sampling,
         .formatTable = filterFormats(10, false),
     });
     m_tranches.append({
         .device = m_renderDevice->eglDisplay()->renderDevNode().value_or(scanoutDevice->deviceId()),
-        .flags = {},
+        .flags = LinuxDmaBufV1Feedback::TrancheFlag::Sampling,
         .formatTable = filterFormats(8, false),
     });
     m_tranches.append({
         .device = m_renderDevice->eglDisplay()->renderDevNode().value_or(scanoutDevice->deviceId()),
-        .flags = {},
-        .formatTable = includeShaderConversions(filterFormats({}, true)),
+        .flags = LinuxDmaBufV1Feedback::TrancheFlag::Sampling,
+        .formatTable = includeShaderConversions(filterFormats(std::nullopt, true)),
     });
 
     LinuxDmaBufV1ClientBufferIntegration *dmabuf = waylandServer()->linuxDmabuf();

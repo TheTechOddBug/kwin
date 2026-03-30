@@ -30,10 +30,12 @@ class KWIN_EXPORT LinuxDmaBufV1Feedback : public QObject
     Q_OBJECT
 
 public:
+    explicit LinuxDmaBufV1Feedback(LinuxDmaBufV1ClientBufferIntegrationPrivate *integration, wl_client *client = nullptr);
     ~LinuxDmaBufV1Feedback() override;
 
     enum class TrancheFlag : uint32_t {
         Scanout = 1,
+        Sampling = 2,
     };
     Q_DECLARE_FLAGS(TrancheFlags, TrancheFlag)
 
@@ -53,9 +55,8 @@ public:
     void sendTranches();
 
 private:
-    static QList<Tranche> createScanoutTranches(const QList<Tranche> &tranches, DrmDevice *scanoutDevice, const FormatModifierMap &formats);
+    static QList<Tranche> createScanoutTranches(const QList<Tranche> &tranches, dev_t mainDevice, DrmDevice *scanoutDevice, const FormatModifierMap &formats);
 
-    LinuxDmaBufV1Feedback(LinuxDmaBufV1ClientBufferIntegrationPrivate *integration);
     friend class LinuxDmaBufV1ClientBufferIntegrationPrivate;
     friend class LinuxDmaBufV1FeedbackPrivate;
     std::unique_ptr<LinuxDmaBufV1FeedbackPrivate> d;
@@ -77,7 +78,7 @@ public:
 
     void setSupportedFormatsWithModifiers(const QList<LinuxDmaBufV1Feedback::Tranche> &tranches);
 
-    dev_t mainDevice() const;
+    dev_t mainDevice(wl_client *client) const;
 
 private:
     friend class LinuxDmaBufV1ClientBufferIntegrationPrivate;

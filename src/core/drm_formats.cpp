@@ -90,12 +90,17 @@ bool FormatModifierMap::containsFormat(uint32_t format, uint64_t modifier) const
     return it != end() && it->contains(modifier);
 }
 
+void FormatModifierMap::merge(const FormatModifierMap &other)
+{
+    for (auto it = other.begin(); it != other.end(); it++) {
+        (*this)[it.key()].insert(it.value());
+    }
+}
+
 FormatModifierMap FormatModifierMap::merged(const FormatModifierMap &other) const
 {
     auto ret = *this;
-    for (auto it = other.begin(); it != other.end(); it++) {
-        ret[it.key()].insert(it.value());
-    }
+    ret.merge(other);
     return ret;
 }
 

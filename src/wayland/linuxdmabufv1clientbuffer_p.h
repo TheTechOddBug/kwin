@@ -2,7 +2,7 @@
     SPDX-FileCopyrightText: 2018 Fredrik Höglund <fredrik@kde.org>
     SPDX-FileCopyrightText: 2019 Roman Gilg <subdiff@gmail.com>
     SPDX-FileCopyrightText: 2021 Vlad Zahorodnii <vlad.zahorodnii@kde.org>
-    SPDX-FileCopyrightText: 2021 Xaver Hugl <xaver.hugl@gmail.com>
+    SPDX-FileCopyrightText: 2021-2026 Xaver Hugl <xaver.hugl@kde.org>
 
     Based on the libweston implementation,
     SPDX-FileCopyrightText: 2014, 2015 Collabora, Ltd.
@@ -38,9 +38,11 @@ public:
     std::unique_ptr<LinuxDmaBufV1Feedback> defaultFeedback;
     QList<LinuxDmaBufV1Feedback::Tranche> defaultTranches;
     std::unique_ptr<LinuxDmaBufV1FormatTable> table;
-    dev_t mainDevice;
     QPointer<RenderBackend> renderBackend;
-    FormatModifierMap supportedModifiers;
+    QHash<dev_t, FormatModifierMap> perDeviceFormats;
+
+    dev_t currentMainDevice = 0;
+    QHash<wl_client *, dev_t> mainDevices;
 
 protected:
     void zwp_linux_dmabuf_v1_bind_resource(Resource *resource) override;
@@ -117,13 +119,14 @@ public:
 class LinuxDmaBufV1FeedbackPrivate : public QtWaylandServer::zwp_linux_dmabuf_feedback_v1
 {
 public:
-    LinuxDmaBufV1FeedbackPrivate(LinuxDmaBufV1ClientBufferIntegrationPrivate *bufferintegration);
+    explicit LinuxDmaBufV1FeedbackPrivate(LinuxDmaBufV1ClientBufferIntegrationPrivate *bufferintegration, wl_client *client);
 
     static LinuxDmaBufV1FeedbackPrivate *get(LinuxDmaBufV1Feedback *q);
     void send(Resource *resource);
 
     QList<LinuxDmaBufV1Feedback::Tranche> m_scanoutTranches;
     LinuxDmaBufV1ClientBufferIntegrationPrivate *m_bufferintegration;
+    wl_client *const m_client;
 
 protected:
     void zwp_linux_dmabuf_feedback_v1_bind_resource(Resource *resource) override;
