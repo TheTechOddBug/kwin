@@ -25,6 +25,8 @@ public:
 
     virtual void addReleaseFence(const FileDescriptor &fd) = 0;
 
+    static FileDescriptor mergeSyncFds(const FileDescriptor &one, const FileDescriptor &two);
+
 protected:
     explicit SyncReleasePoint() = default;
 };
