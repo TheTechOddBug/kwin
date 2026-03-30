@@ -163,7 +163,7 @@ void BufferTextureOpenGL::updateShmTexture(GraphicsBuffer *buffer, const Region 
         return;
     }
 
-    m_planes[0]->update(*view.image(), simplifyDamage(region));
+    m_planes[0]->update(*view.image(), simplifyDamage(region) & Rect(QPoint(0, 0), m_planes[0]->size()));
     const auto info = FormatInfo::get(buffer->shmAttributes()->format);
     m_isFloatingPoint = info && info->floatingPoint;
 }
