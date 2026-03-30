@@ -82,6 +82,11 @@ bool DrmDevice::equals(DrmDevice *other) const
     return drmDevicesEqual(m_libdrmDevice, other->m_libdrmDevice);
 }
 
+drmDevice *DrmDevice::libdrmDevice() const
+{
+    return m_libdrmDevice;
+}
+
 std::optional<int> DrmDevice::busType() const
 {
     return m_libdrmDevice ? m_libdrmDevice->bustype : std::optional<int>();

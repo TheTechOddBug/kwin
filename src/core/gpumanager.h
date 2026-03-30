@@ -11,6 +11,7 @@
 #include "renderdevice.h"
 
 #include <sys/types.h>
+#include <xf86drm.h>
 
 class QSocketNotifier;
 
@@ -33,6 +34,7 @@ public:
 
     const std::vector<std::unique_ptr<RenderDevice>> &renderDevices() const;
     RenderDevice *compatibleRenderDevice(DrmDevice *dev) const;
+    RenderDevice *compatibleRenderDevice(dev_t id) const;
     RenderDevice *findDevice(dev_t id) const;
 
     /**
@@ -47,11 +49,14 @@ Q_SIGNALS:
 
 private:
     void handleUdevEvent();
+    void updateCompatibilityMap();
+    RenderDevice *findCompatibleRenderDevice(drmDevicePtr device) const;
 
     const std::unique_ptr<Udev> m_udev;
     const std::unique_ptr<UdevMonitor> m_udevMonitor;
     const std::unique_ptr<QSocketNotifier> m_udevNotifier;
     std::vector<std::unique_ptr<RenderDevice>> m_renderDevices;
+    QHash<dev_t, RenderDevice *> m_compatibleDeviceMap;
 };
 
 }
