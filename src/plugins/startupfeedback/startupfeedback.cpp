@@ -149,7 +149,7 @@ void StartupFeedbackEffect::reconfigure(Effect::ReconfigureFlags flags)
         if (effects->compositingType() == OpenGLCompositing) {
             ensureResources();
             m_blinkingShader = ShaderManager::instance()->generateShaderFromFile(ShaderTrait::MapTexture, QString(), QStringLiteral(":/effects/startupfeedback/shaders/blinking-startup.frag"));
-            if (m_blinkingShader->isValid()) {
+            if (m_blinkingShader) {
                 qCDebug(KWIN_STARTUPFEEDBACK) << "Blinking Shader is valid";
             } else {
                 qCDebug(KWIN_STARTUPFEEDBACK) << "Blinking Shader is not valid";
@@ -213,7 +213,7 @@ void StartupFeedbackEffect::paintScreen(const RenderTarget &renderTarget, const 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         GLShader *shader = nullptr;
-        if (m_type == BlinkingFeedback && m_blinkingShader && m_blinkingShader->isValid()) {
+        if (m_type == BlinkingFeedback && m_blinkingShader) {
             const QColor &blinkingColor = BLINKING_COLORS[FRAME_TO_BLINKING_COLOR[m_frame]];
             ShaderManager::instance()->pushShader(m_blinkingShader.get());
             shader = m_blinkingShader.get();

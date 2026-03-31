@@ -484,9 +484,9 @@ void TestColorspaces::testIccShader()
 
     QImage openGlResult;
     {
-        IccShader shader;
-        ShaderBinder binder{shader.shader()};
-        shader.setUniforms(profile, imageColorspace, intent);
+        auto shader = IccShader::create();
+        ShaderBinder binder{shader->shader()};
+        shader->setUniforms(profile, imageColorspace, intent);
 
         QMatrix4x4 proj;
         proj.ortho(QRectF(0, 0, input.width(), input.height()));

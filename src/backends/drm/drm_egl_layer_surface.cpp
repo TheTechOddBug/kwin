@@ -112,7 +112,10 @@ std::optional<OutputLayerBeginFrameInfo> EglGbmLayerSurface::startRendering(cons
         m_surface->iccProfile = iccProfile;
         if (iccProfile) {
             if (!m_surface->iccShader) {
-                m_surface->iccShader = std::make_unique<IccShader>();
+                m_surface->iccShader = IccShader::create();
+                if (!m_surface->iccShader) {
+                    qCWarning(KWIN_DRM) << "Failed to load the ICC shader.";
+                }
             }
         } else {
             m_surface->iccShader.reset();

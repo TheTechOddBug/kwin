@@ -327,13 +327,13 @@ std::unique_ptr<GLShader> ShaderManager::generateShaderFromFile(ShaderTraits tra
     if (!vertexFile.isEmpty()) {
         vertexSource = loadShaderFile(resolveShaderFilePath(vertexFile));
         if (vertexSource.isEmpty()) {
-            return std::unique_ptr<GLShader>(new GLShader());
+            return nullptr;
         }
     }
     if (!fragmentFile.isEmpty()) {
         fragmentSource = loadShaderFile(resolveShaderFilePath(fragmentFile));
         if (fragmentSource.isEmpty()) {
-            return std::unique_ptr<GLShader>(new GLShader());
+            return nullptr;
         }
     }
     return generateCustomShader(traits, vertexSource, fragmentSource);

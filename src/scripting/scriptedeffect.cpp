@@ -805,7 +805,7 @@ uint ScriptedEffect::addFragmentShader(ShaderTrait traits, const QString &fragme
     }
 
     auto shader = ShaderManager::instance()->generateShaderFromFile(static_cast<KWin::ShaderTraits>(int(traits)), {}, fragment);
-    if (!shader->isValid()) {
+    if (!shader) {
         m_engine->throwError(QStringLiteral("Shader failed to load"));
         // 0 is never a valid shader identifier, it's ensured the first shader gets id 1
         return 0;

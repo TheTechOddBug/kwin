@@ -33,11 +33,6 @@ public:
     GLShader(const QString &vertexfile, const QString &fragmentfile, unsigned int flags = NoFlags);
     ~GLShader();
 
-    bool isValid() const
-    {
-        return m_valid;
-    }
-
     void bindAttributeLocation(const char *name, int index);
     void bindFragDataLocation(const char *name, int index);
 
@@ -159,7 +154,6 @@ protected:
 
 private:
     unsigned int m_program;
-    bool m_valid : 1;
     bool m_locationsResolved : 1;
     bool m_explicitLinking : 1;
     QHash<Mat3Uniform, int> m_matrix3Locations;

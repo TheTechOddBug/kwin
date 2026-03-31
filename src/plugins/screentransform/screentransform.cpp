@@ -20,6 +20,8 @@
 
 using namespace std::chrono_literals;
 
+Q_LOGGING_CATEGORY(KWIN_SCREENTRANSFORM, "kwin_effect_screentransform", QtWarningMsg)
+
 static void ensureResources()
 {
     // Must initialize resources manually because the effect is a static lib.
@@ -39,6 +41,10 @@ ScreenTransformEffect::ScreenTransformEffect()
         ShaderTrait::MapTexture,
         QStringLiteral(":/effects/screentransform/shaders/crossfade.vert"),
         QStringLiteral(":/effects/screentransform/shaders/crossfade.frag"));
+    if (!m_shader) {
+        qCCritical(KWIN_SCREENTRANSFORM) << "Failed to load the crossfade shader.";
+        return;
+    }
 
     m_modelViewProjectioMatrixLocation = m_shader->uniformLocation("modelViewProjectionMatrix");
     m_blendFactorLocation = m_shader->uniformLocation("blendFactor");

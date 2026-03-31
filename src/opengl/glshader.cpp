@@ -19,16 +19,14 @@ namespace KWin
 {
 
 GLShader::GLShader(unsigned int flags)
-    : m_valid(false)
-    , m_locationsResolved(false)
+    : m_locationsResolved(false)
     , m_explicitLinking(flags & ExplicitLinking)
 {
     m_program = glCreateProgram();
 }
 
 GLShader::GLShader(const QString &vertexfile, const QString &fragmentfile, unsigned int flags)
-    : m_valid(false)
-    , m_locationsResolved(false)
+    : m_locationsResolved(false)
     , m_explicitLinking(flags & ExplicitLinking)
 {
     m_program = glCreateProgram();
@@ -67,9 +65,6 @@ bool GLShader::loadFromFiles(const QString &vertexFile, const QString &fragmentF
 
 bool GLShader::link()
 {
-    // Be optimistic
-    m_valid = true;
-
     glLinkProgram(m_program);
 
     // Get the program info log
@@ -87,12 +82,12 @@ bool GLShader::link()
         qCCritical(KWIN_OPENGL) << "Failed to link shader:"
                                 << "\n"
                                 << log;
-        m_valid = false;
+        return false;
     } else if (length > 0) {
         qCDebug(KWIN_OPENGL) << "Shader link log:" << log;
     }
 
-    return m_valid;
+    return true;
 }
 
 const QByteArray GLShader::prepareSource(GLenum shaderType, const QByteArray &source) const
@@ -157,8 +152,6 @@ bool GLShader::compile(GLuint program, GLenum shaderType, const QByteArray &sour
 
 bool GLShader::load(const QByteArray &vertexSource, const QByteArray &fragmentSource)
 {
-    m_valid = false;
-
     // Compile the vertex shader
     if (!vertexSource.isEmpty()) {
         bool success = compile(m_program, GL_VERTEX_SHADER, vertexSource);

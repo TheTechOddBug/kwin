@@ -22,7 +22,9 @@ class GLTexture;
 class KWIN_EXPORT IccShader
 {
 public:
-    explicit IccShader();
+    static std::unique_ptr<IccShader> create();
+
+    explicit IccShader(std::unique_ptr<GLShader> &&shader);
     ~IccShader();
 
     GLShader *shader() const;

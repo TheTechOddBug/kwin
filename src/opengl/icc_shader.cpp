@@ -18,8 +18,16 @@ namespace KWin
 
 static constexpr size_t lutSize = 1 << 12;
 
-IccShader::IccShader()
-    : m_shader(ShaderManager::instance()->generateShaderFromFile(ShaderTrait::MapTexture, QString(), QStringLiteral(":/opengl/icc.frag")))
+std::unique_ptr<IccShader> IccShader::create()
+{
+    if (auto shader = ShaderManager::instance()->generateShaderFromFile(ShaderTrait::MapTexture, QString(), QStringLiteral(":/opengl/icc.frag"))) {
+        return std::make_unique<IccShader>(std::move(shader));
+    }
+    return nullptr;
+}
+
+IccShader::IccShader(std::unique_ptr<GLShader> &&shader)
+    : m_shader(std::move(shader))
 {
     m_locations = {
         .src = m_shader->uniformLocation("src"),

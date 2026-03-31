@@ -382,7 +382,7 @@ GLShader *ZoomEffect::shaderForZoom(double zoom)
         if (!m_pixelGridShader) {
             m_pixelGridShader = ShaderManager::instance()->generateShaderFromFile(ShaderTrait::MapTexture, QString(), QStringLiteral(":/effects/zoom/shaders/pixelgrid.frag"));
         }
-        if (m_pixelGridShader && m_pixelGridShader->isValid()) {
+        if (m_pixelGridShader) {
             return m_pixelGridShader.get();
         }
     }

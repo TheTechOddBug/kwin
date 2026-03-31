@@ -610,14 +610,14 @@ void AnimationEffect::paintWindow(const RenderTarget &renderTarget, const Render
             data.setCrossFadeProgress(progress(anim));
             break;
         case Shader:
-            if (anim.shader && anim.shader->isValid()) {
+            if (anim.shader) {
                 ShaderBinder binder{anim.shader};
                 anim.shader->setUniform("animationProgress", progress(anim));
                 setShader(w, anim.shader);
             }
             break;
         case ShaderUniform:
-            if (anim.shader && anim.shader->isValid()) {
+            if (anim.shader) {
                 ShaderBinder binder{anim.shader};
                 anim.shader->setUniform("animationProgress", progress(anim));
                 anim.shader->setUniform(anim.meta, interpolated(anim));
