@@ -284,7 +284,10 @@ std::unique_ptr<GLShader> ShaderManager::generateCustomShader(ShaderTraits trait
     shader->bindAttributeLocation("texcoord", VA_TexCoord);
     shader->bindFragDataLocation("fragColor", 0);
 
-    shader->link();
+    if (!shader->link()) {
+        return nullptr;
+    }
+
     return shader;
 }
 
@@ -410,9 +413,14 @@ std::unique_ptr<GLShader> ShaderManager::loadShaderFromCode(const QByteArray &ve
     if (!shader->load(vertexSource, fragmentSource)) {
         return nullptr;
     }
+
     bindAttributeLocations(shader.get());
     bindFragDataLocations(shader.get());
-    shader->link();
+
+    if (!shader->link()) {
+        return nullptr;
+    }
+
     return shader;
 }
 
