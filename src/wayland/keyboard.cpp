@@ -133,7 +133,12 @@ bool KeyboardInterfacePrivate::updateKey(quint32 key, KeyboardKeyState state)
     case KeyboardKeyState::Released:
         return pressedKeys.removeOne(key);
     case KeyboardKeyState::Repeated:
-        return pressedKeys.contains(key);
+        // Treat repeated similarily as pressed, but always forward it.
+        // Things like input method may filter away initial press.
+        if (!pressedKeys.contains(key)) {
+            pressedKeys.append(key);
+        }
+        return true;
     }
 
     Q_UNREACHABLE();
