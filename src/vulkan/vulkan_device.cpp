@@ -18,8 +18,10 @@
 namespace KWin
 {
 
-VulkanDevice::VulkanDevice(vk::raii::PhysicalDevice physicalDevice, vk::raii::Device &&logicalDevice, std::vector<VkQueueFamilyProperties> &&queueProperties)
-    : m_physical(physicalDevice)
+VulkanDevice::VulkanDevice(vk::raii::PhysicalDevice physicalDevice, vk::raii::Device &&logicalDevice,
+                           std::vector<VkQueueFamilyProperties> &&queueProperties, vk::PhysicalDeviceType type)
+    : m_type(type)
+    , m_physical(physicalDevice)
     , m_logical(std::move(logicalDevice))
     // TODO it might be useful to have separate lists for sample + transfer_src
     // and sample + color attachment + transfer_dst
@@ -246,7 +248,8 @@ std::shared_ptr<VulkanTexture> VulkanDevice::importDmabuf(const DmaBufAttributes
     for (FileDescriptor &fd : duplicatedFds) {
         fd.take();
     }
-    return std::make_shared<VulkanTexture>(this, format->vulkanFormat, std::move(image), std::move(deviceMemory));
+    return std::make_shared<VulkanTexture>(this, vk::Format(format->vulkanFormat), std::move(image),
+                                           std::move(deviceMemory), QSize(attributes->width, attributes->height));
 }
 
 FormatModifierMap VulkanDevice::queryFormats(VkImageUsageFlags flags) const
@@ -328,6 +331,16 @@ std::optional<uint32_t> VulkanDevice::findMemoryType(uint32_t typeBits, vk::Memo
         }
     }
     return std::nullopt;
+}
+
+bool VulkanDevice::isSoftwareRenderer() const
+{
+    return m_type == vk::PhysicalDeviceType::eCpu;
+}
+
+vk::PhysicalDeviceType VulkanDevice::type() const
+{
+    return m_type;
 }
 
 const FormatModifierMap &VulkanDevice::supportedFormats() const
@@ -451,6 +464,55 @@ void VulkanDevice::handleDeviceLoss()
     qCWarning(KWIN_VULKAN, "Vulkan device lost!");
     m_lost = true;
     Q_EMIT deviceLost();
+}
+
+vk::raii::DeviceMemory VulkanDevice::allocateMemory(const vk::ImageCreateInfo &imageInfo, vk::MemoryPropertyFlags memoryProperties)
+{
+    const auto requirements = m_logical.getImageMemoryRequirements(vk::DeviceImageMemoryRequirements{
+        &imageInfo,
+    });
+    if (const auto typeIndex = findMemoryType(requirements.memoryRequirements.memoryTypeBits, memoryProperties)) {
+        auto [result, ret] = m_logical.allocateMemory(vk::MemoryAllocateInfo{
+            requirements.memoryRequirements.size,
+            *typeIndex,
+        });
+        if (result == vk::Result::eSuccess) {
+            return std::move(ret);
+        } else {
+            qCWarning(KWIN_VULKAN) << "Allocating memory for an image failed:" << vk::to_string(result);
+            return nullptr;
+        }
+    } else {
+        qCWarning(KWIN_VULKAN) << "could not find a suitable memory index for an image";
+        return nullptr;
+    }
+}
+
+vk::raii::DeviceMemory VulkanDevice::allocateMemory(const vk::BufferCreateInfo &bufferInfo, vk::MemoryPropertyFlags memoryProperties)
+{
+    const auto requirements = m_logical.getBufferMemoryRequirements(vk::DeviceBufferMemoryRequirements{
+        &bufferInfo,
+    });
+    if (const auto typeIndex = findMemoryType(requirements.memoryRequirements.memoryTypeBits, memoryProperties)) {
+        auto [result, ret] = m_logical.allocateMemory(vk::MemoryAllocateInfo{
+            requirements.memoryRequirements.size,
+            *typeIndex,
+        });
+        if (result == vk::Result::eSuccess) {
+            return std::move(ret);
+        } else {
+            qCWarning(KWIN_VULKAN) << "Allocating memory for a buffer failed:" << vk::to_string(result);
+            return nullptr;
+        }
+    } else {
+        qCWarning(KWIN_VULKAN) << "could not find a suitable memory index for a buffer";
+        return nullptr;
+    }
+}
+
+void VulkanDevice::waitIdle()
+{
+    m_transferQueue.waitIdle();
 }
 
 }
