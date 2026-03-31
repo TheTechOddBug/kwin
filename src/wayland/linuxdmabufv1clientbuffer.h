@@ -48,11 +48,12 @@ public:
      * indicating a higher priority / a more optimal configuration.
      * The main device does not need to be included
      */
-    void setScanoutTranches(DrmDevice *device, const FormatModifierMap &formats);
-    void setTranches(const QList<Tranche> &tranches);
+    void setScanoutTranches(DrmDevice *scanoutDevice, const FormatModifierMap &formats);
+    void setScanoutTranches(const QList<Tranche> &tranches);
+    void sendTranches();
 
 private:
-    static QList<Tranche> createScanoutTranches(const QList<Tranche> &tranches, DrmDevice *device, const FormatModifierMap &formats);
+    static QList<Tranche> createScanoutTranches(const QList<Tranche> &tranches, DrmDevice *scanoutDevice, const FormatModifierMap &formats);
 
     LinuxDmaBufV1Feedback(LinuxDmaBufV1ClientBufferIntegrationPrivate *integration);
     friend class LinuxDmaBufV1ClientBufferIntegrationPrivate;

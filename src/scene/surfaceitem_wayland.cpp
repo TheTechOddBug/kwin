@@ -176,7 +176,7 @@ void SurfaceItemWayland::setScanoutHint(DrmDevice *device, const FormatModifierM
         return;
     }
     if (!device && m_scanoutFeedback.has_value()) {
-        m_surface->dmabufFeedbackV1()->setTranches({});
+        m_surface->dmabufFeedbackV1()->setScanoutTranches({});
         m_scanoutFeedback.reset();
         return;
     }

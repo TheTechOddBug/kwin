@@ -324,7 +324,7 @@ void LinuxDmaBufV1ClientBufferIntegration::setRenderBackend(RenderBackend *rende
 
 void LinuxDmaBufV1ClientBufferIntegration::setSupportedFormatsWithModifiers(const QList<LinuxDmaBufV1Feedback::Tranche> &tranches)
 {
-    if (LinuxDmaBufV1FeedbackPrivate::get(d->defaultFeedback.get())->m_tranches != tranches) {
+    if (d->defaultTranches != tranches) {
         FormatModifierMap set;
         for (const auto &tranche : tranches) {
             set.insert(tranche.formatTable);
@@ -332,7 +332,8 @@ void LinuxDmaBufV1ClientBufferIntegration::setSupportedFormatsWithModifiers(cons
         d->supportedModifiers = set;
         d->mainDevice = tranches.first().device;
         d->table = std::make_unique<LinuxDmaBufV1FormatTable>(set);
-        d->defaultFeedback->setTranches(tranches);
+        d->defaultTranches = tranches;
+        d->defaultFeedback->sendTranches();
     }
 }
 
@@ -404,23 +405,28 @@ LinuxDmaBufV1Feedback::LinuxDmaBufV1Feedback(LinuxDmaBufV1ClientBufferIntegratio
 
 LinuxDmaBufV1Feedback::~LinuxDmaBufV1Feedback() = default;
 
-void LinuxDmaBufV1Feedback::setScanoutTranches(DrmDevice *device, const FormatModifierMap &formats)
+void LinuxDmaBufV1Feedback::setScanoutTranches(DrmDevice *scanoutDevice, const FormatModifierMap &formats)
 {
-    setTranches(createScanoutTranches(d->m_bufferintegration->defaultFeedback->d->m_tranches, device, formats));
+    setScanoutTranches(createScanoutTranches(d->m_bufferintegration->defaultTranches, scanoutDevice, formats));
 }
 
-void LinuxDmaBufV1Feedback::setTranches(const QList<Tranche> &tranches)
+void LinuxDmaBufV1Feedback::setScanoutTranches(const QList<Tranche> &tranches)
 {
-    if (d->m_tranches != tranches) {
-        d->m_tranches = tranches;
-        const auto map = d->resourceMap();
-        for (auto resource : map) {
-            d->send(resource);
-        }
+    if (d->m_scanoutTranches != tranches) {
+        d->m_scanoutTranches = tranches;
+        sendTranches();
     }
 }
 
-QList<LinuxDmaBufV1Feedback::Tranche> LinuxDmaBufV1Feedback::createScanoutTranches(const QList<Tranche> &tranches, DrmDevice *device, const FormatModifierMap &formats)
+void LinuxDmaBufV1Feedback::sendTranches()
+{
+    const auto map = d->resourceMap();
+    for (auto resource : map) {
+        d->send(resource);
+    }
+}
+
+QList<LinuxDmaBufV1Feedback::Tranche> LinuxDmaBufV1Feedback::createScanoutTranches(const QList<Tranche> &tranches, DrmDevice *scanoutDevice, const FormatModifierMap &formats)
 {
     QList<LinuxDmaBufV1Feedback::Tranche> ret;
     for (const auto &tranche : tranches) {
@@ -436,7 +442,7 @@ QList<LinuxDmaBufV1Feedback::Tranche> LinuxDmaBufV1Feedback::createScanoutTranch
             }
         }
         if (!scanoutTranche.formatTable.isEmpty()) {
-            scanoutTranche.device = device->deviceId();
+            scanoutTranche.device = scanoutDevice->deviceId();
             scanoutTranche.flags = LinuxDmaBufV1Feedback::TrancheFlag::Scanout;
             ret.push_back(scanoutTranche);
         }
@@ -476,15 +482,11 @@ void LinuxDmaBufV1FeedbackPrivate::send(Resource *resource)
         send_tranche_flags(resource->handle, static_cast<uint32_t>(tranche.flags));
         send_tranche_done(resource->handle);
     };
-    for (const auto &tranche : std::as_const(m_tranches)) {
+    for (const auto &tranche : std::as_const(m_scanoutTranches)) {
         sendTranche(tranche);
     }
-    // send default hints as the last fallback tranche
-    const auto defaultFeedbackPrivate = get(m_bufferintegration->defaultFeedback.get());
-    if (this != defaultFeedbackPrivate) {
-        for (const auto &tranche : std::as_const(defaultFeedbackPrivate->m_tranches)) {
-            sendTranche(tranche);
-        }
+    for (const auto &tranche : std::as_const(m_bufferintegration->defaultTranches)) {
+        sendTranche(tranche);
     }
     send_done(resource->handle);
 }

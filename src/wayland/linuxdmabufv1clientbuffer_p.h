@@ -36,6 +36,7 @@ public:
 
     LinuxDmaBufV1ClientBufferIntegration *q;
     std::unique_ptr<LinuxDmaBufV1Feedback> defaultFeedback;
+    QList<LinuxDmaBufV1Feedback::Tranche> defaultTranches;
     std::unique_ptr<LinuxDmaBufV1FormatTable> table;
     dev_t mainDevice;
     QPointer<RenderBackend> renderBackend;
@@ -121,7 +122,7 @@ public:
     static LinuxDmaBufV1FeedbackPrivate *get(LinuxDmaBufV1Feedback *q);
     void send(Resource *resource);
 
-    QList<LinuxDmaBufV1Feedback::Tranche> m_tranches;
+    QList<LinuxDmaBufV1Feedback::Tranche> m_scanoutTranches;
     LinuxDmaBufV1ClientBufferIntegrationPrivate *m_bufferintegration;
 
 protected:
