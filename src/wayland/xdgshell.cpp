@@ -854,6 +854,10 @@ void XdgPopupInterfacePrivate::xdg_popup_grab(Resource *resource, ::wl_resource 
 void XdgPopupInterfacePrivate::xdg_popup_reposition(Resource *resource, ::wl_resource *positionerResource, uint32_t token)
 {
     positioner = XdgPositioner::get(positionerResource);
+    positioner.setPopupScale(surface->clientToCompositorScale());
+    if (parentSurface) {
+        positioner.setParentScale(parentSurface->clientToCompositorScale());
+    }
     Q_EMIT q->repositionRequested(token);
 }
 
@@ -1127,6 +1131,8 @@ XdgPositioner::XdgPositioner()
 
 XdgPositioner::XdgPositioner(const XdgPositioner &other)
     : d(other.d)
+    , m_popupScale(other.m_popupScale)
+    , m_parentScale(other.m_parentScale)
 {
 }
 
@@ -1137,6 +1143,8 @@ XdgPositioner::~XdgPositioner()
 XdgPositioner &XdgPositioner::operator=(const XdgPositioner &other)
 {
     d = other.d;
+    m_parentScale = other.m_parentScale;
+    m_popupScale = other.m_popupScale;
     return *this;
 }
 
