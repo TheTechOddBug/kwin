@@ -177,7 +177,7 @@ XdgPositioner::~XdgPositioner()
 
 XdgPopup::XdgPopup(XdgSurface *surface, XdgSurface *parentSurface, XdgPositioner *positioner, QObject *parent)
     : QObject(parent)
-    , QtWayland::xdg_popup(surface->get_popup(parentSurface->object(), positioner->object()))
+    , QtWayland::xdg_popup(surface->get_popup(parentSurface ? parentSurface->object() : nullptr, positioner->object()))
     , m_xdgSurface(surface)
 {
 }
