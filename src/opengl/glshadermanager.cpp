@@ -275,7 +275,7 @@ std::unique_ptr<GLShader> ShaderManager::generateCustomShader(ShaderTraits trait
         return nullptr;
     }
 
-    std::unique_ptr<GLShader> shader{new GLShader(GLShader::ExplicitLinking)};
+    auto shader = std::make_unique<GLShader>();
     if (!shader->load(*vertex, *fragment)) {
         return nullptr;
     }
@@ -409,7 +409,7 @@ void ShaderManager::bindAttributeLocations(GLShader *shader) const
 
 std::unique_ptr<GLShader> ShaderManager::loadShaderFromCode(const QByteArray &vertexSource, const QByteArray &fragmentSource)
 {
-    std::unique_ptr<GLShader> shader{new GLShader(GLShader::ExplicitLinking)};
+    auto shader = std::make_unique<GLShader>();
     if (!shader->load(vertexSource, fragmentSource)) {
         return nullptr;
     }

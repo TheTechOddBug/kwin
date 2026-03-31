@@ -25,12 +25,7 @@ namespace KWin
 class KWIN_EXPORT GLShader
 {
 public:
-    enum Flags {
-        NoFlags = 0,
-        ExplicitLinking = (1 << 0),
-    };
-
-    GLShader(const QString &vertexfile, const QString &fragmentfile, unsigned int flags = NoFlags);
+    GLShader();
     ~GLShader();
 
     void bindAttributeLocation(const char *name, int index);
@@ -143,8 +138,6 @@ public:
     void setColorspaceUniforms(const std::shared_ptr<ColorDescription> &src, const std::shared_ptr<ColorDescription> &dst, RenderingIntent intent);
 
 protected:
-    GLShader(unsigned int flags = NoFlags);
-    bool loadFromFiles(const QString &vertexfile, const QString &fragmentfile);
     bool load(const QByteArray &vertexSource, const QByteArray &fragmentSource);
     const QByteArray prepareSource(GLenum shaderType, const QByteArray &sourceCode) const;
     bool compile(GLuint program, GLenum shaderType, const QByteArray &sourceCode) const;
@@ -155,7 +148,6 @@ protected:
 private:
     unsigned int m_program;
     bool m_locationsResolved : 1;
-    bool m_explicitLinking : 1;
     QHash<Mat3Uniform, int> m_matrix3Locations;
     QHash<Mat4Uniform, int> m_matrix4Locations;
     QHash<Vec2Uniform, int> m_vec2Locations;

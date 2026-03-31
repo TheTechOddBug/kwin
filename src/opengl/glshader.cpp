@@ -18,19 +18,10 @@
 namespace KWin
 {
 
-GLShader::GLShader(unsigned int flags)
+GLShader::GLShader()
     : m_locationsResolved(false)
-    , m_explicitLinking(flags & ExplicitLinking)
 {
     m_program = glCreateProgram();
-}
-
-GLShader::GLShader(const QString &vertexfile, const QString &fragmentfile, unsigned int flags)
-    : m_locationsResolved(false)
-    , m_explicitLinking(flags & ExplicitLinking)
-{
-    m_program = glCreateProgram();
-    loadFromFiles(vertexfile, fragmentfile);
 }
 
 GLShader::~GLShader()
@@ -42,25 +33,6 @@ GLShader::~GLShader()
     if (m_program) {
         glDeleteProgram(m_program);
     }
-}
-
-bool GLShader::loadFromFiles(const QString &vertexFile, const QString &fragmentFile)
-{
-    QFile vf(vertexFile);
-    if (!vf.open(QIODevice::ReadOnly)) {
-        qCCritical(KWIN_OPENGL) << "Couldn't open" << vertexFile << "for reading!";
-        return false;
-    }
-    const QByteArray vertexSource = vf.readAll();
-
-    QFile ff(fragmentFile);
-    if (!ff.open(QIODevice::ReadOnly)) {
-        qCCritical(KWIN_OPENGL) << "Couldn't open" << fragmentFile << "for reading!";
-        return false;
-    }
-    const QByteArray fragmentSource = ff.readAll();
-
-    return load(vertexSource, fragmentSource);
 }
 
 bool GLShader::link()
@@ -170,12 +142,7 @@ bool GLShader::load(const QByteArray &vertexSource, const QByteArray &fragmentSo
         }
     }
 
-    if (m_explicitLinking) {
-        return true;
-    }
-
-    // link() sets mValid
-    return link();
+    return true;
 }
 
 void GLShader::bindAttributeLocation(const char *name, int index)
