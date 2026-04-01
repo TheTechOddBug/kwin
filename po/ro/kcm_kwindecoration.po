@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kcmkwindecoration\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-20 00:45+0000\n"
-"PO-Revision-Date: 2026-02-08 17:38+0000\n"
+"PO-Revision-Date: 2026-03-31 13:50+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Lokalize 25.08.1\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #: declarative-plugin/buttonsmodel.cpp:56
 #, kde-format
@@ -138,13 +138,11 @@ msgstr ""
 "ferestrelor."
 
 #: kwin-applywindowdecoration.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "Successfully applied the cursor theme %1 to your current Plasma session"
+#, kde-format
 msgid ""
 "Successfully applied the pointer theme %1 to your current Plasma session"
 msgstr ""
-"Tematica pentru cursor %1 a fost aplicată cu succes la sesiunea Plasma "
+"Tematica pentru indicator %1 a fost aplicată cu succes la sesiunea Plasma "
 "actuală"
 
 #: kwin-applywindowdecoration.cpp:105

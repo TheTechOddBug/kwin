@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kcmkwinscreenedges\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-20 00:45+0000\n"
-"PO-Revision-Date: 2026-03-18 21:09+0000\n"
+"PO-Revision-Date: 2026-03-31 13:51+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
 "Language: ro\n"
@@ -92,16 +92,13 @@ msgstr "Comută schimbarea alternativă a ferestrelor"
 
 #. i18n: ectx: property (text), widget (QLabel, infoLabel)
 #: main.ui:23
-#, fuzzy, kde-format
-#| msgid ""
-#| "You can trigger an action by pushing the mouse cursor against the "
-#| "corresponding screen edge or corner."
+#, kde-format
 msgid ""
 "You can trigger an action by pushing the mouse pointer against the "
 "corresponding screen edge or corner."
 msgstr ""
-"Puteți declanșa o acțiune împingând cursorul mausului în marginea sau colțul "
-"corespunzătoare ale ecranului."
+"Puteți declanșa o acțiune împingând indicatorul mausului în marginea sau "
+"colțul corespunzătoare ale ecranului."
 
 #. i18n: ectx: property (text), widget (QLabel, quickMaximizeLabel)
 #: main.ui:67
@@ -165,15 +162,12 @@ msgstr "periferice ale ecranului"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, desktopSwitchLabel)
 #: main.ui:174
-#, fuzzy, kde-format
-#| msgid ""
-#| "Change desktop when the mouse cursor is pushed against the edge of the "
-#| "screen"
+#, kde-format
 msgid ""
 "Change desktop when the mouse pointer is pushed against the edge of the "
 "screen"
 msgstr ""
-"Schimbă biroul când cursorul mausului este împins în marginea ecranului"
+"Schimbă biroul când indicatorul mausului este împins în marginea ecranului"
 
 #. i18n: ectx: property (text), widget (QLabel, desktopSwitchLabel)
 #: main.ui:177
@@ -202,16 +196,13 @@ msgstr "Activat întotdeauna"
 
 #. i18n: ectx: property (toolTip), widget (QLabel, activationDelayLabel)
 #: main.ui:206
-#, fuzzy, kde-format
-#| msgid ""
-#| "Amount of time required for the mouse cursor to be pushed against the "
-#| "edge of the screen before the action is triggered"
+#, kde-format
 msgid ""
 "Amount of time required for the mouse pointer to be pushed against the edge "
 "of the screen before the action is triggered"
 msgstr ""
-"Intervalul de timp necesar pentru împingerea cursorul mausului în marginea "
-"ecranului înainte de a fi declanșată acțiunea"
+"Intervalul de timp necesar pentru împingerea indicatorul mausului în "
+"marginea ecranului înainte de a fi declanșată acțiunea"
 
 #. i18n: ectx: property (text), widget (QLabel, activationDelayLabel)
 #: main.ui:209
@@ -250,13 +241,7 @@ msgstr "Barieră la &colț:"
 
 #. i18n: ectx: property (whatsThis), widget (QCheckBox, kcfg_CornerBarrier)
 #: main.ui:280
-#, fuzzy, kde-format
-#| msgid ""
-#| "Here you can enable or disable the virtual corner barrier between "
-#| "screens. The barrier prevents the cursor from moving to another screen "
-#| "when it is already touching a screen corner. This makes it easier to "
-#| "trigger user interface elements like maximized windows' close buttons "
-#| "when using multiple screens."
+#, kde-format
 msgid ""
 "Here you can enable or disable the virtual corner barrier between screens. "
 "The barrier prevents the pointer from moving to another screen when it is "
@@ -265,10 +250,10 @@ msgid ""
 "screens."
 msgstr ""
 "Aici puteți activa sau dezactiva bariera virtuală la colțuri între ecrane. "
-"Bariera previne deplasarea cursorului spre un alt ecran atunci când acesta "
-"atinge deja un colț al ecranului. Aceasta ușurează declanșarea elementelor "
-"de interfață cu utilizatorul ca butonul de închidere al ferestrelor "
-"maximizare atunci când se folosesc ecrane multiple."
+"Bariera previne deplasarea indicatorului spre un alt ecran atunci când "
+"acesta atinge deja un colț al ecranului. Aceasta ușurează declanșarea "
+"elementelor de interfață cu utilizatorul ca butonul de închidere al "
+"ferestrelor maximizare atunci când se folosesc ecrane multiple."
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, kcfg_CornerBarrier)
 #: main.ui:283
@@ -301,14 +286,12 @@ msgstr ""
 
 #. i18n: ectx: property (toolTip), widget (QSpinBox, kcfg_EdgeBarrier)
 #: main.ui:303
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Additional distance cursor needs to travel to cross screen edges."
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Additional distance the pointer needs to travel to cross screen edges."
 msgstr ""
-"Distanța suplimentară pe care trebuie s-o depășească cursorul pentru a trece "
-"de marginea ecranelor."
+"Distanța suplimentară pe care trebuie s-o depășească indicatorul pentru a "
+"trece de marginea ecranelor."
 
 #. i18n: ectx: property (specialValueText), widget (QSpinBox, kcfg_EdgeBarrier)
 #: main.ui:306
