@@ -97,6 +97,7 @@ public:
     bool isAmdgpu() const;
     bool isVmwgfx() const;
     bool isVirtualMachine() const;
+    bool isVirtio() const;
     bool sharpnessSupported() const;
     std::optional<Version> nvidiaDriverVersion() const;
     QString driverName() const;
@@ -166,6 +167,7 @@ private:
     bool m_isAmdgpu;
     bool m_isVmwgfx;
     bool m_isVirtualMachine;
+    bool m_isVirtio;
     QString m_driverName;
     bool m_supportsCursorPlaneHotspot = false;
     bool m_asyncPageflipSupported = false;
