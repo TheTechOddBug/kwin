@@ -27,9 +27,6 @@ SlideEffectScreen::SlideEffectScreen(SlideEffect *parent, LogicalOutput *screen)
     : m_parent(parent)
     , m_screen(screen)
 {
-    // Visible desktops have to be initialized to make sure that this screen is not blank while the slide effect
-    // is running on another screen. See paintWindow.
-    m_paintCtx.visibleDesktops << effects->currentDesktop(screen);
     reconfigure();
 }
 
@@ -52,10 +49,8 @@ SlideEffect::SlideEffect()
             this, &SlideEffect::finishedSwitching);
     connect(effects, &EffectsHandler::desktopRemoved,
             this, &SlideEffect::finishedSwitching);
-    connect(effects, &EffectsHandler::screenAdded, this, [this](LogicalOutput *screen) {
-        m_slideEffectScreens.emplace(screen, this, screen);
-        finishedSwitching();
-    });
+    connect(effects, &EffectsHandler::screenAdded,
+            this, &SlideEffect::finishedSwitching);
     connect(effects, &EffectsHandler::screenRemoved, this, [this](LogicalOutput *screen) {
         m_slideEffectScreens.remove(screen);
         finishedSwitching();
@@ -66,11 +61,6 @@ SlideEffect::SlideEffect()
     connect(effects, &EffectsHandler::currentActivityChanged, this, [this]() {
         m_switchingActivity = false;
     });
-
-    const auto screens = effects->screens();
-    for (LogicalOutput *screen : screens) {
-        m_slideEffectScreens.emplace(screen, this, screen);
-    }
 }
 
 SlideEffect::~SlideEffect()
@@ -132,7 +122,9 @@ inline Region buildClipRegion(const QPoint &pos, int w, int h)
 void SlideEffect::prePaintScreen(ScreenPrePaintData &data)
 {
     if (data.screen) {
-        getSlideEffectScreen(data.screen).prePaintScreen(data);
+        if (SlideEffectScreen *slideScreen = getSlideEffectScreen(data.screen)) {
+            slideScreen->prePaintScreen(data);
+        }
     }
 
     effects->prePaintScreen(data);
@@ -193,13 +185,15 @@ void SlideEffectScreen::prePaintScreen(ScreenPrePaintData &data)
 
 void SlideEffect::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion, LogicalOutput *screen)
 {
-    getSlideEffectScreen(screen).paintScreen(renderTarget, viewport, mask, deviceRegion);
+    if (SlideEffectScreen *slideScreen = getSlideEffectScreen(screen)) {
+        slideScreen->paintScreen();
+    }
+    effects->paintScreen(renderTarget, viewport, mask, deviceRegion, screen);
 }
 
-void SlideEffectScreen::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion)
+void SlideEffectScreen::paintScreen()
 {
     m_paintCtx.wrap = effects->optionRollOverDesktops();
-    effects->paintScreen(renderTarget, viewport, mask, deviceRegion, m_screen);
 }
 
 QPoint SlideEffectScreen::getDrawCoords(QPointF pos, LogicalOutput *screen)
@@ -260,7 +254,11 @@ void SlideEffect::prePaintWindow(RenderView *view, EffectWindow *w, WindowPrePai
 
 void SlideEffect::paintWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const Region &deviceGeometry, WindowPaintData &data)
 {
-    getSlideEffectScreen(w->screen()).paintWindow(renderTarget, viewport, w, mask, deviceGeometry, data);
+    if (SlideEffectScreen *slideScreen = getSlideEffectScreen(w->screen())) {
+        slideScreen->paintWindow(renderTarget, viewport, w, mask, deviceGeometry, data);
+    } else {
+        effects->paintWindow(renderTarget, viewport, w, mask, deviceGeometry, data);
+    }
 }
 
 void SlideEffectScreen::paintWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const Region &deviceGeometry, WindowPaintData &data)
@@ -330,6 +328,8 @@ void SlideEffect::postPaintScreen()
     if (allInactive) {
         finishedSwitching();
     }
+
+    effects->addRepaintFull();
     effects->postPaintScreen();
 }
 
@@ -338,10 +338,6 @@ void SlideEffectScreen::postPaintScreen()
     if (m_state == State::ActiveAnimation && !m_motionX.isMoving() && !m_motionY.isMoving()) {
         finishedSwitching();
     }
-
-    // This is necessary even for screens where the effect isn't active. The active screen may have a window that's overlapping
-    // with the inactive screen.
-    effects->addRepaint(m_screen->geometry());
 }
 
 /*
@@ -423,6 +419,7 @@ void SlideEffect::finishedSwitching()
     for (SlideEffectScreen &slideScreen : m_slideEffectScreens) {
         slideScreen.finishedSwitching();
     }
+    m_slideEffectScreens.clear();
     effects->setActiveFullScreenEffect(nullptr);
 }
 
@@ -456,7 +453,8 @@ void SlideEffect::desktopChanged(VirtualDesktop *old, VirtualDesktop *current, E
         return;
     }
 
-    getSlideEffectScreen(screen).desktopChanged(old, current, with);
+    auto slideScreenResult = m_slideEffectScreens.tryEmplace(screen, this, screen);
+    slideScreenResult.iterator->desktopChanged(old, current, with);
     effects->setActiveFullScreenEffect(this);
 }
 
@@ -488,7 +486,8 @@ void SlideEffect::desktopChanging(VirtualDesktop *old, QPointF desktopOffset, Ef
         return;
     }
 
-    getSlideEffectScreen(output).desktopChanging(old, desktopOffset, with);
+    auto slideScreenResult = m_slideEffectScreens.tryEmplace(output, this, output);
+    slideScreenResult.iterator->desktopChanging(old, desktopOffset, with);
     effects->setActiveFullScreenEffect(this);
 }
 
@@ -520,9 +519,8 @@ void SlideEffect::desktopChangingCancelled()
     // If the fingers have been lifted and the current desktop didn't change, start animation
     // to move back to the original virtual desktop.
     if (effects->activeFullScreenEffect() == this) {
-        const auto screens = effects->screens();
-        for (LogicalOutput *screen : screens) {
-            getSlideEffectScreen(screen).desktopChangingCancelled();
+        for (SlideEffectScreen &slideScreen : m_slideEffectScreens) {
+            slideScreen.desktopChangingCancelled();
         }
     }
 }
@@ -553,7 +551,9 @@ QPointF SlideEffectScreen::moveInsideDesktopGrid(QPointF p)
 
 void SlideEffect::windowAdded(EffectWindow *w)
 {
-    getSlideEffectScreen(w->screen()).windowAdded(w);
+    if (SlideEffectScreen *slideScreen = getSlideEffectScreen(w->screen())) {
+        slideScreen->windowAdded(w);
+    }
 }
 
 void SlideEffectScreen::windowAdded(EffectWindow *w)
@@ -666,9 +666,13 @@ QPointF SlideEffectScreen::constrainToDrawableRange(QPointF p)
     return p;
 }
 
-SlideEffectScreen &SlideEffect::getSlideEffectScreen(LogicalOutput *screen)
+SlideEffectScreen *SlideEffect::getSlideEffectScreen(LogicalOutput *screen)
 {
-    return m_slideEffectScreens.find(screen).value();
+    auto it = m_slideEffectScreens.find(screen);
+    if (it == m_slideEffectScreens.end()) {
+        return nullptr;
+    }
+    return &(*it);
 }
 
 } // namespace KWin

@@ -54,7 +54,7 @@ public:
     void reconfigure();
 
     void prePaintScreen(ScreenPrePaintData &data);
-    void paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion);
+    void paintScreen();
     void postPaintScreen();
 
     void paintWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const Region &deviceGeometry, WindowPaintData &data);
@@ -158,7 +158,7 @@ private Q_SLOTS:
 
 private:
     void finishedSwitching();
-    SlideEffectScreen &getSlideEffectScreen(LogicalOutput *screen);
+    SlideEffectScreen *getSlideEffectScreen(LogicalOutput *screen);
 
 private:
     int m_hGap;
