@@ -455,7 +455,7 @@ QImage GLTexture::toImage()
     if (EglContext::currentContext()->isOpenGLES()) {
         GLFramebuffer fbo(this);
         GLFramebuffer::pushFramebuffer(&fbo);
-        glReadPixels(0, 0, width(), height(), GL_RGBA, GL_UNSIGNED_INT_8_8_8_8_REV, ret.bits());
+        glReadPixels(0, 0, width(), height(), GL_RGBA, GL_UNSIGNED_BYTE, ret.bits());
         GLFramebuffer::popFramebuffer();
     } else {
         GLint currentTextureBinding;
