@@ -139,7 +139,7 @@ public:
 
 protected:
     bool load(const QByteArray &vertexSource, const QByteArray &fragmentSource);
-    const QByteArray prepareSource(GLenum shaderType, const QByteArray &sourceCode) const;
+    std::optional<QByteArray> preprocess(const QByteArray &src, GLenum shaderType, int recursionDepth = 0) const;
     bool compile(GLuint program, GLenum shaderType, const QByteArray &sourceCode) const;
     void bind();
     void unbind();

@@ -62,28 +62,94 @@ bool GLShader::link()
     return true;
 }
 
-const QByteArray GLShader::prepareSource(GLenum shaderType, const QByteArray &source) const
+std::optional<QByteArray> GLShader::preprocess(const QByteArray &src, GLenum shaderType, int recursionDepth) const
 {
-    // Prepare the source code
-    QByteArray ba;
-    const auto context = EglContext::currentContext();
-    if (context->isOpenGLES() && context->glslVersion() < Version(3, 0)) {
-        ba.append("precision highp float;\n");
+    recursionDepth++;
+    if (recursionDepth > 10) {
+        qCWarning(KWIN_OPENGL, "shader has too many recursive includes!");
+        return std::nullopt;
     }
-    ba.append(source);
-    if (context->isOpenGLES() && context->glslVersion() >= Version(3, 0)) {
-        ba.replace("#version 140", "#version 300 es\n\nprecision highp float;\n");
+    QByteArray ret;
+    ret.reserve(src.size());
+    const auto split = src.split('\n');
+
+    const auto context = EglContext::currentContext();
+    const bool coreShader = (context->isOpenGLES() && context->glslVersion() >= Version(3, 0))
+        || (!context->isOpenGLES() && context->glslVersion() >= Version(1, 40));
+
+    if (recursionDepth == 1) {
+        if (coreShader) {
+            if (context->isOpenGLES()) {
+                // = OpenGL ES 3.0
+                ret.append("#version 300 es\n");
+            } else {
+                // = OpenGL 3.1
+                ret.append("#version 140\n");
+            }
+        }
+        if (context->isOpenGLES()) {
+            ret.append("precision highp float;\n");
+            ret.append("precision highp sampler2D;\n");
+            ret.append("precision highp sampler3D;\n");
+        }
+        if (!coreShader) {
+            // without a version statement, OpenGL assumes GLSL 1.10,
+            // which doesn't support the texture functions natively
+            ret.append("vec4 texture(in sampler2D sampler, in vec2 coordinates) {\n");
+            ret.append("    return texture2D(sampler, coordinates);\n");
+            ret.append("}\n");
+            ret.append("vec4 texture(in sampler3D sampler, in vec3 coordinates) {\n");
+            ret.append("    return texture3D(sampler, coordinates);\n");
+            ret.append("}\n");
+        }
     }
 
-    return ba;
+    for (auto it = split.begin(); it != split.end(); it++) {
+        const auto &line = *it;
+        if (line.startsWith("#version")) {
+            // this is intentionally ignored!
+        } else if (line.startsWith("#include \"") && line.endsWith("\"")) {
+            static constexpr ssize_t includeLength = QByteArrayView("#include \"").size();
+            const QByteArray path = ":/opengl/" + line.mid(includeLength, line.size() - includeLength - 1);
+            QFile file(path);
+            if (!file.open(QIODevice::ReadOnly)) {
+                qCWarning(KWIN_OPENGL, "failed to read include line %s", qPrintable(line));
+                return std::nullopt;
+            }
+            const auto processed = preprocess(file.readAll(), shaderType, recursionDepth);
+            if (!processed) {
+                return std::nullopt;
+            }
+            ret.append(*processed);
+        } else if (line.startsWith("out ") && !coreShader) {
+            if (shaderType == GL_VERTEX_SHADER) {
+                ret.append("varying " + line.sliced(QByteArrayView("out ").size()));
+            } else {
+                ret.append("#define fragColor gl_FragColor");
+            }
+        } else if (line.startsWith("in ") && !coreShader) {
+            if (shaderType == GL_VERTEX_SHADER) {
+                ret.append("attribute " + line.sliced(QByteArrayView("in ").size()));
+            } else {
+                ret.append("varying " + line.sliced(QByteArrayView("in ").size()));
+            }
+        } else {
+            ret.append(line);
+        }
+        ret.append("\n");
+    }
+    return ret;
 }
 
 bool GLShader::compile(GLuint program, GLenum shaderType, const QByteArray &source) const
 {
     GLuint shader = glCreateShader(shaderType);
 
-    QByteArray preparedSource = prepareSource(shaderType, source);
-    const char *src = preparedSource.constData();
+    const auto preparedSource = preprocess(source, shaderType);
+    if (!preparedSource.has_value()) {
+        return false;
+    }
+    const char *src = preparedSource->constData();
     glShaderSource(shader, 1, &src, nullptr);
 
     // Compile the shader
@@ -106,7 +172,7 @@ bool GLShader::compile(GLuint program, GLenum shaderType, const QByteArray &sour
                                 << "\n"
                                 << log;
         size_t line = 0;
-        const auto split = source.split('\n');
+        const auto split = preparedSource->split('\n');
         for (const auto &l : split) {
             qCCritical(KWIN_OPENGL).nospace() << "line " << line++ << ":" << l;
         }

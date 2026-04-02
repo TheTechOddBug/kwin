@@ -42,39 +42,16 @@ QByteArray ShaderManager::generateVertexSource(ShaderTraits traits) const
     QByteArray source;
     QTextStream stream(&source);
 
-    const auto context = EglContext::currentContext();
-    QByteArray attribute, varying;
-
-    if (!context->isOpenGLES()) {
-        const bool glsl_140 = context->glslVersion() >= Version(1, 40);
-
-        attribute = glsl_140 ? QByteArrayLiteral("in") : QByteArrayLiteral("attribute");
-        varying = glsl_140 ? QByteArrayLiteral("out") : QByteArrayLiteral("varying");
-
-        if (glsl_140) {
-            stream << "#version 140\n\n";
-        }
-    } else {
-        const bool glsl_es_300 = context->glslVersion() >= Version(3, 0);
-
-        attribute = glsl_es_300 ? QByteArrayLiteral("in") : QByteArrayLiteral("attribute");
-        varying = glsl_es_300 ? QByteArrayLiteral("out") : QByteArrayLiteral("varying");
-
-        if (glsl_es_300) {
-            stream << "#version 300 es\n\n";
-        }
-    }
-
-    stream << attribute << " vec4 position;\n";
+    stream << "in vec4 position;\n";
     if (traits & (ShaderTrait::MapTexture | ShaderTrait::MapExternalTexture | ShaderTrait::MapMultiPlaneTexture)) {
-        stream << attribute << " vec4 texcoord;\n\n";
-        stream << varying << " vec2 texcoord0;\n\n";
+        stream << "in vec4 texcoord;\n\n";
+        stream << "out vec2 texcoord0;\n\n";
     } else {
         stream << "\n";
     }
 
     if (traits & (ShaderTrait::RoundedCorners | ShaderTrait::Border)) {
-        stream << varying << " vec2 position0;\n\n";
+        stream << "out vec2 position0;\n\n";
     }
 
     stream << "uniform mat4 modelViewProjectionMatrix;\n\n";
@@ -101,50 +78,23 @@ QByteArray ShaderManager::generateFragmentSource(ShaderTraits traits) const
     QTextStream stream(&source);
 
     const auto context = EglContext::currentContext();
-    QByteArray varying, output, textureLookup;
-
-    if (!context->isOpenGLES()) {
-        const bool glsl_140 = context->glslVersion() >= Version(1, 40);
-
-        if (glsl_140) {
-            stream << "#version 140\n\n";
+    if (context->isOpenGLES() && context->glslVersion() < Version(3, 0)) {
+        if (traits & (ShaderTrait::RoundedCorners | ShaderTrait::Border)) {
+            stream << "#extension GL_OES_standard_derivatives : enable\n\n";
         }
-
-        varying = glsl_140 ? QByteArrayLiteral("in") : QByteArrayLiteral("varying");
-        textureLookup = glsl_140 ? QByteArrayLiteral("texture") : QByteArrayLiteral("texture2D");
-        output = glsl_140 ? QByteArrayLiteral("fragColor") : QByteArrayLiteral("gl_FragColor");
-    } else {
-        const bool glsl_es_300 = context->glslVersion() >= Version(3, 0);
-
-        if (glsl_es_300) {
-            stream << "#version 300 es\n\n";
-        } else {
-            if (traits & (ShaderTrait::RoundedCorners | ShaderTrait::Border)) {
-                stream << "#extension GL_OES_standard_derivatives : enable\n\n";
-            }
-        }
-
-        // From the GLSL ES specification:
-        //
-        //     "The fragment language has no default precision qualifier for floating point types."
-        stream << "precision highp float;\n\n";
-
-        varying = glsl_es_300 ? QByteArrayLiteral("in") : QByteArrayLiteral("varying");
-        textureLookup = glsl_es_300 ? QByteArrayLiteral("texture") : QByteArrayLiteral("texture2D");
-        output = glsl_es_300 ? QByteArrayLiteral("fragColor") : QByteArrayLiteral("gl_FragColor");
     }
 
     if (traits & ShaderTrait::MapTexture) {
         stream << "uniform sampler2D sampler;\n";
-        stream << varying << " vec2 texcoord0;\n";
+        stream << "in vec2 texcoord0;\n";
     } else if (traits & ShaderTrait::MapMultiPlaneTexture) {
         stream << "uniform sampler2D sampler;\n";
         stream << "uniform sampler2D sampler1;\n";
-        stream << varying << " vec2 texcoord0;\n";
+        stream << "in vec2 texcoord0;\n";
     } else if (traits & ShaderTrait::MapExternalTexture) {
         stream << "#extension GL_OES_EGL_image_external : require\n\n";
         stream << "uniform samplerExternalOES sampler;\n";
-        stream << varying << " vec2 texcoord0;\n";
+        stream << "in vec2 texcoord0;\n";
     } else if (traits & ShaderTrait::UniformColor) {
         stream << "uniform vec4 geometryColor;\n";
     } else if (traits & ShaderTrait::Border) {
@@ -154,7 +104,7 @@ QByteArray ShaderManager::generateFragmentSource(ShaderTraits traits) const
         stream << "uniform vec4 cornerRadius;\n";
         stream << "uniform vec4 geometryColor;\n";
         stream << "uniform int thickness;\n";
-        stream << varying << " vec2 position0;\n";
+        stream << "in vec2 position0;\n";
     }
 
     if (traits & ShaderTrait::YuvConversion) {
@@ -174,19 +124,16 @@ QByteArray ShaderManager::generateFragmentSource(ShaderTraits traits) const
 
         stream << "uniform vec4 box;\n";
         stream << "uniform vec4 cornerRadius;\n";
-        stream << varying << " vec2 position0;\n";
+        stream << "in vec2 position0;\n";
     }
-
-    if (output != QByteArrayLiteral("gl_FragColor")) {
-        stream << "\nout vec4 " << output << ";\n";
-    }
+    stream << "\nout vec4 fragColor;\n";
 
     stream << "\nvoid main(void)\n{\n";
     stream << "    vec4 result;\n";
     if (traits & ShaderTrait::MapTexture) {
-        stream << "    result = " << textureLookup << "(sampler, texcoord0);\n";
+        stream << "    result = texture(sampler, texcoord0);\n";
     } else if (traits & ShaderTrait::MapMultiPlaneTexture) {
-        stream << "    result = vec4(" << textureLookup << "(sampler, texcoord0).x, " << textureLookup << "(sampler1, texcoord0).rg, 1.0);\n";
+        stream << "    result = vec4(texture(sampler, texcoord0).x, texture(sampler1, texcoord0).rg, 1.0);\n";
     } else if (traits & ShaderTrait::MapExternalTexture) {
         // external textures require texture2D for sampling
         stream << "    result = texture2D(sampler, texcoord0);\n";
@@ -223,7 +170,7 @@ QByteArray ShaderManager::generateFragmentSource(ShaderTraits traits) const
         stream << "    result = nitsToDestinationEncoding(result);\n";
     }
 
-    stream << "    " << output << " = result;\n";
+    stream << "    fragColor = result;\n";
     stream << "}";
     stream.flush();
     return source;
@@ -234,49 +181,13 @@ std::unique_ptr<GLShader> ShaderManager::generateShader(ShaderTraits traits)
     return generateCustomShader(traits);
 }
 
-std::optional<QByteArray> ShaderManager::preprocess(const QByteArray &src, int recursionDepth) const
-{
-    recursionDepth++;
-    if (recursionDepth > 10) {
-        qCWarning(KWIN_OPENGL, "shader has too many recursive includes!");
-        return std::nullopt;
-    }
-    QByteArray ret;
-    ret.reserve(src.size());
-    const auto split = src.split('\n');
-    for (auto it = split.begin(); it != split.end(); it++) {
-        const auto &line = *it;
-        if (line.startsWith("#include \"") && line.endsWith("\"")) {
-            static constexpr ssize_t includeLength = QByteArrayView("#include \"").size();
-            const QByteArray path = ":/opengl/" + line.mid(includeLength, line.size() - includeLength - 1);
-            QFile file(path);
-            if (!file.open(QIODevice::ReadOnly)) {
-                qCWarning(KWIN_OPENGL, "failed to read include line %s", qPrintable(line));
-                return std::nullopt;
-            }
-            const auto processed = preprocess(file.readAll(), recursionDepth);
-            if (!processed) {
-                return std::nullopt;
-            }
-            ret.append(*processed);
-        } else {
-            ret.append(line);
-            ret.append('\n');
-        }
-    }
-    return ret;
-}
-
 std::unique_ptr<GLShader> ShaderManager::generateCustomShader(ShaderTraits traits, const QByteArray &vertexSource, const QByteArray &fragmentSource)
 {
-    const auto vertex = preprocess(vertexSource.isEmpty() ? generateVertexSource(traits) : vertexSource);
-    const auto fragment = preprocess(fragmentSource.isEmpty() ? generateFragmentSource(traits) : fragmentSource);
-    if (!vertex || !fragment) {
-        return nullptr;
-    }
+    const auto vertex = vertexSource.isEmpty() ? generateVertexSource(traits) : vertexSource;
+    const auto fragment = fragmentSource.isEmpty() ? generateFragmentSource(traits) : fragmentSource;
 
     auto shader = std::make_unique<GLShader>();
-    if (!shader->load(*vertex, *fragment)) {
+    if (!shader->load(vertex, fragment)) {
         return nullptr;
     }
 
@@ -289,30 +200,6 @@ std::unique_ptr<GLShader> ShaderManager::generateCustomShader(ShaderTraits trait
     }
 
     return shader;
-}
-
-static QString resolveShaderFilePath(const QString &filePath)
-{
-    QString suffix;
-    QString extension;
-
-    const auto context = EglContext::currentContext();
-    const Version coreVersionNumber = context->isOpenGLES() ? Version(3, 0) : Version(1, 40);
-    if (context->glslVersion() >= coreVersionNumber) {
-        suffix = QStringLiteral("_core");
-    }
-
-    if (filePath.endsWith(QStringLiteral(".frag"))) {
-        extension = QStringLiteral(".frag");
-    } else if (filePath.endsWith(QStringLiteral(".vert"))) {
-        extension = QStringLiteral(".vert");
-    } else {
-        qCWarning(KWIN_OPENGL) << filePath << "must end either with .vert or .frag";
-        return QString();
-    }
-
-    const QString prefix = filePath.chopped(extension.size());
-    return prefix + suffix + extension;
 }
 
 std::unique_ptr<GLShader> ShaderManager::generateShaderFromFile(ShaderTraits traits, const QString &vertexFile, const QString &fragmentFile)
@@ -328,13 +215,13 @@ std::unique_ptr<GLShader> ShaderManager::generateShaderFromFile(ShaderTraits tra
     QByteArray vertexSource;
     QByteArray fragmentSource;
     if (!vertexFile.isEmpty()) {
-        vertexSource = loadShaderFile(resolveShaderFilePath(vertexFile));
+        vertexSource = loadShaderFile(vertexFile);
         if (vertexSource.isEmpty()) {
             return nullptr;
         }
     }
     if (!fragmentFile.isEmpty()) {
-        fragmentSource = loadShaderFile(resolveShaderFilePath(fragmentFile));
+        fragmentSource = loadShaderFile(fragmentFile);
         if (fragmentSource.isEmpty()) {
             return nullptr;
         }

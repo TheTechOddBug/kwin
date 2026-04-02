@@ -4,16 +4,18 @@
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
+#version 140
+
 uniform mat4 modelViewProjectionMatrix;
 uniform float fractionalPrecision;
 uniform vec2 screenSize;
 uniform vec2 geometrySize;
 
-attribute vec4 vertex;
-attribute vec4 texcoord;
+in vec4 vertex;
+in vec4 texcoord;
 
-varying vec2 texcoord0;
-varying float vertexFractional;
+out vec2 texcoord0;
+out float vertexFractional;
 
 // This shader calculates the fractional component of the vertex position and
 // passes 1 to the fragment shader if it is larger than the precision we want to

@@ -1,16 +1,19 @@
 /*
     SPDX-FileCopyrightText: 2022 Arjen Hiemstra <ahiemstra@heimr.nl>
+    SPDX-FileCopyrightText: 2022 David Edmundson <davidedmundson@kde.org>
 
     SPDX-License-Identifier: GPL-2.0-or-later
 */
 
-#version 130 compatibility
+#version 140
 
 uniform float fractionalPrecision;
 uniform vec2 geometrySize;
 
-varying vec2 texcoord0;
-varying float vertexFractional;
+in vec2 texcoord0;
+in float vertexFractional;
+
+out vec4 fragColor;
 
 // paint every time we query textures at non-integer alignments
 // it implies we're being upscaled in ways that will cause blurryness
@@ -32,7 +35,7 @@ void main()
     // The total error is the sum of the fractional parts of the source pixel.
     float error = dot(fract(sourcePixel), vec2(1.0));
 
-    vec4 fragColor = vec4(0.0);
+    fragColor = vec4(0.0);
 
     if (vertexFractional > 0.5) {
         fragColor = mix(fragColor, vec4(0.0, 0.0, 1.0, 1.0), strength);
@@ -41,6 +44,5 @@ void main()
     if (error > fractionalPrecision) {
         fragColor = mix(fragColor, vec4(1.0, 0.0, 0.0, 1.0), strength);
     }
-
-    gl_FragColor = fragColor;
 }
+
