@@ -18,7 +18,7 @@ uniform sampler2D Bsampler;
 uniform mat4 matrix2;
 
 uniform int Msize;
-uniform sampler2D Msamplrt;
+uniform sampler2D Msampler;
 
 uniform ivec3 Csize;
 uniform sampler3D Csampler;
@@ -49,7 +49,7 @@ void main()
     if (Msize > 0) {
         tex.rgb = sample1DLut(tex.rgb, Msampler, Msize);
     }
-    if (Csize > 0) {
+    if (Csize.x > 0) {
         vec3 lutOffset = vec3(0.5) / vec3(Csize);
         vec3 lutScale = vec3(1.0) - lutOffset * 2.0;
         tex.rgb = texture3D(Csampler, lutOffset + tex.rgb * lutScale).rgb;
