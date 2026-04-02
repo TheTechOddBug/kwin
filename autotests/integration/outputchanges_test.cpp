@@ -2041,6 +2041,7 @@ void OutputChangesTest::testSettingRestoration_initialParsingFailure()
         changeSet->mode = outputs[0]->modes()[1];
         changeSet->desiredModeSize = QSize(640, 480);
         changeSet->desiredModeRefreshRate = 60000;
+        changeSet->desiredModeFlags = 0;
         workspace()->applyOutputConfiguration(config);
     }
     {
@@ -2126,6 +2127,7 @@ void OutputChangesTest::testSettingRestoration_replacedMode()
         changeSet->mode = output->modes()[1];
         changeSet->desiredModeSize = QSize(1280, 1024);
         changeSet->desiredModeRefreshRate = 60000;
+        changeSet->desiredModeFlags = 0;
         workspace()->applyOutputConfiguration(config);
     }
 
