@@ -37,143 +37,40 @@ ShaderManager::~ShaderManager()
     }
 }
 
+static QByteArray listDefines(ShaderTraits traits)
+{
+    QByteArray ret;
+    ret += QByteArrayLiteral("#define TRAIT_MAP_TEXTURE ") + (traits & ShaderTrait::MapTexture ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_UNIFORM_COLOR ") + (traits & ShaderTrait::UniformColor ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_MODULATE ") + (traits & ShaderTrait::Modulate ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_ADJUST_SATURATION ") + (traits & ShaderTrait::AdjustSaturation ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_TRANSFORM_COLORSPACE ") + (traits & ShaderTrait::TransformColorspace ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_MAP_EXTERNAL_TEXTURE ") + (traits & ShaderTrait::MapExternalTexture ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_MAP_MULTI_PLANE_TEXTURE ") + (traits & ShaderTrait::MapMultiPlaneTexture ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_ROUNDED_CORNERS ") + (traits & ShaderTrait::RoundedCorners ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_BORDER ") + (traits & ShaderTrait::Border ? "1" : "0") + "\n";
+    ret += QByteArrayLiteral("#define TRAIT_YUV_CONVERSION ") + (traits & ShaderTrait::YuvConversion ? "1" : "0") + "\n";
+    return ret;
+}
+
 QByteArray ShaderManager::generateVertexSource(ShaderTraits traits) const
 {
-    QByteArray source;
-    QTextStream stream(&source);
-
-    stream << "in vec4 position;\n";
-    if (traits & (ShaderTrait::MapTexture | ShaderTrait::MapExternalTexture | ShaderTrait::MapMultiPlaneTexture)) {
-        stream << "in vec4 texcoord;\n\n";
-        stream << "out vec2 texcoord0;\n\n";
-    } else {
-        stream << "\n";
+    QFile file(":/opengl/base.vert");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qCCritical(KWIN_OPENGL) << "Failed to read base shader";
+        return QByteArray();
     }
-
-    if (traits & (ShaderTrait::RoundedCorners | ShaderTrait::Border)) {
-        stream << "out vec2 position0;\n\n";
-    }
-
-    stream << "uniform mat4 modelViewProjectionMatrix;\n\n";
-
-    stream << "void main()\n{\n";
-    if (traits & (ShaderTrait::MapTexture | ShaderTrait::MapExternalTexture | ShaderTrait::MapMultiPlaneTexture)) {
-        stream << "    texcoord0 = texcoord.st;\n";
-    }
-
-    if (traits & (ShaderTrait::RoundedCorners | ShaderTrait::Border)) {
-        stream << "    position0 = position.xy;\n";
-    }
-
-    stream << "    gl_Position = modelViewProjectionMatrix * position;\n";
-    stream << "}\n";
-
-    stream.flush();
-    return source;
+    return file.readAll();
 }
 
 QByteArray ShaderManager::generateFragmentSource(ShaderTraits traits) const
 {
-    QByteArray source;
-    QTextStream stream(&source);
-
-    const auto context = EglContext::currentContext();
-    if (context->isOpenGLES() && context->glslVersion() < Version(3, 0)) {
-        if (traits & (ShaderTrait::RoundedCorners | ShaderTrait::Border)) {
-            stream << "#extension GL_OES_standard_derivatives : enable\n\n";
-        }
+    QFile file(":/opengl/base.frag");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qCCritical(KWIN_OPENGL) << "Failed to read base shader";
+        return QByteArray();
     }
-
-    if (traits & ShaderTrait::MapTexture) {
-        stream << "uniform sampler2D sampler;\n";
-        stream << "in vec2 texcoord0;\n";
-    } else if (traits & ShaderTrait::MapMultiPlaneTexture) {
-        stream << "uniform sampler2D sampler;\n";
-        stream << "uniform sampler2D sampler1;\n";
-        stream << "in vec2 texcoord0;\n";
-    } else if (traits & ShaderTrait::MapExternalTexture) {
-        stream << "#extension GL_OES_EGL_image_external : require\n\n";
-        stream << "uniform samplerExternalOES sampler;\n";
-        stream << "in vec2 texcoord0;\n";
-    } else if (traits & ShaderTrait::UniformColor) {
-        stream << "uniform vec4 geometryColor;\n";
-    } else if (traits & ShaderTrait::Border) {
-        stream << "#include \"sdf.glsl\"\n";
-
-        stream << "uniform vec4 box;\n";
-        stream << "uniform vec4 cornerRadius;\n";
-        stream << "uniform vec4 geometryColor;\n";
-        stream << "uniform int thickness;\n";
-        stream << "in vec2 position0;\n";
-    }
-
-    if (traits & ShaderTrait::YuvConversion) {
-        stream << "uniform mat4 yuvToRgb;\n";
-    }
-    if (traits & ShaderTrait::Modulate) {
-        stream << "uniform vec4 modulation;\n";
-    }
-    if (traits & ShaderTrait::AdjustSaturation) {
-        stream << "#include \"saturation.glsl\"\n";
-    }
-    if (traits & ShaderTrait::TransformColorspace) {
-        stream << "#include \"colormanagement.glsl\"\n";
-    }
-    if (traits & ShaderTrait::RoundedCorners) {
-        stream << "#include \"sdf.glsl\"\n";
-
-        stream << "uniform vec4 box;\n";
-        stream << "uniform vec4 cornerRadius;\n";
-        stream << "in vec2 position0;\n";
-    }
-    stream << "\nout vec4 fragColor;\n";
-
-    stream << "\nvoid main(void)\n{\n";
-    stream << "    vec4 result;\n";
-    if (traits & ShaderTrait::MapTexture) {
-        stream << "    result = texture(sampler, texcoord0);\n";
-    } else if (traits & ShaderTrait::MapMultiPlaneTexture) {
-        stream << "    result = vec4(texture(sampler, texcoord0).x, texture(sampler1, texcoord0).rg, 1.0);\n";
-    } else if (traits & ShaderTrait::MapExternalTexture) {
-        // external textures require texture2D for sampling
-        stream << "    result = texture2D(sampler, texcoord0);\n";
-    } else if (traits & ShaderTrait::UniformColor) {
-        stream << "    result = geometryColor;\n";
-    } else if (traits & ShaderTrait::Border) {
-        stream << "    float inner = sdfRoundedBox(position0, box.xy, box.zw, cornerRadius);\n";
-        stream << "    float outer = sdfRoundedBox(position0, box.xy, box.zw + vec2(thickness), cornerRadius + vec4(thickness));\n";
-        stream << "    float f = sdfSubtract(outer, inner);\n";
-        stream << "    float df = fwidth(f);\n";
-        stream << "    result = geometryColor * (1.0 - clamp(0.5 + f / df, 0.0, 1.0));\n";
-    }
-
-    if (traits & ShaderTrait::YuvConversion) {
-        stream << "result.rgb = (yuvToRgb * vec4(result.rgb, 1.0)).rgb;";
-    }
-    if (traits & ShaderTrait::RoundedCorners) {
-        stream << "    float f = sdfRoundedBox(position0, box.xy, box.zw, cornerRadius);\n";
-        stream << "    float df = fwidth(f);\n";
-        stream << "    result *= 1.0 - clamp(0.5 + f / df, 0.0, 1.0);\n";
-    }
-    if (traits & ShaderTrait::TransformColorspace) {
-        stream << "    result = encodingToNits(result, sourceNamedTransferFunction, sourceTransferFunctionParams.x, sourceTransferFunctionParams.y);\n";
-        stream << "    result.rgb = (colorimetryTransform * vec4(result.rgb, 1.0)).rgb;\n";
-    }
-    if (traits & ShaderTrait::AdjustSaturation) {
-        stream << "    result = adjustSaturation(result);\n";
-    }
-    if (traits & ShaderTrait::Modulate) {
-        stream << "    result *= modulation;\n";
-    }
-    if (traits & ShaderTrait::TransformColorspace) {
-        stream << "    result.rgb = doTonemapping(result.rgb);\n";
-        stream << "    result = nitsToDestinationEncoding(result);\n";
-    }
-
-    stream << "    fragColor = result;\n";
-    stream << "}";
-    stream.flush();
-    return source;
+    return file.readAll();
 }
 
 std::unique_ptr<GLShader> ShaderManager::generateShader(ShaderTraits traits)
@@ -183,8 +80,9 @@ std::unique_ptr<GLShader> ShaderManager::generateShader(ShaderTraits traits)
 
 std::unique_ptr<GLShader> ShaderManager::generateCustomShader(ShaderTraits traits, const QByteArray &vertexSource, const QByteArray &fragmentSource)
 {
-    const auto vertex = vertexSource.isEmpty() ? generateVertexSource(traits) : vertexSource;
-    const auto fragment = fragmentSource.isEmpty() ? generateFragmentSource(traits) : fragmentSource;
+    const auto defines = listDefines(traits);
+    const auto vertex = defines + (vertexSource.isEmpty() ? generateVertexSource(traits) : vertexSource);
+    const auto fragment = defines + (fragmentSource.isEmpty() ? generateFragmentSource(traits) : fragmentSource);
 
     auto shader = std::make_unique<GLShader>();
     if (!shader->load(vertex, fragment)) {
