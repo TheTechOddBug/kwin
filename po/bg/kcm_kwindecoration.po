@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kcmkwindecoration\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-20 00:45+0000\n"
-"PO-Revision-Date: 2026-01-28 20:39+0100\n"
+"PO-Revision-Date: 2026-04-03 00:53+0200\n"
 "Last-Translator: Mincho Kondarev <mkondarev@yahoo.de>\n"
 "Language-Team: Bulgarian <kde-i18n-doc@kde.org>\n"
 "Language: bg\n"
@@ -134,12 +134,11 @@ msgstr ""
 "Заявената тема „%1“ вече е зададена като тема за декорация на прозорци."
 
 #: kwin-applywindowdecoration.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "Successfully applied the cursor theme %1 to your current Plasma session"
+#, kde-format
 msgid ""
 "Successfully applied the pointer theme %1 to your current Plasma session"
-msgstr "Успешно прилагане на тема на курсора %1 към текущата сесия на Plasma"
+msgstr ""
+"Успешно прилагане на тема на показалеца %1 към текущата сесия на Plasma"
 
 #: kwin-applywindowdecoration.cpp:105
 #, kde-format
