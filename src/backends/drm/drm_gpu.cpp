@@ -100,7 +100,6 @@ DrmGpu::DrmGpu(DrmBackend *backend, int fd, std::unique_ptr<DrmDevice> &&device)
     m_isNVidia = strstr(version->name, "nvidia-drm");
     m_isAmdgpu = strstr(version->name, "amdgpu");
     m_isVmwgfx = strstr(version->name, "vmwgfx");
-    m_isVirtio = strstr(version->name, "virtio");
     m_isVirtualMachine = strstr(version->name, "virtio") || strstr(version->name, "qxl")
         || strstr(version->name, "vmwgfx") || strstr(version->name, "vboxvideo");
     if (m_isNVidia) {
@@ -742,11 +741,6 @@ bool DrmGpu::isVmwgfx() const
 bool DrmGpu::isVirtualMachine() const
 {
     return m_isVirtualMachine;
-}
-
-bool DrmGpu::isVirtio() const
-{
-    return m_isVirtio;
 }
 
 std::optional<Version> DrmGpu::nvidiaDriverVersion() const

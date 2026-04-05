@@ -484,8 +484,9 @@ bool EglContext::checkSupported() const
     const bool supports3DTextures = !m_isOpenglES || hasVersion(Version(3, 0)) || hasOpenglExtension("GL_OES_texture_3D");
     const bool supportsFBOs = m_isOpenglES || hasVersion(Version(3, 0)) || hasOpenglExtension("GL_ARB_framebuffer_object") || hasOpenglExtension(QByteArrayLiteral("GL_EXT_framebuffer_object"));
     const bool supportsUnpack = !m_isOpenglES || hasOpenglExtension(QByteArrayLiteral("GL_EXT_unpack_subimage"));
+    const bool supportsBGRADownload = !m_isOpenglES || hasOpenglExtension(QByteArrayLiteral("GL_EXT_read_format_bgra"));
 
-    if (!supportsGLSL || !supportsNonPowerOfTwoTextures || !supports3DTextures || !supportsFBOs || !supportsUnpack) {
+    if (!supportsGLSL || !supportsNonPowerOfTwoTextures || !supports3DTextures || !supportsFBOs || !supportsUnpack || !supportsBGRADownload) {
         return false;
     }
     // some old hardware only supports very limited shaders. To prevent the shaders KWin uses later on from not working,

@@ -582,13 +582,13 @@ std::shared_ptr<DrmFramebuffer> EglGbmLayerSurface::importWithCpu(Surface *surfa
     GLFramebuffer::pushFramebuffer(source->framebuffer());
     QImage *const dst = slot->view()->image();
     if (dst->bytesPerLine() == srcStride) {
-        context->glReadnPixels(0, 0, dst->width(), dst->height(), GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, dst->sizeInBytes(), dst->bits());
+        context->glReadnPixels(0, 0, dst->width(), dst->height(), GL_BGRA, GL_UNSIGNED_BYTE, dst->sizeInBytes(), dst->bits());
     } else {
         // there's padding, need to copy line by line
         if (surface->cpuCopyCache.size() != dst->size()) {
             surface->cpuCopyCache = QImage(dst->size(), QImage::Format_RGBA8888);
         }
-        context->glReadnPixels(0, 0, dst->width(), dst->height(), GL_BGRA, GL_UNSIGNED_INT_8_8_8_8_REV, surface->cpuCopyCache.sizeInBytes(), surface->cpuCopyCache.bits());
+        context->glReadnPixels(0, 0, dst->width(), dst->height(), GL_BGRA, GL_UNSIGNED_BYTE, surface->cpuCopyCache.sizeInBytes(), surface->cpuCopyCache.bits());
         for (int i = 0; i < dst->height(); i++) {
             std::memcpy(dst->scanLine(i), surface->cpuCopyCache.scanLine(i), srcStride);
         }
