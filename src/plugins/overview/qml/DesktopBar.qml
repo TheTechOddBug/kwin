@@ -100,13 +100,6 @@ Item {
                         width: bar.desktopWidth
                         height: bar.desktopHeight
 
-                        scale: thumbnailHover.hovered ? 1.03 : 1
-
-                        Behavior on scale {
-                            NumberAnimation {
-                                duration: Kirigami.Units.shortDuration
-                            }
-                        }
 
                         HoverHandler {
                             id: thumbnailHover
@@ -137,17 +130,20 @@ Item {
                         }
 
                         Rectangle {
-                            readonly property bool active: (delegate.activeFocus || dropArea.containsDrag || mouseArea.containsPress || bar.selectedDesktop === delegate.desktop)
                             anchors.fill: parent
                             radius: Kirigami.Units.cornerRadius
                             color: "transparent"
-                            border.width: active ? 2 : 1
-                            border.color: active ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
-                            opacity: dropArea.containsDrag || !active ? 0.5 : 1.0
+                            border.width: 1
+                            border.color: highlight.visible ? Kirigami.Theme.highlightColor : Kirigami.Theme.textColor
+                        }
+
+                        Highlight {
+                            id: highlight
+                            active: delegate.activeFocus || bar.selectedDesktop === delegate.desktop
+                            hovered: thumbnailHover.hovered
                         }
 
                         MouseArea {
-                            id: mouseArea
                             anchors.fill: parent
                             acceptedButtons: Qt.LeftButton
                             onClicked: mouse => {
@@ -175,7 +171,6 @@ Item {
                         }
 
                         DropArea {
-                            id: dropArea
                             anchors.fill: parent
                             onEntered: (drag) => {
                                 drag.accepted = true;
@@ -268,8 +263,12 @@ Item {
                 }
                 icon.name: "list-add"
                 display: PC3.AbstractButton.IconOnly
-                opacity: hovered ? 1 : 0.75
                 enabled: desktopCount < desktopModel.maximum
+
+                Highlight {
+                    active: parent.activeFocus
+                    hovered: parent.hovered && parent.enabled
+                }
 
                 PC3.ToolTip.text: text
                 PC3.ToolTip.visible: hovered
@@ -293,6 +292,18 @@ Item {
                         drag.source.desktops = [desktopModel.create(desktopModel.rowCount())];
                     }
                 }
+            }
+
+            component Highlight: Rectangle {
+                required property bool active
+                required property bool hovered
+                visible: active || hovered
+                anchors.fill: parent
+                anchors.margins: -Kirigami.Units.smallSpacing
+                radius: Kirigami.Units.cornerRadius
+                color: Kirigami.Theme.highlightColor
+                opacity: !active && hovered ? 0.5 : 1.0
+                z: -10
             }
         }
     }
