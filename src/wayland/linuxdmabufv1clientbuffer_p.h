@@ -22,6 +22,7 @@
 #include <QPointer>
 
 #include <drm_fourcc.h>
+#include <sys/types.h>
 
 namespace KWin
 {

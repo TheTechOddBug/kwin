@@ -11,6 +11,7 @@
 
 #include <QObject>
 #include <QSize>
+#include <sys/types.h>
 #include <utility>
 
 namespace KWin
