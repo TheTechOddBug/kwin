@@ -113,6 +113,7 @@ public:
 
     void setViewport(const RectF &viewport);
     void setScale(qreal scale);
+    void setNextPresentationTimestamp(std::chrono::nanoseconds timestamp, uint32_t refreshRate);
 
     QList<SurfaceItem *> scanoutCandidates(ssize_t maxCount) const override;
     void prePaint() override;
@@ -134,7 +135,7 @@ public:
     void addWindowFilter(std::function<bool(Window *)> filter);
     bool shouldHideWindow(Window *window) const;
 
-private:
+protected:
     Scene *m_scene;
     LogicalOutput *m_logicalOutput = nullptr;
     OutputLayer *m_layer = nullptr;
@@ -143,6 +144,8 @@ private:
     QList<RenderView *> m_exclusiveViews;
     QList<RenderView *> m_underlayViews;
     QList<std::function<bool(Window *)>> m_windowFilters;
+    std::chrono::nanoseconds m_nextPresentationTimestamp;
+    uint32_t m_refreshRate = 60'000;
 };
 
 class KWIN_EXPORT ItemView : public RenderView

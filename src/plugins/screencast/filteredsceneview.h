@@ -18,15 +18,9 @@ class FilteredSceneView : public SceneView
 public:
     FilteredSceneView(Scene *scene, LogicalOutput *output, OutputLayer *layer, std::optional<pid_t> pidToHide);
 
-    std::chrono::nanoseconds nextPresentationTimestamp() const override;
-    uint refreshRate() const override;
     void prePaint() override;
 
     void setRefreshRate(uint refreshRate);
-
-private:
-    std::chrono::nanoseconds m_presentationTimestamp = std::chrono::nanoseconds::zero();
-    uint m_refreshRate = 60000;
 };
 
 } // namespace KWin

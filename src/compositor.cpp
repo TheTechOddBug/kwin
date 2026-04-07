@@ -601,6 +601,7 @@ void Compositor::composite(RenderLoop *renderLoop)
 
     // This must come first.
     renderLoop->prepareNewFrame();
+    primaryView->setNextPresentationTimestamp(renderLoop->nextPresentationTimestamp(), output->refreshRate());
 
     if (m_renderLoopDrivenAnimationDriver->isRunning()) {
         m_renderLoopDrivenAnimationDriver->advanceToNextFrame(renderLoop->nextPresentationTimestamp());

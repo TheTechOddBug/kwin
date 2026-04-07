@@ -3,7 +3,6 @@ set(screenshot_SOURCES
     screenshot.cpp
     screenshotdbusinterface2.cpp
     screenshotlayer.cpp
-    screenshotsceneview.cpp
 )
 
 qt_add_dbus_adaptor(screenshot_SOURCES org.kde.KWin.ScreenShot2.xml screenshotdbusinterface2.h KWin::ScreenShotDBusInterface2)

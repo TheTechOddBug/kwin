@@ -178,6 +178,7 @@ void RenderView::setRenderOffset(const QPoint &offset)
 SceneView::SceneView(Scene *scene, LogicalOutput *logicalOutput, BackendOutput *backendOutput, OutputLayer *layer)
     : RenderView(logicalOutput, backendOutput, layer)
     , m_scene(scene)
+    , m_nextPresentationTimestamp(std::chrono::steady_clock::now().time_since_epoch())
 {
     m_scene->addView(this);
 }
@@ -237,6 +238,12 @@ void SceneView::setScale(qreal scale)
     addDeviceRepaint(deviceRect());
 }
 
+void SceneView::setNextPresentationTimestamp(std::chrono::nanoseconds timestamp, uint32_t refreshRate)
+{
+    m_nextPresentationTimestamp = timestamp;
+    m_refreshRate = refreshRate;
+}
+
 RectF SceneView::viewport() const
 {
     return m_viewport;
@@ -249,12 +256,12 @@ qreal SceneView::scale() const
 
 std::chrono::nanoseconds SceneView::nextPresentationTimestamp() const
 {
-    return m_backendOutput->renderLoop()->nextPresentationTimestamp();
+    return m_nextPresentationTimestamp;
 }
 
 uint SceneView::refreshRate() const
 {
-    return m_backendOutput->refreshRate();
+    return m_refreshRate;
 }
 
 void SceneView::addExclusiveView(RenderView *view)

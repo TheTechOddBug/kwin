@@ -10,7 +10,6 @@
 */
 #include "screenshot.h"
 #include "screenshotdbusinterface2.h"
-#include "screenshotsceneview.h"
 
 #include "compositor.h"
 #include "core/output.h"
@@ -120,7 +119,7 @@ std::optional<QImage> ScreenShotManager::takeScreenShot(LogicalOutput *screen, S
     if (!beginInfo) {
         return std::nullopt;
     }
-    ScreenShotSceneView sceneView(kwinApp()->scene(), screen, &layer);
+    SceneView sceneView(kwinApp()->scene(), screen, nullptr, &layer);
     std::unique_ptr<ItemTreeView> cursorView;
     if (!(flags & ScreenShotIncludeCursor)) {
         cursorView = std::make_unique<ItemTreeView>(&sceneView, kwinApp()->scene()->cursorItem(), workspace()->outputs().front(), nullptr, nullptr);
@@ -190,7 +189,7 @@ std::optional<QImage> ScreenShotManager::takeScreenShot(const Rect &area, Screen
     if (!beginInfo) {
         return std::nullopt;
     }
-    ScreenShotSceneView sceneView(kwinApp()->scene(), workspace()->outputs().front(), &layer);
+    SceneView sceneView(kwinApp()->scene(), workspace()->outputs().front(), nullptr, &layer);
     std::unique_ptr<ItemTreeView> cursorView;
     if (!(flags & ScreenShotIncludeCursor)) {
         cursorView = std::make_unique<ItemTreeView>(&sceneView, kwinApp()->scene()->cursorItem(), workspace()->outputs().front(), nullptr, nullptr);
