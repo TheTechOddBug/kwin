@@ -261,10 +261,15 @@ Item {
                 width: bar.desktopWidth
                 height: bar.desktopHeight
 
-                text: i18nd("kwin", "Add Virtual Desktop")
+                text: if (desktopCount < desktopModel.maximum) {
+                    i18nd("kwin", "Add Virtual Desktop")
+                } else {
+                    i18nd("kwin", "Virtual Desktop limit reached")
+                }
                 icon.name: "list-add"
                 display: PC3.AbstractButton.IconOnly
                 opacity: hovered ? 1 : 0.75
+                enabled: desktopCount < desktopModel.maximum
 
                 PC3.ToolTip.text: text
                 PC3.ToolTip.visible: hovered
@@ -282,7 +287,7 @@ Item {
                 DropArea {
                     anchors.fill: parent
                     onEntered: drag => {
-                        drag.accepted = desktopModel.rowCount() < 20
+                        drag.accepted = desktopCount < desktopModel.maximum;
                     }
                     onDropped: drag => {
                         drag.source.desktops = [desktopModel.create(desktopModel.rowCount())];

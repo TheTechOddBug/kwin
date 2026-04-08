@@ -28,6 +28,7 @@ class VirtualDesktop;
 class VirtualDesktopModel : public QAbstractListModel
 {
     Q_OBJECT
+    Q_PROPERTY(int maximum READ maximum CONSTANT)
 
 public:
     enum Role {
@@ -39,6 +40,8 @@ public:
     QHash<int, QByteArray> roleNames() const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+
+    int maximum() const;
 
 public Q_SLOTS:
     /*!
