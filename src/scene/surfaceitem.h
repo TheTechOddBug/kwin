@@ -49,8 +49,6 @@ public:
 
     bool hasAlphaChannel() const;
 
-    std::shared_ptr<SyncReleasePoint> bufferReleasePoint() const;
-
     RegionF mapFromBuffer(const Region &region) const;
 
     void addDamage(const Region &region);

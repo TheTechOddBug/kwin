@@ -176,7 +176,7 @@ void SurfaceItem::preprocess()
     ItemRenderer *itemRenderer = scene()->renderer();
 
     if (!m_texture || m_texture->size() != m_bufferSize) {
-        m_texture = itemRenderer->createTexture(buffer());
+        m_texture = itemRenderer->createTexture(buffer(), m_bufferReleasePoint);
         if (m_texture) {
             resetDamage();
         }
@@ -185,7 +185,7 @@ void SurfaceItem::preprocess()
 
     const Region region = damage();
     if (!region.isEmpty()) {
-        m_texture->attach(buffer(), region);
+        m_texture->attach(buffer(), region, m_bufferReleasePoint);
         resetDamage();
     }
 }
@@ -266,11 +266,6 @@ std::optional<std::chrono::nanoseconds> SurfaceItem::frameTimeEstimation() const
     } else {
         return *m_accumulatedTimeDiffs / m_lastDamageTimeDiffs.size();
     }
-}
-
-std::shared_ptr<SyncReleasePoint> SurfaceItem::bufferReleasePoint() const
-{
-    return m_bufferReleasePoint;
 }
 
 bool SurfaceItem::hasAlphaChannel() const

@@ -35,7 +35,7 @@ std::unique_ptr<ImageTextureOpenGL> ImageTextureOpenGL::create(const QImage &ima
     return nullptr;
 }
 
-void ImageTextureOpenGL::attach(GraphicsBuffer *buffer, const Region &region)
+void ImageTextureOpenGL::attach(GraphicsBuffer *buffer, const Region &region, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     Q_UNREACHABLE();
 }
@@ -66,20 +66,20 @@ BufferTextureOpenGL::BufferTextureOpenGL(EglBackend *backend)
 {
 }
 
-std::unique_ptr<BufferTextureOpenGL> BufferTextureOpenGL::create(GraphicsBuffer *buffer)
+std::unique_ptr<BufferTextureOpenGL> BufferTextureOpenGL::create(GraphicsBuffer *buffer, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     auto texture = std::make_unique<BufferTextureOpenGL>(static_cast<EglBackend *>(Compositor::self()->backend()));
-    if (texture->attach(buffer)) {
+    if (texture->attach(buffer, releasePoint)) {
         return texture;
     }
 
     return nullptr;
 }
 
-bool BufferTextureOpenGL::attach(GraphicsBuffer *buffer)
+bool BufferTextureOpenGL::attach(GraphicsBuffer *buffer, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     if (buffer->dmabufAttributes()) {
-        return loadDmabufTexture(buffer);
+        return loadDmabufTexture(buffer, releasePoint);
     } else if (buffer->shmAttributes()) {
         return loadShmTexture(buffer);
     } else if (buffer->singlePixelAttributes()) {
@@ -90,14 +90,14 @@ bool BufferTextureOpenGL::attach(GraphicsBuffer *buffer)
     }
 }
 
-void BufferTextureOpenGL::attach(GraphicsBuffer *buffer, const Region &region)
+void BufferTextureOpenGL::attach(GraphicsBuffer *buffer, const Region &region, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     if (buffer->dmabufAttributes()) {
-        updateDmabufTexture(buffer);
+        updateDmabufTexture(buffer, releasePoint);
     } else if (buffer->shmAttributes()) {
-        updateShmTexture(buffer, region);
+        updateShmTexture(buffer, region, releasePoint);
     } else if (buffer->singlePixelAttributes()) {
-        updateSinglePixelTexture(buffer);
+        updateSinglePixelTexture(buffer, releasePoint);
     } else {
         qCDebug(KWIN_OPENGL) << "Failed to update OpenGLSurfaceTexture for a buffer of unknown type" << buffer;
     }
@@ -114,6 +114,7 @@ void BufferTextureOpenGL::reset()
     m_planes.clear();
     m_bufferType = BufferType::None;
     m_size = QSize();
+    m_releasePoint.reset();
 }
 
 bool BufferTextureOpenGL::loadShmTexture(GraphicsBuffer *buffer)
@@ -150,11 +151,11 @@ static Region simplifyDamage(const Region &damage)
     }
 }
 
-void BufferTextureOpenGL::updateShmTexture(GraphicsBuffer *buffer, const Region &region)
+void BufferTextureOpenGL::updateShmTexture(GraphicsBuffer *buffer, const Region &region, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     if (Q_UNLIKELY(m_bufferType != BufferType::Shm)) {
         reset();
-        attach(buffer);
+        attach(buffer, releasePoint);
         return;
     }
 
@@ -168,7 +169,7 @@ void BufferTextureOpenGL::updateShmTexture(GraphicsBuffer *buffer, const Region 
     m_isFloatingPoint = info && info->floatingPoint;
 }
 
-bool BufferTextureOpenGL::loadDmabufTexture(GraphicsBuffer *buffer)
+bool BufferTextureOpenGL::loadDmabufTexture(GraphicsBuffer *buffer, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     auto createTexture = [](EGLImageKHR image, const QSize &size, bool isExternalOnly) -> std::unique_ptr<GLTexture> {
         if (Q_UNLIKELY(image == EGL_NO_IMAGE_KHR)) {
@@ -225,15 +226,16 @@ bool BufferTextureOpenGL::loadDmabufTexture(GraphicsBuffer *buffer)
     m_size = buffer->size();
     const auto info = FormatInfo::get(buffer->dmabufAttributes()->format);
     m_isFloatingPoint = info && info->floatingPoint;
+    m_releasePoint = releasePoint;
 
     return true;
 }
 
-void BufferTextureOpenGL::updateDmabufTexture(GraphicsBuffer *buffer)
+void BufferTextureOpenGL::updateDmabufTexture(GraphicsBuffer *buffer, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     if (Q_UNLIKELY(m_bufferType != BufferType::DmaBuf)) {
         reset();
-        attach(buffer);
+        attach(buffer, releasePoint);
         return;
     }
 
@@ -258,6 +260,7 @@ void BufferTextureOpenGL::updateDmabufTexture(GraphicsBuffer *buffer)
     }
     const auto info = FormatInfo::get(buffer->dmabufAttributes()->format);
     m_isFloatingPoint = info && info->floatingPoint;
+    m_releasePoint = releasePoint;
 }
 
 bool BufferTextureOpenGL::loadSinglePixelTexture(GraphicsBuffer *buffer)
@@ -276,11 +279,11 @@ bool BufferTextureOpenGL::loadSinglePixelTexture(GraphicsBuffer *buffer)
     return true;
 }
 
-void BufferTextureOpenGL::updateSinglePixelTexture(GraphicsBuffer *buffer)
+void BufferTextureOpenGL::updateSinglePixelTexture(GraphicsBuffer *buffer, const std::shared_ptr<SyncReleasePoint> &releasePoint)
 {
     if (Q_UNLIKELY(m_bufferType != BufferType::SinglePixel)) {
         reset();
-        attach(buffer);
+        attach(buffer, releasePoint);
         return;
     }
     const GraphicsBufferView view(buffer);
