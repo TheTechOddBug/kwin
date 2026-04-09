@@ -10,10 +10,14 @@
 #include "effect/offscreenquickview.h"
 #include "effect/effecthandler.h"
 
+#include "compositor.h"
+#include "core/drmdevice.h"
 #include "core/inputdevice.h"
+#include "core/renderbackend.h"
 #include "input_event.h"
 #include "logging_p.h"
 #include "opengl/eglcontext.h"
+#include "opengl/eglswapchain.h"
 #include "opengl/glutils.h"
 
 #include <QGuiApplication>
@@ -53,7 +57,8 @@ public:
     std::unique_ptr<QQuickRenderControl> m_renderControl;
     std::unique_ptr<QOffscreenSurface> m_offscreenSurface;
     std::unique_ptr<QOpenGLContext> m_glcontext;
-    std::unique_ptr<QOpenGLFramebufferObject> m_fbo;
+    std::shared_ptr<EglSwapchain> m_swapchain;
+    std::shared_ptr<EglSwapchainSlot> m_currentSlot;
 
     std::unique_ptr<QTimer> m_repaintTimer;
     QImage m_image;
@@ -240,24 +245,33 @@ void OffscreenQuickView::update()
         }
 
         const QSize nativeSize = d->m_view->size() * dpr;
-        if (!d->m_fbo || d->m_fbo->size() != nativeSize) {
+        if (!d->m_swapchain || d->m_swapchain->size() != nativeSize) {
             d->m_textureExport.reset(nullptr);
 
             QOpenGLFramebufferObjectFormat fboFormat;
             fboFormat.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
             fboFormat.setInternalTextureFormat(GL_RGBA8);
 
-            d->m_fbo = std::make_unique<QOpenGLFramebufferObject>(nativeSize, fboFormat);
-            if (!d->m_fbo->isValid()) {
-                d->m_fbo.reset();
+            // TODO expose the device to effects in a more direct way?
+            d->m_swapchain = EglSwapchain::create(Compositor::self()->backend()->drmDevice()->allocator(),
+                                                  EglContext::currentContext(), nativeSize,
+                                                  DRM_FORMAT_ARGB8888, Compositor::self()->backend()->supportedFormats()[DRM_FORMAT_ARGB8888]);
+            if (!d->m_swapchain) {
                 d->m_glcontext->doneCurrent();
-                qCWarning(LIBKWINEFFECTS, "Creating FBO for OffscreenQuickView failed!");
+                qCWarning(LIBKWINEFFECTS, "Creating a swapchain for OffscreenQuickView failed!");
                 return;
             }
         }
+        d->m_currentSlot = d->m_swapchain->acquire();
+        if (!d->m_currentSlot) {
+            d->m_glcontext->doneCurrent();
+            qCWarning(LIBKWINEFFECTS, "Acquire for OffscreenQuickView failed!");
+            return;
+        }
 
-        QQuickRenderTarget renderTarget = QQuickRenderTarget::fromOpenGLTexture(d->m_fbo->texture(), d->m_fbo->size());
+        QQuickRenderTarget renderTarget = QQuickRenderTarget::fromOpenGLTexture(d->m_currentSlot->texture()->texture(), d->m_swapchain->size());
         renderTarget.setDevicePixelRatio(dpr);
+        renderTarget.setMirrorVertically(true);
         d->m_view->setRenderTarget(renderTarget);
     }
 
@@ -276,12 +290,7 @@ void OffscreenQuickView::update()
     }
 
     if (d->m_useBlit) {
-        if (usingGl) {
-            d->m_image = d->m_fbo->toImage();
-            d->m_image.setDevicePixelRatio(d->m_view->effectiveDevicePixelRatio());
-        } else {
-            d->m_image = d->m_view->grabWindow();
-        }
+        d->m_image = d->m_view->grabWindow();
     }
 
     if (usingGl) {
@@ -501,19 +510,14 @@ GLTexture *OffscreenQuickView::bufferAsTexture()
         } else {
             d->m_textureExport->setFilter(GL_LINEAR);
         }
+        return d->m_textureExport.get();
     } else {
-        if (!d->m_fbo) {
-            qCWarning(LIBKWINEFFECTS, "OffscreenQuickView has no fbo!");
+        if (!d->m_currentSlot) {
+            qCWarning(LIBKWINEFFECTS, "OffscreenQuickView has no current slot!");
             return nullptr;
         }
-        if (!d->m_textureExport) {
-            d->m_textureExport = GLTexture::createNonOwningWrapper(d->m_fbo->texture(), d->m_fbo->format().internalTextureFormat(), d->m_fbo->size());
-            if (d->m_textureExport) {
-                d->m_textureExport->setFilter(GL_LINEAR);
-            }
-        }
+        return d->m_currentSlot->texture().get();
     }
-    return d->m_textureExport.get();
 }
 
 QImage OffscreenQuickView::bufferAsImage() const
