@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2026-03-01 13:04+0100\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
 "Language-Team: Basque <kde-i18n-eu@kde.org>\n"
@@ -2478,9 +2478,15 @@ msgstr "Txandakatu Sarera ikuspegia"
 msgid "Delete Virtual Desktop"
 msgstr "Ezabatu alegiazko mahaigaina"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, kde-format
 msgid "Add Virtual Desktop"
+msgstr "Gehitu alegiazko mahaigaina"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Add Virtual Desktop"
+msgid "Virtual Desktop limit reached"
 msgstr "Gehitu alegiazko mahaigaina"
 
 #: plugins/overview/qml/Main.qml:425

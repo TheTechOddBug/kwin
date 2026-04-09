@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2008-12-27 14:55+0200\n"
 "Last-Translator: Ihar Hrachyshka <ihar.hrachyshka@gmail.com>\n"
 "Language-Team: Belarusian Latin <i18n@mova.org>\n"
@@ -2530,10 +2530,16 @@ msgstr "Invertavańnie"
 msgid "Delete Virtual Desktop"
 msgstr "Na &stoł"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, fuzzy, kde-format
 #| msgid "Show Desktop Grid"
 msgid "Add Virtual Desktop"
+msgstr "Sietka stała"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Show Desktop Grid"
+msgid "Virtual Desktop limit reached"
 msgstr "Sietka stała"
 
 #: plugins/overview/qml/Main.qml:425

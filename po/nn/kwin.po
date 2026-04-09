@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2024-09-22 16:22+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -2518,9 +2518,15 @@ msgstr "Slå på/av rutenettvising"
 msgid "Delete Virtual Desktop"
 msgstr "Slett virtuelt skrivebord"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, kde-format
 msgid "Add Virtual Desktop"
+msgstr "Legg til virtuelt skrivebord"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Add Virtual Desktop"
+msgid "Virtual Desktop limit reached"
 msgstr "Legg til virtuelt skrivebord"
 
 #: plugins/overview/qml/Main.qml:425

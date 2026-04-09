@@ -19,13 +19,11 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #: declarative-plugin/buttonsmodel.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "Button showing window actions menu"
-#| msgid "Window Menu"
+#, kde-format
 msgid "Window menu"
 msgstr "Ponuka okna"
 
@@ -72,17 +70,15 @@ msgstr "Držať nad ostatnými oknami"
 #: declarative-plugin/buttonsmodel.cpp:74
 #, kde-format
 msgid "Hide from screencast"
-msgstr ""
+msgstr "Skryť zo Screencastu"
 
 #: declarative-plugin/buttonsmodel.cpp:76
 #, kde-format
 msgid "Spacer"
-msgstr ""
+msgstr "Medzera"
 
 #: kcm.cpp:188
-#, fuzzy, kde-format
-#| msgctxt "%1 is the name of a border size"
-#| msgid "Theme's default (%1)"
+#, kde-format
 msgctxt "%1 is the name of a border size"
 msgid "Theme default (%1)"
 msgstr "Predvolené z témy (%1)"
@@ -141,9 +137,7 @@ msgid ""
 msgstr "Požadovaná téma „%1“ je už nastavená ako téma dekorácií okna."
 
 #: kwin-applywindowdecoration.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "Successfully applied the cursor theme %1 to your current Plasma session"
+#, kde-format
 msgid ""
 "Successfully applied the pointer theme %1 to your current Plasma session"
 msgstr "Téma kurzora %1 bola úspešne použitá na vaše aktuálne sedenie Plasmy"
@@ -193,20 +187,16 @@ msgid "Titlebar Buttons"
 msgstr "Tlačidlá záhlavia"
 
 #: ui/ConfigureTitlebar.qml:35
-#, fuzzy, kde-format
-#| msgctxt "checkbox label"
-#| msgid "Close windows by double clicking the menu button"
+#, kde-format
 msgctxt "checkbox label"
 msgid "Close windows by double clicking the window menu button"
-msgstr "Zavrieť okná dvojklikom na tlačidlo ponuky"
+msgstr "Zatvorte okná dvojitým kliknutím na tlačidlo ponuky okna."
 
 #: ui/ConfigureTitlebar.qml:52
-#, fuzzy, kde-format
-#| msgctxt "popup tip"
-#| msgid "Click and hold on the menu button to show the menu."
+#, kde-format
 msgctxt "popup tip"
 msgid "Click and hold on the window menu button to show the menu."
-msgstr "Ponuku zobrazíte kliknutím a podržaním na tlačidla ponuky."
+msgstr "Kliknite a podržte tlačidlo ponuky okna, aby sa zobrazila ponuka."
 
 #: ui/ConfigureTitlebar.qml:59
 #, kde-format
@@ -218,7 +208,7 @@ msgstr "Zobrazovať popisy tlačidiel záhlavia"
 #, kde-format
 msgctxt "@option:check"
 msgid "Always show \"Hide from Screencast\" button"
-msgstr ""
+msgstr "Vždy zobrazovať tlačidlo \"Skryť zo Screencastu\""
 
 #: ui/ConfigureTitlebar.qml:85
 #, kde-format
@@ -227,6 +217,8 @@ msgid ""
 "When unchecked the button only appears if the window is hidden from "
 "screencast"
 msgstr ""
+"Ak nie je zaškrtnuté, tlačidlo sa zobrazí len v prípade, že je okno skryté z "
+"screencastu."
 
 #: ui/ConfigureTitlebar.qml:86
 #, kde-format
@@ -235,6 +227,8 @@ msgid ""
 "To enable this option, add the \"Hide from screencast\" button to the "
 "titlebar first"
 msgstr ""
+"Ak chcete túto možnosť aktivovať, najskôr pridajte tlačidlo \"Skryť zo "
+"screencastu“ do hlavného panela."
 
 #: ui/main.qml:29
 #, kde-format
@@ -255,62 +249,52 @@ msgid "Get New…"
 msgstr "Získať nové..."
 
 #: ui/Themes.qml:93
-#, fuzzy, kde-format
-#| msgid "Edit %1 Theme"
+#, kde-format
 msgid "Edit %1 Theme…"
 msgstr "Upraviť tému %1"
 
 #: utils.cpp:26
-#, fuzzy, kde-format
-#| msgid "No Window Borders"
+#, kde-format
 msgid "No window borders"
 msgstr "Žiadne okraje okien"
 
 #: utils.cpp:27
-#, fuzzy, kde-format
-#| msgid "No Side Window Borders"
+#, kde-format
 msgid "No side window borders"
 msgstr "Žiadne bočné okraje okien"
 
 #: utils.cpp:28
-#, fuzzy, kde-format
-#| msgid "Tiny Window Borders"
+#, kde-format
 msgid "Tiny window borders"
 msgstr "Drobné okraje okien"
 
 #: utils.cpp:29
-#, fuzzy, kde-format
-#| msgid "Normal Window Borders"
+#, kde-format
 msgid "Normal window borders"
 msgstr "Normálne okraje okien"
 
 #: utils.cpp:30
-#, fuzzy, kde-format
-#| msgid "Large Window Borders"
+#, kde-format
 msgid "Large window borders"
 msgstr "Veľké okraje okien"
 
 #: utils.cpp:31
-#, fuzzy, kde-format
-#| msgid "Very Large Window Borders"
+#, kde-format
 msgid "Very large window borders"
 msgstr "Veľmi veľké okraje okien"
 
 #: utils.cpp:32
-#, fuzzy, kde-format
-#| msgid "Huge Window Borders"
+#, kde-format
 msgid "Huge window borders"
 msgstr "Obrovské okraje okien"
 
 #: utils.cpp:33
-#, fuzzy, kde-format
-#| msgid "Very Huge Window Borders"
+#, kde-format
 msgid "Very huge window borders"
 msgstr "Veľmi obrovské okraje okien"
 
 #: utils.cpp:34
-#, fuzzy, kde-format
-#| msgid "Oversized Window Borders"
+#, kde-format
 msgid "Oversized window borders"
 msgstr "Nadrozmerné okraje okien"
 
@@ -321,8 +305,6 @@ msgstr "Nadrozmerné okraje okien"
 #~ msgstr "Zabaliť"
 
 #, fuzzy
-#~| msgctxt "button text"
-#~| msgid "Get New Window Decorations..."
 #~ msgctxt "button text"
 #~ msgid "Get New Window Decorations…"
 #~ msgstr "Získať nové dekorácie okien..."

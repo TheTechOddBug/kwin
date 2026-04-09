@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2004-07-08 17:18+0200\n"
 "Last-Translator: Thierry Vignaud <tvignaud.com>\n"
 "Language-Team: Brezhoneg <Suav.Icb.fr>\n"
@@ -2452,10 +2452,16 @@ msgstr ""
 msgid "Delete Virtual Desktop"
 msgstr "D'ar &burev"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, fuzzy, kde-format
 #| msgid "Switch to Desktop 1"
 msgid "Add Virtual Desktop"
+msgstr "Gwintañ da Burev 1"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Switch to Desktop 1"
+msgid "Virtual Desktop limit reached"
 msgstr "Gwintañ da Burev 1"
 
 #: plugins/overview/qml/Main.qml:425

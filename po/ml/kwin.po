@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2008-07-08 18:58+0530\n"
 "Last-Translator: \n"
 "Language-Team: SMC <smc.org.in>\n"
@@ -2432,9 +2432,14 @@ msgstr "മറിക്കല്‍ പ്രഭാവം ടോഗിള്‍ 
 msgid "Delete Virtual Desktop"
 msgstr "&പണിയിടത്തിലേയ്ക്കു്"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, fuzzy, kde-format
 msgid "Add Virtual Desktop"
+msgstr "പണിയിടം ഗ്രിഡ് കാണിക്കുക"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+msgid "Virtual Desktop limit reached"
 msgstr "പണിയിടം ഗ്രിഡ് കാണിക്കുക"
 
 #: plugins/overview/qml/Main.qml:425

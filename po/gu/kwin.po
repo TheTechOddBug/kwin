@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin-gu\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2009-01-04 13:06+0530\n"
 "Last-Translator: Kartik Mistry <kartik.mistry@gmail.com>\n"
 "Language-Team: Gujarati <kde-i18n-doc@kde.org>\n"
@@ -2491,10 +2491,16 @@ msgstr "ઉલ્ટી અસર ચાલુ/બંધ કરો"
 msgid "Delete Virtual Desktop"
 msgstr "ડેસ્કટોપ પર (&D)"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, fuzzy, kde-format
 #| msgid "Show Desktop"
 msgid "Add Virtual Desktop"
+msgstr "ડેસ્કટોપ બતાવો"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Show Desktop"
+msgid "Virtual Desktop limit reached"
 msgstr "ડેસ્કટોપ બતાવો"
 
 #: plugins/overview/qml/Main.qml:425

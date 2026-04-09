@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2023-12-02 20:09+0100\n"
 "Last-Translator: Matej Mrenica <matejm98mthw@gmail.com>\n"
 "Language-Team: Slovak <kde-i18n-doc@kde.org>\n"
@@ -23,8 +23,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 24.01.80\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 24.01.80\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -57,14 +57,12 @@ msgid "KDE Wayland Compositor %1"
 msgstr "KDE Wayland Compositor %1"
 
 #: backends/wayland/wayland_output.cpp:490
-#, fuzzy, kde-format
-#| msgid "- Output disabled"
+#, kde-format
 msgid "- Output disabled"
 msgstr "- Výstup zakázaný"
 
 #: backends/wayland/wayland_output.cpp:492
-#, fuzzy, kde-format
-#| msgid "- Output dimmed"
+#, kde-format
 msgid "- Output dimmed"
 msgstr "- Výstup stmavený"
 
@@ -91,80 +89,86 @@ msgstr "Efekty plochy boli reštartované kvôli grafickému vynulovaniu"
 #: core/iccprofile.cpp:390
 #, kde-format
 msgid "Failed to open ICC profile \"%1\""
-msgstr ""
+msgstr "Nepodarilo sa otvoriť profil ICC „%1\""
 
 #: core/iccprofile.cpp:392
 #, kde-format
 msgid "ICC profile \"%1\" doesn't exist"
-msgstr ""
+msgstr "Profil ICC „%1\" neexistuje"
 
 #: core/iccprofile.cpp:396
 #, kde-format
 msgid "ICC profile \"%1\" is not usable for displays"
-msgstr ""
+msgstr "Profil ICC „%1\" nie je použiteľný pre displeje"
 
 #: core/iccprofile.cpp:399
 #, kde-format
 msgid ""
 "ICC profile \"%1\" has unsupported connection space, only XYZ is supported"
 msgstr ""
+"Profil ICC „%1\" má nepodporovaný priestor pripojenia, podporuje sa iba XYZ"
 
 #: core/iccprofile.cpp:402
 #, kde-format
 msgid "ICC profile \"%1\" is broken, input/output color space isn't RGB"
 msgstr ""
+"Profil ICC „%1\" je poškodený, vstupný/výstupný farebný priestor nie je RGB"
 
 #: core/iccprofile.cpp:415
 #, kde-format
 msgid "ICC profile \"%1\" is broken, it has no whitepoint"
-msgstr ""
+msgstr "Profil ICC „%1\" je poškodený, nemá biely bod"
 
 #: core/iccprofile.cpp:418
 #, kde-format
 msgid "ICC profile \"%1\" is broken, its whitepoint is invalid"
-msgstr ""
+msgstr "Profil ICC „%1\" je poškodený, jeho biely bod je neplatný"
 
 #: core/iccprofile.cpp:431
 #, kde-format
 msgid ""
 "ICC profile \"%1\" is broken, parsing chromatic adaptation matrix failed"
 msgstr ""
+"Profil ICC „%1\" je poškodený, spracovanie matice chromatickej adaptácie "
+"zlyhalo"
 
 #: core/iccprofile.cpp:436
 #, kde-format
 msgid ""
 "ICC profile \"%1\" is broken, inverting chromatic adaptation matrix failed"
 msgstr ""
+"Profil ICC „%1\" je poškodený, inverzia matice chromatickej adaptácie zlyhala"
 
 #: core/iccprofile.cpp:449
 #, kde-format
 msgid "ICC profile \"%1\" is broken, it has no primaries"
-msgstr ""
+msgstr "Profil ICC „%1\" je poškodený, nemá primárne farby"
 
 #: core/iccprofile.cpp:464
 #, kde-format
 msgid "ICC profile \"%1\" is broken, couldn't calculate its primaries"
 msgstr ""
+"Profil ICC „%1\" je poškodený, nepodarilo sa vypočítať jeho primárne farby"
 
 #: core/iccprofile.cpp:473
 #, kde-format
 msgid "ICC profile \"%1\" is broken, its primaries are invalid"
-msgstr ""
+msgstr "Profil ICC „%1\" je poškodený, jeho primárne farby sú neplatné"
 
 #: core/iccprofile.cpp:489
 #, kde-format
 msgid "ICC profile \"%1\" with only BToD tags isn't supported"
-msgstr ""
+msgstr "Profil ICC „%1\" iba s tagmi BToD nie je podporovaný"
 
 #: core/iccprofile.cpp:527
 #, kde-format
 msgid "Color profile is missing TRC tags"
-msgstr ""
+msgstr "Farebný profil nemá tagy TRC"
 
 #: core/iccprofile.cpp:534
 #, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr ""
+msgstr "Zlyhalo otvorenie ICC profilu \"%1\""
 
 #: debug_console.cpp:86
 #, kde-format
@@ -434,9 +438,7 @@ msgid "Delta"
 msgstr "Delta"
 
 #: debug_console.cpp:251
-#, fuzzy, kde-format
-#| msgctxt "Current delta in pinch gesture"
-#| msgid "Delta x"
+#, kde-format
 msgctxt ""
 "The normalized V120 angle delta of a pointer axis event. V120 is a technical "
 "term and shouldn't be changed."
@@ -498,9 +500,7 @@ msgid "Repeat"
 msgstr "Opakovanie"
 
 #: debug_console.cpp:308
-#, fuzzy, kde-format
-#| msgctxt "Key according to Qt"
-#| msgid "Qt::Key code"
+#, kde-format
 msgctxt "The code reported by the kernel"
 msgid "Keycode"
 msgstr "Qt::Key kód"
@@ -659,12 +659,10 @@ msgstr "Potiahnutie zrušené"
 #, kde-format
 msgctxt "A hold gesture is started"
 msgid "Hold start"
-msgstr ""
+msgstr "Začiatok podržania"
 
 #: debug_console.cpp:473
-#, fuzzy, kde-format
-#| msgctxt "Number of fingers in this pinch gesture"
-#| msgid "Finger count"
+#, kde-format
 msgctxt "Number of fingers in this hold gesture"
 msgid "Finger count"
 msgstr "Počet prstov"
@@ -673,12 +671,10 @@ msgstr "Počet prstov"
 #, kde-format
 msgctxt "A hold gesture ended"
 msgid "Hold end"
-msgstr ""
+msgstr "Koniec podržania"
 
 #: debug_console.cpp:496
-#, fuzzy, kde-format
-#| msgctxt "A pinch gesture got cancelled"
-#| msgid "Pinch cancelled"
+#, kde-format
 msgctxt "A hold gesture got cancelled"
 msgid "Hold cancelled"
 msgstr "Štipka zrušená"
@@ -726,25 +722,24 @@ msgid "State"
 msgstr "Stav"
 
 #: debug_console.cpp:539
-#, fuzzy, kde-format
-#| msgid "Tablet Tool"
+#, kde-format
 msgid "Tablet Tool Proximity"
 msgstr "Nástroj tabletu"
 
 #: debug_console.cpp:543
 #, kde-format
 msgid "Proximity"
-msgstr ""
+msgstr "Blízkosť"
 
 #: debug_console.cpp:543
 #, kde-format
 msgid "In"
-msgstr ""
+msgstr "Vo vnútri"
 
 #: debug_console.cpp:543
 #, kde-format
 msgid "Out"
-msgstr ""
+msgstr "Vonku"
 
 #: debug_console.cpp:544 debug_console.cpp:562 debug_console.cpp:582
 #: debug_console.cpp:632 debug_console.cpp:649
@@ -763,14 +758,12 @@ msgid "Rotation"
 msgstr "Otočenie"
 
 #: debug_console.cpp:549 debug_console.cpp:568
-#, fuzzy, kde-format
-#| msgid "Distance:"
+#, kde-format
 msgid "Distance"
-msgstr "Vzdialenosť:"
+msgstr "Vzdialenosť"
 
 #: debug_console.cpp:558
-#, fuzzy, kde-format
-#| msgid "Tablet Tool"
+#, kde-format
 msgid "Tablet Tool Axis"
 msgstr "Nástroj tabletu"
 
@@ -780,31 +773,27 @@ msgid "Pressure"
 msgstr "Tlak"
 
 #: debug_console.cpp:577
-#, fuzzy, kde-format
-#| msgid "Tablet Tool"
+#, kde-format
 msgid "Tablet Tool Tip"
 msgstr "Nástroj tabletu"
 
 #: debug_console.cpp:581
-#, fuzzy, kde-format
-#| msgid "Top"
+#, kde-format
 msgid "Tip"
 msgstr "Hore"
 
 #: debug_console.cpp:581
-#, fuzzy, kde-format
-#| msgid "Move Down"
+#, kde-format
 msgid "Down"
 msgstr "Posunúť dolu"
 
 #: debug_console.cpp:581
 #, kde-format
 msgid "Up"
-msgstr ""
+msgstr "Hore"
 
 #: debug_console.cpp:588
-#, fuzzy, kde-format
-#| msgid "Position"
+#, kde-format
 msgid "Slider Position"
 msgstr "Pozícia"
 
@@ -837,19 +826,17 @@ msgstr "Tlačidlo na tablete"
 #: debug_console.cpp:616 debug_console.cpp:634 debug_console.cpp:651
 #, kde-format
 msgid "Group"
-msgstr ""
+msgstr "Skupina"
 
 #: debug_console.cpp:617 debug_console.cpp:635 debug_console.cpp:652
-#, fuzzy, kde-format
-#| msgctxt "@label"
-#| msgid "Mode:"
+#, kde-format
 msgid "Mode"
-msgstr "Režim:"
+msgstr "Režim"
 
 #: debug_console.cpp:618
 #, kde-format
 msgid "Is Mode Switch"
-msgstr ""
+msgstr "Je prepínač režimu"
 
 #: debug_console.cpp:629
 #, kde-format
@@ -872,15 +859,12 @@ msgid "Tablet Pad Ring"
 msgstr "Koliesko na tablete"
 
 #: debug_console.cpp:663
-#, fuzzy, kde-format
-#| msgid "Tablet Pad Ring"
+#, kde-format
 msgid "Tablet Pad Dial"
 msgstr "Koliesko na tablete"
 
 #: debug_console.cpp:666
-#, fuzzy, kde-format
-#| msgctxt "The relative mouse movement"
-#| msgid "Delta"
+#, kde-format
 msgid "Delta"
 msgstr "Delta"
 
@@ -888,7 +872,7 @@ msgstr "Delta"
 #, kde-format
 msgctxt "@label"
 msgid "Effects"
-msgstr ""
+msgstr "Efekty"
 
 #: debug_console.cpp:949
 #, kde-format
@@ -1099,18 +1083,17 @@ msgstr "Vnútorné okná"
 #, kde-format
 msgctxt "@action:button unload an effect"
 msgid "Unload"
-msgstr ""
+msgstr "Uvoľniť"
 
 #: debug_console.cpp:1794
 #, kde-format
 msgctxt "@action:button load an effect"
 msgid "Load"
-msgstr ""
+msgstr "Načítať"
 
 #. i18n: ectx: property (windowTitle), widget (QWidget, DebugConsole)
 #: debug_console.ui:14
-#, fuzzy, kde-format
-#| msgid "Quit Debug Console"
+#, kde-format
 msgid "Debug Console"
 msgstr "Zatvoriť Konzolu ladenia"
 
@@ -1293,7 +1276,7 @@ msgstr "čas"
 #: helpers/dialoghelper/dialoghelper.cpp:46
 #, kde-format
 msgid "The message to show (fullscreen, noborder)"
-msgstr ""
+msgstr "The message to show (fullscreen, noborder)"
 
 #: helpers/dialoghelper/dialoghelper.cpp:48 helpers/killer/killer.cpp:146
 #, kde-format
@@ -1307,13 +1290,7 @@ msgid "This helper utility is not supposed to be called directly."
 msgstr "Tento pomocný nástroj nie je určený na priame spustenie."
 
 #: helpers/dialoghelper/dialoghelper.cpp:79
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window operations menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
@@ -1326,13 +1303,7 @@ msgstr ""
 "aktivujete klávesovou skratkou %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:85
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window operations menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
@@ -1345,37 +1316,24 @@ msgstr ""
 "aktivujete klávesovou skratkou %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:93
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window in fullscreen mode.\n"
-#| "If the application itself does not have an option to turn the fullscreen "
-#| "mode off you will not be able to disable it again using the mouse: use "
-#| "the window operations menu instead, activated using the %1 keyboard "
-#| "shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window in fullscreen mode.\n"
 "If the application itself does not have an option to turn the fullscreen "
 "mode off you will not be able to disable it again using the mouse."
 msgstr ""
-"Rozhodli ste sa zobraziť okno v režime na celú obrazovku.\n"
-"Ak aplikácia sama neposkytuje možnosť tento režim vypnúť, nebudete sa môcť "
-"prepnúť späť pomocou myši. Musíte použiť ponuku operácií okna, ktoré "
-"aktivujete klávesovou skratkou %1."
+"You have selected to show a window in fullscreen mode.\n"
+"If the application itself does not have an option to turn the fullscreen "
+"mode off you will not be able to disable it again using the mouse."
 
 #: helpers/dialoghelper/dialoghelper.cpp:98
-#, fuzzy, kde-format
-#| msgid "Fullscreen"
+#, kde-format
 msgctxt "@action:button Un-fullscreen"
 msgid "Undo Fullscreen"
 msgstr "Na celú obrazovku"
 
 #: helpers/dialoghelper/dialoghelper.cpp:101
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window operations menu instead, activated using the %1 "
-#| "keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
@@ -1386,12 +1344,7 @@ msgstr ""
 "operácií okna, ktoré aktivujete klávesovou skratkou %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:106
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window operations menu instead, activated using the %1 "
-#| "keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
@@ -1403,24 +1356,18 @@ msgstr ""
 "operácií okna, ktoré aktivujete klávesovou skratkou %1."
 
 #: helpers/dialoghelper/dialoghelper.cpp:112
-#, fuzzy, kde-format
-#| msgid ""
-#| "You have selected to show a window without its border.\n"
-#| "Without the border, you will not be able to enable the border again using "
-#| "the mouse: use the window operations menu instead, activated using the %1 "
-#| "keyboard shortcut."
+#, kde-format
 msgid ""
 "You have selected to show a window without its border.\n"
 "Without the border, you will not be able to enable the border again using "
 "the mouse."
 msgstr ""
-"Rozhodli ste sa zobraziť okno bez okrajov.\n"
-"Bez nich nebude možné okraje zase zapnúť pomocou myši. Musíte použiť ponuku "
-"operácií okna, ktoré aktivujete klávesovou skratkou %1."
+"You have selected to show a window without its border.\n"
+"Without the border, you will not be able to enable the border again using "
+"the mouse."
 
 #: helpers/dialoghelper/dialoghelper.cpp:116
-#, fuzzy, kde-format
-#| msgid "&No Border"
+#, kde-format
 msgctxt "@action:button"
 msgid "Restore Border"
 msgstr "&Bez okraja"
@@ -1428,15 +1375,10 @@ msgstr "&Bez okraja"
 #: helpers/dialoghelper/dialoghelper.cpp:133
 #, kde-format
 msgid "Do not show again"
-msgstr ""
+msgstr "Znovu nezobrazovať"
 
 #: helpers/killer/killdialog.cpp:37
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<para>Do you want to terminate this application?</"
-#| "para><para><warning>Terminating the application will close all of its "
-#| "child windows. Any unsaved data will be lost.</warning></para>"
+#, kde-kuit-format
 msgctxt "@info"
 msgid ""
 "<para><application>%1</application> is not responding. Do you want to "
@@ -1444,17 +1386,13 @@ msgid ""
 "this application will close all of its windows. Any unsaved data will be "
 "lost.</emphasis></para>"
 msgstr ""
-"<para>Chcete ukončiť túto aplikáciu?</para><para><warning>Ukončením "
-"aplikácie sa zatvoria všetky jej podradené okná. Všetky neuložené údaje budú "
-"stratené.</warning></para>"
+"<para><application>%1</application> is not responding. Do chcete to "
+"terminate this application?</para><para><emphasis strong='true'>Terminating "
+"this application will close všetky z its windows. Any unsaved data will be "
+"lost.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:41
-#, fuzzy, kde-kuit-format
-#| msgctxt "@info"
-#| msgid ""
-#| "<para>Do you want to terminate this application?</"
-#| "para><para><warning>Terminating the application will close all of its "
-#| "child windows. Any unsaved data will be lost.</warning></para>"
+#, kde-kuit-format
 msgctxt "@info \"window title\" of application name is not responding."
 msgid ""
 "<para>\"%1\" of <application>%2</application> is not responding. Do you want "
@@ -1462,14 +1400,13 @@ msgid ""
 "strong='true'>Terminating this application will close all of its windows. "
 "Any unsaved data will be lost.</emphasis></para>"
 msgstr ""
-"<para>Chcete ukončiť túto aplikáciu?</para><para><warning>Ukončením "
-"aplikácie sa zatvoria všetky jej podradené okná. Všetky neuložené údaje budú "
-"stratené.</warning></para>"
+"<para>\"%1\" of <application>%2</application> is not responding. Do chcete "
+"to terminate this application?</para><para><emphasis "
+"strong='true'>Terminating this application will close všetky z its windows. "
+"Any unsaved data will be lost.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
 msgstr "&Ukončiť %1"
 
@@ -1508,7 +1445,7 @@ msgstr "Neodpovedá"
 #: helpers/killer/killdialog.ui:53
 #, kde-format
 msgid "&Details"
-msgstr ""
+msgstr "Podrobnosti"
 
 #: helpers/killer/killer.cpp:134
 #, kde-format
@@ -1681,7 +1618,7 @@ msgstr "Výška pre režim v okne. Predvolená výška je 768."
 #: main_wayland.cpp:329
 #, kde-format
 msgid "Whether or not to make windowed mode fullscreen"
-msgstr ""
+msgstr "Či sa má režim v okne prepnúť na celú obrazovku"
 
 #: main_wayland.cpp:333
 #, kde-format
@@ -1807,10 +1744,9 @@ msgstr "Sila šumu:"
 
 #. i18n: ectx: property (text), widget (QLabel, labelSaturation)
 #: plugins/blur/blur_config.ui:128
-#, fuzzy, kde-format
-#| msgid "Duration:"
+#, kde-format
 msgid "Saturation:"
-msgstr "Trvanie:"
+msgstr "Sýtosť:"
 
 #. i18n: ectx: property (text), widget (QLabel, ignoreLabel)
 #. i18n: ectx: property (text), widget (QLabel, labelSaturationStrong)
@@ -1873,8 +1809,7 @@ msgid "Fullscreen windows"
 msgstr "Okná na celú obrazovku"
 
 #: plugins/eis/eisinputcapturemanager.cpp:130
-#, fuzzy, kde-format
-#| msgid "Disable KActivities integration."
+#, kde-format
 msgctxt "@action shortcut"
 msgid "Disable Active Input Capture"
 msgstr "Zakázať integrácoi KActivities."
@@ -1974,29 +1909,26 @@ msgstr "Animácia zatvorenia okna"
 #, kde-format
 msgctxt "@item:inmenu never hide cursor on inactivity"
 msgid "Never"
-msgstr ""
+msgstr "Nikdy"
 
 #: plugins/hidecursor/hidecursor_config.cpp:58
 #: plugins/hidecursor/hidecursor_config.cpp:62
-#, fuzzy, kde-format
-#| msgid " milliseconds"
+#, kde-format
 msgid "%1 second"
 msgid_plural "%1 seconds"
-msgstr[0] " milisekúnd"
-msgstr[1] " milisekúnd"
-msgstr[2] " milisekúnd"
+msgstr[0] "%1 sekunda"
+msgstr[1] "%1 sekundy"
+msgstr[2] "%1 sekúnd"
 
 #. i18n: ectx: property (text), widget (QLabel, label_InactivityDuration)
 #: plugins/hidecursor/hidecursor_config.ui:17
 #, kde-format
 msgid "Hide pointer on inactivity:"
-msgstr ""
+msgstr "Skryť kurzor pri nečinnosti:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideOnTyping)
 #: plugins/hidecursor/hidecursor_config.ui:24
-#, fuzzy, kde-format
-#| msgctxt "A mouse pointer motion event"
-#| msgid "Pointer Motion"
+#, kde-format
 msgid "Hide pointer on typing"
 msgstr "Pohyb kurzora"
 
@@ -2018,72 +1950,72 @@ msgstr "Invertovať farby obrazovky"
 #: plugins/keynotification/keynotification.cpp:45
 #, kde-format
 msgid "The Caps Lock key has been activated"
-msgstr ""
+msgstr "Kláves Caps Lock bol aktivovaný"
 
 #: plugins/keynotification/keynotification.cpp:49
 #, kde-format
 msgid "The Caps Lock key is now inactive"
-msgstr ""
+msgstr "Kláves Caps Lock bol deaktivovaný"
 
 #: plugins/keynotification/keynotification.cpp:53
 #, kde-format
 msgid "The Num Lock key has been activated"
-msgstr ""
+msgstr "Kláves Num Lock bol aktivovaný"
 
 #: plugins/keynotification/keynotification.cpp:57
 #, kde-format
 msgid "The Num Lock key is now inactive"
-msgstr ""
+msgstr "Kláves Num Lock bol deaktivovaný"
 
 #: plugins/keynotification/keynotification.cpp:61
 #, kde-format
 msgid "The Scroll Lock key has been activated"
-msgstr ""
+msgstr "Kláves Scroll Lock bol aktivovaný"
 
 #: plugins/keynotification/keynotification.cpp:65
 #, kde-format
 msgid "The Scroll Lock key is now inactive"
-msgstr ""
+msgstr "Kláves Scroll Lock bol deaktivovaný"
 
 #: plugins/keynotification/keynotification.cpp:78
 #, kde-format
 msgid "The Shift key is now active."
-msgstr ""
+msgstr "Kláves Shift je teraz aktívny."
 
 #: plugins/keynotification/keynotification.cpp:82
 #, kde-format
 msgid "The Shift key is now inactive."
-msgstr ""
+msgstr "Kláves Shift je teraz neaktívny."
 
 #: plugins/keynotification/keynotification.cpp:86
 #, kde-format
 msgid "The Control key is now active."
-msgstr ""
+msgstr "Kláves Ctrl je teraz aktívny."
 
 #: plugins/keynotification/keynotification.cpp:90
 #, kde-format
 msgid "The Control key is now inactive."
-msgstr ""
+msgstr "Kláves Ctrl je teraz neaktívny."
 
 #: plugins/keynotification/keynotification.cpp:94
 #, kde-format
 msgid "The Alt key is now active."
-msgstr ""
+msgstr "Kláves Alt je teraz aktívny."
 
 #: plugins/keynotification/keynotification.cpp:98
 #, kde-format
 msgid "The Alt key is now inactive."
-msgstr ""
+msgstr "Kláves Alt je teraz neaktívny."
 
 #: plugins/keynotification/keynotification.cpp:102
 #, kde-format
 msgid "The Meta key is now active."
-msgstr ""
+msgstr "Kláves Meta je teraz aktívny."
 
 #: plugins/keynotification/keynotification.cpp:106
 #, kde-format
 msgid "The Meta key is now inactive."
-msgstr ""
+msgstr "Kláves Meta je teraz neaktívny."
 
 #: plugins/krunner-integration/windowsrunnerinterface.cpp:41
 #, kde-format
@@ -2231,8 +2163,7 @@ msgstr "Štandardné"
 
 #: plugins/mouseclick/mouseclick.cpp:42
 #: plugins/mouseclick/mouseclick_config.cpp:43
-#, fuzzy, kde-format
-#| msgid "Toggle Mouse Click Effect"
+#, kde-format
 msgid "Toggle Mouse Click Animation"
 msgstr "Prepnúť efekt kliknutia myši"
 
@@ -2391,15 +2322,13 @@ msgstr "&Farba:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox2)
 #: plugins/mousemark/mousemark_config.ui:82
-#, fuzzy, kde-format
-#| msgid "Draw with the mouse by holding Shift+Meta keys and moving the mouse."
+#, kde-format
 msgid "Draw with the mouse by holding modifier keys and moving the mouse"
 msgstr "Kreslite môžete myšou držaním kláves Shift+Meta a pohybom myšou."
 
 #. i18n: ectx: property (text), widget (QLabel, label_FreedrawModifierKeys)
 #: plugins/mousemark/mousemark_config.ui:103
-#, fuzzy, kde-format
-#| msgid "Modifier keys:"
+#, kde-format
 msgid "Free draw modifier keys:"
 msgstr "Modifikačné klávesy:"
 
@@ -2445,23 +2374,18 @@ msgstr "Meta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_ArrowdrawModifierKeys)
 #: plugins/mousemark/mousemark_config.ui:157
-#, fuzzy, kde-format
-#| msgid "Modifier keys:"
+#, kde-format
 msgid "Arrow draw modifier keys:"
 msgstr "Modifikačné klávesy:"
 
 #: plugins/nightlight/nightlightmanager.cpp:55
-#, fuzzy, kde-format
-#| msgctxt "Night Light was enabled"
-#| msgid "Night Light On"
+#, kde-format
 msgctxt "Night Light was temporarily disabled"
 msgid "Night Light Suspended"
 msgstr "Nočná farba zapnutá"
 
 #: plugins/nightlight/nightlightmanager.cpp:56
-#, fuzzy, kde-format
-#| msgctxt "Night Light was enabled"
-#| msgid "Night Light On"
+#, kde-format
 msgctxt "Night Light was reenabled from temporary suspension"
 msgid "Night Light Resumed"
 msgstr "Nočná farba zapnutá"
@@ -2470,7 +2394,7 @@ msgstr "Nočná farba zapnutá"
 #, kde-format
 msgctxt "Temporarily disable/reenable Night Light"
 msgid "Suspend/Resume Night Light"
-msgstr ""
+msgstr "Pozastaviť/Obnoviť nočné svetlo"
 
 #: plugins/nightlight/nightlightmanager.cpp:393
 #, kde-format
@@ -2487,14 +2411,14 @@ msgstr "Neznáme"
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
-msgstr ""
+msgstr "Prepínať medzi Prehľadom a Mriežkovým zobrazením"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
 #: plugins/overview/overvieweffect.cpp:133
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
-msgstr ""
+msgstr "Prepínať medzi Mriežkovým zobrazením a Prehľadom"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:50
 #, kde-format
@@ -2518,19 +2442,19 @@ msgstr "Ignorovať minimalizované okná:"
 #: plugins/overview/kcm/overvieweffectkcm.ui:36
 #, kde-format
 msgid "Organize windows in the Grid View:"
-msgstr ""
+msgstr "Usporiadať okná v Mriežkovom zobrazení:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_FilterWindows)
 #: plugins/overview/kcm/overvieweffectkcm.ui:50
 #, kde-format
 msgid "Search results include filtered windows:"
-msgstr ""
+msgstr "Výsledky vyhľadávania zahŕňajú filtrované okná:"
 
 #: plugins/overview/overvieweffect.cpp:127
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
-msgstr ""
+msgstr "Prepínať medzi Prehľadom a Mriežkovým zobrazením"
 
 #: plugins/overview/overvieweffect.cpp:138
 #, kde-format
@@ -2549,9 +2473,15 @@ msgstr "Prepnúť prehľad"
 msgid "Delete Virtual Desktop"
 msgstr "Vymazať virtuálnu plochu"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, kde-format
 msgid "Add Virtual Desktop"
+msgstr "Pridať virtuálnu plochu"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Add Virtual Desktop"
+msgid "Virtual Desktop limit reached"
 msgstr "Pridať virtuálnu plochu"
 
 #: plugins/overview/qml/Main.qml:425
@@ -2621,8 +2551,7 @@ msgstr "Zlyhalo pripojenie kontextu PipeWire"
 #: plugins/screencast/screencastmanager.cpp:81
 #: plugins/screencast/screencastmanager.cpp:97
 #: plugins/screencast/screencastmanager.cpp:142
-#, fuzzy, kde-format
-#| msgid "Suspend Compositing"
+#, kde-format
 msgid "Unsupported compositing type"
 msgstr "Pozastaviť kompozíciu"
 
@@ -2642,8 +2571,7 @@ msgid "Invalid region"
 msgstr "Neplatná oblasť"
 
 #: plugins/screencast/screencaststream.cpp:372
-#, fuzzy, kde-format
-#| msgid "No OpenGL compositor running"
+#, kde-format
 msgid "OpenGL compositing is required for screencasting"
 msgstr "Nebeží žiadny OpenGL kompozítor"
 
@@ -2673,11 +2601,10 @@ msgstr ""
 "Kliknutím pravým tlačidlom myši alebo klávesom Escape zrušíte."
 
 #: plugins/showcompositing/qml/Main.qml:12
-#, fuzzy, kde-format
-#| msgid "Block Compositing"
+#, kde-format
 msgctxt "@label"
 msgid "Compositing"
-msgstr "Bloková kompozícia"
+msgstr "Kompozícia"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -2738,30 +2665,40 @@ msgid ""
 "The Shift key has been locked and is now active for all of the following "
 "keypresses."
 msgstr ""
+"Kláves Shift bol uzamknutý a je teraz aktívny pre všetky nasledujúce "
+"stlačenia kláves."
 
 #: plugins/stickykeys/stickykeys.cpp:27
 msgid ""
 "The Control key has been locked and is now active for all of the following "
 "keypresses."
 msgstr ""
+"Kláves Ctrl bol uzamknutý a je teraz aktívny pre všetky nasledujúce "
+"stlačenia kláves."
 
 #: plugins/stickykeys/stickykeys.cpp:28
 msgid ""
 "The Alt key has been locked and is now active for all of the following "
 "keypresses."
 msgstr ""
+"Kláves Alt bol uzamknutý a je teraz aktívny pre všetky nasledujúce stlačenia "
+"kláves."
 
 #: plugins/stickykeys/stickykeys.cpp:29
 msgid ""
 "The Meta key has been locked and is now active for all of the following "
 "keypresses."
 msgstr ""
+"Kláves Meta bol uzamknutý a je teraz aktívny pre všetky nasledujúce "
+"stlačenia kláves."
 
 #: plugins/stickykeys/stickykeys.cpp:30
 msgid ""
 "The AltGr key has been locked and is now active for all of the following "
 "keypresses."
 msgstr ""
+"Kláves AltGr bol uzamknutý a je teraz aktívny pre všetky nasledujúce "
+"stlačenia klávesov."
 
 #: plugins/thumbnailaside/thumbnailaside.cpp:31
 #: plugins/thumbnailaside/thumbnailaside_config.cpp:51
@@ -2813,10 +2750,9 @@ msgid "Padding:"
 msgstr "Výplň:"
 
 #: plugins/tileseditor/qml/Main.qml:163
-#, fuzzy, kde-format
-#| msgid "Load Layout..."
+#, kde-format
 msgid "Load Layout…"
-msgstr "Načítať rozloženie..."
+msgstr "Načítať rozloženie…"
 
 #: plugins/tileseditor/qml/Main.qml:270
 #, kde-format
@@ -2826,12 +2762,12 @@ msgstr "Zavrieť"
 #: plugins/tileseditor/qml/TileDelegate.qml:167
 #, kde-format
 msgid "Split Left/Right"
-msgstr ""
+msgstr "Rozdeliť vľavo/vpravo"
 
 #: plugins/tileseditor/qml/TileDelegate.qml:174
 #, kde-format
 msgid "Split Top/Bottom"
-msgstr ""
+msgstr "Rozdeliť hore/dole"
 
 #: plugins/tileseditor/qml/TileDelegate.qml:182
 #: plugins/tileseditor/qml/TileDelegate.qml:211
@@ -2916,8 +2852,7 @@ msgstr "Ponuky:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
 #: plugins/translucency/package/contents/ui/config.ui:201
-#, fuzzy, kde-format
-#| msgid "Fullscreen windows"
+#, kde-format
 msgid "Exclude fullscreen windows"
 msgstr "Okná na celú obrazovku"
 
@@ -3164,7 +3099,7 @@ msgstr "Odstrániť toto pravidlo (na použitie v importoch)"
 #: rulesettings.kcfg:20
 #, kde-format
 msgid "This rule is enabled"
-msgstr ""
+msgstr "Toto pravidlo je zapnuté"
 
 #. i18n: ectx: label, entry (wmclass), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:24
@@ -3222,15 +3157,13 @@ msgstr "Typ zhody strojového reťazca"
 
 #. i18n: ectx: label, entry (tag), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:68
-#, fuzzy, kde-format
-#| msgid "Window Manager"
+#, kde-format
 msgid "Window tag"
-msgstr "Správca okien"
+msgstr "Tag okna"
 
 #. i18n: ectx: label, entry (tagmatch), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:71
-#, fuzzy, kde-format
-#| msgid "Window title string match type"
+#, kde-format
 msgid "Window tag string match type"
 msgstr "Typ zhody reťazca názvu okna"
 
@@ -3652,12 +3585,11 @@ msgstr "Typ pravidla pre názov súboru pracovnej plochy"
 #: rulesettings.kcfg:428
 #, kde-format
 msgid "Layer"
-msgstr ""
+msgstr "Vrstva"
 
 #. i18n: ectx: label, entry (layerrule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:444
-#, fuzzy, kde-format
-#| msgid "Shaded rule type"
+#, kde-format
 msgid "Layer rule type"
 msgstr "Zrolovaný typ pravidla"
 
@@ -3665,26 +3597,23 @@ msgstr "Zrolovaný typ pravidla"
 #: rulesettings.kcfg:449
 #, kde-format
 msgid "AdaptiveSync"
-msgstr ""
+msgstr "AdaptiveSync"
 
 #. i18n: ectx: label, entry (adaptivesyncrule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:453
-#, fuzzy, kde-format
-#| msgid "Activity rule type"
+#, kde-format
 msgid "AdaptiveSync rule type"
 msgstr "Typ pravidla pre aktivitu"
 
 #. i18n: ectx: label, entry (tearing), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:458
-#, fuzzy, kde-format
-#| msgid "Allow Rotation"
+#, kde-format
 msgid "Allow Tearing"
 msgstr "Povoliť rotáciu"
 
 #. i18n: ectx: label, entry (tearingrule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:462
-#, fuzzy, kde-format
-#| msgid "Shaded rule type"
+#, kde-format
 msgid "Tearing rule type"
 msgstr "Zrolovaný typ pravidla"
 
@@ -3692,12 +3621,11 @@ msgstr "Zrolovaný typ pravidla"
 #: rulesettings.kcfg:467
 #, kde-format
 msgid "Hide from screencast"
-msgstr ""
+msgstr "Skryť zo Screencastu"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "Fullscreen rule type"
+#, kde-format
 msgid "Hide from screencast rule type"
 msgstr "Celá obrazovka typ pravidla"
 
@@ -3732,17 +3660,18 @@ msgid ""
 "%1\n"
 "Logging out anyway in 2 minutes."
 msgstr ""
+"Nasledujúce aplikácie sa nezavreli:\n"
+"%1\n"
+"Odhlásenie aj tak prebehne o 2 minúty."
 
 #: tabbox/clientmodel.cpp:58
-#, fuzzy, kde-format
-#| msgid "Peek at Desktop"
+#, kde-format
 msgctxt "Special entry in alt+tab list for temporarily hiding all windows"
 msgid "Peek at Desktop"
-msgstr "Nazrieť na plochu"
+msgstr "Nazrieť na pracovnú plochu"
 
 #: tabbox/switchers/thumbnail_grid/contents/ui/main.qml:207
-#, fuzzy, kde-format
-#| msgid "No Windows"
+#, kde-format
 msgctxt "@info:placeholder no entries in the task switcher"
 msgid "No open windows"
 msgstr "Žiadne okná"
@@ -3836,7 +3765,7 @@ msgstr "Žiadne záhlavie a rám"
 #: useractions.cpp:251
 #, kde-format
 msgid "&Hide from Screencast"
-msgstr ""
+msgstr "&Skryť pred záznamom obrazovky"
 
 #: useractions.cpp:259
 #, kde-format
@@ -3941,8 +3870,7 @@ msgid "<b>%1</b> is used by %2 in %3"
 msgstr "<b>%1</b> už používa %2 v %3"
 
 #: useractions.cpp:822
-#, fuzzy, kde-format
-#| msgid "Window role"
+#, kde-format
 msgid "Window Menu"
 msgstr "Úloha okna"
 
@@ -3967,8 +3895,7 @@ msgid "Maximize Window Horizontally"
 msgstr "Maximalizovať okno vodorovne"
 
 #: useractions.cpp:832
-#, fuzzy, kde-format
-#| msgid "Resize Window"
+#, kde-format
 msgid "Restore Window"
 msgstr "Zmeniť veľkosť okna"
 
@@ -4153,26 +4080,22 @@ msgid "Keep Window on All Desktops"
 msgstr "Okno na všetkých plochách"
 
 #: useractions.cpp:908
-#, fuzzy, kde-format
-#| msgid "Quick Tile Window to the Left"
+#, kde-format
 msgid "Custom Quick Tile Window to the Left"
 msgstr "Usporiadať okno vedľa seba doľava"
 
 #: useractions.cpp:910
-#, fuzzy, kde-format
-#| msgid "Quick Tile Window to the Right"
+#, kde-format
 msgid "Custom Quick Tile Window to the Right"
 msgstr "Usporiadať okno vedľa seba doprava"
 
 #: useractions.cpp:912
-#, fuzzy, kde-format
-#| msgid "Quick Tile Window to the Top"
+#, kde-format
 msgid "Custom Quick Tile Window to the Top"
 msgstr "Okno rýchlej dlaždice na vrch"
 
 #: useractions.cpp:914
-#, fuzzy, kde-format
-#| msgid "Quick Tile Window to the Bottom"
+#, kde-format
 msgid "Custom Quick Tile Window to the Bottom"
 msgstr "Okno rýchlej dlaždice na spodok"
 
@@ -4344,52 +4267,53 @@ msgstr "Prepnúť na plochu %1"
 #: wayland/outputmanagement_v2.cpp:603
 #, kde-format
 msgid "One of the relevant outputs is no longer available"
-msgstr ""
+msgstr "Jeden z príslušných výstupov už nie je dostupný"
 
 #: wayland/outputmanagement_v2.cpp:621
 #, kde-format
 msgid "Disabling all outputs through configuration changes is not allowed"
 msgstr ""
+"Vypnutie všetkých výstupov prostredníctvom zmien konfigurácie nie je povolené"
 
 #: wayland/outputmanagement_v2.cpp:631
 #, kde-format
 msgid "%1 cannot mirror itself"
-msgstr ""
+msgstr "%1 sa nedá zrkadliť"
 
 #: wayland/outputmanagement_v2.cpp:638
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
-msgstr ""
+msgstr "Nie je možné pridať vlastný režim s prázdnou veľkosťou"
 
 #: wayland/outputmanagement_v2.cpp:642
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
-msgstr ""
+msgstr "Nie je možné pridať vlastný režim s obnovovacou frekvenciou nula Hz"
 
 #: wayland/outputmanagement_v2.cpp:653
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr ""
+msgstr "Position of output %1 is way too negative (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:656
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr ""
+msgstr "Position of enabled output %1 is negative (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:660
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr ""
+msgstr "Position of output %1 is way too large (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:677
 #, kde-format
 msgid "The driver rejected the output configuration"
-msgstr ""
+msgstr "Ovládač odmietol konfiguráciu výstupov"
 
 #: wayland/outputmanagement_v2.cpp:680
 #, kde-format
 msgid "The session is not active"
-msgstr ""
+msgstr "Relácia nie je aktívna"
 
 #: window.cpp:3124
 #, kde-format
@@ -4429,7 +4353,6 @@ msgstr "Xwayland spadol"
 #~ msgstr "Tlačidlá"
 
 #, fuzzy
-#~| msgid "Blur strength:"
 #~ msgid "Saturation strength:"
 #~ msgstr "Sila rozmazania:"
 
@@ -4478,7 +4401,6 @@ msgstr "Xwayland spadol"
 #~ msgstr "Posunúť dolu"
 
 #, fuzzy
-#~| msgid "Modifier keys:"
 #~ msgid "Scroll gesture modifier keys:"
 #~ msgstr "Modifikačné klávesy:"
 
@@ -4487,12 +4409,10 @@ msgstr "Xwayland spadol"
 #~ "Pri priblížení a oddialení zmení mierku podľa zadaného faktoru zväčšenia."
 
 #, fuzzy
-#~| msgid "Zoom Factor:"
 #~ msgid "Zoom factor:"
 #~ msgstr "Faktor zväčšenia:"
 
 #, fuzzy
-#~| msgid "Mouse Pointer:"
 #~ msgid "Mouse pointer:"
 #~ msgstr "Kurzor myši:"
 
@@ -4509,7 +4429,6 @@ msgstr "Xwayland spadol"
 #~ msgstr "Skryť"
 
 #, fuzzy
-#~| msgid "Mouse Tracking:"
 #~ msgid "Mouse tracking:"
 #~ msgstr "Sledovanie myši:"
 
@@ -4537,7 +4456,6 @@ msgstr "Xwayland spadol"
 #~ "QT_LINUX_ACCESSIBILITY_ALWAYS_ON=1\")."
 
 #, fuzzy
-#~| msgid "Enable Focus Tracking"
 #~ msgid "Enable focus tracking"
 #~ msgstr "Povoliť sledovanie zamerania"
 
@@ -4550,7 +4468,6 @@ msgstr "Xwayland spadol"
 #~ "= 1“)."
 
 #, fuzzy
-#~| msgid "Enable Text Cursor Tracking"
 #~ msgid "Enable text cursor tracking"
 #~ msgstr "Povoliť sledovanie textových kurzorov"
 

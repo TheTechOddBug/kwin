@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2026-03-13 22:13+0100\n"
 "Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
@@ -2504,9 +2504,15 @@ msgstr "Übersicht umschalten"
 msgid "Delete Virtual Desktop"
 msgstr "Virtuelle Arbeitsfläche löschen"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, kde-format
 msgid "Add Virtual Desktop"
+msgstr "Virtuelle Arbeitsfläche hinzufügen"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Add Virtual Desktop"
+msgid "Virtual Desktop limit reached"
 msgstr "Virtuelle Arbeitsfläche hinzufügen"
 
 #: plugins/overview/qml/Main.qml:425

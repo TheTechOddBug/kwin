@@ -17,8 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 21.12.3\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Lokalize 21.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -55,23 +55,19 @@ msgid "There was an error requesting information from the compositor."
 msgstr "Nastala chyba pri žiadaní informácií od kompozítora."
 
 #: ui/main.qml:26
-#, fuzzy, kde-format
-#| msgid "Rows:"
+#, kde-format
 msgctxt "@text:label Number of rows, label associated to a number input field"
 msgid "Rows:"
 msgstr "Riadky:"
 
 #: ui/main.qml:54
-#, fuzzy, kde-format
-#| msgid "New Desktop"
+#, kde-format
 msgctxt "@action:button"
 msgid "Add Desktop"
 msgstr "Nová pracovná plocha"
 
 #: ui/main.qml:90
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Rename"
+#, kde-format
 msgctxt "@action:button"
 msgid "Rename"
 msgstr "Premenovať"
@@ -83,18 +79,16 @@ msgid "Remove"
 msgstr "Odstrániť"
 
 #: ui/main.qml:119
-#, fuzzy, kde-format
-#| msgctxt "@info:tooltip"
-#| msgid "Confirm new name"
+#, kde-format
 msgctxt "@info:tooltip"
 msgid "Apply new name"
-msgstr "Potvrdiť nový názov"
+msgstr "Použiť nový názov"
 
 #: ui/main.qml:132
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Cancel rename"
-msgstr ""
+msgstr "Zrušiť premenovanie"
 
 #: ui/main.qml:179
 #, kde-format

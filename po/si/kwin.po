@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-03 00:45+0000\n"
+"POT-Creation-Date: 2026-04-09 00:46+0000\n"
 "PO-Revision-Date: 2009-12-23 10:11+0530\n"
 "Last-Translator: Danishka Navin <danishka@gmail.com>\n"
 "Language-Team: Sinhala <danishka@gmail.com>\n"
@@ -2544,10 +2544,16 @@ msgstr "යටිකුරු සැරසිලි අතර මාරුවන
 msgid "Delete Virtual Desktop"
 msgstr "වැඩතලයට (&D)"
 
-#: plugins/overview/qml/DesktopBar.qml:264
+#: plugins/overview/qml/DesktopBar.qml:265
 #, fuzzy, kde-format
 #| msgid "Show Desktop"
 msgid "Add Virtual Desktop"
+msgstr "වැඩතලය පෙන්වන්න"
+
+#: plugins/overview/qml/DesktopBar.qml:267
+#, fuzzy, kde-format
+#| msgid "Show Desktop"
+msgid "Virtual Desktop limit reached"
 msgstr "වැඩතලය පෙන්වන්න"
 
 #: plugins/overview/qml/Main.qml:425
