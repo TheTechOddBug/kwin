@@ -17,9 +17,15 @@
 #include "input_event.h"
 #include "logging_p.h"
 #include "opengl/eglcontext.h"
+#include "opengl/eglnativefence.h"
 #include "opengl/eglswapchain.h"
 #include "opengl/glrendertimequery.h"
 #include "opengl/glutils.h"
+#include "scene/imageitem.h"
+#include "scene/itemrenderer.h"
+#include "scene/surfaceitem.h"
+#include "scene/texture.h"
+#include "scene/workspacescene.h"
 
 #include <QGuiApplication>
 #include <QQmlComponent>
@@ -60,6 +66,13 @@ public:
     std::unique_ptr<QOpenGLContext> m_glcontext;
     std::shared_ptr<EglSwapchain> m_swapchain;
     std::shared_ptr<EglSwapchainSlot> m_currentSlot;
+    std::unique_ptr<ImageItem> m_imageItem;
+    std::unique_ptr<SurfaceItem> m_surfaceItem;
+    Item *m_item = nullptr;
+
+    DrmDevice *m_scanoutDevice = nullptr;
+    FormatModifierMap m_scanoutFormats;
+    bool m_surfaceNeedsReallocation = false;
 
     std::unique_ptr<QTimer> m_repaintTimer;
     QImage m_image;
@@ -103,6 +116,38 @@ public:
     std::unique_ptr<QQuickItem> quickItem;
 };
 
+class QuickViewItem : public SurfaceItem
+{
+public:
+    explicit QuickViewItem(OffscreenQuickView *view, Item *parentItem)
+        : SurfaceItem(parentItem)
+        , m_view(view)
+    {
+    }
+
+    RegionF shape() const override
+    {
+        return rect();
+    }
+    RegionF opaque() const override
+    {
+        return hasAlphaChannel() ? RegionF{} : rect();
+    }
+    void setScanoutHint(DrmDevice *device, const FormatModifierMap &drmFormats) override
+    {
+        if (m_view->d->m_scanoutDevice == device
+            && m_view->d->m_scanoutFormats == drmFormats) {
+            return;
+        }
+        m_view->d->m_scanoutDevice = device;
+        m_view->d->m_scanoutFormats = drmFormats;
+        m_view->d->m_surfaceNeedsReallocation = true;
+    }
+
+private:
+    OffscreenQuickView *const m_view;
+};
+
 OffscreenQuickView::OffscreenQuickView(ExportMode exportMode, bool alpha)
     : d(new OffscreenQuickView::Private)
 {
@@ -123,6 +168,8 @@ OffscreenQuickView::OffscreenQuickView(ExportMode exportMode, bool alpha)
     if (!usingGl) {
         qCDebug(LIBKWINEFFECTS) << "QtQuick Software rendering mode detected";
         d->m_useBlit = true;
+        d->m_imageItem = std::make_unique<ImageItem>(effects->scene()->overlayItem());
+        d->m_item = d->m_imageItem.get();
         // explicitly do not call QQuickRenderControl::initialize, see Qt docs
     } else {
         QSurfaceFormat format;
@@ -148,7 +195,12 @@ OffscreenQuickView::OffscreenQuickView(ExportMode exportMode, bool alpha)
         d->m_view->setGraphicsDevice(QQuickGraphicsDevice::fromOpenGLContext(d->m_glcontext.get()));
         d->m_renderControl->initialize();
         d->m_glcontext->doneCurrent();
+        d->m_surfaceItem = std::make_unique<QuickViewItem>(this, effects->scene()->overlayItem());
+        d->m_item = d->m_surfaceItem.get();
     }
+    connect(this, &OffscreenQuickView::geometryChanged, d->m_item, [this]() {
+        d->m_item->setGeometry(geometry());
+    });
 
     auto updateSize = [this]() {
         contentItem()->setSize(d->m_view->size());
@@ -212,6 +264,8 @@ void OffscreenQuickView::handleSceneChanged()
 {
     if (d->m_automaticRepaint) {
         d->m_repaintTimer->start();
+    } else {
+        d->m_item->scheduleFrame();
     }
     Q_EMIT sceneChanged();
 }
@@ -220,6 +274,8 @@ void OffscreenQuickView::handleRenderRequested()
 {
     if (d->m_automaticRepaint) {
         d->m_repaintTimer->start();
+    } else {
+        d->m_item->scheduleFrame();
     }
     Q_EMIT renderRequested();
 }
@@ -252,22 +308,31 @@ void OffscreenQuickView::update(OutputFrame *frame)
         }
 
         const QSize nativeSize = d->m_view->size() * dpr;
-        if (!d->m_swapchain || d->m_swapchain->size() != nativeSize) {
+        if (!d->m_swapchain || d->m_swapchain->size() != nativeSize || d->m_surfaceNeedsReallocation) {
             d->m_textureExport.reset(nullptr);
 
             QOpenGLFramebufferObjectFormat fboFormat;
             fboFormat.setAttachment(QOpenGLFramebufferObject::CombinedDepthStencil);
             fboFormat.setInternalTextureFormat(GL_RGBA8);
 
-            // TODO expose the device to effects in a more direct way?
-            d->m_swapchain = EglSwapchain::create(Compositor::self()->backend()->drmDevice()->allocator(),
-                                                  EglContext::currentContext(), nativeSize,
-                                                  DRM_FORMAT_ARGB8888, Compositor::self()->backend()->supportedFormats()[DRM_FORMAT_ARGB8888]);
+            const uint32_t format = d->m_hasAlphaChannel ? DRM_FORMAT_ARGB8888 : DRM_FORMAT_XRGB8888;
+            if (d->m_scanoutDevice) {
+                d->m_swapchain = EglSwapchain::create(d->m_scanoutDevice->allocator(),
+                                                      EglContext::currentContext(), nativeSize,
+                                                      format, d->m_scanoutFormats.value(format));
+            }
+            if (!d->m_swapchain) {
+                // TODO add non-scanout feedback on the item for this?
+                d->m_swapchain = EglSwapchain::create(Compositor::self()->backend()->drmDevice()->allocator(),
+                                                      EglContext::currentContext(), nativeSize,
+                                                      format, Compositor::self()->backend()->supportedFormats()[format]);
+            }
             if (!d->m_swapchain) {
                 d->m_glcontext->doneCurrent();
                 qCWarning(LIBKWINEFFECTS, "Creating a swapchain for OffscreenQuickView failed!");
                 return;
             }
+            d->m_surfaceNeedsReallocation = false;
         }
         d->m_currentSlot = d->m_swapchain->acquire();
         if (!d->m_currentSlot) {
@@ -298,9 +363,20 @@ void OffscreenQuickView::update(OutputFrame *frame)
 
     if (d->m_useBlit) {
         d->m_image = d->m_view->grabWindow();
+        d->m_imageItem->setImage(d->m_image);
+        d->m_imageItem->setSize(geometry().size());
+    } else {
+        d->m_surfaceItem->setBuffer(d->m_currentSlot->buffer());
+        d->m_surfaceItem->setBufferReleasePoint(d->m_currentSlot->releasePoint());
+        d->m_surfaceItem->setBufferSourceBox(Rect(QPoint(), d->m_swapchain->size()));
+        d->m_surfaceItem->setDestinationSize(geometry().size());
+        d->m_surfaceItem->addDamage(Rect(QPoint(), d->m_swapchain->size()));
     }
+    d->m_item->setPosition(geometry().topLeft());
 
     if (usingGl) {
+        EGLNativeFence fence(EglContext::currentContext()->displayObject());
+        d->m_swapchain->release(d->m_currentSlot, fence.takeFileDescriptor());
         QOpenGLFramebufferObject::bindDefault();
         if (frame && renderTime) {
             renderTime->end();
@@ -311,7 +387,7 @@ void OffscreenQuickView::update(OutputFrame *frame)
             previousContext->makeCurrent();
         }
     }
-    Q_EMIT repaintNeeded();
+    d->m_item->scheduleRepaint(d->m_item->rect());
 }
 
 void OffscreenQuickView::forwardKeyEvent(QKeyEvent *keyEvent)
@@ -486,6 +562,7 @@ void OffscreenQuickView::setVisible(bool visible)
         return;
     }
     d->m_visible = visible;
+    d->m_item->setVisible(visible);
 
     if (visible) {
         Q_EMIT d->m_renderControl->renderRequested();
@@ -512,28 +589,9 @@ void OffscreenQuickView::hide()
     setVisible(false);
 }
 
-GLTexture *OffscreenQuickView::bufferAsTexture()
+void OffscreenQuickView::scheduleFrame()
 {
-    if (d->m_useBlit) {
-        d->m_textureExport = GLTexture::upload(d->m_image);
-        if (!d->m_textureExport) {
-            qCWarning(LIBKWINEFFECTS, "Uploading texture for OffscreenQuickView failed!");
-        } else {
-            d->m_textureExport->setFilter(GL_LINEAR);
-        }
-        return d->m_textureExport.get();
-    } else {
-        if (!d->m_currentSlot) {
-            qCWarning(LIBKWINEFFECTS, "OffscreenQuickView has no current slot!");
-            return nullptr;
-        }
-        return d->m_currentSlot->texture().get();
-    }
-}
-
-QImage OffscreenQuickView::bufferAsImage() const
-{
-    return d->m_image;
+    d->m_item->scheduleFrame();
 }
 
 QSize OffscreenQuickView::size() const

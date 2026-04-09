@@ -100,13 +100,6 @@ void ShowFpsEffect::prePaintScreen(ScreenPrePaintData &data)
     screenData->m_scene->setGeometry(QRect(rect.x() + rect.width() - 300, rect.y(), 300, 150));
 }
 
-void ShowFpsEffect::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion, LogicalOutput *screen)
-{
-    effects->paintScreen(renderTarget, viewport, mask, deviceRegion, screen);
-    auto &screenData = m_data[m_currentView];
-    effects->renderOffscreenQuickView(renderTarget, viewport, screenData->m_scene.get());
-}
-
 void ShowFpsEffect::paintWindow(const RenderTarget &renderTarget, const RenderViewport &viewport, EffectWindow *w, int mask, const Region &deviceRegion, WindowPaintData &data)
 {
     effects->paintWindow(renderTarget, viewport, w, mask, deviceRegion, data);
@@ -128,8 +121,6 @@ void ShowFpsEffect::postPaintScreen()
     auto &screenData = m_data[m_currentView];
     screenData->m_paintDuration = screenData->m_paintDurationTimer.elapsed();
     Q_EMIT screenData->paintChanged();
-
-    effects->addRepaint(screenData->m_scene->geometry());
 }
 
 bool ShowFpsEffect::supported()

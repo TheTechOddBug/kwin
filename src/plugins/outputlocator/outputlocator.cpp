@@ -73,9 +73,6 @@ void OutputLocatorEffect::show()
         RectF geometry(0, 0, scene->rootItem()->implicitWidth(), scene->rootItem()->implicitHeight());
         geometry.moveCenter(screen->geometry().center());
         scene->setGeometry(geometry.toRect());
-        connect(scene, &OffscreenQuickView::repaintNeeded, this, [scene] {
-            effects->addRepaint(scene->geometry());
-        });
         m_scenesByScreens[screen].reset(scene);
     }
 
@@ -93,15 +90,6 @@ void OutputLocatorEffect::hide()
 
     m_scenesByScreens.clear();
     effects->addRepaint(repaintRegion);
-}
-
-void OutputLocatorEffect::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion, LogicalOutput *screen)
-{
-    effects->paintScreen(renderTarget, viewport, mask, deviceRegion, screen);
-
-    if (auto it = m_scenesByScreens.find(screen); it != m_scenesByScreens.end()) {
-        effects->renderOffscreenQuickView(renderTarget, viewport, it->second.get());
-    }
 }
 
 }

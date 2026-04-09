@@ -38,6 +38,8 @@ public:
     GraphicsBuffer *buffer() const;
     void setBuffer(GraphicsBuffer *buffer);
 
+    void setBufferReleasePoint(const std::shared_ptr<SyncReleasePoint> &releasePoint);
+
     RectF bufferSourceBox() const;
     void setBufferSourceBox(const RectF &box);
 

@@ -165,7 +165,7 @@ void QuickSceneView::resetDirty()
 void QuickSceneView::scheduleRepaint()
 {
     markDirty();
-    effects->addRepaint(geometry());
+    scheduleFrame();
 }
 
 VirtualDesktop *QuickSceneView::currentDesktop() const
@@ -444,20 +444,18 @@ void QuickSceneEffect::prePaintScreen(ScreenPrePaintData &data)
             screenView->update(data.frame);
         }
     }
-}
 
-void QuickSceneEffect::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion, LogicalOutput *screen)
-{
-    const auto it = d->views.find(screen);
-    if (it != d->views.end()) {
-        const auto &screenView = it->second;
-        effects->renderOffscreenQuickView(renderTarget, viewport, screenView.get());
-    }
+    effects->prePaintScreen(data);
 }
 
 bool QuickSceneEffect::isActive() const
 {
     return d->running && !d->views.empty() && !effects->isScreenLocked();
+}
+
+bool QuickSceneEffect::blocksDirectScanout() const
+{
+    return false;
 }
 
 QVariantMap QuickSceneEffect::initialProperties(LogicalOutput *screen)

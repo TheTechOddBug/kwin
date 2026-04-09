@@ -34,8 +34,6 @@ bool ShowCompositingEffect::supported()
 
 bool ShowCompositingEffect::blocksDirectScanout() const
 {
-    // this is intentionally wrong, as we want direct scanout to change the image
-    // with this effect
     return false;
 }
 

@@ -367,11 +367,7 @@ static bool prepareDirectScanout(RenderView *view, LogicalOutput *logicalOutput,
         layer->setScanoutCandidate(nullptr);
         return false;
     }
-    SurfaceItemWayland *wayland = qobject_cast<SurfaceItemWayland *>(candidate);
-    if (!wayland || !wayland->surface()) {
-        return false;
-    }
-    const auto buffer = wayland->surface()->buffer();
+    const auto buffer = candidate->buffer();
     if (!buffer) {
         return false;
     }

@@ -56,6 +56,11 @@ void SurfaceItem::setBuffer(GraphicsBuffer *buffer)
     }
 }
 
+void SurfaceItem::setBufferReleasePoint(const std::shared_ptr<SyncReleasePoint> &releasePoint)
+{
+    m_bufferReleasePoint = releasePoint;
+}
+
 RectF SurfaceItem::bufferSourceBox() const
 {
     return m_bufferSourceBox;
@@ -173,6 +178,10 @@ void SurfaceItem::destroyTexture()
 
 void SurfaceItem::preprocess()
 {
+    if (!buffer()) {
+        m_texture.reset();
+        return;
+    }
     ItemRenderer *itemRenderer = scene()->renderer();
 
     if (!m_texture || m_texture->size() != m_bufferSize) {

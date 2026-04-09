@@ -308,8 +308,8 @@ public:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
     void prePaintScreen(ScreenPrePaintData &data) override;
-    void paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &logicalRegion, LogicalOutput *screen) override;
     bool isActive() const override;
+    bool blocksDirectScanout() const override;
 
     void grabbedKeyboardEvent(QKeyEvent *keyEvent) override;
 
