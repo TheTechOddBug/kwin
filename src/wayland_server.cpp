@@ -160,10 +160,6 @@ public:
             return true;
         }
 
-        if (client != waylandServer()->inputMethodConnection() && inputmethodInterfaces.contains(interfaceName)) {
-            return false;
-        }
-
         if (client != waylandServer()->xWaylandConnection() && xwaylandInterfaces.contains(interfaceName)) {
             return false;
         }
@@ -174,6 +170,9 @@ public:
 
         static bool permissionCheckDisabled = qEnvironmentVariableIntValue("KWIN_WAYLAND_NO_PERMISSION_CHECKS") == 1;
         if (!permissionCheckDisabled) {
+            if (client != waylandServer()->inputMethodConnection() && inputmethodInterfaces.contains(interfaceName)) {
+                return false;
+            }
             if (client->executablePath().isEmpty()) {
                 qCDebug(KWIN_CORE) << "Could not identify process with pid" << client->processId();
                 return false;
