@@ -20,7 +20,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-09 00:46+0000\n"
-"PO-Revision-Date: 2026-03-21 00:39+0100\n"
+"PO-Revision-Date: 2026-04-09 14:46+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
@@ -2488,10 +2488,9 @@ msgid "Add Virtual Desktop"
 msgstr "Virtueel bureaublad toevoegen"
 
 #: plugins/overview/qml/DesktopBar.qml:267
-#, fuzzy, kde-format
-#| msgid "Add Virtual Desktop"
+#, kde-format
 msgid "Virtual Desktop limit reached"
-msgstr "Virtueel bureaublad toevoegen"
+msgstr "Virtueel bureaublad bereikte limiet"
 
 #: plugins/overview/qml/Main.qml:425
 #, kde-format
