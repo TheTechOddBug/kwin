@@ -30,17 +30,35 @@ static int s_version = 1;
 class InputKeyboardV1InterfacePrivate : public QtWaylandServer::wl_keyboard
 {
 public:
-    InputKeyboardV1InterfacePrivate()
+    InputKeyboardV1InterfacePrivate(InputMethodGrabV1 *q)
+        : q(q)
     {
     }
 
     // Whether the focused client uses compositor side key repeat
     bool clientSideRepeat = false;
+
+protected:
+    void keyboard_destroy_resource(Resource *resource) override;
+    void keyboard_release(Resource *resource) override;
+
+private:
+    InputMethodGrabV1 *const q;
 };
+
+void InputKeyboardV1InterfacePrivate::keyboard_destroy_resource(Resource *resource)
+{
+    delete q;
+}
+
+void InputKeyboardV1InterfacePrivate::keyboard_release(Resource *resource)
+{
+    wl_resource_destroy(resource->handle);
+}
 
 InputMethodGrabV1::InputMethodGrabV1(QObject *parent)
     : QObject(parent)
-    , d(new InputKeyboardV1InterfacePrivate)
+    , d(new InputKeyboardV1InterfacePrivate(this))
 {
 }
 
@@ -51,11 +69,7 @@ InputMethodGrabV1::~InputMethodGrabV1()
 void InputMethodGrabV1::sendKeymap(const QByteArray &keymap)
 {
     RamFile keymapFile("kwin-xkb-input-method-grab-keymap", keymap.constData(), keymap.size() + 1); // include QByteArray null terminator
-
-    const auto resources = d->resourceMap();
-    for (auto r : resources) {
-        d->send_keymap(r->handle, QtWaylandServer::wl_keyboard::keymap_format::keymap_format_xkb_v1, keymapFile.fd(), keymapFile.size());
-    }
+    d->send_keymap(QtWaylandServer::wl_keyboard::keymap_format::keymap_format_xkb_v1, keymapFile.fd(), keymapFile.size());
 }
 
 void InputMethodGrabV1::sendKey(quint32 serial, quint32 timestamp, quint32 key, KeyboardKeyState state)
@@ -74,33 +88,24 @@ void InputMethodGrabV1::sendKey(quint32 serial, quint32 timestamp, quint32 key, 
     }
     }
 
-    const auto resources = d->resourceMap();
-    for (auto r : resources) {
-        if ((d->clientSideRepeat || r->version() < WL_KEYBOARD_KEY_STATE_REPEATED_SINCE_VERSION) && state == KeyboardKeyState::Repeated) {
-            continue;
-        }
-
-        d->send_key(r->handle, serial, timestamp, key, waylandState);
+    if ((d->clientSideRepeat || d->resource()->version() < WL_KEYBOARD_KEY_STATE_REPEATED_SINCE_VERSION) && state == KeyboardKeyState::Repeated) {
+        return;
     }
+
+    d->send_key(serial, timestamp, key, waylandState);
 }
 
 void InputMethodGrabV1::sendModifiers(quint32 serial, quint32 depressed, quint32 latched, quint32 locked, quint32 group)
 {
-    const auto resources = d->resourceMap();
-    for (auto r : resources) {
-        d->send_modifiers(r->handle, serial, depressed, latched, locked, group);
-    }
+    d->send_modifiers(serial, depressed, latched, locked, group);
 }
 
 void InputMethodGrabV1::sendRepeatInfo(int32_t rate, int32_t delay)
 {
-    const auto resources = d->resourceMap();
-    for (auto resource : resources) {
-        if (resource->version() < WL_KEYBOARD_REPEAT_INFO_SINCE_VERSION) {
-            continue;
-        }
-        d->send_repeat_info(resource->handle, rate, delay);
+    if (d->resource()->version() < WL_KEYBOARD_REPEAT_INFO_SINCE_VERSION) {
+        return;
     }
+    d->send_repeat_info(rate, delay);
     // We send non-zero rate to input method when current client keyboard is not using compositor side repeat.
     d->clientSideRepeat = (rate > 0);
 }
@@ -172,8 +177,8 @@ public:
     }
     void zwp_input_method_context_v1_grab_keyboard(Resource *resource, uint32_t id) override
     {
-        m_keyboardGrab.reset(new InputMethodGrabV1(q));
-        m_keyboardGrab->d->add(resource->client(), id, 10);
+        m_keyboardGrab = new InputMethodGrabV1(q);
+        m_keyboardGrab->d->init(resource->client(), id, 10);
         Q_EMIT q->keyboardGrabRequested(m_keyboardGrab.get());
     }
     void zwp_input_method_context_v1_key(Resource *, uint32_t serial, uint32_t time, uint32_t key, uint32_t state) override
@@ -223,7 +228,7 @@ public:
     }
 
     InputMethodContextV1Interface *const q;
-    std::unique_ptr<InputMethodGrabV1> m_keyboardGrab;
+    QPointer<InputMethodGrabV1> m_keyboardGrab;
 };
 
 InputMethodContextV1Interface::InputMethodContextV1Interface(InputMethodV1Interface *parent)
