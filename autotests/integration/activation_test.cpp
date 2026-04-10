@@ -519,7 +519,7 @@ void ActivationTest::testXdgActivation()
     // using the surface and a correct serial should make it work
     auto token = Test::xdgActivation()->createToken();
     token->set_surface(*windows.back()->m_surface);
-    token->set_serial(windows.back()->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows.back()->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     Test::xdgActivation()->activate(token->commitAndWait(), *windows[1]->m_surface);
     QVERIFY(activationSpy.wait());
     QCOMPARE(workspace()->activeWindow(), windows[1]->m_window);
@@ -527,7 +527,7 @@ void ActivationTest::testXdgActivation()
     // it should even work without the surface, if the serial is correct
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
-    token->set_serial(windows.back()->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows.back()->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     Test::xdgActivation()->activate(token->commitAndWait(), *windows[1]->m_surface);
     QVERIFY(activationSpy.wait(10));
     QCOMPARE(workspace()->activeWindow(), windows[1]->m_window);
@@ -536,7 +536,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     QString result = token->commitAndWait();
 
     windows[2]->unmap();
@@ -551,7 +551,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     result = token->commitAndWait();
 
     windows[2]->unmap();
@@ -574,7 +574,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     result = token->commitAndWait();
     {
         Test::XdgToplevelWindow window{[&result](KWayland::Client::Surface *surface, Test::XdgToplevel *toplevel) {
@@ -589,7 +589,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     result = token->commitAndWait();
 
     Test::pointerMotion(windows[1]->m_window->frameGeometry().center(), time++);
@@ -610,7 +610,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     result = token->commitAndWait();
 
     Test::pointerMotion(windows[2]->m_window->frameGeometry().center(), time++);
@@ -630,7 +630,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     result = token->commitAndWait();
 
     Test::keyboardKeyPressed(KEY_A, time++);
@@ -650,7 +650,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     result = token->commitAndWait();
 
     Test::keyboardKeyPressed(KEY_LEFTSHIFT, time++);
@@ -689,7 +689,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     result = token->commitAndWait();
     {
         Test::XdgToplevelWindow window{[&windows, &result](KWayland::Client::Surface *surface, Test::XdgToplevel *toplevel) {
@@ -707,7 +707,7 @@ void ActivationTest::testXdgActivation()
     windows[1]->m_toplevel->set_app_id("test_app_id");
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     token->set_app_id("test_app_id");
     result = token->commitAndWait();
     Test::xdgActivation()->activate(QString(), *windows[1]->m_surface);
@@ -719,7 +719,7 @@ void ActivationTest::testXdgActivation()
     windows = setupWindows(time);
     token = Test::xdgActivation()->createToken();
     token->set_surface(*windows[2]->m_surface);
-    token->set_serial(windows[2]->m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(windows[2]->m_window->lastUsageSerial(), Test::kwinSeat()->object());
     token->set_app_id("test_app_id_2");
     result = token->commitAndWait();
     {
@@ -776,7 +776,7 @@ static QString generateActivationToken(const Test::XdgToplevelWindow &window, co
 {
     std::unique_ptr<Test::XdgActivationToken> token = Test::xdgActivation()->createToken();
     token->set_surface(*window.m_surface);
-    token->set_serial(window.m_window->lastUsageSerial(), *Test::waylandSeat());
+    token->set_serial(window.m_window->lastUsageSerial(), Test::kwinSeat()->object());
     token->set_app_id(appId);
     return token->commitAndWait();
 }

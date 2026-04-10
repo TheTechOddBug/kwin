@@ -1580,7 +1580,7 @@ void DndTest::tabletDrag()
 {
     // This test verifies that a simple tablet drag-and-drop operation between two Wayland surfaces works as expected.
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();
@@ -1738,7 +1738,7 @@ void DndTest::tabletSubSurfaceDrag()
 {
     // This test verifies that a drag-and-drop originating from a sub-surface works as expected.
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();
@@ -1859,7 +1859,7 @@ void DndTest::tabletDragAction()
 
     QFETCH(KWayland::Client::DataDeviceManager::DnDAction, action);
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();
@@ -1936,7 +1936,7 @@ void DndTest::inertTabletDragOffer()
 {
     // This test verifies that requests from a previous data offer don't affect the current drag-and-drop operation status.
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();
@@ -2043,7 +2043,7 @@ void DndTest::invalidSerialForTabletDrag()
 {
     // This test verifies that the data source will be canceled if a dnd operation is forbidden.
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();
@@ -2081,7 +2081,7 @@ void DndTest::noAcceptedMimeTypeTabletDrag()
 {
     // This test verifies that a drag-and-drop operation will be cancelled if no mime type is accepted.
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();
@@ -2138,7 +2138,7 @@ void DndTest::noSelectedActionTabletDrag()
 {
     // This test verifies that a drag-and-drop operation will be cancelled if no action is accepted.
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();
@@ -2195,7 +2195,7 @@ void DndTest::secondTabletDrag()
 {
     // This test verifies that no second drag operation will be started while there's another active drag.
 
-    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::waylandSeat());
+    std::unique_ptr<Test::WpTabletSeatV2> tabletSeat = Test::tabletManager()->createSeat(Test::kwinSeat());
     QSignalSpy toolAddedSpy(tabletSeat.get(), &Test::WpTabletSeatV2::toolAdded);
     QVERIFY(toolAddedSpy.wait());
     Test::WpTabletToolV2 *tabletTool = toolAddedSpy.last().at(0).value<Test::WpTabletToolV2 *>();

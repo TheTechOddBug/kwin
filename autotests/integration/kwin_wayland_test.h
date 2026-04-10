@@ -119,6 +119,7 @@ namespace Test
 
 class VirtualInputDevice;
 class VirtualInputDeviceTabletTool;
+class WlSeat;
 
 }
 
@@ -642,7 +643,7 @@ public:
     WpTabletManagerV2(::wl_registry *registry, uint32_t id, int version);
     ~WpTabletManagerV2() override;
 
-    std::unique_ptr<WpTabletSeatV2> createSeat(KWayland::Client::Seat *seat);
+    std::unique_ptr<WpTabletSeatV2> createSeat(WlSeat *seat);
 };
 
 class WpTabletSeatV2 : public QObject, public QtWayland::zwp_tablet_seat_v2
@@ -1040,14 +1041,35 @@ public:
 };
 
 class WlKeyboard;
+class WlPointer;
+class WlTouch;
 
-class WlSeat : public QtWayland::wl_seat
+class WlSeat : public QObject, public QtWayland::wl_seat
 {
+    Q_OBJECT
+
 public:
     explicit WlSeat(::wl_registry *registry, uint32_t id, int version);
     ~WlSeat() override;
 
+    bool hasPointer() const;
+    bool hasKeyboard() const;
+    bool hasTouch() const;
     std::unique_ptr<WlKeyboard> getKeyboard();
+    std::unique_ptr<WlPointer> getPointer();
+    std::unique_ptr<WlTouch> getTouch();
+
+Q_SIGNALS:
+    void hasPointerChanged(bool hasPointer);
+    void hasKeyboardChanged(bool hasKeyboard);
+    void hasTouchChanged(bool hasTouch);
+
+private:
+    void seat_capabilities(uint32_t capabilities) override;
+
+    bool m_hasPointer = false;
+    bool m_hasKeyboard = false;
+    bool m_hasTouch = false;
 };
 
 class WlKeyboard : public QObject, public QtWayland::wl_keyboard
@@ -1068,6 +1090,40 @@ private:
     void keyboard_enter(uint32_t serial, ::wl_surface *surface, wl_array *keys) override;
     void keyboard_leave(uint32_t serial, ::wl_surface *surface) override;
     void keyboard_key(uint32_t serial, uint32_t time, uint32_t key, uint32_t state) override;
+};
+
+class WlPointer : public QObject, public QtWayland::wl_pointer
+{
+    Q_OBJECT
+
+public:
+    explicit WlPointer(::wl_pointer *object);
+    ~WlPointer() override;
+
+    ::wl_surface *enteredSurface() const;
+
+Q_SIGNALS:
+    void entered(uint32_t serial, ::wl_surface *surface, const QPointF &position);
+    void left(uint32_t serial, ::wl_surface *surface);
+    void motion(const QPointF &position, uint32_t time);
+    void buttonStateChanged(uint32_t serial, uint32_t time, uint32_t button, uint32_t state);
+
+private:
+    void pointer_enter(uint32_t serial, ::wl_surface *surface, wl_fixed_t surface_x, wl_fixed_t surface_y) override;
+    void pointer_leave(uint32_t serial, ::wl_surface *surface) override;
+    void pointer_motion(uint32_t time, wl_fixed_t surface_x, wl_fixed_t surface_y) override;
+    void pointer_button(uint32_t serial, uint32_t time, uint32_t button, uint32_t state) override;
+
+    ::wl_surface *m_enteredSurface = nullptr;
+};
+
+class WlTouch : public QObject, public QtWayland::wl_touch
+{
+    Q_OBJECT
+
+public:
+    explicit WlTouch(::wl_touch *object);
+    ~WlTouch() override;
 };
 
 struct Connection
@@ -1177,6 +1233,7 @@ KWayland::Client::SubCompositor *waylandSubCompositor();
 KWayland::Client::ShadowManager *waylandShadowManager();
 KWayland::Client::ShmPool *waylandShmPool();
 KWayland::Client::Seat *waylandSeat();
+WlSeat *kwinSeat();
 KWayland::Client::DataDeviceManager *waylandDataDeviceManager();
 KWayland::Client::PlasmaShell *waylandPlasmaShell();
 KWayland::Client::PlasmaWindowManagement *waylandWindowManagement();
@@ -1206,10 +1263,13 @@ bool waitForWaylandSurface(Window *window);
 
 bool waitForWaylandPointer();
 bool waitForWaylandPointer(KWayland::Client::Seat *seat);
+bool waitForWaylandPointer(WlSeat *seat);
 bool waitForWaylandTouch();
 bool waitForWaylandTouch(KWayland::Client::Seat *seat);
+bool waitForWaylandTouch(WlSeat *seat);
 bool waitForWaylandKeyboard();
 bool waitForWaylandKeyboard(KWayland::Client::Seat *seat);
+bool waitForWaylandKeyboard(WlSeat *seat);
 bool waitForWaylandTabletTool(Test::WpTabletToolV2 *tool);
 
 void flushWaylandConnection();

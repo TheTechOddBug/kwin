@@ -814,6 +814,11 @@ KWayland::Client::Seat *waylandSeat()
     return s_waylandConnection->seat;
 }
 
+WlSeat *kwinSeat()
+{
+    return s_waylandConnection->kwinSeat.get();
+}
+
 KWayland::Client::DataDeviceManager *waylandDataDeviceManager()
 {
     return s_waylandConnection->dataDeviceManager;
@@ -955,10 +960,10 @@ bool waitForWaylandSurface(Window *window)
 
 bool waitForWaylandPointer()
 {
-    if (!s_waylandConnection->seat) {
+    if (!s_waylandConnection->kwinSeat) {
         return false;
     }
-    return waitForWaylandPointer(s_waylandConnection->seat);
+    return waitForWaylandPointer(s_waylandConnection->kwinSeat.get());
 }
 
 bool waitForWaylandPointer(KWayland::Client::Seat *seat)
@@ -967,12 +972,21 @@ bool waitForWaylandPointer(KWayland::Client::Seat *seat)
     return hasPointerSpy.wait();
 }
 
+bool waitForWaylandPointer(WlSeat *seat)
+{
+    if (seat->hasPointer()) {
+        return true;
+    }
+    QSignalSpy hasPointerSpy(seat, &WlSeat::hasPointerChanged);
+    return hasPointerSpy.wait();
+}
+
 bool waitForWaylandTouch()
 {
-    if (!s_waylandConnection->seat) {
+    if (!s_waylandConnection->kwinSeat) {
         return false;
     }
-    return waitForWaylandTouch(s_waylandConnection->seat);
+    return waitForWaylandTouch(s_waylandConnection->kwinSeat.get());
 }
 
 bool waitForWaylandTouch(KWayland::Client::Seat *seat)
@@ -981,17 +995,35 @@ bool waitForWaylandTouch(KWayland::Client::Seat *seat)
     return hasTouchSpy.wait();
 }
 
+bool waitForWaylandTouch(WlSeat *seat)
+{
+    if (seat->hasTouch()) {
+        return true;
+    }
+    QSignalSpy hasTouchSpy(seat, &WlSeat::hasTouchChanged);
+    return hasTouchSpy.wait();
+}
+
 bool waitForWaylandKeyboard()
 {
-    if (!s_waylandConnection->seat) {
+    if (!s_waylandConnection->kwinSeat) {
         return false;
     }
-    return waitForWaylandKeyboard(s_waylandConnection->seat);
+    return waitForWaylandKeyboard(s_waylandConnection->kwinSeat.get());
 }
 
 bool waitForWaylandKeyboard(KWayland::Client::Seat *seat)
 {
     QSignalSpy hasKeyboardSpy(seat, &KWayland::Client::Seat::hasKeyboardChanged);
+    return hasKeyboardSpy.wait();
+}
+
+bool waitForWaylandKeyboard(WlSeat *seat)
+{
+    if (seat->hasKeyboard()) {
+        return true;
+    }
+    QSignalSpy hasKeyboardSpy(seat, &WlSeat::hasKeyboardChanged);
     return hasKeyboardSpy.wait();
 }
 
@@ -2127,9 +2159,9 @@ WpTabletManagerV2::~WpTabletManagerV2()
     destroy();
 }
 
-std::unique_ptr<WpTabletSeatV2> WpTabletManagerV2::createSeat(KWayland::Client::Seat *seat)
+std::unique_ptr<WpTabletSeatV2> WpTabletManagerV2::createSeat(WlSeat *seat)
 {
-    return std::make_unique<WpTabletSeatV2>(get_tablet_seat(*seat));
+    return std::make_unique<WpTabletSeatV2>(get_tablet_seat(seat->object()));
 }
 
 WpTabletSeatV2::WpTabletSeatV2(::zwp_tablet_seat_v2 *seat)
@@ -2344,9 +2376,55 @@ WlSeat::~WlSeat()
     release();
 }
 
+bool WlSeat::hasPointer() const
+{
+    return m_hasPointer;
+}
+
+bool WlSeat::hasKeyboard() const
+{
+    return m_hasKeyboard;
+}
+
+bool WlSeat::hasTouch() const
+{
+    return m_hasTouch;
+}
+
 std::unique_ptr<WlKeyboard> WlSeat::getKeyboard()
 {
     return std::make_unique<WlKeyboard>(get_keyboard());
+}
+
+std::unique_ptr<WlPointer> WlSeat::getPointer()
+{
+    return std::make_unique<WlPointer>(get_pointer());
+}
+
+std::unique_ptr<WlTouch> WlSeat::getTouch()
+{
+    return std::make_unique<WlTouch>(get_touch());
+}
+
+void WlSeat::seat_capabilities(uint32_t capabilities)
+{
+    const bool hasPointer = capabilities & capability_pointer;
+    if (m_hasPointer != hasPointer) {
+        m_hasPointer = hasPointer;
+        Q_EMIT hasPointerChanged(m_hasPointer);
+    }
+
+    const bool hasKeyboard = capabilities & capability_keyboard;
+    if (m_hasKeyboard != hasKeyboard) {
+        m_hasKeyboard = hasKeyboard;
+        Q_EMIT hasKeyboardChanged(m_hasKeyboard);
+    }
+
+    const bool hasTouch = capabilities & capability_touch;
+    if (m_hasTouch != hasTouch) {
+        m_hasTouch = hasTouch;
+        Q_EMIT hasTouchChanged(m_hasTouch);
+    }
 }
 
 WlKeyboard::WlKeyboard(::wl_keyboard *object)
@@ -2377,6 +2455,53 @@ void WlKeyboard::keyboard_leave(uint32_t serial, ::wl_surface *surface)
 void WlKeyboard::keyboard_key(uint32_t serial, uint32_t time, uint32_t keyValue, uint32_t state)
 {
     Q_EMIT key(serial, time, keyValue, key_state(state));
+}
+
+WlPointer::WlPointer(::wl_pointer *object)
+    : QtWayland::wl_pointer(object)
+{
+}
+
+WlPointer::~WlPointer()
+{
+    release();
+}
+
+::wl_surface *WlPointer::enteredSurface() const
+{
+    return m_enteredSurface;
+}
+
+void WlPointer::pointer_enter(uint32_t serial, ::wl_surface *surface, wl_fixed_t surface_x, wl_fixed_t surface_y)
+{
+    m_enteredSurface = surface;
+    Q_EMIT entered(serial, surface, QPointF(wl_fixed_to_double(surface_x), wl_fixed_to_double(surface_y)));
+}
+
+void WlPointer::pointer_leave(uint32_t serial, ::wl_surface *surface)
+{
+    m_enteredSurface = nullptr;
+    Q_EMIT left(serial, surface);
+}
+
+void WlPointer::pointer_motion(uint32_t time, wl_fixed_t surface_x, wl_fixed_t surface_y)
+{
+    Q_EMIT motion(QPointF(wl_fixed_to_double(surface_x), wl_fixed_to_double(surface_y)), time);
+}
+
+void WlPointer::pointer_button(uint32_t serial, uint32_t time, uint32_t button, uint32_t state)
+{
+    Q_EMIT buttonStateChanged(serial, time, button, state);
+}
+
+WlTouch::WlTouch(::wl_touch *object)
+    : QtWayland::wl_touch(object)
+{
+}
+
+WlTouch::~WlTouch()
+{
+    release();
 }
 
 void keyboardKeyPressed(quint32 key, quint32 time)

@@ -195,7 +195,7 @@ void InputMethodTest::testEnableDisableV3()
     QCOMPARE(window->frameGeometry().size(), QSize(1280, 1024));
 
     auto textInputV3 = std::make_unique<Test::TextInputV3>();
-    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(*(Test::waylandSeat())));
+    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(Test::kwinSeat()->object()));
 
     // Show the keyboard
     touchNow();
@@ -452,7 +452,7 @@ void InputMethodTest::testV2V3SameClient()
     std::unique_ptr<KWayland::Client::TextInput> textInput(Test::waylandTextInputManager()->createTextInput(Test::waylandSeat()));
 
     auto textInputV3 = std::make_unique<Test::TextInputV3>();
-    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(*(Test::waylandSeat())));
+    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(Test::kwinSeat()->object()));
 
     std::unique_ptr<KWayland::Client::Surface> surface = Test::createSurface();
     std::unique_ptr<Test::XdgToplevel> toplevel(Test::createXdgToplevelSurface(surface.get()));
@@ -522,7 +522,7 @@ void InputMethodTest::testV3Styling()
     QCOMPARE(window->frameGeometry().size(), QSize(1280, 1024));
 
     auto textInputV3 = std::make_unique<Test::TextInputV3>();
-    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(*(Test::waylandSeat())));
+    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(Test::kwinSeat()->object()));
     textInputV3->enable();
 
     QSignalSpy inputMethodActiveSpy(kwinApp()->inputMethod(), &InputMethod::activeChanged);
@@ -651,7 +651,7 @@ void InputMethodTest::testModifierForwarding()
     QCOMPARE(window->frameGeometry().size(), QSize(1280, 1024));
 
     auto textInputV3 = std::make_unique<Test::TextInputV3>();
-    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(*(Test::waylandSeat())));
+    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(Test::kwinSeat()->object()));
     textInputV3->enable();
 
     QSignalSpy inputMethodActiveSpy(kwinApp()->inputMethod(), &InputMethod::activeChanged);
@@ -828,7 +828,7 @@ void InputMethodTest::testV3AutoCommit()
     QVERIFY(window->isActive());
 
     auto textInputV3 = std::make_unique<Test::TextInputV3>();
-    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(*(Test::waylandSeat())));
+    textInputV3->init(Test::waylandTextInputManagerV3()->get_text_input(Test::kwinSeat()->object()));
     textInputV3->enable();
 
     QSignalSpy textInputPreeditSpy(textInputV3.get(), &Test::TextInputV3::preeditString);
