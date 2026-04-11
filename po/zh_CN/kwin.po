@@ -2441,10 +2441,9 @@ msgid "Add Virtual Desktop"
 msgstr "添加虚拟桌面"
 
 #: plugins/overview/qml/DesktopBar.qml:267
-#, fuzzy, kde-format
-#| msgid "Add Virtual Desktop"
+#, kde-format
 msgid "Virtual Desktop limit reached"
-msgstr "添加虚拟桌面"
+msgstr ""
 
 #: plugins/overview/qml/Main.qml:425
 #, kde-format
