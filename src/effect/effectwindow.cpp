@@ -218,11 +218,6 @@ void EffectWindow::addRepaintFull()
     d->m_windowItem->scheduleRepaint(d->m_windowItem->boundingRect());
 }
 
-void EffectWindow::addLayerRepaint(const Rect &r)
-{
-    d->m_windowItem->scheduleRepaint(d->m_windowItem->mapFromScene(r));
-}
-
 void EffectWindow::addLayerRepaint(const RectF &r)
 {
     d->m_windowItem->scheduleRepaint(d->m_windowItem->mapFromScene(r));

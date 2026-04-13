@@ -357,9 +357,7 @@ public:
     Q_SCRIPTABLE void addRepaint(const Rect &r);
     Q_SCRIPTABLE void addRepaint(int x, int y, int w, int h);
     Q_SCRIPTABLE void addRepaintFull();
-    Q_SCRIPTABLE void addLayerRepaint(const Rect &r);
     void addLayerRepaint(const RectF &r);
-    Q_SCRIPTABLE void addLayerRepaint(int x, int y, int w, int h);
 
     void refWindow();
     void unrefWindow();
@@ -973,11 +971,6 @@ private:
 inline void EffectWindow::addRepaint(int x, int y, int w, int h)
 {
     addRepaint(Rect(x, y, w, h));
-}
-
-inline void EffectWindow::addLayerRepaint(int x, int y, int w, int h)
-{
-    addLayerRepaint(Rect(x, y, w, h));
 }
 
 } // namespace KWin

@@ -275,9 +275,8 @@ quint64 AnimationEffect::p_animate(EffectWindow *w, Attribute a, uint meta, int 
 
     if (delay > 0) {
         QTimer::singleShot(delay, this, &AnimationEffect::triggerRepaint);
-        const QSize &s = effects->virtualScreenSize();
         if (waitAtSource) {
-            w->addLayerRepaint(0, 0, s.width(), s.height());
+            w->addLayerRepaint(effects->virtualScreenGeometry());
         }
     } else {
         triggerRepaint();
