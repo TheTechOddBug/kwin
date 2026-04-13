@@ -354,9 +354,9 @@ public:
     explicit EffectWindow(WindowItem *windowItem);
     ~EffectWindow() override;
 
-    Q_SCRIPTABLE void addRepaint(const Rect &r);
-    Q_SCRIPTABLE void addRepaint(int x, int y, int w, int h);
-    Q_SCRIPTABLE void addRepaintFull();
+    void addRepaint(const Rect &r);
+    void addRepaint(int x, int y, int w, int h);
+    void addRepaintFull();
     void addLayerRepaint(const RectF &r);
 
     void refWindow();
