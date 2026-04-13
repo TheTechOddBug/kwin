@@ -95,7 +95,7 @@ void AnimationEffect::validate(Attribute a, uint &meta, FPx2 *from, FPx2 *to, co
 {
     if (a < NonFloatBase) {
         if (a == Scale) {
-            QRectF area = effects->clientArea(ScreenArea, w);
+            RectF area = effects->clientArea(ScreenArea, w);
             if (from && from->isValid()) {
                 RELATIVE_XY(Source);
                 from->set(relative[0] ? (*from)[0] * area.width() / w->width() : (*from)[0],
@@ -124,7 +124,7 @@ void AnimationEffect::validate(Attribute a, uint &meta, FPx2 *from, FPx2 *to, co
         }
 
     } else if (a == Position) {
-        QRectF area = effects->clientArea(ScreenArea, w);
+        RectF area = effects->clientArea(ScreenArea, w);
         QPointF pt = w->frameGeometry().bottomRight(); // cannot be < 0 ;-)
         if (from) {
             if (from->isValid()) {
@@ -149,7 +149,7 @@ void AnimationEffect::validate(Attribute a, uint &meta, FPx2 *from, FPx2 *to, co
         }
 
     } else if (a == Size) {
-        QRectF area = effects->clientArea(ScreenArea, w);
+        RectF area = effects->clientArea(ScreenArea, w);
         if (from) {
             if (from->isValid()) {
                 RELATIVE_XY(Source);
@@ -171,7 +171,7 @@ void AnimationEffect::validate(Attribute a, uint &meta, FPx2 *from, FPx2 *to, co
         }
 
     } else if (a == Translation) {
-        QRect area = w->rect().toRect();
+        RectF area = w->rect();
         if (from) {
             if (from->isValid()) {
                 RELATIVE_XY(Source);
@@ -224,7 +224,7 @@ quint64 AnimationEffect::p_animate(EffectWindow *w, Attribute a, uint meta, int 
     if (it == d->m_animations.end()) {
         connect(w, &EffectWindow::windowExpandedGeometryChanged,
                 this, &AnimationEffect::_windowExpandedGeometryChanged);
-        it = d->m_animations.emplace(std::make_pair(w, std::pair<std::vector<AniData>, QRect>{})).first;
+        it = d->m_animations.emplace(std::make_pair(w, std::pair<std::vector<AniData>, RectF>{})).first;
     }
     auto &[animations, rect] = it->second;
 
@@ -269,7 +269,7 @@ quint64 AnimationEffect::p_animate(EffectWindow *w, Attribute a, uint meta, int 
         animation.terminationFlags |= TerminateAtTarget;
     }
 
-    rect = QRect();
+    rect = RectF();
 
     d->m_animationsTouched = true;
 
@@ -570,7 +570,7 @@ void AnimationEffect::paintWindow(const RenderTarget &renderTarget, const Render
             break;
         }
         case Position: {
-            const QRectF geo = w->frameGeometry();
+            const RectF geo = w->frameGeometry();
             const float prgrs = progress(anim);
             if (anim.from[0] >= 0.0 && anim.to[0] >= 0.0) {
                 float dest = interpolated(anim, 0);
@@ -591,7 +591,7 @@ void AnimationEffect::paintWindow(const RenderTarget &renderTarget, const Render
             const float prgrs = progress(anim);
             data.setRotationAngle(anim.from[0] + prgrs * (anim.to[0] - anim.from[0]));
 
-            const QRect geo = w->rect().toRect();
+            const RectF geo = w->rect();
             const uint sAnchor = metaData(SourceAnchor, anim.meta),
                        tAnchor = metaData(TargetAnchor, anim.meta);
             QPointF pt(xCoord(geo, sAnchor), yCoord(geo, sAnchor));
@@ -683,7 +683,7 @@ void AnimationEffect::postPaintScreen()
             entry = d->m_animations.erase(entry);
         } else {
             if (invalidateLayerRect) {
-                entry->second.second = QRect(); // invalidate
+                entry->second.second = RectF(); // invalidate
             }
             ++entry;
         }
@@ -786,7 +786,7 @@ void AnimationEffect::setMetaData(MetaType type, uint value, uint &meta)
 void AnimationEffect::triggerRepaint()
 {
     for (auto &[window, pair] : d->m_animations) {
-        pair.second = QRect();
+        pair.second = RectF();
     }
     updateLayerRepaints();
     if (d->m_needSceneRepaint) {
@@ -827,7 +827,7 @@ void AnimationEffect::updateLayerRepaints()
         float f[2] = {1.0, 1.0};
         float t[2] = {0.0, 0.0};
         bool createRegion = false;
-        QList<QRect> rects;
+        QList<RectF> rects;
         for (auto &anim : data) {
             if (anim.startTime > clock()) {
                 continue;
@@ -843,7 +843,7 @@ void AnimationEffect::updateLayerRepaints()
                 break;
             case Rotation:
                 createRegion = false;
-                rect = QRect(QPoint(0, 0), effects->virtualScreenSize());
+                rect = Rect(QPoint(0, 0), effects->virtualScreenSize());
                 break; // sic! no need to do anything else
             case Generic:
                 d->m_needSceneRepaint = true; // we don't know whether this will change visual stacking order
@@ -851,9 +851,9 @@ void AnimationEffect::updateLayerRepaints()
             case Translation:
             case Position: {
                 createRegion = true;
-                QRect r(window->frameGeometry().toRect());
-                int x[2] = {0, 0};
-                int y[2] = {0, 0};
+                RectF r = window->frameGeometry();
+                qreal x[2] = {0, 0};
+                qreal y[2] = {0, 0};
                 if (anim.attribute == Translation) {
                     x[0] = anim.from[0];
                     x[1] = anim.to[0];
@@ -869,7 +869,7 @@ void AnimationEffect::updateLayerRepaints()
                         y[1] = anim.to[1] - yCoord(r, metaData(TargetAnchor, anim.meta));
                     }
                 }
-                r = window->expandedGeometry().toRect();
+                r = window->expandedGeometry();
                 rects.push_back(r.translated(x[0], y[0]));
                 rects.push_back(r.translated(x[1], y[1]));
                 break;
@@ -880,7 +880,7 @@ void AnimationEffect::updateLayerRepaints()
             case Size:
             case Scale: {
                 createRegion = true;
-                const QSize sz = window->frameGeometry().size().toSize();
+                const QSizeF sz = window->frameGeometry().size();
                 float fx = std::max(fixOvershoot(anim.from[0], anim, 1), fixOvershoot(anim.to[0], anim, 2));
                 //                     float fx = std::max(interpolated(*anim,0), anim.to[0]);
                 if (fx >= 0.0) {
@@ -909,12 +909,12 @@ void AnimationEffect::updateLayerRepaints()
             }
         }
         if (createRegion) {
-            const QRect geo = window->expandedGeometry().toRect();
+            const RectF geo = window->expandedGeometry();
             if (rects.empty()) {
                 rects.push_back(geo);
             }
             for (auto &r : rects) { // transform
-                r.setSize(QSize(std::round(r.width() * f[0]), std::round(r.height() * f[1])));
+                r.setSize(QSizeF(r.width() * f[0], r.height() * f[1]));
                 r.translate(t[0], t[1]); // "const_cast" - don't do that at home, kids ;-)
             }
             rect = rects.at(0);
@@ -922,8 +922,8 @@ void AnimationEffect::updateLayerRepaints()
                 for (const auto &r : rects | std::views::drop(1)) { // unite
                     rect |= r;
                 }
-                const int dx = 110 * (rect.width() - geo.width()) / 100 + 1 - rect.width() + geo.width();
-                const int dy = 110 * (rect.height() - geo.height()) / 100 + 1 - rect.height() + geo.height();
+                const qreal dx = 110 * (rect.width() - geo.width()) / 100 + 1 - rect.width() + geo.width();
+                const qreal dy = 110 * (rect.height() - geo.height()) / 100 + 1 - rect.height() + geo.height();
                 rect.adjust(-dx, -dy, dx, dy); // fix pot. overshoot
             }
         }
@@ -935,7 +935,7 @@ void AnimationEffect::_windowExpandedGeometryChanged(KWin::EffectWindow *w)
     const auto entry = d->m_animations.find(w);
     if (entry != d->m_animations.end()) {
         auto &[data, rect] = entry->second;
-        rect = QRect();
+        rect = RectF();
         updateLayerRepaints();
         if (!rect.isNull()) { // actually got updated, ie. is in use - ensure it gets a repaint
             w->addLayerRepaint(rect);

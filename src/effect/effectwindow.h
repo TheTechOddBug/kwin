@@ -358,6 +358,7 @@ public:
     Q_SCRIPTABLE void addRepaint(int x, int y, int w, int h);
     Q_SCRIPTABLE void addRepaintFull();
     Q_SCRIPTABLE void addLayerRepaint(const Rect &r);
+    void addLayerRepaint(const RectF &r);
     Q_SCRIPTABLE void addLayerRepaint(int x, int y, int w, int h);
 
     void refWindow();

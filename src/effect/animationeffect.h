@@ -500,7 +500,7 @@ protected:
     /**
      * @internal
      */
-    typedef std::unordered_map<EffectWindow *, std::pair<std::vector<AniData>, QRect>> AniMap;
+    typedef std::unordered_map<EffectWindow *, std::pair<std::vector<AniData>, RectF>> AniMap;
 
     /**
      * @internal

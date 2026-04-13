@@ -223,6 +223,11 @@ void EffectWindow::addLayerRepaint(const Rect &r)
     d->m_windowItem->scheduleRepaint(d->m_windowItem->mapFromScene(r));
 }
 
+void EffectWindow::addLayerRepaint(const RectF &r)
+{
+    d->m_windowItem->scheduleRepaint(d->m_windowItem->mapFromScene(r));
+}
+
 const EffectWindowGroup *EffectWindow::group() const
 {
 #if KWIN_BUILD_X11
