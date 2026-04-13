@@ -355,7 +355,6 @@ public:
     ~EffectWindow() override;
 
     void addRepaint(const Rect &r);
-    void addRepaint(int x, int y, int w, int h);
     void addRepaintFull();
     void addLayerRepaint(const RectF &r);
 
@@ -967,10 +966,5 @@ public:
 private:
     Group *m_group;
 };
-
-inline void EffectWindow::addRepaint(int x, int y, int w, int h)
-{
-    addRepaint(Rect(x, y, w, h));
-}
 
 } // namespace KWin
