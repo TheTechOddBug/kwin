@@ -31,6 +31,9 @@
        <entry key="SwitchingMode" type="Int">
            <default code="true">TabBoxConfig::defaultSwitchingMode()</default>
        </entry>
+       <entry key="ShowScreenMode" type="Int">
+           <default code="true">TabBoxConfig::defaultShowScreenMode()</default>
+       </entry>
        <entry key="LayoutName" type="String">
            <default code="true">TabBoxConfig::defaultLayoutName()</default>
        </entry>

@@ -28,6 +28,7 @@ public:
         , showDesktopMode(TabBoxConfig::defaultShowDesktopMode())
         , clientMultiScreenMode(TabBoxConfig::defaultMultiScreenMode())
         , clientSwitchingMode(TabBoxConfig::defaultSwitchingMode())
+        , showScreenMode(TabBoxConfig::defaultShowScreenMode())
         , layoutName(TabBoxConfig::defaultLayoutName())
     {
     }
@@ -45,6 +46,7 @@ public:
     TabBoxConfig::ShowDesktopMode showDesktopMode;
     TabBoxConfig::ClientMultiScreenMode clientMultiScreenMode;
     TabBoxConfig::ClientSwitchingMode clientSwitchingMode;
+    TabBoxConfig::ShowScreenMode showScreenMode;
     QString layoutName;
 };
 
@@ -70,6 +72,7 @@ TabBoxConfig &TabBoxConfig::operator=(const KWin::TabBox::TabBoxConfig &object)
     d->showDesktopMode = object.showDesktopMode();
     d->clientMultiScreenMode = object.clientMultiScreenMode();
     d->clientSwitchingMode = object.clientSwitchingMode();
+    d->showScreenMode = object.showScreenMode();
     d->layoutName = object.layoutName();
     return *this;
 }
@@ -172,6 +175,16 @@ TabBoxConfig::ClientSwitchingMode TabBoxConfig::clientSwitchingMode() const
 void TabBoxConfig::setClientSwitchingMode(ClientSwitchingMode switchingMode)
 {
     d->clientSwitchingMode = switchingMode;
+}
+
+TabBoxConfig::ShowScreenMode TabBoxConfig::showScreenMode() const
+{
+    return d->showScreenMode;
+}
+
+void TabBoxConfig::setShowScreenMode(ShowScreenMode showScreenMode)
+{
+    d->showScreenMode = showScreenMode;
 }
 
 QString &TabBoxConfig::layoutName() const

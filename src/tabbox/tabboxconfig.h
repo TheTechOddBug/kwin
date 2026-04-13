@@ -109,6 +109,13 @@ public:
         FocusChainSwitching, ///< Sort by recently used. Most recently used Window is the first
         StackingOrderSwitching, ///< Sort by current stacking order
     };
+    /**
+     * ShowScreenMode defines on which screen the TabBox should be shown.
+     */
+    enum ShowScreenMode {
+        ShowOnActiveScreen, ///< Show on the currently active screen
+        ShowOnPrimaryScreen, ///< Show on the primary screen
+    };
     TabBoxConfig();
     ~TabBoxConfig();
     TabBoxConfig &operator=(const TabBoxConfig &object);
@@ -175,6 +182,12 @@ public:
      */
     ClientSwitchingMode clientSwitchingMode() const;
     /**
+     * @return The current ShowScreenMode
+     * @see setShowScreenMode
+     * @see defaultShowScreenMode
+     */
+    ShowScreenMode showScreenMode() const;
+    /**
      * @return Then name of the current ItemLayout
      * @see setlayoutName
      */
@@ -232,6 +245,11 @@ public:
      */
     void setClientSwitchingMode(ClientSwitchingMode switchingMode);
     /**
+     * @param showScreenMode The new ShowScreenMode to be used.
+     * @see showScreenMode
+     */
+    void setShowScreenMode(ShowScreenMode showScreenMode);
+    /**
      * @param name The new ItemLayout config name
      * @see layoutName
      */
@@ -269,6 +287,10 @@ public:
     static ClientSwitchingMode defaultSwitchingMode()
     {
         return FocusChainSwitching;
+    }
+    static ShowScreenMode defaultShowScreenMode()
+    {
+        return ShowOnActiveScreen;
     }
     static bool defaultShowTabBox()
     {

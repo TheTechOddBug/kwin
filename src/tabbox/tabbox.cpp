@@ -261,6 +261,7 @@ TabBox::TabBox()
     m_defaultConfig.setShowDesktopMode(TabBoxConfig::DoNotShowDesktopClient);
     m_defaultConfig.setClientMultiScreenMode(TabBoxConfig::IgnoreMultiScreen);
     m_defaultConfig.setClientSwitchingMode(TabBoxConfig::FocusChainSwitching);
+    m_defaultConfig.setShowScreenMode(TabBoxConfig::ShowOnActiveScreen);
 
     m_alternativeConfig = TabBoxConfig();
     m_alternativeConfig.setClientDesktopMode(TabBoxConfig::AllDesktopsClients);
@@ -271,6 +272,7 @@ TabBox::TabBox()
     m_alternativeConfig.setShowDesktopMode(TabBoxConfig::DoNotShowDesktopClient);
     m_alternativeConfig.setClientMultiScreenMode(TabBoxConfig::IgnoreMultiScreen);
     m_alternativeConfig.setClientSwitchingMode(TabBoxConfig::FocusChainSwitching);
+    m_alternativeConfig.setShowScreenMode(TabBoxConfig::ShowOnActiveScreen);
 
     m_defaultCurrentApplicationConfig = m_defaultConfig;
     m_defaultCurrentApplicationConfig.setClientApplicationsMode(TabBoxConfig::AllWindowsCurrentApplication);
@@ -543,6 +545,8 @@ void TabBox::loadConfig(const KConfigGroup &config, TabBoxConfig &tabBoxConfig)
         config.readEntry<int>("MultiScreenMode", TabBoxConfig::defaultMultiScreenMode())));
     tabBoxConfig.setClientSwitchingMode(TabBoxConfig::ClientSwitchingMode(
         config.readEntry<int>("SwitchingMode", TabBoxConfig::defaultSwitchingMode())));
+    tabBoxConfig.setShowScreenMode(TabBoxConfig::ShowScreenMode(
+        config.readEntry<int>("ShowScreenMode", TabBoxConfig::defaultShowScreenMode())));
 
     tabBoxConfig.setShowTabBox(config.readEntry<bool>("ShowTabBox",
                                                       TabBoxConfig::defaultShowTabBox()));

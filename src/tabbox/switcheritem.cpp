@@ -69,7 +69,16 @@ void SwitcherItem::setVisible(bool visible)
 
 QRect SwitcherItem::screenGeometry() const
 {
-    return workspace()->activeOutput()->geometry();
+    switch (tabBox->config().showScreenMode()) {
+    case TabBoxConfig::ShowOnPrimaryScreen:
+        if (!workspace()->outputOrder().isEmpty()) {
+            return workspace()->outputOrder().front()->geometry();
+        }
+        Q_FALLTHROUGH();
+    case TabBoxConfig::ShowOnActiveScreen:
+        return workspace()->activeOutput()->geometry();
+    }
+    Q_UNREACHABLE();
 }
 
 void SwitcherItem::setCurrentIndex(int index)
