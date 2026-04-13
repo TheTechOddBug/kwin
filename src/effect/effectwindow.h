@@ -354,7 +354,7 @@ public:
     explicit EffectWindow(WindowItem *windowItem);
     ~EffectWindow() override;
 
-    void addRepaint(const Rect &r);
+    void addRepaint(const RectF &r);
     void addRepaintFull();
     void addLayerRepaint(const RectF &r);
 

@@ -208,7 +208,7 @@ void EffectWindow::unrefVisible(const EffectWindowVisibleRef *holder)
     d->m_windowItem->unrefVisible(holder->reason());
 }
 
-void EffectWindow::addRepaint(const Rect &r)
+void EffectWindow::addRepaint(const RectF &r)
 {
     d->m_windowItem->scheduleRepaint(r);
 }
