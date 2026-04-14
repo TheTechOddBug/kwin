@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcm_kwintabbox\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-02-26 00:46+0000\n"
+"POT-Creation-Date: 2026-04-14 00:45+0000\n"
 "PO-Revision-Date: 2016-03-20 15:24+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -330,6 +330,34 @@ msgstr ""
 #, kde-format
 msgid "Delay before the window list appears"
 msgstr ""
+
+#. i18n: ectx: property (text), widget (QLabel, label_showScreen)
+#: main.ui:742
+#, kde-format
+msgid "Show on screen:"
+msgstr ""
+
+#. i18n: ectx: property (toolTip), widget (QComboBox, showScreenCombo)
+#: main.ui:758
+#, kde-format
+msgid "Select which screen the task switcher should be displayed on."
+msgstr ""
+
+# >> @option:radio Filter windows by screens
+#. i18n: ectx: property (text), item, widget (QComboBox, showScreenCombo)
+#: main.ui:762
+#, fuzzy, kde-format
+#| msgid "All other screens"
+msgid "Active screen"
+msgstr "svi drugi ekrani"
+
+# >> @option:radio Filter windows by screens
+#. i18n: ectx: property (text), item, widget (QComboBox, showScreenCombo)
+#: main.ui:767
+#, fuzzy, kde-format
+#| msgid "Current screen"
+msgid "Primary screen"
+msgstr "tekući ekran"
 
 #: shortcutsettings.cpp:131
 #, kde-format

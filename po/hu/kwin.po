@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-09 00:46+0000\n"
+"POT-Creation-Date: 2026-04-14 00:45+0000\n"
 "PO-Revision-Date: 2025-05-30 23:12+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -2462,7 +2462,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Áttekintés és Rácsnézet ciklikusan"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:133
+#: plugins/overview/overvieweffect.cpp:141
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2498,19 +2498,19 @@ msgstr "Ablakok rendezése a Rácsnézetben:"
 msgid "Search results include filtered windows:"
 msgstr "Keresési eredmények tartalmazzák a szűrt ablakokat is:"
 
-#: plugins/overview/overvieweffect.cpp:127
+#: plugins/overview/overvieweffect.cpp:135
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Áttekintés és Rácsnézet ciklikusan"
 
-#: plugins/overview/overvieweffect.cpp:138
+#: plugins/overview/overvieweffect.cpp:146
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Áttekintés ki-be"
 
-#: plugins/overview/overvieweffect.cpp:144
+#: plugins/overview/overvieweffect.cpp:152
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2532,25 +2532,25 @@ msgstr "Virtuális asztal hozzáadása"
 msgid "Virtual Desktop limit reached"
 msgstr "Virtuális asztal hozzáadása"
 
-#: plugins/overview/qml/Main.qml:425
+#: plugins/overview/qml/Main.qml:427
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No other Virtual Desktops to show"
 msgstr "Nincs másik megjelenítendő virtuális asztal"
 
-#: plugins/overview/qml/Main.qml:431
+#: plugins/overview/qml/Main.qml:433
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Virtual Desktop"
 msgstr "Virtuális asztal hozzáadása"
 
-#: plugins/overview/qml/Main.qml:438
+#: plugins/overview/qml/Main.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Configure Virtual Desktops…"
 msgstr "Virtuális asztalok beállítása…"
 
-#: plugins/overview/qml/Main.qml:789
+#: plugins/overview/qml/Main.qml:791
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matching windows"
@@ -3716,35 +3716,35 @@ msgctxt "@info:placeholder no entries in the task switcher"
 msgid "No open windows"
 msgstr "Nincsenek megnyitott ablakok"
 
-#: tabbox/tabbox.cpp:311
+#: tabbox/tabbox.cpp:313
 msgid "Walk Through Windows"
 msgstr "Lépegetés az ablakok között"
 
-#: tabbox/tabbox.cpp:312
+#: tabbox/tabbox.cpp:314
 msgid "Walk Through Windows (Reverse)"
 msgstr "Lépegetés az ablakok között (visszafelé)"
 
-#: tabbox/tabbox.cpp:313
+#: tabbox/tabbox.cpp:315
 msgid "Walk Through Windows Alternative"
 msgstr "Lépegetés az ablakalternatívák között (visszafelé)"
 
-#: tabbox/tabbox.cpp:314
+#: tabbox/tabbox.cpp:316
 msgid "Walk Through Windows Alternative (Reverse)"
 msgstr "Lépegetés az ablakalternatívák között (visszafelé)"
 
-#: tabbox/tabbox.cpp:315
+#: tabbox/tabbox.cpp:317
 msgid "Walk Through Windows of Current Application"
 msgstr "Lépegetés a jelenlegi alkalmazások ablakai között"
 
-#: tabbox/tabbox.cpp:316
+#: tabbox/tabbox.cpp:318
 msgid "Walk Through Windows of Current Application (Reverse)"
 msgstr "Lépegetés a jelenlegi alkalmazások ablakai között (visszafelé)"
 
-#: tabbox/tabbox.cpp:317
+#: tabbox/tabbox.cpp:319
 msgid "Walk Through Windows of Current Application Alternative"
 msgstr "Lépegetés a jelenlegi alkalmazásalternatívák ablakai között"
 
-#: tabbox/tabbox.cpp:318
+#: tabbox/tabbox.cpp:320
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr ""
 "Lépegetés a jelenlegi alkalmazásalternatívák ablakai között (visszafelé)"
@@ -4269,42 +4269,42 @@ msgstr "Ablak aktiválása (%1)"
 msgid "unknown"
 msgstr "ismeretlen"
 
-#: virtualdesktops.cpp:728 virtualdesktops.cpp:807
+#: virtualdesktops.cpp:773 virtualdesktops.cpp:852
 #, kde-format
 msgid "Desktop %1"
 msgstr "%1. asztal"
 
-#: virtualdesktops.cpp:814
+#: virtualdesktops.cpp:859
 #, kde-format
 msgid "Switch to Next Desktop"
 msgstr "Váltás a következő asztalra"
 
-#: virtualdesktops.cpp:815
+#: virtualdesktops.cpp:860
 #, kde-format
 msgid "Switch to Previous Desktop"
 msgstr "Váltás az előző asztalra"
 
-#: virtualdesktops.cpp:818
+#: virtualdesktops.cpp:863
 #, kde-format
 msgid "Switch One Desktop to the Right"
 msgstr "Váltás a jobbra eső asztalra"
 
-#: virtualdesktops.cpp:819
+#: virtualdesktops.cpp:864
 #, kde-format
 msgid "Switch One Desktop to the Left"
 msgstr "Váltás a balra eső asztalra"
 
-#: virtualdesktops.cpp:820
+#: virtualdesktops.cpp:865
 #, kde-format
 msgid "Switch One Desktop Up"
 msgstr "Váltás a felfelé eső asztalra"
 
-#: virtualdesktops.cpp:821
+#: virtualdesktops.cpp:866
 #, kde-format
 msgid "Switch One Desktop Down"
 msgstr "Váltás a lefelé eső asztalra"
 
-#: virtualdesktops.cpp:909
+#: virtualdesktops.cpp:967
 #, kde-format
 msgid "Switch to Desktop %1"
 msgstr "Váltás a(z) %1. asztalra"
@@ -4360,13 +4360,13 @@ msgstr "Az illesztőprogram elutasította a kimenetbeállítást"
 msgid "The session is not active"
 msgstr "Az Alt most aktív."
 
-#: window.cpp:3124
+#: window.cpp:3129
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "(Nem válaszol)"
 
-#: workspace.cpp:1767
+#: workspace.cpp:1778
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""

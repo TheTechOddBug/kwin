@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-09 00:46+0000\n"
+"POT-Creation-Date: 2026-04-14 00:45+0000\n"
 "PO-Revision-Date: 2026-02-03 23:54+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -2414,7 +2414,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "한눈에 보기와 모눈 보기 순환"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:133
+#: plugins/overview/overvieweffect.cpp:141
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2450,19 +2450,19 @@ msgstr "모눈 보기에서 창 정렬:"
 msgid "Search results include filtered windows:"
 msgstr "검색 결과에 필터된 창 포함됨:"
 
-#: plugins/overview/overvieweffect.cpp:127
+#: plugins/overview/overvieweffect.cpp:135
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "한눈에 보기와 모눈 보기 순환"
 
-#: plugins/overview/overvieweffect.cpp:138
+#: plugins/overview/overvieweffect.cpp:146
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "한눈에 보기 전환"
 
-#: plugins/overview/overvieweffect.cpp:144
+#: plugins/overview/overvieweffect.cpp:152
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2484,25 +2484,25 @@ msgstr "가상 바탕 화면 추가"
 msgid "Virtual Desktop limit reached"
 msgstr "가상 바탕 화면 추가"
 
-#: plugins/overview/qml/Main.qml:425
+#: plugins/overview/qml/Main.qml:427
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No other Virtual Desktops to show"
 msgstr "표시할 다른 가상 바탕 화면이 없음"
 
-#: plugins/overview/qml/Main.qml:431
+#: plugins/overview/qml/Main.qml:433
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Virtual Desktop"
 msgstr "가상 바탕 화면 추가"
 
-#: plugins/overview/qml/Main.qml:438
+#: plugins/overview/qml/Main.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Configure Virtual Desktops…"
 msgstr "가상 바탕 화면 설정..."
 
-#: plugins/overview/qml/Main.qml:789
+#: plugins/overview/qml/Main.qml:791
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matching windows"
@@ -3667,35 +3667,35 @@ msgctxt "@info:placeholder no entries in the task switcher"
 msgid "No open windows"
 msgstr "열린 창 없음"
 
-#: tabbox/tabbox.cpp:311
+#: tabbox/tabbox.cpp:313
 msgid "Walk Through Windows"
 msgstr "창간 이동"
 
-#: tabbox/tabbox.cpp:312
+#: tabbox/tabbox.cpp:314
 msgid "Walk Through Windows (Reverse)"
 msgstr "창간 거꾸로 이동"
 
-#: tabbox/tabbox.cpp:313
+#: tabbox/tabbox.cpp:315
 msgid "Walk Through Windows Alternative"
 msgstr "현재 앱의 창간 다르게 이동"
 
-#: tabbox/tabbox.cpp:314
+#: tabbox/tabbox.cpp:316
 msgid "Walk Through Windows Alternative (Reverse)"
 msgstr "현재 앱의 창간 거꾸로 다르게 이동"
 
-#: tabbox/tabbox.cpp:315
+#: tabbox/tabbox.cpp:317
 msgid "Walk Through Windows of Current Application"
 msgstr "현재 앱의 창간 이동"
 
-#: tabbox/tabbox.cpp:316
+#: tabbox/tabbox.cpp:318
 msgid "Walk Through Windows of Current Application (Reverse)"
 msgstr "현재 앱의 창간 거꾸로 이동"
 
-#: tabbox/tabbox.cpp:317
+#: tabbox/tabbox.cpp:319
 msgid "Walk Through Windows of Current Application Alternative"
 msgstr "현재 앱의 창간 다르게 이동"
 
-#: tabbox/tabbox.cpp:318
+#: tabbox/tabbox.cpp:320
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr "현재 앱의 창간 거꾸로 다르게 이동"
 
@@ -4216,42 +4216,42 @@ msgstr "창 활성화(%1)"
 msgid "unknown"
 msgstr "알 수 없음"
 
-#: virtualdesktops.cpp:728 virtualdesktops.cpp:807
+#: virtualdesktops.cpp:773 virtualdesktops.cpp:852
 #, kde-format
 msgid "Desktop %1"
 msgstr "바탕 화면 %1"
 
-#: virtualdesktops.cpp:814
+#: virtualdesktops.cpp:859
 #, kde-format
 msgid "Switch to Next Desktop"
 msgstr "다음 바탕 화면으로 전환"
 
-#: virtualdesktops.cpp:815
+#: virtualdesktops.cpp:860
 #, kde-format
 msgid "Switch to Previous Desktop"
 msgstr "이전 바탕 화면으로 전환"
 
-#: virtualdesktops.cpp:818
+#: virtualdesktops.cpp:863
 #, kde-format
 msgid "Switch One Desktop to the Right"
 msgstr "오른쪽 바탕 화면으로 전환"
 
-#: virtualdesktops.cpp:819
+#: virtualdesktops.cpp:864
 #, kde-format
 msgid "Switch One Desktop to the Left"
 msgstr "왼쪽 바탕 화면으로 전환"
 
-#: virtualdesktops.cpp:820
+#: virtualdesktops.cpp:865
 #, kde-format
 msgid "Switch One Desktop Up"
 msgstr "위쪽 바탕 화면으로 전환"
 
-#: virtualdesktops.cpp:821
+#: virtualdesktops.cpp:866
 #, kde-format
 msgid "Switch One Desktop Down"
 msgstr "아래쪽 바탕 화면으로 전환"
 
-#: virtualdesktops.cpp:909
+#: virtualdesktops.cpp:967
 #, kde-format
 msgid "Switch to Desktop %1"
 msgstr "바탕 화면 %1(으)로 전환"
@@ -4310,13 +4310,13 @@ msgstr "드라이버에서 출력 설정을 거부함"
 msgid "The session is not active"
 msgstr "Alt 키가 활성화되었습니다."
 
-#: window.cpp:3124
+#: window.cpp:3129
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "(응답 없음)"
 
-#: workspace.cpp:1767
+#: workspace.cpp:1778
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""

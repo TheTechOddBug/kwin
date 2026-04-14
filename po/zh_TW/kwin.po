@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-09 00:46+0000\n"
+"POT-Creation-Date: 2026-04-14 00:45+0000\n"
 "PO-Revision-Date: 2026-04-08 23:26+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -2390,7 +2390,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "循環切換總覽及格線檢視"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:133
+#: plugins/overview/overvieweffect.cpp:141
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2426,19 +2426,19 @@ msgstr "在格線檢視中管理視窗："
 msgid "Search results include filtered windows:"
 msgstr "搜尋結果包含被過濾的視窗："
 
-#: plugins/overview/overvieweffect.cpp:127
+#: plugins/overview/overvieweffect.cpp:135
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "循環切換總覽及格線檢視"
 
-#: plugins/overview/overvieweffect.cpp:138
+#: plugins/overview/overvieweffect.cpp:146
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "切換總覽"
 
-#: plugins/overview/overvieweffect.cpp:144
+#: plugins/overview/overvieweffect.cpp:152
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2460,25 +2460,25 @@ msgstr "新增虛擬桌面"
 msgid "Virtual Desktop limit reached"
 msgstr "新增虛擬桌面"
 
-#: plugins/overview/qml/Main.qml:425
+#: plugins/overview/qml/Main.qml:427
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No other Virtual Desktops to show"
 msgstr "沒有其他虛擬桌面可供顯示"
 
-#: plugins/overview/qml/Main.qml:431
+#: plugins/overview/qml/Main.qml:433
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Virtual Desktop"
 msgstr "新增虛擬桌面"
 
-#: plugins/overview/qml/Main.qml:438
+#: plugins/overview/qml/Main.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Configure Virtual Desktops…"
 msgstr "設定虛擬桌面…"
 
-#: plugins/overview/qml/Main.qml:789
+#: plugins/overview/qml/Main.qml:791
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matching windows"
@@ -3640,35 +3640,35 @@ msgctxt "@info:placeholder no entries in the task switcher"
 msgid "No open windows"
 msgstr "沒有已開啟視窗"
 
-#: tabbox/tabbox.cpp:311
+#: tabbox/tabbox.cpp:313
 msgid "Walk Through Windows"
 msgstr "瀏覽已開啟視窗"
 
-#: tabbox/tabbox.cpp:312
+#: tabbox/tabbox.cpp:314
 msgid "Walk Through Windows (Reverse)"
 msgstr "瀏覽已開啟視窗 (反向)"
 
-#: tabbox/tabbox.cpp:313
+#: tabbox/tabbox.cpp:315
 msgid "Walk Through Windows Alternative"
 msgstr "瀏覽已開啟視窗（替代按鍵）"
 
-#: tabbox/tabbox.cpp:314
+#: tabbox/tabbox.cpp:316
 msgid "Walk Through Windows Alternative (Reverse)"
 msgstr "瀏覽已開啟視窗（替代按鍵/反向）"
 
-#: tabbox/tabbox.cpp:315
+#: tabbox/tabbox.cpp:317
 msgid "Walk Through Windows of Current Application"
 msgstr "瀏覽目前應用程式的視窗"
 
-#: tabbox/tabbox.cpp:316
+#: tabbox/tabbox.cpp:318
 msgid "Walk Through Windows of Current Application (Reverse)"
 msgstr "瀏覽目前應用程式的視窗（反向）"
 
-#: tabbox/tabbox.cpp:317
+#: tabbox/tabbox.cpp:319
 msgid "Walk Through Windows of Current Application Alternative"
 msgstr "瀏覽目前應用程式視窗（替代按鍵）"
 
-#: tabbox/tabbox.cpp:318
+#: tabbox/tabbox.cpp:320
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr "瀏覽目前應用程式視窗（替代按鍵/反向）"
 
@@ -4188,42 +4188,42 @@ msgstr "作用中視窗（%1）"
 msgid "unknown"
 msgstr "未知"
 
-#: virtualdesktops.cpp:728 virtualdesktops.cpp:807
+#: virtualdesktops.cpp:773 virtualdesktops.cpp:852
 #, kde-format
 msgid "Desktop %1"
 msgstr "桌面 %1"
 
-#: virtualdesktops.cpp:814
+#: virtualdesktops.cpp:859
 #, kde-format
 msgid "Switch to Next Desktop"
 msgstr "切換到下一個桌面"
 
-#: virtualdesktops.cpp:815
+#: virtualdesktops.cpp:860
 #, kde-format
 msgid "Switch to Previous Desktop"
 msgstr "切換到上一個桌面"
 
-#: virtualdesktops.cpp:818
+#: virtualdesktops.cpp:863
 #, kde-format
 msgid "Switch One Desktop to the Right"
 msgstr "切換到右方的桌面"
 
-#: virtualdesktops.cpp:819
+#: virtualdesktops.cpp:864
 #, kde-format
 msgid "Switch One Desktop to the Left"
 msgstr "切換到左方的桌面"
 
-#: virtualdesktops.cpp:820
+#: virtualdesktops.cpp:865
 #, kde-format
 msgid "Switch One Desktop Up"
 msgstr "切換到上面的桌面"
 
-#: virtualdesktops.cpp:821
+#: virtualdesktops.cpp:866
 #, kde-format
 msgid "Switch One Desktop Down"
 msgstr "切換到下面的桌面"
 
-#: virtualdesktops.cpp:909
+#: virtualdesktops.cpp:967
 #, kde-format
 msgid "Switch to Desktop %1"
 msgstr "切換到桌面 %1"
@@ -4278,13 +4278,13 @@ msgstr "驅動程式回絕了提供的輸出配置"
 msgid "The session is not active"
 msgstr "工作階段並非作用中"
 
-#: window.cpp:3124
+#: window.cpp:3129
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "（沒有回應）"
 
-#: workspace.cpp:1767
+#: workspace.cpp:1778
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""

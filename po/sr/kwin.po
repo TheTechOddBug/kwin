@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-09 00:46+0000\n"
+"POT-Creation-Date: 2026-04-14 00:45+0000\n"
 "PO-Revision-Date: 2017-12-03 22:53+0100\n"
 "Last-Translator: Chusslove Illich <caslav.ilic@gmx.net>\n"
 "Language-Team: Serbian <kde-i18n-sr@kde.org>\n"
@@ -2692,7 +2692,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr ""
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:133
+#: plugins/overview/overvieweffect.cpp:141
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2731,20 +2731,20 @@ msgstr ""
 msgid "Search results include filtered windows:"
 msgstr ""
 
-#: plugins/overview/overvieweffect.cpp:127
+#: plugins/overview/overvieweffect.cpp:135
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr ""
 
-#: plugins/overview/overvieweffect.cpp:138
+#: plugins/overview/overvieweffect.cpp:146
 #, fuzzy, kde-format
 #| msgid "Toggle Invert Effect"
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Ефекат извртања"
 
-#: plugins/overview/overvieweffect.cpp:144
+#: plugins/overview/overvieweffect.cpp:152
 #, fuzzy, kde-format
 #| msgid "Toggle Invert Effect"
 msgctxt "@action Grid view is the name of a Kwin effect"
@@ -2771,14 +2771,14 @@ msgstr "&Нова површ"
 msgid "Virtual Desktop limit reached"
 msgstr "&Нова површ"
 
-#: plugins/overview/qml/Main.qml:425
+#: plugins/overview/qml/Main.qml:427
 #, fuzzy, kde-format
 #| msgid "Move To &Desktop"
 msgctxt "@info:placeholder"
 msgid "No other Virtual Desktops to show"
 msgstr "Премести на &површ"
 
-#: plugins/overview/qml/Main.qml:431
+#: plugins/overview/qml/Main.qml:433
 #, fuzzy, kde-format
 #| msgctxt "Create a new desktop and move there the window"
 #| msgid "&New Desktop"
@@ -2786,7 +2786,7 @@ msgctxt "@action:button"
 msgid "Add Virtual Desktop"
 msgstr "&Нова површ"
 
-#: plugins/overview/qml/Main.qml:438
+#: plugins/overview/qml/Main.qml:440
 #, fuzzy, kde-format
 #| msgid "Move To &Desktop"
 msgctxt "@action:button"
@@ -2794,7 +2794,7 @@ msgid "Configure Virtual Desktops…"
 msgstr "Премести на &површ"
 
 # >> @item
-#: plugins/overview/qml/Main.qml:789
+#: plugins/overview/qml/Main.qml:791
 #, fuzzy, kde-format
 #| msgid "X11 Unmanaged Windows"
 msgctxt "@info:placeholder"
@@ -4045,35 +4045,35 @@ msgctxt "@info:placeholder no entries in the task switcher"
 msgid "No open windows"
 msgstr "Помери прозор"
 
-#: tabbox/tabbox.cpp:311
+#: tabbox/tabbox.cpp:313
 msgid "Walk Through Windows"
 msgstr "Мењај прозоре"
 
-#: tabbox/tabbox.cpp:312
+#: tabbox/tabbox.cpp:314
 msgid "Walk Through Windows (Reverse)"
 msgstr "Мењај прозоре (обратно)"
 
-#: tabbox/tabbox.cpp:313
+#: tabbox/tabbox.cpp:315
 msgid "Walk Through Windows Alternative"
 msgstr "Мењај прозоре алтернативно"
 
-#: tabbox/tabbox.cpp:314
+#: tabbox/tabbox.cpp:316
 msgid "Walk Through Windows Alternative (Reverse)"
 msgstr "Мењај прозоре алтернативно (обратно)"
 
-#: tabbox/tabbox.cpp:315
+#: tabbox/tabbox.cpp:317
 msgid "Walk Through Windows of Current Application"
 msgstr "Мењај прозоре текућег програма"
 
-#: tabbox/tabbox.cpp:316
+#: tabbox/tabbox.cpp:318
 msgid "Walk Through Windows of Current Application (Reverse)"
 msgstr "Мењај прозоре текућег програма (обратно)"
 
-#: tabbox/tabbox.cpp:317
+#: tabbox/tabbox.cpp:319
 msgid "Walk Through Windows of Current Application Alternative"
 msgstr "Мењај прозоре текућег програма алтернативно"
 
-#: tabbox/tabbox.cpp:318
+#: tabbox/tabbox.cpp:320
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr "Мењај прозоре текућег програма алтернативно (обратно)"
 
@@ -4637,42 +4637,42 @@ msgstr "Активирај прозор (%1)"
 msgid "unknown"
 msgstr "непознат"
 
-#: virtualdesktops.cpp:728 virtualdesktops.cpp:807
+#: virtualdesktops.cpp:773 virtualdesktops.cpp:852
 #, kde-format
 msgid "Desktop %1"
 msgstr "Површ %1"
 
-#: virtualdesktops.cpp:814
+#: virtualdesktops.cpp:859
 #, kde-format
 msgid "Switch to Next Desktop"
 msgstr "На наредну површ"
 
-#: virtualdesktops.cpp:815
+#: virtualdesktops.cpp:860
 #, kde-format
 msgid "Switch to Previous Desktop"
 msgstr "На претходну површ"
 
-#: virtualdesktops.cpp:818
+#: virtualdesktops.cpp:863
 #, kde-format
 msgid "Switch One Desktop to the Right"
 msgstr "На прву површ десно"
 
-#: virtualdesktops.cpp:819
+#: virtualdesktops.cpp:864
 #, kde-format
 msgid "Switch One Desktop to the Left"
 msgstr "На прву површ лево"
 
-#: virtualdesktops.cpp:820
+#: virtualdesktops.cpp:865
 #, kde-format
 msgid "Switch One Desktop Up"
 msgstr "На прву површ изнад"
 
-#: virtualdesktops.cpp:821
+#: virtualdesktops.cpp:866
 #, kde-format
 msgid "Switch One Desktop Down"
 msgstr "На прву површ испод"
 
-#: virtualdesktops.cpp:909
+#: virtualdesktops.cpp:967
 #, kde-format
 msgid "Switch to Desktop %1"
 msgstr "На површ %1"
@@ -4727,13 +4727,13 @@ msgstr ""
 msgid "The session is not active"
 msgstr ""
 
-#: window.cpp:3124
+#: window.cpp:3129
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "(не одазива се)"
 
-#: workspace.cpp:1767
+#: workspace.cpp:1778
 #, fuzzy, kde-format
 #| msgctxt "Introductory text shown in the support information."
 #| msgid ""

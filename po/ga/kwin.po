@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-09 00:46+0000\n"
-"PO-Revision-Date: 2026-02-17 08:43+0000\n"
+"POT-Creation-Date: 2026-04-14 00:45+0000\n"
+"PO-Revision-Date: 2026-03-17 15:04+0000\n"
 "Last-Translator: charlotte <altronic25@protonmail.com>\n"
 "Language-Team: Irish\n"
 "Language: ga\n"
@@ -17,16 +17,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=5; plural=n==1 ? 0 : n==2 ? 1 : n<7 ? 2 : n < 11 ? "
 "3 : 4\n"
+"X-Generator: Lokalize 25.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
-msgstr "Séamus Ó Ciardhuáin,Kevin Scannell"
+msgstr "Séamus Ó Ciardhuáin,Kevin Scannell,Charlotte"
 
 #, kde-format
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
-msgstr "seoc@iolfree.ie,kscanne@gmail.com"
+msgstr "seoc@iolfree.ie,kscanne@gmail.com,altronic25@protonmail.com"
 
 #: backends/wayland/wayland_output.cpp:481
 #, kde-format
@@ -788,7 +789,7 @@ msgstr ""
 #: debug_console.cpp:599 debug_console.cpp:614
 #, kde-format
 msgid "Button"
-msgstr ""
+msgstr "Cnaipe"
 
 #: debug_console.cpp:600 debug_console.cpp:615
 #, kde-format
@@ -872,7 +873,7 @@ msgstr ""
 #, kde-format
 msgctxt "Mouse Button"
 msgid "right"
-msgstr ""
+msgstr "deis"
 
 #: debug_console.cpp:959
 #, kde-format
@@ -1223,7 +1224,7 @@ msgstr ""
 #: debug_console.ui:400 debug_console.ui:420
 #, kde-format
 msgid "Clipboard"
-msgstr ""
+msgstr "Gearrthaisce"
 
 #. i18n: ectx: property (text), widget (QLabel, label_11)
 #: debug_console.ui:466
@@ -1383,13 +1384,13 @@ msgstr "&Fan Níos Faide"
 #, kde-format
 msgctxt "@info"
 msgid "Process ID: %1"
-msgstr ""
+msgstr "Aitheantas an Phróisis: %1"
 
 #: helpers/killer/killdialog.cpp:91
 #, kde-format
 msgctxt "@info"
 msgid "Host name: %1"
-msgstr ""
+msgstr "Óstainm: %1"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, KillDialog)
 #: helpers/killer/killdialog.ui:14
@@ -1412,7 +1413,7 @@ msgstr "PID an fheidhmchláir le marú"
 #: helpers/killer/killer.cpp:134
 #, kde-format
 msgid "pid"
-msgstr ""
+msgstr "pid"
 
 #: helpers/killer/killer.cpp:136
 #, kde-format
@@ -1422,7 +1423,7 @@ msgstr "Óstainm a bhfuil an feidhmchlár ag rith air"
 #: helpers/killer/killer.cpp:136
 #, kde-format
 msgid "hostname"
-msgstr ""
+msgstr "óstainm"
 
 #: helpers/killer/killer.cpp:138
 #, kde-format
@@ -1432,7 +1433,7 @@ msgstr "Fotheideal na fuinneoige le marú"
 #: helpers/killer/killer.cpp:138
 #, kde-format
 msgid "caption"
-msgstr ""
+msgstr "teideal"
 
 #: helpers/killer/killer.cpp:140
 #, kde-format
@@ -1851,7 +1852,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inmenu never hide cursor on inactivity"
 msgid "Never"
-msgstr ""
+msgstr "Riamh"
 
 #: plugins/hidecursor/hidecursor_config.cpp:58
 #: plugins/hidecursor/hidecursor_config.cpp:62
@@ -2023,7 +2024,7 @@ msgstr ""
 #, kde-format
 msgctxt "Note this is a KRunner keyword"
 msgid "window"
-msgstr ""
+msgstr "fuinneog"
 
 #: plugins/krunner-integration/windowsrunnerinterface.cpp:85
 #, kde-format
@@ -2052,7 +2053,7 @@ msgstr ""
 #: plugins/krunner-integration/windowsrunnerinterface.cpp:298
 #, kde-format
 msgid "Close running window on %1"
-msgstr ""
+msgstr "Dún fuinneog ag rith ar %1"
 
 #: plugins/krunner-integration/windowsrunnerinterface.cpp:301
 #, kde-format
@@ -2334,7 +2335,7 @@ msgstr "Solas Oíche Ar Siúl Arís"
 #, kde-format
 msgctxt "Temporarily disable/reenable Night Light"
 msgid "Suspend/Resume Night Light"
-msgstr ""
+msgstr "Scoránaigh an Solas Oíche"
 
 #: plugins/nightlight/nightlightmanager.cpp:393
 #, kde-format
@@ -2354,7 +2355,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr ""
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:133
+#: plugins/overview/overvieweffect.cpp:141
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2390,19 +2391,19 @@ msgstr ""
 msgid "Search results include filtered windows:"
 msgstr ""
 
-#: plugins/overview/overvieweffect.cpp:127
+#: plugins/overview/overvieweffect.cpp:135
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr ""
 
-#: plugins/overview/overvieweffect.cpp:138
+#: plugins/overview/overvieweffect.cpp:146
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr ""
 
-#: plugins/overview/overvieweffect.cpp:144
+#: plugins/overview/overvieweffect.cpp:152
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2423,25 +2424,25 @@ msgstr ""
 msgid "Virtual Desktop limit reached"
 msgstr ""
 
-#: plugins/overview/qml/Main.qml:425
+#: plugins/overview/qml/Main.qml:427
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No other Virtual Desktops to show"
 msgstr ""
 
-#: plugins/overview/qml/Main.qml:431
+#: plugins/overview/qml/Main.qml:433
 #, kde-format
 msgctxt "@action:button"
 msgid "Add Virtual Desktop"
 msgstr ""
 
-#: plugins/overview/qml/Main.qml:438
+#: plugins/overview/qml/Main.qml:440
 #, kde-format
 msgctxt "@action:button"
 msgid "Configure Virtual Desktops…"
 msgstr ""
 
-#: plugins/overview/qml/Main.qml:789
+#: plugins/overview/qml/Main.qml:791
 #, kde-format
 msgctxt "@info:placeholder"
 msgid "No matching windows"
@@ -2456,7 +2457,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip as in: 'close this window'"
 msgid "Close window"
-msgstr ""
+msgstr "Dún fuinneog"
 
 #. i18n: ectx: property (text), widget (QLabel, label_InScale)
 #: plugins/scale/package/contents/ui/config.ui:46
@@ -2757,7 +2758,7 @@ msgstr "Teimhneach"
 #: plugins/translucency/package/contents/ui/config.ui:137
 #, kde-format
 msgid "Dialogs:"
-msgstr ""
+msgstr "Dialóga:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #. i18n: ectx: property (text), widget (QLabel, label_6)
@@ -2891,7 +2892,7 @@ msgstr ""
 #: plugins/windowview/qml/Main.qml:107
 #, kde-format
 msgid "No Windows"
-msgstr ""
+msgstr "Gan Fuinneoga"
 
 #: plugins/windowview/qml/Main.qml:122
 #, kde-format
@@ -3328,7 +3329,7 @@ msgstr ""
 #: rulesettings.kcfg:285
 #, kde-format
 msgid "Fullscreen"
-msgstr ""
+msgstr "Lánscáileán"
 
 #. i18n: ectx: label, entry (fullscreenrule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:289
@@ -3508,7 +3509,7 @@ msgstr ""
 #: rulesettings.kcfg:428
 #, kde-format
 msgid "Layer"
-msgstr ""
+msgstr "Sraith"
 
 #. i18n: ectx: label, entry (layerrule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:444
@@ -3556,7 +3557,7 @@ msgstr ""
 #: shortcutdialog.ui:14
 #, kde-format
 msgid "Dialog"
-msgstr ""
+msgstr "Dialóg"
 
 #. i18n: ectx: property (text), widget (QToolButton, clearButton)
 #: shortcutdialog.ui:25
@@ -3594,37 +3595,37 @@ msgstr ""
 #, kde-format
 msgctxt "@info:placeholder no entries in the task switcher"
 msgid "No open windows"
-msgstr ""
+msgstr "Gan Fuinneoga Oscailte"
 
-#: tabbox/tabbox.cpp:311
+#: tabbox/tabbox.cpp:313
 msgid "Walk Through Windows"
 msgstr "Céimnigh trí na Fuinneoga"
 
-#: tabbox/tabbox.cpp:312
+#: tabbox/tabbox.cpp:314
 msgid "Walk Through Windows (Reverse)"
 msgstr "Céimnigh trí na Fuinneoga (ag cúlú)"
 
-#: tabbox/tabbox.cpp:313
+#: tabbox/tabbox.cpp:315
 msgid "Walk Through Windows Alternative"
 msgstr ""
 
-#: tabbox/tabbox.cpp:314
+#: tabbox/tabbox.cpp:316
 msgid "Walk Through Windows Alternative (Reverse)"
 msgstr ""
 
-#: tabbox/tabbox.cpp:315
+#: tabbox/tabbox.cpp:317
 msgid "Walk Through Windows of Current Application"
 msgstr ""
 
-#: tabbox/tabbox.cpp:316
+#: tabbox/tabbox.cpp:318
 msgid "Walk Through Windows of Current Application (Reverse)"
 msgstr ""
 
-#: tabbox/tabbox.cpp:317
+#: tabbox/tabbox.cpp:319
 msgid "Walk Through Windows of Current Application Alternative"
 msgstr ""
 
-#: tabbox/tabbox.cpp:318
+#: tabbox/tabbox.cpp:320
 msgid "Walk Through Windows of Current Application Alternative (Reverse)"
 msgstr ""
 
@@ -3728,7 +3729,7 @@ msgstr ""
 #: useractions.cpp:409
 #, kde-format
 msgid "&Desktops"
-msgstr ""
+msgstr "&Deasca"
 
 #: useractions.cpp:425
 #, kde-format
@@ -3768,7 +3769,7 @@ msgctxt ""
 "@item:inmenu List of all Screens to send a window to. First argument is a "
 "number, second the output identifier. E.g. Screen 1 (HDMI1)"
 msgid "Screen &%1 (%2)"
-msgstr ""
+msgstr "Scáileán &%1 (%2)"
 
 #: useractions.cpp:576
 #, kde-format
@@ -4142,42 +4143,42 @@ msgstr "Gníomhachtaigh Fuinneog (%1)"
 msgid "unknown"
 msgstr "anaithnid"
 
-#: virtualdesktops.cpp:728 virtualdesktops.cpp:807
+#: virtualdesktops.cpp:773 virtualdesktops.cpp:852
 #, kde-format
 msgid "Desktop %1"
 msgstr "Deasc %1"
 
-#: virtualdesktops.cpp:814
+#: virtualdesktops.cpp:859
 #, kde-format
 msgid "Switch to Next Desktop"
 msgstr "Téigh go dtí an Chéad Deasc Eile"
 
-#: virtualdesktops.cpp:815
+#: virtualdesktops.cpp:860
 #, kde-format
 msgid "Switch to Previous Desktop"
 msgstr "Téigh go dtí an Deasc roimhe seo"
 
-#: virtualdesktops.cpp:818
+#: virtualdesktops.cpp:863
 #, kde-format
 msgid "Switch One Desktop to the Right"
 msgstr "Téigh go dtí an Deasc ar dheis"
 
-#: virtualdesktops.cpp:819
+#: virtualdesktops.cpp:864
 #, kde-format
 msgid "Switch One Desktop to the Left"
 msgstr "Téigh go dtí an Deasc ar chlé"
 
-#: virtualdesktops.cpp:820
+#: virtualdesktops.cpp:865
 #, kde-format
 msgid "Switch One Desktop Up"
 msgstr "Téigh Suas Deasc Amháin"
 
-#: virtualdesktops.cpp:821
+#: virtualdesktops.cpp:866
 #, kde-format
 msgid "Switch One Desktop Down"
 msgstr "Téigh Síos Deasc Amháin"
 
-#: virtualdesktops.cpp:909
+#: virtualdesktops.cpp:967
 #, kde-format
 msgid "Switch to Desktop %1"
 msgstr "Téigh go Deasc %1"
@@ -4230,15 +4231,15 @@ msgstr ""
 #: wayland/outputmanagement_v2.cpp:680
 #, kde-format
 msgid "The session is not active"
-msgstr ""
+msgstr "Níl an seisiún gníomhach"
 
-#: window.cpp:3124
+#: window.cpp:3129
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
 msgstr "(Níl ag Freagairt)"
 
-#: workspace.cpp:1767
+#: workspace.cpp:1778
 #, kde-format
 msgctxt "Introductory text shown in the support information."
 msgid ""

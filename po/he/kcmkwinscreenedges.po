@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: kcmkwinscreenedges\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-03-20 00:45+0000\n"
-"PO-Revision-Date: 2026-03-20 08:01+0200\n"
+"PO-Revision-Date: 2026-04-13 21:48+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -177,7 +177,7 @@ msgstr "ה&חלפת שולחן עבודה בקצה:"
 #, kde-format
 msgctxt "Switch desktop on edge"
 msgid "Disabled"
-msgstr "מושבת"
+msgstr "מושבתת"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, kcfg_ElectricBorders)
 #: main.ui:193
