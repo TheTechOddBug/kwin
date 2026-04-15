@@ -461,7 +461,7 @@ RegionF BlurEffect::blurRegion(EffectWindow *w) const
             if (content->isEmpty()) {
                 // An empty region means that the blur effect should be enabled
                 // for the whole window.
-                region = RectF(w->contentsRect());
+                region = w->contentsRect();
             } else {
                 region = content->translated(w->contentsRect().topLeft()) & w->contentsRect();
             }

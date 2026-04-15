@@ -83,7 +83,7 @@ EffectWindow::EffectWindow(WindowItem *windowItem)
     connect(d->m_window, &Window::interactiveMoveResizeStarted, this, [this]() {
         Q_EMIT windowStartUserMovedResized(this);
     });
-    connect(d->m_window, &Window::interactiveMoveResizeStepped, this, [this](const QRectF &geometry) {
+    connect(d->m_window, &Window::interactiveMoveResizeStepped, this, [this](const RectF &geometry) {
         Q_EMIT windowStepUserMovedResized(this, geometry);
     });
     connect(d->m_window, &Window::interactiveMoveResizeFinished, this, [this]() {
@@ -98,7 +98,7 @@ EffectWindow::EffectWindow(WindowItem *windowItem)
     connect(d->m_window, &Window::modalChanged, this, [this]() {
         Q_EMIT windowModalityChanged(this);
     });
-    connect(d->m_window, &Window::frameGeometryChanged, this, [this](const QRectF &oldGeometry) {
+    connect(d->m_window, &Window::frameGeometryChanged, this, [this](const RectF &oldGeometry) {
         Q_EMIT windowFrameGeometryChanged(this, oldGeometry);
     });
     connect(d->m_window, &Window::damaged, this, [this]() {
@@ -261,11 +261,11 @@ WINDOW_HELPER(qreal, width, width)
 WINDOW_HELPER(qreal, height, height)
 WINDOW_HELPER(QPointF, pos, pos)
 WINDOW_HELPER(QSizeF, size, size)
-WINDOW_HELPER(QRectF, frameGeometry, frameGeometry)
-WINDOW_HELPER(QRectF, bufferGeometry, bufferGeometry)
-WINDOW_HELPER(QRectF, clientGeometry, clientGeometry)
-WINDOW_HELPER(QRectF, expandedGeometry, visibleGeometry)
-WINDOW_HELPER(QRectF, rect, rect)
+WINDOW_HELPER(RectF, frameGeometry, frameGeometry)
+WINDOW_HELPER(RectF, bufferGeometry, bufferGeometry)
+WINDOW_HELPER(RectF, clientGeometry, clientGeometry)
+WINDOW_HELPER(RectF, expandedGeometry, visibleGeometry)
+WINDOW_HELPER(RectF, rect, rect)
 WINDOW_HELPER(bool, isDesktop, isDesktop)
 WINDOW_HELPER(bool, isDock, isDock)
 WINDOW_HELPER(bool, isToolbar, isToolbar)
@@ -306,7 +306,7 @@ WINDOW_HELPER(bool, isMovable, isMovable)
 WINDOW_HELPER(bool, isMovableAcrossScreens, isMovableAcrossScreens)
 WINDOW_HELPER(bool, isUserMove, isInteractiveMove)
 WINDOW_HELPER(bool, isUserResize, isInteractiveResize)
-WINDOW_HELPER(QRectF, iconGeometry, iconGeometry)
+WINDOW_HELPER(RectF, iconGeometry, iconGeometry)
 WINDOW_HELPER(bool, isSpecialWindow, isSpecialWindow)
 WINDOW_HELPER(bool, acceptsFocus, wantsInput)
 WINDOW_HELPER(QIcon, icon, icon)
@@ -333,7 +333,7 @@ QString EffectWindow::windowClass() const
     return d->m_window->resourceName() + QLatin1Char(' ') + d->m_window->resourceClass();
 }
 
-QRectF EffectWindow::contentsRect() const
+RectF EffectWindow::contentsRect() const
 {
     return d->m_window->clientGeometry().translated(-d->m_window->frameGeometry().topLeft());
 }
