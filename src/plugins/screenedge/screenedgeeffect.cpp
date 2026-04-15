@@ -72,7 +72,7 @@ void ScreenEdgeEffect::cleanup()
     m_glowItems.clear();
 }
 
-void ScreenEdgeEffect::edgeApproaching(ElectricBorder border, qreal factor, const QRect &geometry)
+void ScreenEdgeEffect::edgeApproaching(ElectricBorder border, qreal factor, const Rect &geometry)
 {
     auto it = m_glowItems.find(border);
     if (it != m_glowItems.end()) {
@@ -96,7 +96,7 @@ void ScreenEdgeEffect::edgeApproaching(ElectricBorder border, qreal factor, cons
     }
 }
 
-std::unique_ptr<ImageItem> ScreenEdgeEffect::createGlowItem(ElectricBorder border, qreal factor, const QRect &geometry)
+std::unique_ptr<ImageItem> ScreenEdgeEffect::createGlowItem(ElectricBorder border, qreal factor, const Rect &geometry)
 {
     const QImage image = glowImage(border, geometry.size());
     if (image.isNull()) {

@@ -39,7 +39,7 @@ public:
     }
 
 private Q_SLOTS:
-    void edgeApproaching(ElectricBorder border, qreal factor, const QRect &geometry);
+    void edgeApproaching(ElectricBorder border, qreal factor, const Rect &geometry);
     void cleanup();
 
 private:
@@ -47,7 +47,7 @@ private:
     QImage cornerGlowImage(ElectricBorder border);
     QImage edgeGlowImage(ElectricBorder border, const QSize &size);
     QImage glowImage(ElectricBorder border, const QSize &size);
-    std::unique_ptr<ImageItem> createGlowItem(ElectricBorder border, qreal factor, const QRect &geometry);
+    std::unique_ptr<ImageItem> createGlowItem(ElectricBorder border, qreal factor, const Rect &geometry);
 
     KConfigWatcher::Ptr m_configWatcher;
     KSvg::Svg *m_glow = nullptr;
