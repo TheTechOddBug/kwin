@@ -358,6 +358,11 @@ const vk::raii::Queue &VulkanDevice::transferQueue() const
     return m_transferQueue;
 }
 
+uint32_t VulkanDevice::transferQueueFamily() const
+{
+    return m_queueFamilyIndex;
+}
+
 vk::raii::CommandBuffer VulkanDevice::createCommandBuffer()
 {
     // clean up old command buffers first

@@ -40,7 +40,7 @@ static vk::raii::Instance createVulkanInstance(const vk::raii::Context &context)
         "kwin_wayland",
         VK_MAKE_VERSION(PROJECT_VERSION_MAJOR, PROJECT_VERSION_MINOR, PROJECT_VERSION_PATCH),
         "kwin_wayland",
-        VK_MAKE_VERSION(1, 0, 0),
+        VK_MAKE_VERSION(1, 3, 0),
         VK_MAKE_VERSION(1, 3, 0),
     };
     std::vector<const char *> validationLayers;
@@ -264,12 +264,14 @@ static std::unique_ptr<VulkanDevice> openVulkanDevice(const vk::raii::Instance &
             });
         }
 
+        vk::PhysicalDeviceSynchronization2Features syncFeatures;
+        syncFeatures.synchronization2 = true;
         VkPhysicalDeviceFeatures features{
             .robustBufferAccess = true,
         };
         VkDeviceCreateInfo deviceInfo{
             .sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO,
-            .pNext = nullptr,
+            .pNext = &syncFeatures,
             .flags = {},
             .queueCreateInfoCount = uint32_t(queueInfo.size()),
             .pQueueCreateInfos = queueInfo.data(),

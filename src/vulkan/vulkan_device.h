@@ -51,6 +51,7 @@ public:
     const vk::raii::Device &logicalDevice() const;
 
     const vk::raii::Queue &transferQueue() const;
+    uint32_t transferQueueFamily() const;
     vk::raii::CommandBuffer createCommandBuffer();
     std::optional<vk::raii::Semaphore> importSemaphore(FileDescriptor &&syncFd) const;
 

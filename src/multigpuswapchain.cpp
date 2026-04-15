@@ -186,6 +186,32 @@ std::optional<MultiGpuSwapchain::Ret> MultiGpuSwapchain::copyWithVulkan(Graphics
         m_journal.clear();
         return std::nullopt;
     }
+
+    vk::ImageMemoryBarrier2 memoryBarrier{
+        vk::PipelineStageFlagBits2::eAllCommands,
+        vk::AccessFlagBits2::eMemoryWrite | vk::AccessFlagBits2::eMemoryRead,
+        vk::PipelineStageFlagBits2::eAllCommands,
+        vk::AccessFlagBits2::eMemoryWrite | vk::AccessFlagBits2::eMemoryRead,
+        vk::ImageLayout::eGeneral,
+        vk::ImageLayout::eGeneral,
+        vk::QueueFamilyExternal,
+        srcVk->transferQueueFamily(),
+        m_currentVulkanSlot->texture()->handle(),
+        vk::ImageSubresourceRange{
+            vk::ImageAspectFlagBits::eColor,
+            0,
+            1,
+            0,
+            1,
+        },
+    };
+    commandBuffer.pipelineBarrier2(vk::DependencyInfo{
+        vk::DependencyFlags{},
+        {},
+        {},
+        memoryBarrier,
+    });
+
     const std::vector<vk::ImageBlit> regions = toRender.rects() | std::views::transform([&completeRect](const Rect &rect) {
         return vk::ImageBlit{
             // src
@@ -215,6 +241,16 @@ std::optional<MultiGpuSwapchain::Ret> MultiGpuSwapchain::copyWithVulkan(Graphics
     commandBuffer.blitImage(srcTexture->handle(), vk::ImageLayout::eGeneral,
                             m_currentVulkanSlot->texture()->handle(), vk::ImageLayout::eGeneral,
                             regions, vk::Filter::eNearest);
+
+    memoryBarrier.setSrcQueueFamilyIndex(srcVk->transferQueueFamily());
+    memoryBarrier.setDstQueueFamilyIndex(vk::QueueFamilyExternal);
+    commandBuffer.pipelineBarrier2(vk::DependencyInfo{
+        vk::DependencyFlags{},
+        {},
+        {},
+        memoryBarrier,
+    });
+
     result = commandBuffer.end();
     if (result != vk::Result::eSuccess) {
         m_journal.clear();
