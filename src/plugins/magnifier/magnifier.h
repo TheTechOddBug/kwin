@@ -54,8 +54,8 @@ private Q_SLOTS:
     void slotWindowDamaged();
 
 private:
-    QRect magnifierArea(QPointF pos = cursorPos()) const;
-    QRect visibleArea(QPointF pos = cursorPos()) const;
+    Rect magnifierArea(QPointF pos = cursorPos()) const;
+    Rect visibleArea(QPointF pos = cursorPos()) const;
     void setTargetZoom(double zoomFactor);
     void realtimeZoom(double delta);
 

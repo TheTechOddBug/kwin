@@ -102,7 +102,7 @@ void MagnifierEffect::reconfigure(ReconfigureFlags)
 {
     MagnifierConfig::self()->read();
 
-    const QRect oldVisibleArea = visibleArea();
+    const Rect oldVisibleArea = visibleArea();
 
     int width, height;
     width = MagnifierConfig::width();
@@ -175,15 +175,15 @@ void MagnifierEffect::paintScreen(const RenderTarget &renderTarget, const Render
     effects->paintScreen(renderTarget, viewport, mask, deviceRegion, screen); // paint normal screen
     if (m_zoom != 1.0 && m_fbo) {
         // get the right area from the current rendered screen
-        const QRect area = magnifierArea();
+        const Rect area = magnifierArea();
         const QPointF cursor = cursorPos();
         const auto scale = viewport.scale();
 
-        QRectF srcArea(cursor.x() - (double)area.width() / (m_zoom * 2),
-                       cursor.y() - (double)area.height() / (m_zoom * 2),
-                       (double)area.width() / m_zoom, (double)area.height() / m_zoom);
+        RectF srcArea(cursor.x() - (double)area.width() / (m_zoom * 2),
+                      cursor.y() - (double)area.height() / (m_zoom * 2),
+                      (double)area.width() / m_zoom, (double)area.height() / m_zoom);
         if (effects->isOpenGLCompositing()) {
-            m_fbo->blitFromRenderTarget(renderTarget, viewport, srcArea.toRect(), QRect(QPoint(), m_fbo->size()));
+            m_fbo->blitFromRenderTarget(renderTarget, viewport, srcArea.toRect(), Rect(QPoint(), m_fbo->size()));
             // paint magnifier
             auto s = ShaderManager::instance()->pushShader(ShaderTrait::MapTexture);
             QMatrix4x4 mvp = viewport.projectionMatrix();
@@ -195,8 +195,8 @@ void MagnifierEffect::paintScreen(const RenderTarget &renderTarget, const Render
             GLVertexBuffer *vbo = GLVertexBuffer::streamingBuffer();
             vbo->reset();
 
-            QRectF areaF = scaledRect(area, scale);
-            const QRectF frame = scaledRect(area.adjusted(-FRAME_WIDTH, -FRAME_WIDTH, FRAME_WIDTH, FRAME_WIDTH), scale);
+            RectF areaF = area.scaled(scale);
+            const RectF frame = area.adjusted(-FRAME_WIDTH, -FRAME_WIDTH, FRAME_WIDTH, FRAME_WIDTH).scaled(scale);
             QList<QVector2D> verts;
             verts.reserve(4 * 6 * 2);
             // top frame
@@ -245,13 +245,13 @@ void MagnifierEffect::postPaintScreen()
     effects->postPaintScreen();
 }
 
-QRect MagnifierEffect::magnifierArea(QPointF pos) const
+Rect MagnifierEffect::magnifierArea(QPointF pos) const
 {
-    return QRect(pos.x() - m_magnifierSize.width() / 2, pos.y() - m_magnifierSize.height() / 2,
-                 m_magnifierSize.width(), m_magnifierSize.height());
+    return Rect(pos.x() - m_magnifierSize.width() / 2, pos.y() - m_magnifierSize.height() / 2,
+                m_magnifierSize.width(), m_magnifierSize.height());
 }
 
-QRect MagnifierEffect::visibleArea(QPointF pos) const
+Rect MagnifierEffect::visibleArea(QPointF pos) const
 {
     return magnifierArea(pos).adjusted(-FRAME_WIDTH, -FRAME_WIDTH, FRAME_WIDTH, FRAME_WIDTH);
 }
