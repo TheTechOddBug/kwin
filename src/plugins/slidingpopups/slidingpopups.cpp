@@ -136,7 +136,7 @@ void SlidingPopupsEffect::paintWindow(const RenderTarget &renderTarget, const Re
     const AnimationData &animData = m_animationsData[w];
     const qreal slideLength = (animData.slideLength > 0) ? animData.slideLength : m_slideLength;
 
-    const QRectF geo = w->expandedGeometry();
+    const RectF geo = w->expandedGeometry();
     const qreal t = animationIt->second.timeLine.value();
 
     Region effectiveRegion = deviceGeometry;
@@ -243,8 +243,8 @@ void SlidingPopupsEffect::slotWindowHiddenChanged(EffectWindow *w)
 
 void SlidingPopupsEffect::setupAnimData(EffectWindow *w)
 {
-    const QRectF screenRect = effects->clientArea(FullScreenArea, w->screen());
-    const QRectF windowGeo = w->frameGeometry();
+    const RectF screenRect = effects->clientArea(FullScreenArea, w->screen());
+    const RectF windowGeo = w->frameGeometry();
     AnimationData &animData = m_animationsData[w];
 
     if (animData.offset == -1) {
@@ -394,27 +394,27 @@ void SlidingPopupsEffect::setupInputPanelSlide()
     setupAnimData(w);
 }
 
-QRectF SlidingPopupsEffect::damagedLogicalArea(EffectWindow *w, const AnimationData animData)
+RectF SlidingPopupsEffect::damagedLogicalArea(EffectWindow *w, const AnimationData animData)
 {
-    const QRectF screenRect = effects->clientArea(FullScreenArea, w->screen());
+    const RectF screenRect = effects->clientArea(FullScreenArea, w->screen());
     qreal splitPoint = 0;
-    const QRectF geo = w->expandedGeometry();
+    const RectF geo = w->expandedGeometry();
 
     switch (animData.location) {
     case Location::Left:
         splitPoint = geo.width() - (geo.x() + geo.width() - screenRect.x() - animData.offset);
-        return QRectF(geo.x() + splitPoint, geo.y(), geo.width() - splitPoint, geo.height());
+        return RectF(geo.x() + splitPoint, geo.y(), geo.width() - splitPoint, geo.height());
     case Location::Top:
         splitPoint = geo.height() - (geo.y() + geo.height() - screenRect.y() - animData.offset);
-        return QRectF(geo.x(), geo.y() + splitPoint, geo.width(), geo.height() - splitPoint);
+        return RectF(geo.x(), geo.y() + splitPoint, geo.width(), geo.height() - splitPoint);
     case Location::Right:
         splitPoint = screenRect.x() + screenRect.width() - geo.x() - animData.offset;
-        return QRectF(geo.x(), geo.y(), splitPoint, geo.height());
+        return RectF(geo.x(), geo.y(), splitPoint, geo.height());
         break;
     case Location::Bottom:
     default:
         splitPoint = screenRect.y() + screenRect.height() - geo.y() - animData.offset;
-        return QRectF(geo.x(), geo.y(), geo.width(), splitPoint);
+        return RectF(geo.x(), geo.y(), geo.width(), splitPoint);
         break;
     }
 }

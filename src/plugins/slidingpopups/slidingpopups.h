@@ -105,7 +105,7 @@ private:
     };
     QHash<const EffectWindow *, AnimationData> m_animationsData;
 
-    QRectF damagedLogicalArea(EffectWindow *w, const AnimationData animData);
+    RectF damagedLogicalArea(EffectWindow *w, const AnimationData animData);
 };
 
 inline int SlidingPopupsEffect::slideInDuration() const
