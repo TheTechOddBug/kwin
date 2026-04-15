@@ -138,8 +138,8 @@ public:
      */
     void setAlignment(Qt::Alignment alignment);
     Qt::Alignment alignment() const;
-    void setGeometry(const QRect &geometry, bool force = false);
-    QRect geometry() const;
+    void setGeometry(const Rect &geometry, bool force = false);
+    Rect geometry() const;
 
     void setText(const QString &text);
     QString text() const;
