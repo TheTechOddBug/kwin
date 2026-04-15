@@ -20,7 +20,6 @@
 #include <QEasingCurve>
 #include <QIcon>
 #include <QPair>
-#include <QRect>
 #include <QSet>
 
 #include <QHash>
@@ -152,7 +151,7 @@ class KWIN_EXPORT EffectsHandler : public QObject
     Q_PROPERTY(CompositingType compositingType READ compositingType CONSTANT)
     Q_PROPERTY(QPointF cursorPos READ cursorPos)
     Q_PROPERTY(QSize virtualScreenSize READ virtualScreenSize NOTIFY virtualScreenSizeChanged)
-    Q_PROPERTY(QRect virtualScreenGeometry READ virtualScreenGeometry NOTIFY virtualScreenGeometryChanged)
+    Q_PROPERTY(KWin::Rect virtualScreenGeometry READ virtualScreenGeometry NOTIFY virtualScreenGeometryChanged)
     Q_PROPERTY(bool hasActiveFullScreenEffect READ hasActiveFullScreenEffect NOTIFY hasActiveFullScreenEffectChanged)
     Q_PROPERTY(bool colorPickerActive READ isColorPickerActive NOTIFY colorPickerActiveChanged)
 
@@ -392,9 +391,9 @@ public:
     bool optionRollOverDesktops() const;
 
     LogicalOutput *activeScreen() const; // Xinerama
-    QRectF clientArea(clientAreaOption, const LogicalOutput *screen) const;
-    QRectF clientArea(clientAreaOption, const EffectWindow *c) const;
-    QRectF clientArea(clientAreaOption, const QPoint &p) const;
+    RectF clientArea(clientAreaOption, const LogicalOutput *screen) const;
+    RectF clientArea(clientAreaOption, const EffectWindow *c) const;
+    RectF clientArea(clientAreaOption, const QPoint &p) const;
 
     /**
      * The bounding size of all screens combined. Overlapping areas
@@ -413,7 +412,7 @@ public:
      * @see virtualScreenGeometryChanged()
      * @since 5.0
      */
-    QRect virtualScreenGeometry() const;
+    Rect virtualScreenGeometry() const;
     /**
      * Factor by which animation speed in the effect should be modified (multiplied).
      * If configurable in the effect itself, the option should have also 'default'
@@ -463,8 +462,6 @@ public:
      */
     Q_SCRIPTABLE void addRepaintFull();
     // TODO Plasma 7: rename these to "addLogicalRepaint"
-    Q_SCRIPTABLE void addRepaint(const QRectF &logicalRegion);
-    Q_SCRIPTABLE void addRepaint(const QRect &logicalRegion);
     Q_SCRIPTABLE void addRepaint(const RectF &logicalRegion);
     Q_SCRIPTABLE void addRepaint(const Rect &logicalRegion);
     Q_SCRIPTABLE void addRepaint(const Region &logicalRegion);
@@ -998,7 +995,7 @@ Q_SIGNALS:
      * @param geometry The geometry of the edge which is being approached
      * @since 4.11
      */
-    void screenEdgeApproaching(ElectricBorder border, qreal factor, const QRect &geometry);
+    void screenEdgeApproaching(ElectricBorder border, qreal factor, const KWin::Rect &geometry);
     /**
      * Emitted whenever the virtualScreenSize changes.
      * @see virtualScreenSize()

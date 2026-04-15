@@ -1054,16 +1054,6 @@ void EffectsHandler::addRepaintFull()
     m_scene->addRepaintFull();
 }
 
-void EffectsHandler::addRepaint(const QRect &logicalRegion)
-{
-    m_scene->addLogicalRepaint(Rect(logicalRegion));
-}
-
-void EffectsHandler::addRepaint(const QRectF &logicalRegion)
-{
-    m_scene->addLogicalRepaint(Rect(logicalRegion.toAlignedRect()));
-}
-
 void EffectsHandler::addRepaint(const Rect &logicalRegion)
 {
     m_scene->addLogicalRepaint(logicalRegion);
@@ -1089,24 +1079,24 @@ LogicalOutput *EffectsHandler::activeScreen() const
     return workspace()->activeOutput();
 }
 
-QRectF EffectsHandler::clientArea(clientAreaOption opt, const LogicalOutput *screen) const
+RectF EffectsHandler::clientArea(clientAreaOption opt, const LogicalOutput *screen) const
 {
     return Workspace::self()->clientArea(opt, screen);
 }
 
-QRectF EffectsHandler::clientArea(clientAreaOption opt, const EffectWindow *effectWindow) const
+RectF EffectsHandler::clientArea(clientAreaOption opt, const EffectWindow *effectWindow) const
 {
     const Window *window = effectWindow->window();
     return Workspace::self()->clientArea(opt, window);
 }
 
-QRectF EffectsHandler::clientArea(clientAreaOption opt, const QPoint &p) const
+RectF EffectsHandler::clientArea(clientAreaOption opt, const QPoint &p) const
 {
     const LogicalOutput *output = Workspace::self()->outputAt(p);
     return Workspace::self()->clientArea(opt, output);
 }
 
-QRect EffectsHandler::virtualScreenGeometry() const
+Rect EffectsHandler::virtualScreenGeometry() const
 {
     return Workspace::self()->geometry();
 }
