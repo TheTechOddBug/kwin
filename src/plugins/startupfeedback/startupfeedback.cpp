@@ -221,7 +221,7 @@ void StartupFeedbackEffect::paintScreen(const RenderTarget &renderTarget, const 
         } else {
             shader = ShaderManager::instance()->pushShader(ShaderTrait::MapTexture | ShaderTrait::TransformColorspace);
         }
-        const QRectF pixelGeometry = snapToPixelGridF(scaledRect(m_currentGeometry, viewport.scale()));
+        const Rect pixelGeometry = m_currentGeometry.scaled(viewport.scale()).rounded();
         QMatrix4x4 mvp = viewport.projectionMatrix();
         mvp.translate(pixelGeometry.x(), pixelGeometry.y());
         shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, mvp);
@@ -422,7 +422,7 @@ QSize StartupFeedbackEffect::feedbackIconSize() const
     return QSize(20, 20) * m_bounceSizesRatio;
 }
 
-QRect StartupFeedbackEffect::feedbackRect() const
+Rect StartupFeedbackEffect::feedbackRect() const
 {
     int xDiff;
     if (m_cursorSize <= 16) {
@@ -451,9 +451,9 @@ QRect StartupFeedbackEffect::feedbackRect() const
         break;
     }
     const QPoint cursorPos = effects->cursorPos().toPoint() + QPoint(xDiff, yDiff + yOffset);
-    QRect rect;
+    Rect rect;
     if (texture) {
-        rect = QRect(cursorPos, feedbackIconSize());
+        rect = Rect(cursorPos, feedbackIconSize());
     }
     return rect;
 }

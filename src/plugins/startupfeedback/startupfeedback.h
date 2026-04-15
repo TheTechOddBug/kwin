@@ -78,7 +78,7 @@ private:
     void stop();
     QImage scalePixmap(const QPixmap &pm, const QSize &size) const;
     void prepareTextures(const QPixmap &pix);
-    QRect feedbackRect() const;
+    Rect feedbackRect() const;
     QSize feedbackIconSize() const;
 
     qreal m_bounceSizesRatio;
@@ -94,7 +94,7 @@ private:
     std::unique_ptr<GLTexture> m_bouncingTextures[5];
     std::unique_ptr<GLTexture> m_texture; // for passive and blinking
     FeedbackType m_type;
-    QRect m_currentGeometry, m_dirtyRect;
+    Rect m_currentGeometry, m_dirtyRect;
     std::unique_ptr<GLShader> m_blinkingShader;
     int m_cursorSize;
     KConfigWatcher::Ptr m_configWatcher;
