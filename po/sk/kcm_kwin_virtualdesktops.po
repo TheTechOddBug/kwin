@@ -116,7 +116,7 @@ msgstr "Navigovať v plochách dookola"
 #: ui/main.qml:225
 #, kde-format
 msgid "Switch desktops independently for each screen"
-msgstr ""
+msgstr "Prepínať plochy nezávisle pre každú obrazovku"
 
 #: ui/main.qml:243
 #, kde-format

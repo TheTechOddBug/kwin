@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:45+0000\n"
-"PO-Revision-Date: 2026-02-26 05:46+0100\n"
+"PO-Revision-Date: 2026-04-14 04:49+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
 "Language: ka\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #: layoutpreview.cpp:28
 #, kde-format
@@ -313,27 +313,25 @@ msgstr "დაყოვნება, სანამ ფანჯრების
 #: main.ui:742
 #, kde-format
 msgid "Show on screen:"
-msgstr ""
+msgstr "ჩვენება ეკრანზე:"
 
 #. i18n: ectx: property (toolTip), widget (QComboBox, showScreenCombo)
 #: main.ui:758
 #, kde-format
 msgid "Select which screen the task switcher should be displayed on."
-msgstr ""
+msgstr "აირჩიეთ, რომელ ეკრანზე გამოჩნდება ამოცანების გადამრთველი."
 
 #. i18n: ectx: property (text), item, widget (QComboBox, showScreenCombo)
 #: main.ui:762
-#, fuzzy, kde-format
-#| msgid "All other screens"
+#, kde-format
 msgid "Active screen"
-msgstr "ყველა სხვა ეკრანი"
+msgstr "აქტიური ეკრანი"
 
 #. i18n: ectx: property (text), item, widget (QComboBox, showScreenCombo)
 #: main.ui:767
-#, fuzzy, kde-format
-#| msgid "Current screen"
+#, kde-format
 msgid "Primary screen"
-msgstr "მიმდინარე ეკრანი"
+msgstr "ძირითადი ეკრანი"
 
 #: shortcutsettings.cpp:131
 #, kde-format
