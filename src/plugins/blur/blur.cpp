@@ -10,7 +10,6 @@
 // KConfigSkeleton
 #include "blurconfig.h"
 
-#include "core/pixelgrid.h"
 #include "core/rendertarget.h"
 #include "core/renderviewport.h"
 #include "effect/effecthandler.h"
@@ -573,8 +572,8 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
     blurShape.translate(w->pos());
 
     const Rect backgroundRect = blurShape.boundingRect().rounded();
-    const QRect scaledBackgroundRect = snapToPixelGrid(backgroundRect.scaled(viewport.scale()));
-    const QRect deviceBackgroundRect = snapToPixelGrid(viewport.mapToDeviceCoordinates(backgroundRect));
+    const Rect scaledBackgroundRect = backgroundRect.scaled(viewport.scale()).rounded();
+    const Rect deviceBackgroundRect = viewport.mapToDeviceCoordinates(backgroundRect).rounded();
     const auto opacity = w->opacity() * data.opacity();
 
     // Get the effective shape that will be actually blurred. It's possible that all of it will be clipped.
@@ -585,7 +584,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
             const RectF deviceClipRect = clipRect.translated(-deviceBackgroundRect.topLeft());
             for (const RectF &shapeRect : blurShape.rects()) {
                 const RectF deviceShapeRect = shapeRect.translated(-backgroundRect.topLeft()).scaled(viewport.scale()).rounded();
-                if (const QRectF intersected = deviceClipRect.intersected(deviceShapeRect); !intersected.isEmpty()) {
+                if (const RectF intersected = deviceClipRect.intersected(deviceShapeRect); !intersected.isEmpty()) {
                     effectiveShape.append(intersected);
                 }
             }
@@ -653,7 +652,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
 
         // The geometry that will be blurred offscreen, in logical pixels.
         {
-            const QRectF localRect = QRectF(0, 0, backgroundRect.width(), backgroundRect.height());
+            const RectF localRect = RectF(0, 0, backgroundRect.width(), backgroundRect.height());
 
             const float x0 = localRect.left();
             const float y0 = localRect.top();
@@ -695,7 +694,7 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         }
 
         // The geometry that will be painted on screen, in device pixels.
-        for (const QRectF &rect : effectiveShape) {
+        for (const RectF &rect : effectiveShape) {
             const float x0 = rect.left();
             const float y0 = rect.top();
             const float x1 = rect.right();
@@ -810,21 +809,23 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
         const QVector2D halfpixel(0.5 / read->colorAttachment()->width(),
                                   0.5 / read->colorAttachment()->height());
 
-        const QRectF transformedRect = QRectF{
+        const RectF transformedRect = RectF{
             w->frameGeometry().x() + data.xTranslation(),
             w->frameGeometry().y() + data.yTranslation(),
             w->frameGeometry().width() * data.xScale(),
             w->frameGeometry().height() * data.yScale(),
         };
-        const QRectF nativeBox = snapToPixelGridF(scaledRect(transformedRect, viewport.scale()))
-                                     .translated(-scaledBackgroundRect.topLeft());
+        const RectF nativeBox = transformedRect
+                                    .scaled(viewport.scale())
+                                    .rounded()
+                                    .translated(-scaledBackgroundRect.topLeft());
         const BorderRadius nativeCornerRadius = cornerRadius.scaled(viewport.scale()).rounded();
 
         m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.mvpMatrixLocation, projectionMatrix);
         m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.colorMatrixLocation, m_colorMatrix);
         m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.halfpixelLocation, halfpixel);
         m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.offsetLocation, float(m_offset));
-        m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.boxLocation, QVector4D(nativeBox.x() + nativeBox.width() * 0.5, nativeBox.y() + nativeBox.height() * 0.5, nativeBox.width() * 0.5, nativeBox.height() * 0.5));
+        m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.boxLocation, QVector4D(nativeBox.horizontalCenter(), nativeBox.verticalCenter(), nativeBox.width() * 0.5, nativeBox.height() * 0.5));
         m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.cornerRadiusLocation, nativeCornerRadius.toVector());
         m_roundedOnscreenPass.shader->setUniform(m_roundedOnscreenPass.opacityLocation, modulation);
 
