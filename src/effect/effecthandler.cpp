@@ -1525,7 +1525,7 @@ void EffectsHandler::renderOffscreenQuickView(const RenderTarget &renderTarget, 
         }
 
         GLShader *shader = ShaderManager::instance()->pushShader(traits);
-        const QRectF rect = scaledRect(w->geometry(), viewport.scale());
+        const RectF rect = w->geometry().scaled(viewport.scale());
 
         QMatrix4x4 mvp(viewport.projectionMatrix());
         mvp.translate(rect.x(), rect.y());

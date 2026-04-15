@@ -439,7 +439,7 @@ void OffscreenQuickView::forwardTouchCancel()
     QCoreApplication::sendEvent(d->m_view.get(), &event);
 }
 
-QRect OffscreenQuickView::geometry() const
+Rect OffscreenQuickView::geometry() const
 {
     return d->m_view->geometry();
 }
@@ -535,9 +535,9 @@ QSize OffscreenQuickView::size() const
     return d->m_view->geometry().size();
 }
 
-void OffscreenQuickView::setGeometry(const QRect &rect)
+void OffscreenQuickView::setGeometry(const Rect &rect)
 {
-    const QRect oldGeometry = d->m_view->geometry();
+    const Rect oldGeometry = d->m_view->geometry();
     d->m_view->setGeometry(rect);
     // QWindow::setGeometry() won't sync output if there's no platform window.
     d->m_view->setScreen(QGuiApplication::screenAt(rect.center()));

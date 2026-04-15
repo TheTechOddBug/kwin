@@ -212,11 +212,11 @@ bool QuickSceneEffect::supported()
 
 void QuickSceneEffect::checkItemDraggedOutOfScreen(QQuickItem *item)
 {
-    const QRectF globalGeom = QRectF(item->mapToGlobal(QPointF(0, 0)), QSizeF(item->width(), item->height()));
+    const RectF globalGeom = RectF(item->mapToGlobal(QPointF(0, 0)), QSizeF(item->width(), item->height()));
     QList<LogicalOutput *> screens;
 
     for (const auto &[screen, view] : d->views) {
-        if (!d->isItemOnScreen(item, screen) && screen->geometry().intersects(globalGeom.toRect())) {
+        if (!d->isItemOnScreen(item, screen) && screen->geometry().intersects(globalGeom.rounded())) {
             screens << screen;
         }
     }

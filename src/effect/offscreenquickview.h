@@ -9,10 +9,9 @@
 
 #pragma once
 
-#include "kwin_export.h"
+#include "core/rect.h"
 
 #include <QObject>
-#include <QRect>
 #include <QUrl>
 
 #include <memory>
@@ -75,8 +74,8 @@ public:
      * The geometry of the current view
      * This may be out of sync with the current buffer size if an update is pending
      */
-    void setGeometry(const QRect &rect);
-    QRect geometry() const;
+    void setGeometry(const Rect &rect);
+    Rect geometry() const;
 
     void setOpacity(qreal opacity);
     qreal opacity() const;
@@ -152,7 +151,7 @@ Q_SIGNALS:
      * The frame buffer has changed, contents need re-rendering on screen
      */
     void repaintNeeded();
-    void geometryChanged(const QRect &oldGeometry, const QRect &newGeometry);
+    void geometryChanged(const KWin::Rect &oldGeometry, const KWin::Rect &newGeometry);
     void renderRequested();
     void sceneChanged();
 
