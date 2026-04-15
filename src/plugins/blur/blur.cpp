@@ -562,21 +562,15 @@ void BlurEffect::blur(const RenderTarget &renderTarget, const RenderViewport &vi
     }
 
     // Compute the effective blur shape. Note that if the window is transformed, so will be the blur shape.
-    RegionF blurShape = blurRegion(w).translated(w->pos());
+    RegionF blurShape = blurRegion(w);
     if (data.xScale() != 1 || data.yScale() != 1) {
-        QPointF pt = blurShape.boundingRect().topLeft();
-        RegionF scaledShape;
-        for (const RectF &r : blurShape.rects()) {
-            const QPointF topLeft(pt.x() + (r.x() - pt.x()) * data.xScale() + data.xTranslation(),
-                                  pt.y() + (r.y() - pt.y()) * data.yScale() + data.yTranslation());
-            const QPoint bottomRight(std::floor(topLeft.x() + r.width() * data.xScale()) - 1,
-                                     std::floor(topLeft.y() + r.height() * data.yScale()) - 1);
-            scaledShape += QRect(QPoint(std::floor(topLeft.x()), std::floor(topLeft.y())), bottomRight);
-        }
-        blurShape = scaledShape;
-    } else if (data.xTranslation() || data.yTranslation()) {
-        blurShape.translate(std::round(data.xTranslation()), std::round(data.yTranslation()));
+        blurShape.scale(data.xScale(), data.yScale());
     }
+    if (data.xTranslation() || data.yTranslation()) {
+        blurShape.translate(data.xTranslation(), data.yTranslation());
+    }
+
+    blurShape.translate(w->pos());
 
     const Rect backgroundRect = blurShape.boundingRect().rounded();
     const QRect scaledBackgroundRect = snapToPixelGrid(backgroundRect.scaled(viewport.scale()));
