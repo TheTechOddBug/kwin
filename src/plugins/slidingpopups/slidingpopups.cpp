@@ -397,25 +397,22 @@ void SlidingPopupsEffect::setupInputPanelSlide()
 RectF SlidingPopupsEffect::damagedLogicalArea(EffectWindow *w, const AnimationData animData)
 {
     const RectF screenRect = effects->clientArea(FullScreenArea, w->screen());
-    qreal splitPoint = 0;
     const RectF geo = w->expandedGeometry();
 
     switch (animData.location) {
     case Location::Left:
-        splitPoint = geo.width() - (geo.x() + geo.width() - screenRect.x() - animData.offset);
-        return RectF(geo.x() + splitPoint, geo.y(), geo.width() - splitPoint, geo.height());
+        return RectF(QPointF(screenRect.left() + animData.offset, geo.top()),
+                     QPointF(geo.right(), geo.bottom()));
     case Location::Top:
-        splitPoint = geo.height() - (geo.y() + geo.height() - screenRect.y() - animData.offset);
-        return RectF(geo.x(), geo.y() + splitPoint, geo.width(), geo.height() - splitPoint);
+        return RectF(QPointF(geo.left(), screenRect.top() + animData.offset),
+                     QPointF(geo.right(), geo.bottom()));
     case Location::Right:
-        splitPoint = screenRect.x() + screenRect.width() - geo.x() - animData.offset;
-        return RectF(geo.x(), geo.y(), splitPoint, geo.height());
-        break;
+        return RectF(QPointF(geo.left(), geo.top()),
+                     QPointF(screenRect.right() - animData.offset, geo.bottom()));
     case Location::Bottom:
     default:
-        splitPoint = screenRect.y() + screenRect.height() - geo.y() - animData.offset;
-        return RectF(geo.x(), geo.y(), geo.width(), splitPoint);
-        break;
+        return RectF(QPointF(geo.left(), geo.top()),
+                     QPointF(geo.right(), screenRect.bottom() - animData.offset));
     }
 }
 
