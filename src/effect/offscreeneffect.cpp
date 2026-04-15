@@ -109,7 +109,7 @@ void OffscreenEffect::apply(EffectWindow *window, int mask, WindowPaintData &dat
 void OffscreenData::maybeRender(EffectWindow *window)
 {
     const qreal scale = window->screen()->scale();
-    const QRectF logicalGeometry = snapToPixels(window->expandedGeometry(), scale);
+    const RectF logicalGeometry = snapToPixels(window->expandedGeometry(), scale);
     const QSize textureSize = (logicalGeometry.size() * scale).toSize();
 
     if (textureSize.isEmpty()) {
@@ -242,10 +242,10 @@ void OffscreenEffect::drawWindow(const RenderTarget &renderTarget, const RenderV
     }
     OffscreenData *offscreenData = it->second.get();
 
-    const QRectF expandedGeometry = snapToPixels(window->expandedGeometry(), viewport.scale());
-    const QRectF frameGeometry = snapToPixels(window->frameGeometry(), viewport.scale());
+    const RectF expandedGeometry = snapToPixels(window->expandedGeometry(), viewport.scale());
+    const RectF frameGeometry = snapToPixels(window->frameGeometry(), viewport.scale());
 
-    QRectF visibleRect = expandedGeometry;
+    RectF visibleRect = expandedGeometry;
     visibleRect.moveTopLeft(expandedGeometry.topLeft() - frameGeometry.topLeft());
     WindowQuad quad;
     quad[0] = WindowVertex(visibleRect.topLeft(), QPointF(0, 0));
@@ -302,7 +302,7 @@ bool OffscreenEffect::blocksDirectScanout() const
 class CrossFadeWindowData : public OffscreenData
 {
 public:
-    QRectF frameGeometryAtCapture;
+    RectF frameGeometryAtCapture;
 };
 
 class CrossFadeEffectPrivate
@@ -338,8 +338,8 @@ void CrossFadeEffect::drawWindow(const RenderTarget &renderTarget, const RenderV
     WindowPaintData previousWindowData = data;
     previousWindowData.setOpacity((1.0 - data.crossFadeProgress()) * data.opacity());
 
-    const QRectF expandedGeometry = snapToPixels(window->expandedGeometry(), viewport.scale());
-    const QRectF frameGeometry = snapToPixels(window->frameGeometry(), viewport.scale());
+    const RectF expandedGeometry = snapToPixels(window->expandedGeometry(), viewport.scale());
+    const RectF frameGeometry = snapToPixels(window->frameGeometry(), viewport.scale());
 
     // This is for the case of *non* live effect, when the window buffer we saved has a different size
     // compared to the size the window has now. The "old" window will be rendered scaled to the current
@@ -357,7 +357,7 @@ void CrossFadeEffect::drawWindow(const RenderTarget &renderTarget, const RenderV
         (frameGeometry.right() - expandedGeometry.right()) / widthRatio,
         (frameGeometry.bottom() - expandedGeometry.bottom()) / heightRatio);
 
-    QRectF visibleRect = QRectF(QPointF(0, 0), frameGeometry.size()) - margins;
+    RectF visibleRect = RectF(QPointF(0, 0), frameGeometry.size()) - margins;
 
     WindowQuad quad;
     quad[0] = WindowVertex(visibleRect.topLeft(), QPointF(0, 0));
