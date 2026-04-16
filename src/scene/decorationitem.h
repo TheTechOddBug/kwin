@@ -48,6 +48,7 @@ public:
     ~DecorationRenderer();
 
     Atlas *atlas() const;
+    bool needsRepaint() const;
     void render(ItemRenderer *renderer, const RegionF &region);
     void invalidate();
 

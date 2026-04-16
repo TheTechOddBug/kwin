@@ -89,6 +89,11 @@ Atlas *DecorationRenderer::atlas() const
     return m_atlas.get();
 }
 
+bool DecorationRenderer::needsRepaint() const
+{
+    return m_imageSizesDirty || !m_damage.isEmpty();
+}
+
 void DecorationRenderer::render(ItemRenderer *itemRenderer, const RegionF &region)
 {
     const RectF geometry = region.boundingRect();
@@ -174,6 +179,7 @@ void DecorationRenderer::render(ItemRenderer *itemRenderer, const RegionF &regio
 void DecorationRenderer::releaseResources()
 {
     m_atlas.reset();
+    m_imageSizesDirty = true;
 }
 
 DecorationItem::DecorationItem(KDecoration3::Decoration *decoration, Window *window, Item *parent)
@@ -221,9 +227,8 @@ RegionF DecorationItem::opaque() const
 
 void DecorationItem::preprocess()
 {
-    const RegionF damage = m_renderer->damage();
-    if (!damage.isEmpty()) {
-        m_renderer->render(scene()->renderer(), damage);
+    if (m_renderer->needsRepaint()) {
+        m_renderer->render(scene()->renderer(), m_renderer->damage());
         m_renderer->resetDamage();
     }
 }
