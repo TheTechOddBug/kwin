@@ -80,6 +80,7 @@ public:
     std::map<LogicalOutput *, std::unique_ptr<QuickSceneView>> views;
     QPointer<QuickSceneView> mouseImplicitGrab;
     bool running = false;
+    bool viewCachingEnabled = false;
 };
 
 bool QuickSceneEffectPrivate::isItemOnScreen(QQuickItem *item, LogicalOutput *screen) const
@@ -260,6 +261,15 @@ void QuickSceneEffect::setRunning(bool running)
     }
 }
 
+void QuickSceneEffect::clearCachedViews()
+{
+    if (!d->running) {
+        d->incubators.clear();
+        d->views.clear();
+        d->contexts.clear();
+    }
+}
+
 QUrl QuickSceneEffect::source() const
 {
     return d->source;
@@ -275,6 +285,7 @@ void QuickSceneEffect::setSource(const QUrl &url)
         d->source = url;
         d->delegate.clear();
         d->loadInfo = {};
+        clearCachedViews();
     }
 }
 
@@ -294,6 +305,7 @@ void QuickSceneEffect::loadFromModule(const QString &uri, const QString &typeNam
         d->source = QUrl();
         d->loadInfo.uri = uri;
         d->loadInfo.typeName = typeName;
+        clearCachedViews();
     }
 }
 
@@ -303,6 +315,7 @@ void QuickSceneEffect::setDelegate(QQmlComponent *delegate)
         d->source = QUrl();
         d->loadInfo = {};
         d->delegate = delegate;
+        clearCachedViews();
         if (isRunning()) {
             auto reloadViews = [this]() {
                 if (!isRunning()) {
@@ -409,6 +422,16 @@ void QuickSceneEffect::activateView(QuickSceneView *view)
     Q_EMIT activeViewChanged(view);
 }
 
+bool QuickSceneEffect::isViewCachingEnabled() const
+{
+    return d->viewCachingEnabled;
+}
+
+void QuickSceneEffect::setViewCachingEnabled(bool enabled)
+{
+    d->viewCachingEnabled = enabled;
+}
+
 void QuickSceneEffect::prePaintScreen(ScreenPrePaintData &data)
 {
     data.mask |= PAINT_SCREEN_TRANSFORMED;
@@ -429,7 +452,7 @@ void QuickSceneEffect::paintScreen(const RenderTarget &renderTarget, const Rende
 
 bool QuickSceneEffect::isActive() const
 {
-    return !d->views.empty() && !effects->isScreenLocked();
+    return d->running && !d->views.empty() && !effects->isScreenLocked();
 }
 
 QVariantMap QuickSceneEffect::initialProperties(LogicalOutput *screen)
@@ -543,9 +566,36 @@ void QuickSceneEffect::startInternal()
     // Install an event filter to monitor cursor shape changes.
     qApp->installEventFilter(this);
 
-    const QList<LogicalOutput *> screens = effects->screens();
-    for (LogicalOutput *screen : screens) {
-        addScreen(screen);
+    if (d->viewCachingEnabled && !d->views.empty()) {
+        const QList<LogicalOutput *> screens = effects->screens();
+        const QSet<LogicalOutput *> currentScreens(screens.begin(), screens.end());
+
+        // Remove cached views for screens that no longer exist
+        for (auto it = d->views.begin(); it != d->views.end();) {
+            if (!currentScreens.contains(it->first)) {
+                d->contexts.erase(it->first);
+                it = d->views.erase(it);
+            } else {
+                ++it;
+            }
+        }
+
+        // Reactivate existing cached views and create new ones for new screens
+        for (LogicalOutput *screen : screens) {
+            auto it = d->views.find(screen);
+            if (it != d->views.end()) {
+                it->second->setVisible(true);
+                it->second->scheduleRepaint();
+            } else {
+                addScreen(screen);
+            }
+        }
+    } else {
+        // If view caching isn't enabled, create for each screen
+        const QList<LogicalOutput *> screens = effects->screens();
+        for (LogicalOutput *screen : screens) {
+            addScreen(screen);
+        }
     }
 
     // Ensure one view has an active focus item
@@ -553,16 +603,30 @@ void QuickSceneEffect::startInternal()
 
     connect(effects, &EffectsHandler::screenAdded, this, &QuickSceneEffect::handleScreenAdded);
     connect(effects, &EffectsHandler::screenRemoved, this, &QuickSceneEffect::handleScreenRemoved);
+
+    Q_EMIT activated();
 }
 
 void QuickSceneEffect::stopInternal()
 {
+    Q_EMIT deactivated();
+
     disconnect(effects, &EffectsHandler::screenAdded, this, &QuickSceneEffect::handleScreenAdded);
     disconnect(effects, &EffectsHandler::screenRemoved, this, &QuickSceneEffect::handleScreenRemoved);
 
-    d->incubators.clear();
-    d->views.clear();
-    d->contexts.clear();
+    if (d->viewCachingEnabled) {
+        // Suspend views rather than destroying them
+        for (auto &[screen, view] : d->views) {
+            view->setVisible(false);
+        }
+        d->incubators.clear();
+    } else {
+        // Clear views if view caching isn't enabled
+        d->incubators.clear();
+        d->views.clear();
+        d->contexts.clear();
+    }
+
     d->running = false;
     qApp->removeEventFilter(this);
     effects->ungrabKeyboard();
