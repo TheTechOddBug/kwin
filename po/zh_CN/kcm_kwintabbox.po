@@ -319,17 +319,15 @@ msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, showScreenCombo)
 #: main.ui:762
-#, fuzzy, kde-format
-#| msgid "All other screens"
+#, kde-format
 msgid "Active screen"
-msgstr "所有其他屏幕"
+msgstr ""
 
 #. i18n: ectx: property (text), item, widget (QComboBox, showScreenCombo)
 #: main.ui:767
-#, fuzzy, kde-format
-#| msgid "Current screen"
+#, kde-format
 msgid "Primary screen"
-msgstr "当前屏幕"
+msgstr ""
 
 #: shortcutsettings.cpp:131
 #, kde-format
