@@ -231,8 +231,6 @@ CompositorDBusInterface::CompositorDBusInterface(Compositor *parent)
     new CompositingAdaptor(this);
     QDBusConnection dbus = QDBusConnection::sessionBus();
     dbus.registerObject(QStringLiteral("/Compositor"), this);
-    dbus.connect(QString(), QStringLiteral("/Compositor"), QStringLiteral("org.kde.kwin.Compositing"),
-                 QStringLiteral("reinit"), this, SLOT(reinitialize()));
 }
 
 QString CompositorDBusInterface::compositingType() const
