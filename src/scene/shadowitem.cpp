@@ -337,6 +337,7 @@ void ShadowItem::preprocess()
 
 void ShadowItem::releaseResources()
 {
+    DecorationShadowTextureCache::instance().unregister(this);
     m_ninePatch.reset();
     m_textureDirty = true;
 }
