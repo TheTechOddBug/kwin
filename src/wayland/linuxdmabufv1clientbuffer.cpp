@@ -446,6 +446,9 @@ QList<LinuxDmaBufV1Feedback::Tranche> LinuxDmaBufV1Feedback::createScanoutTranch
                                                                                    const FormatModifierMap &formats)
 {
     QList<LinuxDmaBufV1Feedback::Tranche> ret;
+    if (!scanoutDevice) {
+        return ret;
+    }
     RenderDevice *compatibleWithScanout = GpuManager::self()->compatibleRenderDevice(scanoutDevice);
     for (const auto &tranche : tranches) {
         // for now, limit scanout tranches to the main device
