@@ -135,7 +135,7 @@ DrmPipeline::Error DrmPipeline::commitPipelinesAtomic(const QList<DrmPipeline *>
     switch (mode) {
     case CommitMode::TestAllowModeset: {
         if (!commit->testAllowModeset()) {
-            qCWarning(KWIN_DRM) << "Atomic modeset test failed!" << strerror(errno);
+            qCDebug(KWIN_DRM) << "Atomic modeset test failed!" << strerror(errno);
             return errnoToError();
         }
         const bool withoutModeset = std::ranges::all_of(pipelines, [&frame](DrmPipeline *pipeline) {
