@@ -441,7 +441,9 @@ void LinuxDmaBufV1Feedback::sendTranches()
     }
 }
 
-QList<LinuxDmaBufV1Feedback::Tranche> LinuxDmaBufV1Feedback::createScanoutTranches(const QList<Tranche> &tranches, dev_t mainDevice, DrmDevice *scanoutDevice, const FormatModifierMap &formats)
+QList<LinuxDmaBufV1Feedback::Tranche> LinuxDmaBufV1Feedback::createScanoutTranches(const QList<Tranche> &tranches,
+                                                                                   dev_t mainDevice, DrmDevice *scanoutDevice,
+                                                                                   const FormatModifierMap &formats)
 {
     QList<LinuxDmaBufV1Feedback::Tranche> ret;
     RenderDevice *compatibleWithScanout = GpuManager::self()->compatibleRenderDevice(scanoutDevice);
