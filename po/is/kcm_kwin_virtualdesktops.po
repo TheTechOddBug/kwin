@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: kcm_kwindesktop\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-14 00:45+0000\n"
-"PO-Revision-Date: 2026-03-13 10:50+0000\n"
+"PO-Revision-Date: 2026-04-16 11:36+0000\n"
 "Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
 "Language-Team: Icelandic\n"
 "Language: is\n"
@@ -118,7 +118,7 @@ msgstr "Fletting fer hringinn"
 #: ui/main.qml:225
 #, kde-format
 msgid "Switch desktops independently for each screen"
-msgstr ""
+msgstr "Skipta á milli skjáborða sjálfstætt á hverjum skjá"
 
 #: ui/main.qml:243
 #, kde-format
