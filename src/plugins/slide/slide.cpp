@@ -409,8 +409,6 @@ void SlideEffectScreen::prepareSwitching()
             effects->setElevatedWindow(w, true);
             m_elevatedWindows << w;
         }
-        w->setData(WindowForceBackgroundContrastRole, QVariant(true));
-        w->setData(WindowForceBlurRole, QVariant(true));
     }
 }
 
@@ -420,6 +418,11 @@ void SlideEffect::finishedSwitching()
         slideScreen.finishedSwitching();
     }
     m_slideEffectScreens.clear();
+    const QList<EffectWindow *> windows = effects->stackingOrder();
+    for (EffectWindow *w : windows) {
+        w->setData(WindowForceBackgroundContrastRole, QVariant());
+        w->setData(WindowForceBlurRole, QVariant());
+    }
     effects->setActiveFullScreenEffect(nullptr);
 }
 
@@ -427,14 +430,6 @@ void SlideEffectScreen::finishedSwitching()
 {
     if (m_state == State::Inactive) {
         return;
-    }
-    const QList<EffectWindow *> windows = effects->stackingOrder();
-    for (EffectWindow *w : windows) {
-        if (w->screen() != m_screen) {
-            continue;
-        }
-        w->setData(WindowForceBackgroundContrastRole, QVariant());
-        w->setData(WindowForceBlurRole, QVariant());
     }
 
     for (EffectWindow *w : std::as_const(m_elevatedWindows)) {
@@ -451,6 +446,13 @@ void SlideEffect::desktopChanged(VirtualDesktop *old, VirtualDesktop *current, E
 {
     if (m_switchingActivity || (effects->hasActiveFullScreenEffect() && effects->activeFullScreenEffect() != this)) {
         return;
+    }
+    if (!isActive()) {
+        const QList<EffectWindow *> windows = effects->stackingOrder();
+        for (EffectWindow *w : windows) {
+            w->setData(WindowForceBackgroundContrastRole, QVariant(true));
+            w->setData(WindowForceBlurRole, QVariant(true));
+        }
     }
 
     auto slideScreenResult = m_slideEffectScreens.tryEmplace(screen, this, screen);
@@ -484,6 +486,13 @@ void SlideEffect::desktopChanging(VirtualDesktop *old, QPointF desktopOffset, Ef
 {
     if (effects->hasActiveFullScreenEffect() && effects->activeFullScreenEffect() != this) {
         return;
+    }
+    if (!isActive()) {
+        const QList<EffectWindow *> windows = effects->stackingOrder();
+        for (EffectWindow *w : windows) {
+            w->setData(WindowForceBackgroundContrastRole, QVariant(true));
+            w->setData(WindowForceBlurRole, QVariant(true));
+        }
     }
 
     auto slideScreenResult = m_slideEffectScreens.tryEmplace(output, this, output);
@@ -554,6 +563,10 @@ void SlideEffect::windowAdded(EffectWindow *w)
     if (SlideEffectScreen *slideScreen = getSlideEffectScreen(w->screen())) {
         slideScreen->windowAdded(w);
     }
+    if (isActive()) {
+        w->setData(WindowForceBackgroundContrastRole, QVariant(true));
+        w->setData(WindowForceBlurRole, QVariant(true));
+    }
 }
 
 void SlideEffectScreen::windowAdded(EffectWindow *w)
@@ -565,8 +578,6 @@ void SlideEffectScreen::windowAdded(EffectWindow *w)
         effects->setElevatedWindow(w, true);
         m_elevatedWindows << w;
     }
-    w->setData(WindowForceBackgroundContrastRole, QVariant(true));
-    w->setData(WindowForceBlurRole, QVariant(true));
 
     m_windowData[w] = WindowData{
         .visibilityRef = EffectWindowVisibleRef(w, EffectWindow::PAINT_DISABLED_BY_DESKTOP),
