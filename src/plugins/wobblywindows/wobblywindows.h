@@ -95,7 +95,7 @@ protected:
 public Q_SLOTS:
     void slotWindowAdded(KWin::EffectWindow *w);
     void slotWindowStartUserMovedResized(KWin::EffectWindow *w);
-    void slotWindowStepUserMovedResized(KWin::EffectWindow *w, const QRectF &geometry);
+    void slotWindowStepUserMovedResized(KWin::EffectWindow *w, const RectF &geometry);
     void slotWindowFinishUserMovedResized(KWin::EffectWindow *w);
     void slotWindowMaximizeStateChanged(KWin::EffectWindow *w, bool horizontal, bool vertical);
 
@@ -130,7 +130,7 @@ private:
 
         // for resizing. Only sides that have moved will wobble
         bool can_wobble_top, can_wobble_left, can_wobble_right, can_wobble_bottom;
-        QRectF resize_original_rect;
+        RectF resize_original_rect;
 
         AnimationClock clock;
     };
@@ -159,7 +159,7 @@ private:
     bool m_moveWobble;
     bool m_resizeWobble;
 
-    void initWobblyInfo(WindowWobblyInfos &wwi, QRectF geometry) const;
+    void initWobblyInfo(WindowWobblyInfos &wwi, RectF geometry) const;
 
     WobblyWindowsEffect::Pair computeBezierPoint(const WindowWobblyInfos &wwi, Pair point) const;
 
