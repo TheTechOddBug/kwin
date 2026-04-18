@@ -70,7 +70,7 @@ void OutputLocatorEffect::show()
     for (const auto screen : screens) {
         auto scene = new OffscreenQuickScene();
         scene->loadFromModule(QStringLiteral("org.kde.kwin.outputlocator"), QStringLiteral("OutputLabel"), {{QStringLiteral("outputName"), outputName(screen)}, {QStringLiteral("resolution"), screen->pixelSize()}, {QStringLiteral("scale"), screen->scale()}});
-        QRectF geometry(0, 0, scene->rootItem()->implicitWidth(), scene->rootItem()->implicitHeight());
+        RectF geometry(0, 0, scene->rootItem()->implicitWidth(), scene->rootItem()->implicitHeight());
         geometry.moveCenter(screen->geometry().center());
         scene->setGeometry(geometry.toRect());
         connect(scene, &OffscreenQuickView::repaintNeeded, this, [scene] {
