@@ -128,8 +128,8 @@ QColor ColorPickerEffect::pick()
             ColorPickerSceneView sceneView(kwinApp()->scene(), screen, &layer);
             auto cursorView = std::make_unique<ItemTreeView>(&sceneView, kwinApp()->scene()->cursorItem(), workspace()->outputs().front(), nullptr, nullptr);
             cursorView->setExclusive(true);
-            const Rect pixelDamage = QRect(QPoint(), QSize(1, 1));
-            sceneView.setViewport(QRectF(p, QSizeF(1, 1)));
+            const Rect pixelDamage = Rect(QPoint(), QSize(1, 1));
+            sceneView.setViewport(RectF(p, QSizeF(1, 1)));
             sceneView.prePaint();
             sceneView.paint(beginInfo->renderTarget, QPoint(), pixelDamage);
             sceneView.postPaint();
