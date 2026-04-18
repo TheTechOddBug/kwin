@@ -94,7 +94,7 @@ void GlideEffect::apply(EffectWindow *window, int mask, WindowPaintData &data, W
     const GlideParams params = window->isDeleted() ? m_outParams : m_inParams;
     const qreal t = animationIt->second.timeLine.value();
 
-    const QRectF rect = window->expandedGeometry().translated(-window->pos());
+    const RectF rect = window->expandedGeometry().translated(-window->pos());
     const float fovY = std::tan(qDegreesToRadians(60.0f) / 2);
     const float aspect = rect.width() / rect.height();
     const float zNear = 0.1f;
