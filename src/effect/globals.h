@@ -231,14 +231,6 @@ private:
 };
 
 /**
- * Scale a rect by a scalar.
- */
-KWIN_EXPORT inline QRectF scaledRect(const QRectF &rect, qreal scale)
-{
-    return QRectF{rect.x() * scale, rect.y() * scale, rect.width() * scale, rect.height() * scale};
-}
-
-/**
  * Round a vector to nearest integer.
  */
 KWIN_EXPORT inline QVector2D roundVector(const QVector2D &input)
