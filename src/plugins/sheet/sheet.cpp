@@ -67,7 +67,7 @@ void SheetEffect::apply(EffectWindow *window, int mask, WindowPaintData &data, W
 
     const qreal t = (*animationIt).timeLine.value();
 
-    const QRectF rect = window->expandedGeometry().translated(-window->pos());
+    const RectF rect = window->expandedGeometry().translated(-window->pos());
     const float fovY = std::tan(qDegreesToRadians(60.0f) / 2);
     const float aspect = rect.width() / rect.height();
     const float zNear = 0.1f;
