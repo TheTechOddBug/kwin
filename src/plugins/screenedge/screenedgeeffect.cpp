@@ -181,7 +181,7 @@ QImage ScreenEdgeEffect::edgeGlowImage(ElectricBorder border, const QSize &size)
     p.begin(&image);
     if (border == ElectricBottom || border == ElectricTop) {
         p.drawPixmap(pixmapPosition, l);
-        const QRect cRect(l.width(), pixmapPosition.y(), size.width() - l.width() - r.width(), c.height());
+        const Rect cRect(l.width(), pixmapPosition.y(), size.width() - l.width() - r.width(), c.height());
         if (stretchBorder) {
             p.drawPixmap(cRect, c);
         } else {
@@ -190,7 +190,7 @@ QImage ScreenEdgeEffect::edgeGlowImage(ElectricBorder border, const QSize &size)
         p.drawPixmap(QPoint(size.width() - r.width(), pixmapPosition.y()), r);
     } else {
         p.drawPixmap(pixmapPosition, l);
-        const QRect cRect(pixmapPosition.x(), l.height(), c.width(), size.height() - l.height() - r.height());
+        const Rect cRect(pixmapPosition.x(), l.height(), c.width(), size.height() - l.height() - r.height());
         if (stretchBorder) {
             p.drawPixmap(cRect, c);
         } else {
