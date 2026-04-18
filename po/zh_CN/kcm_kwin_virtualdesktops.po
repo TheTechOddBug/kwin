@@ -110,7 +110,7 @@ msgstr "循环切换"
 #: ui/main.qml:225
 #, kde-format
 msgid "Switch desktops independently for each screen"
-msgstr ""
+msgstr "每个屏幕独立切换桌面"
 
 #: ui/main.qml:243
 #, kde-format
