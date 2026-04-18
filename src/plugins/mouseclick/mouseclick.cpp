@@ -199,7 +199,7 @@ void MouseClickEffect::repaint()
         Region dirtyRegion;
         const int radius = m_ringMaxSize + m_lineWidth;
         for (auto &click : m_clicks) {
-            dirtyRegion += QRect(click->m_pos.x() - radius, click->m_pos.y() - radius, 2 * radius, 2 * radius);
+            dirtyRegion += Rect(click->m_pos.x() - radius, click->m_pos.y() - radius, 2 * radius, 2 * radius);
             if (click->m_frame) {
                 dirtyRegion += click->m_frame->geometry();
             }
@@ -210,7 +210,7 @@ void MouseClickEffect::repaint()
         Region dirtyRegion;
         const int radius = m_ringMaxSize + m_lineWidth;
         for (const auto &event : std::as_const(m_tabletTools)) {
-            dirtyRegion += QRect(event.m_globalPosition.x() - radius, event.m_globalPosition.y() - radius, 2 * radius, 2 * radius);
+            dirtyRegion += Rect(event.m_globalPosition.x() - radius, event.m_globalPosition.y() - radius, 2 * radius, 2 * radius);
         }
         effects->addRepaint(dirtyRegion);
     }
