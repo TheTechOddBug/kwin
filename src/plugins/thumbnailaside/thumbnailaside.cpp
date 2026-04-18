@@ -86,7 +86,7 @@ void ThumbnailAsideEffect::slotWindowDamaged(EffectWindow *w)
     }
 }
 
-void ThumbnailAsideEffect::slotWindowFrameGeometryChanged(EffectWindow *w, const QRectF &old)
+void ThumbnailAsideEffect::slotWindowFrameGeometryChanged(EffectWindow *w, const RectF &old)
 {
     for (const Data &d : std::as_const(windows)) {
         if (d.window == w) {
@@ -170,7 +170,7 @@ void ThumbnailAsideEffect::arrange()
     if (!effectiveScreen) {
         effectiveScreen = effects->activeScreen();
     }
-    QRectF area = effects->clientArea(MaximizeArea, effectiveScreen);
+    RectF area = effects->clientArea(MaximizeArea, effectiveScreen);
     double scale = area.height() / double(height);
     scale = std::min(scale, maxwidth / double(mwidth)); // don't be wider than maxwidth pixels
     int add = 0;
@@ -186,7 +186,7 @@ void ThumbnailAsideEffect::arrange()
          ++it) {
         Data &d = *it;
         int width = int(d.window->width() * scale);
-        d.rect = QRect(area.right() - width, area.bottom() - pos[d.index], width, int(d.window->height() * scale));
+        d.rect = Rect(area.right() - width, area.bottom() - pos[d.index], width, int(d.window->height() * scale));
     }
     repaintAll();
 }
