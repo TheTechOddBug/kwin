@@ -32,7 +32,7 @@ void KillWindow::start()
               QStringLiteral("window-close"));
     kwinApp()->startInteractiveWindowSelection([](KWin::Window *window) {
         OSD::hide();
-        if (window) {
+        if (window && window->resourceClass() != "plasmashell") {
             window->killWindow();
         }
     }, QByteArrayLiteral("pirate"));
