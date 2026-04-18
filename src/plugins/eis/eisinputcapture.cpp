@@ -74,7 +74,7 @@ static eis_device *createAbsoluteDevice(eis_seat *seat)
     const auto outputs = workspace()->outputs();
     for (const auto output : outputs) {
         auto region = eis_device_new_region(eisDevice);
-        const QRect outputGeometry = output->geometry();
+        const Rect outputGeometry = output->geometry();
         eis_region_set_offset(region, outputGeometry.x(), outputGeometry.y());
         eis_region_set_size(region, outputGeometry.width(), outputGeometry.height());
         eis_region_set_physical_scale(region, output->scale());
