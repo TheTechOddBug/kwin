@@ -50,7 +50,7 @@ private:
         TimeLine m_timeLine;
         Snapshot m_prev;
         Snapshot m_current;
-        QRect m_oldGeometry;
+        Rect m_oldGeometry;
         OutputTransform m_oldTransform;
         qreal m_angle = 0;
     };

@@ -139,7 +139,7 @@ void ScreenTransformEffect::prePaintScreen(ScreenPrePaintData &data)
     effects->prePaintScreen(data);
 }
 
-static GLVertexBuffer *texturedRectVbo(const QRectF &geometry, qreal scale)
+static GLVertexBuffer *texturedRectVbo(const RectF &geometry, qreal scale)
 {
     GLVertexBuffer *vbo = GLVertexBuffer::streamingBuffer();
     vbo->reset();
@@ -151,7 +151,7 @@ static GLVertexBuffer *texturedRectVbo(const QRectF &geometry, qreal scale)
     }
     const auto map = *opt;
 
-    auto deviceGeometry = scaledRect(geometry, scale);
+    auto deviceGeometry = geometry.scaled(scale);
 
     // first triangle
     map[0] = GLVertex2D{
@@ -190,9 +190,9 @@ static qreal lerp(qreal a, qreal b, qreal t)
     return (1 - t) * a + t * b;
 }
 
-static QRectF lerp(const QRectF &a, const QRectF &b, qreal t)
+static RectF lerp(const RectF &a, const RectF &b, qreal t)
 {
-    QRectF ret;
+    RectF ret;
     ret.setWidth(lerp(a.width(), b.width(), t));
     ret.setHeight(lerp(a.height(), b.height(), t));
     ret.moveCenter(b.center());
