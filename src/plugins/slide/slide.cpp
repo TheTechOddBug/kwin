@@ -105,16 +105,16 @@ inline Region buildClipRegion(const QPoint &pos, int w, int h)
     const QSize screenSize = effects->virtualScreenSize();
     Region r = Rect(pos, screenSize);
     if (effects->optionRollOverDesktops()) {
-        r += (r & QRect(-w, 0, w, h)).translated(w, 0); // W
-        r += (r & QRect(w, 0, w, h)).translated(-w, 0); // E
+        r += (r & Rect(-w, 0, w, h)).translated(w, 0); // W
+        r += (r & Rect(w, 0, w, h)).translated(-w, 0); // E
 
-        r += (r & QRect(0, -h, w, h)).translated(0, h); // N
-        r += (r & QRect(0, h, w, h)).translated(0, -h); // S
+        r += (r & Rect(0, -h, w, h)).translated(0, h); // N
+        r += (r & Rect(0, h, w, h)).translated(0, -h); // S
 
-        r += (r & QRect(-w, -h, w, h)).translated(w, h); // NW
-        r += (r & QRect(w, -h, w, h)).translated(-w, h); // NE
-        r += (r & QRect(w, h, w, h)).translated(-w, -h); // SE
-        r += (r & QRect(-w, h, w, h)).translated(w, -h); // SW
+        r += (r & Rect(-w, -h, w, h)).translated(w, h); // NW
+        r += (r & Rect(w, -h, w, h)).translated(-w, h); // NE
+        r += (r & Rect(w, h, w, h)).translated(-w, -h); // SE
+        r += (r & Rect(-w, h, w, h)).translated(w, -h); // SW
     }
     return r;
 }
