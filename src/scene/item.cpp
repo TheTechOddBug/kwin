@@ -359,7 +359,7 @@ Rect Item::paintedDeviceArea(RenderView *view, const RectF &rect) const
 
         snapped.translate(snapToPixelGridF(item->position() * scale));
     }
-    return view->mapToDeviceCoordinatesAligned(scaledRect(snapped, 1.0 / scale)) & view->deviceRect();
+    return view->mapToDeviceCoordinatesAligned(snapped.scaled(1.0 / scale)) & view->deviceRect();
 }
 
 Region Item::paintedDeviceArea(RenderView *view, const RegionF &region) const

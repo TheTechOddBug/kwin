@@ -127,7 +127,7 @@ static RenderGeometry clipQuads(const Item *item, const ItemRendererOpenGL::Rend
     for (const WindowQuad &quad : std::as_const(quads)) {
         if (context->deviceClip != Region::infinite() && !context->hardwareClipping) {
             // Scale to device coordinates, rounding as needed.
-            const RectF deviceBounds = snapToPixelGridF(scaledRect(quad.bounds(), scale));
+            const RectF deviceBounds = quad.bounds().scaled(scale).rounded();
 
             for (const Rect &deviceClipRect : context->deviceClip.rects()) {
                 const RectF relativeDeviceClipRect = RectF(deviceClipRect).translated(-itemToDeviceTranslation);
@@ -188,7 +188,7 @@ void ItemRendererOpenGL::createRenderNode(Item *item, RenderContext *context, co
     }
 
     if (const BorderRadius radius = item->borderRadius(); !radius.isNull()) {
-        const RectF nativeRect = snapToPixelGridF(scaledRect(item->rect(), context->renderTargetScale));
+        const RectF nativeRect = item->rect().scaled(context->renderTargetScale).rounded();
         const BorderRadius nativeRadius = radius.scaled(context->renderTargetScale).rounded();
         context->cornerStack.push({
             .box = nativeRect,
@@ -302,7 +302,7 @@ void ItemRendererOpenGL::createRenderNode(Item *item, RenderContext *context, co
         if (!geometry.isEmpty()) {
             const BorderOutline outline = borderItem->outline();
             const int thickness = std::round(outline.thickness() * context->renderTargetScale);
-            const RectF outerRect = snapToPixelGridF(scaledRect(borderItem->rect(), context->renderTargetScale));
+            const RectF outerRect = borderItem->rect().scaled(context->renderTargetScale).rounded();
             const RectF innerRect = outerRect.adjusted(thickness, thickness, -thickness, -thickness);
             context->renderNodes.append(RenderNode{
                 .traits = ShaderTrait::Border,

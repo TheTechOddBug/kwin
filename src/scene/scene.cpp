@@ -373,7 +373,7 @@ RectF ItemView::calculateViewport(const RectF &itemRect) const
     const RectF snapped = snapToPixels(itemRect, scale());
     const auto recommendedSizes = m_layer ? m_layer->recommendedSizes() : QList<QSize>{};
     if (!recommendedSizes.empty()) {
-        const auto bufferSize = scaledRect(itemRect, scale()).size();
+        const auto bufferSize = itemRect.scaled(scale()).size();
         auto bigEnough = recommendedSizes | std::views::filter([bufferSize](const auto &size) {
             return size.width() >= bufferSize.width() && size.height() >= bufferSize.height();
         });
