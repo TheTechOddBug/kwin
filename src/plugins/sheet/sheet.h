@@ -48,6 +48,7 @@ private Q_SLOTS:
 
 private:
     bool isSheetWindow(EffectWindow *w) const;
+    EffectWindow *findClosestParentWindow(EffectWindow *w) const;
 
 private:
     std::chrono::milliseconds m_duration;

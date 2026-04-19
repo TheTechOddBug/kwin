@@ -109,6 +109,7 @@ private Q_SLOTS:
     void testFullScreenAndChangeDecorationModeAfterInitialCommit();
     void testChangeDecorationModeAfterInitialCommit();
     void testModal();
+    void testNestedModals();
     void testCloseModal();
     void testCloseModalPreSetup();
     void testCloseInactiveModal();
@@ -2352,6 +2353,59 @@ void TestXdgShellWindow::testModal()
     Test::flushWaylandConnection();
     QVERIFY(modalChangedSpy.wait());
     QVERIFY(!childWindow->isModal());
+}
+
+void TestXdgShellWindow::testNestedModals()
+{
+    // This test verifies that activating the parent window activates the most-nested modal.
+    Test::XdgToplevelWindow parentWindow;
+    QVERIFY(parentWindow.show({200, 200}, Qt::cyan));
+
+    // 1st modal
+    Test::XdgToplevelWindow childWindow([&parentWindow](Test::XdgToplevel *toplevel) {
+        toplevel->set_parent(parentWindow.m_toplevel->object());
+    });
+    QVERIFY(childWindow.show({200, 200}, Qt::yellow));
+    QVERIFY(!childWindow.m_window->isModal());
+    QCOMPARE(childWindow.m_window->transientFor(), parentWindow.m_window);
+
+    auto childDialog = Test::createXdgDialogV1(childWindow.m_toplevel.get());
+    QVERIFY(Test::waylandSync());
+    QVERIFY(childDialog);
+    QVERIFY(!childWindow.m_window->isModal());
+
+    QSignalSpy childModalChangedSpy(childWindow.m_window, &Window::modalChanged);
+
+    childDialog->set_modal();
+    Test::flushWaylandConnection();
+    QVERIFY(childModalChangedSpy.wait());
+    QVERIFY(childWindow.m_window->isModal());
+
+    Workspace::self()->activateWindow(parentWindow.m_window);
+    QCOMPARE(Workspace::self()->activeWindow(), childWindow.m_window);
+
+    // 2nd modal
+    Test::XdgToplevelWindow grandChildWindow([&childWindow](Test::XdgToplevel *toplevel) {
+        toplevel->set_parent(childWindow.m_toplevel->object());
+    });
+    QVERIFY(grandChildWindow.show({200, 200}, Qt::green));
+    QVERIFY(!grandChildWindow.m_window->isModal());
+    QCOMPARE(grandChildWindow.m_window->transientFor(), childWindow.m_window);
+
+    auto grandChildDialog = Test::createXdgDialogV1(grandChildWindow.m_toplevel.get());
+    QVERIFY(Test::waylandSync());
+    QVERIFY(grandChildDialog);
+    QVERIFY(!grandChildWindow.m_window->isModal());
+
+    QSignalSpy grandChildModalChangedSpy(grandChildWindow.m_window, &Window::modalChanged);
+
+    grandChildDialog->set_modal();
+    Test::flushWaylandConnection();
+    QVERIFY(grandChildModalChangedSpy.wait());
+    QVERIFY(grandChildWindow.m_window->isModal());
+
+    Workspace::self()->activateWindow(parentWindow.m_window);
+    QCOMPARE(Workspace::self()->activeWindow(), grandChildWindow.m_window);
 }
 
 void TestXdgShellWindow::testCloseModal()

@@ -154,12 +154,8 @@ void SheetEffect::slotWindowAdded(EffectWindow *w)
     animation.timeLine.setDirection(TimeLine::Forward);
     animation.timeLine.setEasingCurve(QEasingCurve::Linear);
 
-    const auto windows = effects->stackingOrder();
-    auto parentIt = std::find_if(windows.constBegin(), windows.constEnd(), [w](EffectWindow *p) {
-        return p->findModal() == w;
-    });
-    if (parentIt != windows.constEnd()) {
-        animation.parentY = (*parentIt)->y();
+    if (EffectWindow *parent = findClosestParentWindow(w)) {
+        animation.parentY = parent->y();
     }
 
     w->setData(WindowAddedGrabRole, QVariant::fromValue(static_cast<void *>(this)));
@@ -186,12 +182,8 @@ void SheetEffect::slotWindowClosed(EffectWindow *w)
     animation.timeLine.setDirection(TimeLine::Backward);
     animation.timeLine.setEasingCurve(QEasingCurve::Linear);
 
-    const auto windows = effects->stackingOrder();
-    auto parentIt = std::find_if(windows.constBegin(), windows.constEnd(), [w](EffectWindow *p) {
-        return p->findModal() == w;
-    });
-    if (parentIt != windows.constEnd()) {
-        animation.parentY = (*parentIt)->y();
+    if (EffectWindow *parent = findClosestParentWindow(w)) {
+        animation.parentY = parent->y();
     }
 
     w->setData(WindowClosedGrabRole, QVariant::fromValue(static_cast<void *>(this)));
@@ -203,6 +195,18 @@ void SheetEffect::slotWindowClosed(EffectWindow *w)
 bool SheetEffect::isSheetWindow(EffectWindow *w) const
 {
     return w->isModal();
+}
+
+EffectWindow *SheetEffect::findClosestParentWindow(EffectWindow *w) const
+{
+    const auto windows = effects->stackingOrder();
+    auto parentIt = std::find_if(windows.crbegin(), windows.crend(), [w](EffectWindow *p) {
+        return p->findModal() == w;
+    });
+    if (parentIt != windows.crend()) {
+        return *parentIt;
+    }
+    return nullptr;
 }
 
 } // namespace KWin

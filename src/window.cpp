@@ -2252,6 +2252,9 @@ Window *Window::findModal() const
             continue;
         }
         if (transient->isModal()) {
+            if (Window *modal = transient->findModal()) {
+                return modal;
+            }
             return transient;
         }
         if (Window *modal = transient->findModal()) {
