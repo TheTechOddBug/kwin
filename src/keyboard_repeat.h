@@ -8,7 +8,7 @@
 */
 #pragma once
 
-#include "input_event_spy.h"
+#include "input.h"
 
 #include <QObject>
 
@@ -19,7 +19,7 @@ namespace KWin
 
 class Xkb;
 
-class KeyboardRepeat : public QObject, public InputEventSpy
+class KeyboardRepeat : public QObject
 {
     Q_OBJECT
 
@@ -27,7 +27,7 @@ public:
     explicit KeyboardRepeat(Xkb *xkb);
     ~KeyboardRepeat() override;
 
-    void keyboardKey(KeyboardKeyEvent *event) override;
+    void keyboardKey(uint32_t key, KeyboardKeyState state, std::chrono::microseconds time);
 
 Q_SIGNALS:
     void keyRepeat(quint32 key, std::chrono::microseconds time);
