@@ -9,13 +9,14 @@
 # SPDX-FileCopyrightText: 2024 Flori G <Renner03@protonmail.com>
 # SPDX-FileCopyrightText: 2025 Alois Spitzbart <spitz234@hotmail.com>
 # SPDX-FileCopyrightText: 2025-2026 Philipp Kiemle <l10n.daphipz@fastmail.de>
+# SPDX-FileCopyrightText: 2026 Alexander Becker <alex-at-kde-l10n-de@freenet.de>
 msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-18 00:46+0000\n"
-"PO-Revision-Date: 2026-03-13 22:13+0100\n"
-"Last-Translator: Philipp Kiemle <l10n.daphipz@fastmail.de>\n"
+"PO-Revision-Date: 2026-04-16 21:42+0200\n"
+"Last-Translator: Alexander Becker <alex-at-kde-l10n-de@freenet.de>\n"
 "Language-Team: German <kde-i18n-de@kde.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -165,10 +166,9 @@ msgid "Color profile is missing TRC tags"
 msgstr "Dem Farbprofil fehlen TRC-Tags"
 
 #: core/iccprofile.cpp:534
-#, fuzzy, kde-format
-#| msgid "Failed to open ICC profile \"%1\""
+#, kde-format
 msgid "Couldn't invert tone curves of ICC profile \"%1\""
-msgstr "ICC-Profil „%1“ kann nicht geöffnet werden"
+msgstr "Invertierung von Tonwertkurven des ICC-Profils „%1“ ist fehlgeschlagen"
 
 #: debug_console.cpp:86
 #, kde-format
@@ -741,12 +741,12 @@ msgstr "Annäherung"
 #: debug_console.cpp:543
 #, kde-format
 msgid "In"
-msgstr ""
+msgstr "Ein"
 
 #: debug_console.cpp:543
 #, kde-format
 msgid "Out"
-msgstr ""
+msgstr "Aus"
 
 #: debug_console.cpp:544 debug_console.cpp:562 debug_console.cpp:582
 #: debug_console.cpp:632 debug_console.cpp:649
@@ -780,32 +780,29 @@ msgid "Pressure"
 msgstr "Druck"
 
 #: debug_console.cpp:577
-#, fuzzy, kde-format
-#| msgid "Tablet Tool"
+#, kde-format
 msgid "Tablet Tool Tip"
-msgstr "Tablet-Werkzeug"
+msgstr "Tablet-Werkzeug Spitze"
 
 #: debug_console.cpp:581
 #, kde-format
 msgid "Tip"
-msgstr "Tipp"
+msgstr "Spitze"
 
 #: debug_console.cpp:581
-#, fuzzy, kde-format
-#| msgid "Move Down"
+#, kde-format
 msgid "Down"
-msgstr "Nach unten"
+msgstr "Gesenkt"
 
 #: debug_console.cpp:581
 #, kde-format
 msgid "Up"
-msgstr ""
+msgstr "Angehoben"
 
 #: debug_console.cpp:588
-#, fuzzy, kde-format
-#| msgid "Position"
+#, kde-format
 msgid "Slider Position"
-msgstr "Position"
+msgstr "Position des Schiebereglers"
 
 #: debug_console.cpp:597
 #, kde-format
@@ -836,7 +833,7 @@ msgstr "Tablet-Pad-Knopf"
 #: debug_console.cpp:616 debug_console.cpp:634 debug_console.cpp:651
 #, kde-format
 msgid "Group"
-msgstr ""
+msgstr "Gruppe"
 
 #: debug_console.cpp:617 debug_console.cpp:635 debug_console.cpp:652
 #, kde-format
@@ -846,7 +843,7 @@ msgstr "Modus"
 #: debug_console.cpp:618
 #, kde-format
 msgid "Is Mode Switch"
-msgstr ""
+msgstr "Ist Wahlschalter"
 
 #: debug_console.cpp:629
 #, kde-format
@@ -1420,11 +1417,9 @@ msgstr ""
 "geschlossen. Ungespeicherte Daten gehen dabei verloren.</emphasis></para>"
 
 #: helpers/killer/killdialog.cpp:66
-#, fuzzy, kde-format
-#| msgctxt "@action:button Terminate app"
-#| msgid "&Terminate %1"
+#, kde-format
 msgid "Terminating %1…"
-msgstr "%1 &beenden"
+msgstr "%1 wird beendet …"
 
 #: helpers/killer/killdialog.cpp:69
 #, kde-format
@@ -1832,12 +1827,12 @@ msgstr "Nach Fenstergruppe"
 msgid "Fullscreen windows"
 msgstr "Vollbildfenster"
 
+# Eingabeaufnahme oder Einfangen der Eingabe?
 #: plugins/eis/eisinputcapturemanager.cpp:130
-#, fuzzy, kde-format
-#| msgid "Disable KActivities integration."
+#, kde-format
 msgctxt "@action shortcut"
 msgid "Disable Active Input Capture"
-msgstr "KActivities-Integration deaktivieren."
+msgstr "Aktive Eingabeerfassung deaktivieren"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #. i18n: ectx: property (text), widget (QLabel, label)
@@ -1946,15 +1941,13 @@ msgstr[1] "%1 Sekunden"
 
 #. i18n: ectx: property (text), widget (QLabel, label_InactivityDuration)
 #: plugins/hidecursor/hidecursor_config.ui:17
-#, fuzzy, kde-format
-#| msgid "Hide cursor on inactivity:"
+#, kde-format
 msgid "Hide pointer on inactivity:"
-msgstr "Zeiger nach Inaktivität ausblenden:"
+msgstr "Zeiger bei Inaktivität ausblenden:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_HideOnTyping)
 #: plugins/hidecursor/hidecursor_config.ui:24
-#, fuzzy, kde-format
-#| msgid "Hide cursor on typing"
+#, kde-format
 msgid "Hide pointer on typing"
 msgstr "Zeiger beim Tippen ausblenden"
 
@@ -2404,10 +2397,9 @@ msgstr "Meta"
 
 #. i18n: ectx: property (text), widget (QLabel, label_ArrowdrawModifierKeys)
 #: plugins/mousemark/mousemark_config.ui:157
-#, fuzzy, kde-format
-#| msgid "Modifier keys:"
+#, kde-format
 msgid "Arrow draw modifier keys:"
-msgstr "Sondertasten:"
+msgstr "Sondertasten für Zeichnen mit Pfeiltasten:"
 
 #: plugins/nightlight/nightlightmanager.cpp:55
 #, kde-format
@@ -2510,10 +2502,9 @@ msgid "Add Virtual Desktop"
 msgstr "Virtuelle Arbeitsfläche hinzufügen"
 
 #: plugins/overview/qml/DesktopBar.qml:262
-#, fuzzy, kde-format
-#| msgid "Add Virtual Desktop"
+#, kde-format
 msgid "Virtual Desktop limit reached"
-msgstr "Virtuelle Arbeitsfläche hinzufügen"
+msgstr "Grenzwert für virtuelle Arbeitsflächen erreicht"
 
 #: plugins/overview/qml/Main.qml:427
 #, kde-format
@@ -2883,10 +2874,9 @@ msgstr "Menüs:"
 
 #. i18n: ectx: property (text), widget (QCheckBox, kcfg_ExcludeFullScreen)
 #: plugins/translucency/package/contents/ui/config.ui:201
-#, fuzzy, kde-format
-#| msgid "Fullscreen windows"
+#, kde-format
 msgid "Exclude fullscreen windows"
-msgstr "Vollbildfenster"
+msgstr "Vollbildfenster ausschließen"
 
 #. i18n: ectx: property (text), widget (QLabel, moveresize_label)
 #: plugins/translucency/package/contents/ui/config.ui:217
@@ -3657,10 +3647,9 @@ msgstr "Vor Bildschirmaufzeichnung verbergen"
 
 #. i18n: ectx: label, entry (excludefromcapturerule), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:471
-#, fuzzy, kde-format
-#| msgid "Fullscreen rule type"
+#, kde-format
 msgid "Hide from screencast rule type"
-msgstr "Regelart für Vollbild"
+msgstr "„Vor Bildschirmaufzeichnung verbergen“-Regelart"
 
 #. i18n: ectx: property (windowTitle), widget (QDialog, ShortcutDialog)
 #: shortcutdialog.ui:14
@@ -3763,10 +3752,11 @@ msgstr "Tablet zur nächsten Ausgabe verschieben"
 msgid "Tablet moved to %1"
 msgstr "Tablet nach %1 verschoben"
 
+# gewechselt oder getauscht?
 #: tablet_input.cpp:199
 #, kde-format
 msgid "Tablets switched outputs"
-msgstr ""
+msgstr "Tablets haben die Ausgaben gewechselt"
 
 #: useractions.cpp:217
 #, kde-format
@@ -4321,26 +4311,30 @@ msgstr "%1 kann sich nicht selbst spiegeln"
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
 msgstr ""
+"Ein benutzerdefinierter Modus mit leerer Größenangabe kann nicht hinzugefügt "
+"werden"
 
 #: wayland/outputmanagement_v2.cpp:642
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr ""
+"Ein benutzerdefinierter Modus mit einer Wiederholrate von 0 Hz kann nicht "
+"hinzugefügt werden"
 
 #: wayland/outputmanagement_v2.cpp:653
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
-msgstr ""
+msgstr "Position der Ausgabe %1 ist zu negativ (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:656
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
-msgstr ""
+msgstr "Position der aktivierten Ausgabe %1 ist negativ (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:660
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
-msgstr ""
+msgstr "Position der Ausgabe %1 ist zu groß (%2, %3)"
 
 #: wayland/outputmanagement_v2.cpp:677
 #, kde-format
@@ -4348,10 +4342,9 @@ msgid "The driver rejected the output configuration"
 msgstr "Der Treiber hat die Ausgabeeinrichtung zurückgewiesen"
 
 #: wayland/outputmanagement_v2.cpp:680
-#, fuzzy, kde-format
-#| msgid "The Alt key is now active."
+#, kde-format
 msgid "The session is not active"
-msgstr "Die Alt-Taste ist nun aktiv."
+msgstr "Die Sitzung ist nicht aktiv"
 
 #: window.cpp:3129
 #, kde-format
