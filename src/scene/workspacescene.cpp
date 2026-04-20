@@ -114,6 +114,9 @@ WorkspaceScene::~WorkspaceScene()
 void WorkspaceScene::attachRenderer(std::unique_ptr<ItemRenderer> &&renderer)
 {
     m_renderer = std::move(renderer);
+    if (m_renderer) {
+        m_renderer->setLayerDebugging(m_layerDebugging);
+    }
 }
 
 void WorkspaceScene::detachRenderer()
@@ -797,6 +800,14 @@ bool WorkspaceScene::animationsSupported() const
 {
     const auto context = openglContext();
     return context && !context->isSoftwareRenderer();
+}
+
+void WorkspaceScene::setLayerDebugging(bool enable)
+{
+    m_layerDebugging = enable;
+    if (m_renderer) {
+        m_renderer->setLayerDebugging(enable);
+    }
 }
 
 } // namespace

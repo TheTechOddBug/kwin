@@ -39,6 +39,7 @@ public:
         QColor borderColor;
         bool paintHole = false;
         bool hasFloatingPointColor = false;
+        std::optional<RectF> layerDebugBox;
     };
 
     struct RenderCorner
@@ -85,6 +86,8 @@ public:
     void renderBackground(const RenderTarget &renderTarget, const RenderViewport &viewport, const Region &deviceRegion) override;
     void renderItem(const RenderTarget &renderTarget, const RenderViewport &viewport, Item *item, int mask, const Region &deviceRegion, const WindowPaintData &data, const std::function<bool(Item *)> &filter, const std::function<bool(Item *)> &holeFilter) override;
 
+    void setLayerDebugging(bool enable) override;
+
 private:
     QVector4D modulate(float opacity, float brightness) const;
     void setBlendEnabled(bool enabled);
@@ -99,6 +102,7 @@ private:
     {
         bool fractionalEnabled = false;
         std::unique_ptr<GLShader> fractionalShader;
+        bool layerEnabled = false;
     } m_debug;
 };
 

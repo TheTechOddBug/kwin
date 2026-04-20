@@ -65,6 +65,8 @@ public:
      */
     bool animationsSupported() const;
 
+    void setLayerDebugging(bool enable);
+
 Q_SIGNALS:
     void preFrameRender();
     void frameRendered();
@@ -124,6 +126,7 @@ private:
     std::unique_ptr<Item> m_overlayItem;
     std::unique_ptr<DragAndDropIconItem> m_dndIcon;
     std::unique_ptr<CursorItem> m_cursorItem;
+    bool m_layerDebugging = false;
 };
 
 } // namespace

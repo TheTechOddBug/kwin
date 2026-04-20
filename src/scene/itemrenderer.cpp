@@ -30,4 +30,8 @@ void ItemRenderer::endFrame()
 {
 }
 
+void ItemRenderer::setLayerDebugging(bool enable)
+{
+}
+
 } // namespace KWin

@@ -260,6 +260,7 @@ void ItemRendererOpenGL::createRenderNode(Item *item, RenderContext *context, co
                     .bufferReleasePoint = texture->releasePoint(),
                     .paintHole = hole,
                     .hasFloatingPointColor = texture->isFloatingPoint(),
+                    .layerDebugBox = m_debug.layerEnabled ? std::optional(item->rect()) : std::nullopt,
                 });
                 renderNode.geometry.postProcessTextureCoordinates(texture->planes().at(0)->matrix(UnnormalizedCoordinates));
                 if (surfaceItem->colorDescription()->yuvCoefficients() != YUVMatrixCoefficients::Identity) {
@@ -515,6 +516,29 @@ void ItemRendererOpenGL::renderItem(const RenderTarget &renderTarget, const Rend
         if (renderNode.bufferReleasePoint) {
             m_releasePoints.insert(renderNode.bufferReleasePoint);
         }
+
+        if (renderNode.layerDebugBox.has_value()) {
+            glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+            setBlendEnabled(true);
+            if (shader) {
+                ShaderManager::instance()->popShader();
+            }
+            lastTraits = ShaderTrait::Border;
+            shader = ShaderManager::instance()->pushShader(lastTraits);
+            shader->setUniform(GLShader::Mat4Uniform::ModelViewProjectionMatrix, renderContext.projectionMatrix * renderNode.transformMatrix);
+
+            const RectF box = renderNode.layerDebugBox->scaled(viewport.scale()).adjusted(10, 10, -10, -10);
+            shader->setUniform(GLShader::Vec4Uniform::Box, QVector4D(box.horizontalCenter(), box.verticalCenter(), box.width() * 0.5, box.height() * 0.5));
+            shader->setUniform(GLShader::Vec4Uniform::CornerRadius, QVector4D(0, 0, 0, 0));
+            shader->setUniform(GLShader::IntUniform::Thickness, 10);
+            if (renderNode.paintHole) {
+                shader->setUniform(GLShader::ColorUniform::Color, QColor(0, 50, 0, 50));
+            } else {
+                shader->setUniform(GLShader::ColorUniform::Color, QColor(50, 0, 0, 50));
+            }
+            vbo->draw(scissorRegion, GL_TRIANGLES, renderNode.firstVertex,
+                      renderNode.vertexCount, renderContext.hardwareClipping);
+        }
     }
     if (shader) {
         // some other code assumes texture 0 is active
@@ -572,6 +596,11 @@ void ItemRendererOpenGL::visualizeFractional(const RenderViewport &viewport, con
         vbo->draw(logicalRegion, GL_TRIANGLES, renderNode.firstVertex,
                   renderNode.vertexCount, renderContext.hardwareClipping);
     }
+}
+
+void ItemRendererOpenGL::setLayerDebugging(bool enable)
+{
+    m_debug.layerEnabled = enable;
 }
 
 } // namespace KWin
