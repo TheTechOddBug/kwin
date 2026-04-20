@@ -965,6 +965,7 @@ void VirtualDesktopManager::initSwitchToShortcuts()
 {
     const QString toDesktop = QStringLiteral("Switch to Desktop %1");
     const KLocalizedString toDesktopLabel = ki18n("Switch to Desktop %1");
+    // TODO Plasma 7: Remove Ctrl keybindings
     addAction(toDesktop, toDesktopLabel, 1, QList<QKeySequence>{QKeySequence(Qt::META | Qt::Key_F1), QKeySequence(Qt::CTRL | Qt::Key_F1)}, &VirtualDesktopManager::slotSwitchTo);
     addAction(toDesktop, toDesktopLabel, 2, QList<QKeySequence>{QKeySequence(Qt::META | Qt::Key_F2), QKeySequence(Qt::CTRL | Qt::Key_F2)}, &VirtualDesktopManager::slotSwitchTo);
     addAction(toDesktop, toDesktopLabel, 3, QList<QKeySequence>{QKeySequence(Qt::META | Qt::Key_F3), QKeySequence(Qt::CTRL | Qt::Key_F3)}, &VirtualDesktopManager::slotSwitchTo);

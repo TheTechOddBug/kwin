@@ -46,6 +46,7 @@ WindowViewEffect::WindowViewEffect()
 
     m_exposeAction->setObjectName(QStringLiteral("Expose"));
     m_exposeAction->setText(i18n("Toggle Present Windows (Current desktop)"));
+    // TODO Plasma 7: Remove Ctrl keybindings
     KGlobalAccel::self()->setGlobalShortcut(m_exposeAction, QList<QKeySequence>{{Qt::META | Qt::Key_F9}, {Qt::CTRL | Qt::Key_F9}});
     m_shortcut = KGlobalAccel::self()->shortcut(m_exposeAction);
     connect(m_exposeAction, &QAction::triggered, this, [this]() {
@@ -54,6 +55,7 @@ WindowViewEffect::WindowViewEffect()
 
     m_exposeAllAction->setObjectName(QStringLiteral("ExposeAll"));
     m_exposeAllAction->setText(i18n("Toggle Present Windows (All desktops)"));
+    // TODO Plasma 7: Remove Ctrl keybindings
     KGlobalAccel::self()->setGlobalShortcut(m_exposeAllAction, QList<QKeySequence>{{Qt::META | Qt::Key_F10}, {Qt::Key_LaunchC}, {Qt::CTRL | Qt::Key_F10}});
     m_shortcutAll = KGlobalAccel::self()->shortcut(m_exposeAllAction);
     connect(m_exposeAllAction, &QAction::triggered, this, [this]() {
@@ -62,6 +64,7 @@ WindowViewEffect::WindowViewEffect()
 
     m_exposeClassAction->setObjectName(QStringLiteral("ExposeClass"));
     m_exposeClassAction->setText(i18n("Toggle Present Windows (Window class)"));
+    // TODO Plasma 7: Remove Ctrl keybindings
     KGlobalAccel::self()->setGlobalShortcut(m_exposeClassAction, QList<QKeySequence>{{Qt::META | Qt::Key_F7}, {Qt::CTRL | Qt::Key_F7}});
     m_shortcutClass = KGlobalAccel::self()->shortcut(m_exposeClassAction);
     connect(m_exposeClassAction, &QAction::triggered, this, [this]() {
