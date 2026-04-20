@@ -162,9 +162,7 @@ void TestInputCapture::testInputCapture()
         while (auto event = ei_get_event(ei)) {
             switch (const auto type = ei_event_get_type(event)) {
             case EI_EVENT_CONNECT:
-#if HAVE_EI_EVENT_SYNC
             case EI_EVENT_SYNC:
-#endif
                 break;
             case EI_EVENT_SEAT_ADDED:
                 ei_seat_bind_capabilities(ei_event_get_seat(event), EI_DEVICE_CAP_POINTER, EI_DEVICE_CAP_POINTER_ABSOLUTE, EI_DEVICE_CAP_KEYBOARD, EI_DEVICE_CAP_TOUCH, EI_DEVICE_CAP_SCROLL, EI_DEVICE_CAP_BUTTON, nullptr);
