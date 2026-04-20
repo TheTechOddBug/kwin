@@ -93,6 +93,7 @@ public:
     bool asyncPageflipSupported() const;
     bool colorPipelineSupported() const;
     bool isI915() const;
+    bool isIntelXE() const;
     bool isNVidia() const;
     bool isAmdgpu() const;
     bool isVmwgfx() const;
@@ -163,6 +164,7 @@ private:
     bool m_addFB2ModifiersSupported = false;
     bool m_isNVidia;
     bool m_isI915;
+    bool m_isIntelXE;
     bool m_isAmdgpu;
     bool m_isVmwgfx;
     bool m_isVirtualMachine;
