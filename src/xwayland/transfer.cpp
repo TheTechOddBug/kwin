@@ -280,17 +280,17 @@ bool TransferXtoWl::handleSelectionNotify(xcb_selection_notify_event_t *event)
     }
     if (event->property == XCB_ATOM_NONE) {
         qCWarning(KWIN_XWL) << "Incoming X selection conversion failed";
+        endTransfer();
         return true;
     }
     if (event->target == atoms->targets) {
         qCWarning(KWIN_XWL) << "Received targets too late";
-        // TODO: or allow it?
+        endTransfer();
         return true;
     }
     if (m_receiver) {
         // second selection notify element - misbehaving source
-
-        // TODO: cancel this transfer?
+        endTransfer();
         return true;
     }
 
