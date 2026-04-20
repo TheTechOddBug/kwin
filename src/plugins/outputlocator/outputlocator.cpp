@@ -25,9 +25,6 @@ static QString outputName(const LogicalOutput *screen)
     const bool shouldShowSerialNumber = std::any_of(screens.cbegin(), screens.cend(), [screen](const LogicalOutput *other) {
         return other != screen && other->manufacturer() == screen->manufacturer() && other->model() == screen->model();
     });
-    const bool shouldShowConnector = shouldShowSerialNumber && std::any_of(screens.cbegin(), screens.cend(), [screen](const LogicalOutput *other) {
-        return other != screen && other->serialNumber() == screen->serialNumber();
-    });
 
     QStringList parts;
     if (!screen->manufacturer().isEmpty()) {
@@ -42,15 +39,9 @@ static QString outputName(const LogicalOutput *screen)
         parts.append(screen->serialNumber());
     }
 
-    if (shouldShowConnector) {
-        parts.append(screen->name());
-    }
+    parts.append(screen->name());
 
-    if (parts.isEmpty()) {
-        return i18nc("@label", "Unknown");
-    } else {
-        return parts.join(QLatin1Char(' '));
-    }
+    return parts.join(QLatin1Char('\n'));
 }
 
 OutputLocatorEffect::OutputLocatorEffect(QObject *parent)

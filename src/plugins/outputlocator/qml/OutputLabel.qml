@@ -28,7 +28,7 @@ Rectangle {
         id: displayName
         x: Kirigami.Units.largeSpacing * 2
         y: Kirigami.Units.largeSpacing
-        font.pointSize: Kirigami.Theme.defaultFont.pointSize * 3
+        font.pointSize: Kirigami.Theme.defaultFont.pointSize * 2
         text: root.outputName;
         wrapMode: Text.WordWrap;
         horizontalAlignment: Text.AlignHCenter;
