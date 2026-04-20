@@ -114,7 +114,7 @@ public:
     void setNextPresentationTimestamp(std::chrono::nanoseconds timestamp, uint32_t refreshRate);
 
     SurfaceItem *scanoutCandidate() const override;
-    virtual void prePaint();
+    virtual void prePaint(OutputFrame *frame = nullptr);
     Region collectDamage() override;
     void paint(const RenderTarget &renderTarget, const QPoint &deviceOffset, const Region &deviceRegion) override;
     void postPaint();
@@ -244,7 +244,7 @@ public:
     void removeView(RenderView *view);
 
     virtual QList<Item *> layerCandidates(ssize_t maxTotalCount) const = 0;
-    virtual void prePaint(SceneView *view) = 0;
+    virtual void prePaint(SceneView *view, OutputFrame *frame = nullptr) = 0;
     virtual Region collectDamage() = 0;
     virtual void paint(const RenderTarget &renderTarget, const QPoint &deviceOffset, const Region &deviceRegion) = 0;
     virtual void postPaint() = 0;

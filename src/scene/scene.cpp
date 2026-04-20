@@ -193,9 +193,9 @@ SurfaceItem *SceneView::scanoutCandidate() const
     return nullptr;
 }
 
-void SceneView::prePaint()
+void SceneView::prePaint(OutputFrame *frame)
 {
-    m_scene->prePaint(this);
+    m_scene->prePaint(this, frame);
 }
 
 Region SceneView::collectDamage()

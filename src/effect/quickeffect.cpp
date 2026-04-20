@@ -435,6 +435,15 @@ void QuickSceneEffect::setViewCachingEnabled(bool enabled)
 void QuickSceneEffect::prePaintScreen(ScreenPrePaintData &data)
 {
     data.mask |= PAINT_SCREEN_TRANSFORMED;
+
+    const auto it = d->views.find(data.screen);
+    if (it != d->views.end()) {
+        const auto &screenView = it->second;
+        if (screenView->isDirty()) {
+            screenView->resetDirty();
+            screenView->update(data.frame);
+        }
+    }
 }
 
 void QuickSceneEffect::paintScreen(const RenderTarget &renderTarget, const RenderViewport &viewport, int mask, const Region &deviceRegion, LogicalOutput *screen)
@@ -442,10 +451,6 @@ void QuickSceneEffect::paintScreen(const RenderTarget &renderTarget, const Rende
     const auto it = d->views.find(screen);
     if (it != d->views.end()) {
         const auto &screenView = it->second;
-        if (screenView->isDirty()) {
-            screenView->resetDirty();
-            screenView->update();
-        }
         effects->renderOffscreenQuickView(renderTarget, viewport, screenView.get());
     }
 }

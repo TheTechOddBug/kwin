@@ -33,6 +33,7 @@ struct TabletToolTipEvent;
 struct TabletToolAxisEvent;
 class WindowPaintDataPrivate;
 class RenderView;
+class OutputFrame;
 
 /*!
  * \page kwin-effects.html
@@ -528,6 +529,11 @@ public:
      * \variable KWin::ScreenPrePaintData::view
      */
     RenderView *view = nullptr;
+
+    /**!
+     * \variable KWin::ScreenPrePaintData::frame
+     */
+    OutputFrame *frame = nullptr;
 };
 
 /*!

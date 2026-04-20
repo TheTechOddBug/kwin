@@ -727,7 +727,7 @@ void Compositor::composite(RenderLoop *renderLoop)
         frame->setPresentationMode(tearing ? PresentationMode::Async : PresentationMode::VSync);
     }
 
-    primaryView->prePaint();
+    primaryView->prePaint(frame.get());
 
     // slowly adjust the artificial HDR headroom for the next frame. Note that
     // - this has to happen (right) after prePaint, so that the scene's stacking order is valid

@@ -40,10 +40,10 @@ FilteredSceneView::FilteredSceneView(Scene *scene, LogicalOutput *output, Output
     }
 }
 
-void FilteredSceneView::prePaint()
+void FilteredSceneView::prePaint(OutputFrame *frame)
 {
     m_nextPresentationTimestamp = std::chrono::steady_clock::now().time_since_epoch();
-    SceneView::prePaint();
+    SceneView::prePaint(frame);
 }
 
 void FilteredSceneView::setRefreshRate(uint refreshRate)
