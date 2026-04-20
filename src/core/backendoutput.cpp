@@ -775,9 +775,9 @@ bool BackendOutput::isDdcCiKnownBroken() const
     });
 }
 
-bool BackendOutput::overlayLayersLikelyBroken() const
+bool BackendOutput::recommendsOverlayUse() const
 {
-    return false;
+    return true;
 }
 
 const AutoBrightnessCurve &BackendOutput::autoBrightnessCurve() const

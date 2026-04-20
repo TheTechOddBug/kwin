@@ -747,7 +747,7 @@ void Compositor::composite(RenderLoop *renderLoop)
 
     QList<OutputLayer *> unusedOutputLayers = m_backend->compatibleOutputLayers(output);
 
-    const bool overlaysAllowed = m_allowOverlaysEnv.value_or(!output->overlayLayersLikelyBroken() && PROJECT_VERSION_PATCH >= 80);
+    const bool overlaysAllowed = m_allowOverlaysEnv.value_or(output->recommendsOverlayUse());
     QList<OutputLayer *> allowedOutputLayers = unusedOutputLayers | std::views::filter([this, renderLoop, overlaysAllowed](OutputLayer *layer) {
         return (!m_brokenCursors.contains(renderLoop) || layer->type() != OutputLayerType::CursorOnly)
             && (overlaysAllowed || layer->type() != OutputLayerType::GenericLayer);
