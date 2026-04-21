@@ -129,9 +129,7 @@ OffscreenQuickView::OffscreenQuickView(ExportMode exportMode, bool alpha)
 
         d->m_view->setFormat(format);
 
-        auto shareContext = QOpenGLContext::globalShareContext();
         d->m_glcontext = std::make_unique<QOpenGLContext>();
-        d->m_glcontext->setShareContext(shareContext);
         d->m_glcontext->setFormat(format);
         d->m_glcontext->create();
 
@@ -144,13 +142,6 @@ OffscreenQuickView::OffscreenQuickView(ExportMode exportMode, bool alpha)
         d->m_view->setGraphicsDevice(QQuickGraphicsDevice::fromOpenGLContext(d->m_glcontext.get()));
         d->m_renderControl->initialize();
         d->m_glcontext->doneCurrent();
-
-        // On Wayland, contexts are implicitly shared and QOpenGLContext::globalShareContext() is null.
-        if (shareContext && !d->m_glcontext->shareContext()) {
-            qCDebug(LIBKWINEFFECTS) << "Failed to create a shared context, falling back to raster rendering";
-            // still render via GL, but blit for presentation
-            d->m_useBlit = true;
-        }
     }
 
     auto updateSize = [this]() {
