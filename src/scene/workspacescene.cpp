@@ -244,6 +244,26 @@ static Region mapToDevice(SceneView *view, Item *item, const RegionF &itemLocal)
     return ret;
 }
 
+static bool isCandidate(SurfaceItem *item, const Rect &deviceRect, bool isOpaque, SceneView *view)
+{
+    if (!item || !item->buffer() || !item->buffer()->dmabufAttributes()) {
+        return false;
+    }
+    // TODO make the compositor handle item opacity as well
+    if (item->opacity() < 1.0) {
+        return false;
+    }
+    const bool updatesQuickly = item->frameTimeEstimation().transform([](const auto t) {
+        return t < std::chrono::nanoseconds(1'000'000'000) / 20;
+    }).value_or(false);
+    if (updatesQuickly) {
+        return true;
+    }
+    // fullscreen with low enough bandwidth requirements are always good to scanout
+    const auto info = FormatInfo::get(item->buffer()->dmabufAttributes()->format);
+    return isOpaque && info->bitsPerPixel <= 32 && deviceRect.contains(view->deviceRect());
+}
+
 static bool findOverlayCandidates(SceneView *view, Item *item, ssize_t maxTotalCount,
                                   Region &occupied, Region &opaque, Region &effected,
                                   QList<Item *> &overlays, QList<Item *> &underlays,
@@ -293,17 +313,9 @@ static bool findOverlayCandidates(SceneView *view, Item *item, ssize_t maxTotalC
         // - not have any surface-wide opacity (for now)
         const Region deviceOpaque = mapToDevice(view, item, item->opaque());
         SurfaceItem *surfaceItem = dynamic_cast<SurfaceItem *>(item);
-        bool isCandidate = surfaceItem
-            && surfaceItem->buffer()->dmabufAttributes()
-            // TODO make the compositor handle item opacity as well
-            && item->opacity() == 1.0
-            && !effected.intersects(deviceRect)
-            && surfaceItem->frameTimeEstimation().transform([](const auto t) {
-            return t < std::chrono::nanoseconds(1'000'000'000) / 20;
-        }).value_or(false);
-        if (isCandidate) {
+        const bool isOpaque = deviceOpaque.contains(deviceRect);
+        if (!effected.intersects(deviceRect) && isCandidate(surfaceItem, deviceRect, isOpaque, view)) {
             if (occupied.intersects(deviceRect) || (!corners.isEmpty() && corners.top().radius.clips(item->rect(), corners.top().box))) {
-                const bool isOpaque = deviceOpaque.contains(deviceRect);
                 if (!isOpaque) {
                     // only fully opaque items can be used as underlays
                     return false;
