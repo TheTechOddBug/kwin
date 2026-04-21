@@ -75,7 +75,7 @@ public Q_SLOTS:
     void deactivate();
 
 private:
-    void realDeactivate();
+    void deactivateNow();
     void cycle();
     void reverseCycle();
 

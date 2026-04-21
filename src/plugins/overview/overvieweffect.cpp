@@ -127,7 +127,11 @@ OverviewEffect::OverviewEffect()
     });
 
     m_shutdownTimer->setSingleShot(true);
-    connect(m_shutdownTimer, &QTimer::timeout, this, &OverviewEffect::realDeactivate);
+    connect(m_shutdownTimer, &QTimer::timeout, this, [this]() {
+        if (m_overviewState->status() == EffectTogglableState::Status::Inactive) {
+            setRunning(false);
+        }
+    });
 
     auto cycleAction = new QAction(this);
     connect(cycleAction, &QAction::triggered, this, &OverviewEffect::cycle);
@@ -153,7 +157,7 @@ OverviewEffect::OverviewEffect()
     gridAction->setAutoRepeat(false);
     KGlobalAccel::self()->setGlobalShortcut(gridAction, QKeySequence(Qt::META | Qt::Key_G));
 
-    connect(effects, &EffectsHandler::screenAboutToLock, this, &OverviewEffect::realDeactivate);
+    connect(effects, &EffectsHandler::screenAboutToLock, this, &OverviewEffect::deactivateNow);
 
     OverviewConfig::instance(effects->config());
     reconfigure(ReconfigureAll);
@@ -299,6 +303,7 @@ void OverviewEffect::activate()
     }
 
     m_overviewState->activate();
+    m_shutdownTimer->stop();
 }
 
 void OverviewEffect::deactivate()
@@ -308,11 +313,11 @@ void OverviewEffect::deactivate()
     m_overviewState->deactivate();
 }
 
-void OverviewEffect::realDeactivate()
+void OverviewEffect::deactivateNow()
 {
-    if (m_overviewState->status() == EffectTogglableState::Status::Inactive) {
-        setRunning(false);
-    }
+    m_shutdownTimer->stop();
+    m_overviewState->deactivate();
+    setRunning(false);
 }
 
 void OverviewEffect::cycle()
