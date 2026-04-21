@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:46+0000\n"
+"POT-Creation-Date: 2026-04-21 00:47+0000\n"
 "PO-Revision-Date: 2026-04-09 11:17+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
@@ -84,7 +84,7 @@ msgstr "Pulse la tecla de Control derecha para capturar la entrada"
 msgid "KDE Wayland Compositor"
 msgstr "Compositor de KDE Wayland"
 
-#: compositor.cpp:590
+#: compositor.cpp:662
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2413,12 +2413,6 @@ msgstr "Suspender/reanudar luz nocturna"
 msgid "Color Temperature Preview"
 msgstr "Vista previa de la temperatura del color"
 
-#: plugins/outputlocator/outputlocator.cpp:50
-#, kde-format
-msgctxt "@label"
-msgid "Unknown"
-msgstr "Desconocido"
-
 #: plugins/overview/kcm/overvieweffectkcm.cpp:40
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
@@ -2947,19 +2941,19 @@ msgid "Toggle Present Windows (Current desktop)"
 msgstr "Conmutar las ventanas presentes (escritorio actual)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:46
-#: plugins/windowview/windowvieweffect.cpp:56
+#: plugins/windowview/windowvieweffect.cpp:57
 #, kde-format
 msgid "Toggle Present Windows (All desktops)"
 msgstr "Conmutar las ventanas presentes (todos los escritorios)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:51
-#: plugins/windowview/windowvieweffect.cpp:64
+#: plugins/windowview/windowvieweffect.cpp:66
 #, kde-format
 msgid "Toggle Present Windows (Window class)"
 msgstr "Conmutar las ventanas presentes (clase de ventana)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:56
-#: plugins/windowview/windowvieweffect.cpp:72
+#: plugins/windowview/windowvieweffect.cpp:75
 #, kde-format
 msgid "Toggle Present Windows (Window class on current desktop)"
 msgstr ""
@@ -4331,7 +4325,7 @@ msgstr "El controlador ha rechazado la configuración de salida"
 msgid "The session is not active"
 msgstr "La sesión no está activa"
 
-#: window.cpp:3129
+#: window.cpp:3132
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
@@ -4366,3 +4360,7 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland ha fallado"
+
+#~ msgctxt "@label"
+#~ msgid "Unknown"
+#~ msgstr "Desconocido"

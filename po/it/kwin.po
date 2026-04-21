@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:46+0000\n"
+"POT-Creation-Date: 2026-04-21 00:47+0000\n"
 "PO-Revision-Date: 2026-03-20 11:45+0100\n"
 "Last-Translator: Vincenzo Reale <smart2128vr@gmail.com>\n"
 "Language-Team: Italian <kde-i18n-it@kde.org>\n"
@@ -73,7 +73,7 @@ msgstr "Premi il tasto control destro per acquisire l'inserimento"
 msgid "KDE Wayland Compositor"
 msgstr "Compositore KDE Wayland"
 
-#: compositor.cpp:590
+#: compositor.cpp:662
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2412,12 +2412,6 @@ msgstr "Sospendi/Ripristina Luce notturna"
 msgid "Color Temperature Preview"
 msgstr "Anteprima della temperatura del colore"
 
-#: plugins/outputlocator/outputlocator.cpp:50
-#, kde-format
-msgctxt "@label"
-msgid "Unknown"
-msgstr "Sconosciuto"
-
 #: plugins/overview/kcm/overvieweffectkcm.cpp:40
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
@@ -2947,19 +2941,19 @@ msgid "Toggle Present Windows (Current desktop)"
 msgstr "Attiva/disattiva presentazione delle finestre (Desktop attuale)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:46
-#: plugins/windowview/windowvieweffect.cpp:56
+#: plugins/windowview/windowvieweffect.cpp:57
 #, kde-format
 msgid "Toggle Present Windows (All desktops)"
 msgstr "Attiva/disattiva presentazione delle finestre (Tutti i desktop)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:51
-#: plugins/windowview/windowvieweffect.cpp:64
+#: plugins/windowview/windowvieweffect.cpp:66
 #, kde-format
 msgid "Toggle Present Windows (Window class)"
 msgstr "Attiva/disattiva presentazione delle finestre (Classe di finestre)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:56
-#: plugins/windowview/windowvieweffect.cpp:72
+#: plugins/windowview/windowvieweffect.cpp:75
 #, kde-format
 msgid "Toggle Present Windows (Window class on current desktop)"
 msgstr ""
@@ -4337,7 +4331,7 @@ msgstr "Il driver ha rifiutato la configurazione di uscita"
 msgid "The session is not active"
 msgstr "La sessione non è attiva"
 
-#: window.cpp:3129
+#: window.cpp:3132
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
@@ -4372,6 +4366,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland è stato terminato in modo inatteso"
+
+#~ msgctxt "@label"
+#~ msgid "Unknown"
+#~ msgstr "Sconosciuto"
 
 #~ msgid "Position of output %s is negative, that is not supported"
 #~ msgstr "La posizione dell'uscita %s è negativa, questo non è supportato"

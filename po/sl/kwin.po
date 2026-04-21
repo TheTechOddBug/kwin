@@ -1,7 +1,7 @@
 # translation of kwin.po to
 # Translation of kwin.po to Slovenian
 # Copyright (C) 2001, 2003, 2004, 2005, 2007 Free Software Foundation, Inc.
-# $Id: kwin.po 1734657 2026-04-18 01:29:45Z scripty $
+# $Id: kwin.po 1734990 2026-04-21 01:30:34Z scripty $
 # $Source$
 #
 #
@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:46+0000\n"
+"POT-Creation-Date: 2026-04-21 00:47+0000\n"
 "PO-Revision-Date: 2026-04-09 07:14+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -85,7 +85,7 @@ msgstr "Pritisnite puščico desno da zgrabite vhod"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland Compositor"
 
-#: compositor.cpp:590
+#: compositor.cpp:662
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2407,12 +2407,6 @@ msgstr "Prekini/Nadaljuj nočne barve"
 msgid "Color Temperature Preview"
 msgstr "Predogled barvne temperature"
 
-#: plugins/outputlocator/outputlocator.cpp:50
-#, kde-format
-msgctxt "@label"
-msgid "Unknown"
-msgstr "Neznana"
-
 #: plugins/overview/kcm/overvieweffectkcm.cpp:40
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
@@ -2940,19 +2934,19 @@ msgid "Toggle Present Windows (Current desktop)"
 msgstr "Preklopi prisotna okna (Trenutno namizje)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:46
-#: plugins/windowview/windowvieweffect.cpp:56
+#: plugins/windowview/windowvieweffect.cpp:57
 #, kde-format
 msgid "Toggle Present Windows (All desktops)"
 msgstr "Preklopi prisotna okna (Vsa namizja)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:51
-#: plugins/windowview/windowvieweffect.cpp:64
+#: plugins/windowview/windowvieweffect.cpp:66
 #, kde-format
 msgid "Toggle Present Windows (Window class)"
 msgstr "Preklopi prisotna okna (Razred oken)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:56
-#: plugins/windowview/windowvieweffect.cpp:72
+#: plugins/windowview/windowvieweffect.cpp:75
 #, kde-format
 msgid "Toggle Present Windows (Window class on current desktop)"
 msgstr "Preklopi prisotna okna (Razred oken na tekočem namizju)"
@@ -4317,7 +4311,7 @@ msgstr "Gonilnik je zavrnil konfiguracijo izhoda"
 msgid "The session is not active"
 msgstr "Seja ni dejavna"
 
-#: window.cpp:3129
+#: window.cpp:3132
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
@@ -4349,6 +4343,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland se je sesul"
+
+#~ msgctxt "@label"
+#~ msgid "Unknown"
+#~ msgstr "Neznana"
 
 #~ msgid "Position of output %s is negative, that is not supported"
 #~ msgstr "Položaj izhoda %s je negativen, kar ni podprto"

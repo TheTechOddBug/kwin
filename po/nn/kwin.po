@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:46+0000\n"
+"POT-Creation-Date: 2026-04-21 00:47+0000\n"
 "PO-Revision-Date: 2024-09-22 16:22+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -75,7 +75,7 @@ msgstr "Trykk høgre «Ctrl» for å fanga inndata"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland-samansetjar"
 
-#: compositor.cpp:590
+#: compositor.cpp:662
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2446,12 +2446,6 @@ msgstr "Kveldsfargar på/av"
 msgid "Color Temperature Preview"
 msgstr "Førehandsvising av fargetemperatur"
 
-#: plugins/outputlocator/outputlocator.cpp:50
-#, kde-format
-msgctxt "@label"
-msgid "Unknown"
-msgstr "Ukjend"
-
 #: plugins/overview/kcm/overvieweffectkcm.cpp:40
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
@@ -2977,19 +2971,19 @@ msgid "Toggle Present Windows (Current desktop)"
 msgstr "Vis/gøym vindauge (på det gjeldande skrivebordet)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:46
-#: plugins/windowview/windowvieweffect.cpp:56
+#: plugins/windowview/windowvieweffect.cpp:57
 #, kde-format
 msgid "Toggle Present Windows (All desktops)"
 msgstr "Vis/gøym vindauge (på alle skriveborda)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:51
-#: plugins/windowview/windowvieweffect.cpp:64
+#: plugins/windowview/windowvieweffect.cpp:66
 #, kde-format
 msgid "Toggle Present Windows (Window class)"
 msgstr "Vis/gøym vindauge (i vindaugsklassen)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:56
-#: plugins/windowview/windowvieweffect.cpp:72
+#: plugins/windowview/windowvieweffect.cpp:75
 #, kde-format
 msgid "Toggle Present Windows (Window class on current desktop)"
 msgstr "Vis/gøym vindauge (vindaugsklasse på gjeldande skrivebord)"
@@ -4360,7 +4354,7 @@ msgstr ""
 msgid "The session is not active"
 msgstr "«Alt»-tasten er no slått på"
 
-#: window.cpp:3129
+#: window.cpp:3132
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
@@ -4394,3 +4388,7 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland krasja"
+
+#~ msgctxt "@label"
+#~ msgid "Unknown"
+#~ msgstr "Ukjend"

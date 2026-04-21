@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:46+0000\n"
+"POT-Creation-Date: 2026-04-21 00:47+0000\n"
 "PO-Revision-Date: 2026-04-11 18:09+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
 "Language-Team: ar\n"
@@ -68,7 +68,7 @@ msgstr "اضغط على مفتاح التحكم الأيمن للحصول على
 msgid "KDE Wayland Compositor"
 msgstr "مراكب ويلاند كيدي"
 
-#: compositor.cpp:590
+#: compositor.cpp:662
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "أُعيد تشغيل تأثيرات سطح المكتب بسبب تصفير الرّسوميّات"
@@ -2377,12 +2377,6 @@ msgstr "علق/استأنف وضع الإضاءة الليلية"
 msgid "Color Temperature Preview"
 msgstr "معاينة حرارة اللون"
 
-#: plugins/outputlocator/outputlocator.cpp:50
-#, kde-format
-msgctxt "@label"
-msgid "Unknown"
-msgstr "مجهول"
-
 #: plugins/overview/kcm/overvieweffectkcm.cpp:40
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
@@ -2900,19 +2894,19 @@ msgid "Toggle Present Windows (Current desktop)"
 msgstr "بدّل عرض النوافذ (سطح المكتب الحالي)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:46
-#: plugins/windowview/windowvieweffect.cpp:56
+#: plugins/windowview/windowvieweffect.cpp:57
 #, kde-format
 msgid "Toggle Present Windows (All desktops)"
 msgstr "بدّل عرض النوافذ (جميع الأسطح)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:51
-#: plugins/windowview/windowvieweffect.cpp:64
+#: plugins/windowview/windowvieweffect.cpp:66
 #, kde-format
 msgid "Toggle Present Windows (Window class)"
 msgstr "بدّل عرض النوافذ (نوع النافذة)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:56
-#: plugins/windowview/windowvieweffect.cpp:72
+#: plugins/windowview/windowvieweffect.cpp:75
 #, kde-format
 msgid "Toggle Present Windows (Window class on current desktop)"
 msgstr "بدّل عرض النوافذ (صنف النافذة على سطح المكتب الحالي)"
@@ -4277,7 +4271,7 @@ msgstr "رفض السائق ضبط الإخراج"
 msgid "The session is not active"
 msgstr "الجلسة ليست نشطة"
 
-#: window.cpp:3129
+#: window.cpp:3132
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
@@ -4310,6 +4304,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "إنهار ويلاند_اكس"
+
+#~ msgctxt "@label"
+#~ msgid "Unknown"
+#~ msgstr "مجهول"
 
 #~ msgid "Position of output %s is negative, that is not supported"
 #~ msgstr "موضع الإخراج %s سلبي، وهذا غير متاح"

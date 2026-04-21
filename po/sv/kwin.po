@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:46+0000\n"
+"POT-Creation-Date: 2026-04-21 00:47+0000\n"
 "PO-Revision-Date: 2026-01-23 20:54+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -74,7 +74,7 @@ msgstr "Tryck på höger kontrolltangent för att greppa inmatning"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland-sammansättning"
 
-#: compositor.cpp:590
+#: compositor.cpp:662
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "Skrivbordseffekter startades om på grund av grafikåterställning"
@@ -2416,12 +2416,6 @@ msgstr "Inaktivera eller återuppta nattljus"
 msgid "Color Temperature Preview"
 msgstr "Förhandsgranskning av färgtemperatur"
 
-#: plugins/outputlocator/outputlocator.cpp:50
-#, kde-format
-msgctxt "@label"
-msgid "Unknown"
-msgstr "Okänd"
-
 #: plugins/overview/kcm/overvieweffectkcm.cpp:40
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
@@ -2951,19 +2945,19 @@ msgid "Toggle Present Windows (Current desktop)"
 msgstr "Ändra befintliga fönster (nuvarande skrivbord)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:46
-#: plugins/windowview/windowvieweffect.cpp:56
+#: plugins/windowview/windowvieweffect.cpp:57
 #, kde-format
 msgid "Toggle Present Windows (All desktops)"
 msgstr "Visa eller dölj förinställda fönster (alla skrivbord)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:51
-#: plugins/windowview/windowvieweffect.cpp:64
+#: plugins/windowview/windowvieweffect.cpp:66
 #, kde-format
 msgid "Toggle Present Windows (Window class)"
 msgstr "Ändra befintliga fönster (fönsterklass)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:56
-#: plugins/windowview/windowvieweffect.cpp:72
+#: plugins/windowview/windowvieweffect.cpp:75
 #, kde-format
 msgid "Toggle Present Windows (Window class on current desktop)"
 msgstr "Ändra förinställda fönster (fönsterklass på nuvarande skrivbord)"
@@ -4336,7 +4330,7 @@ msgstr "Drivrutinen förkastade utgångsinställningen"
 msgid "The session is not active"
 msgstr "Alt-tangenten är nu aktiv."
 
-#: window.cpp:3129
+#: window.cpp:3132
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
@@ -4370,6 +4364,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland har kraschat"
+
+#~ msgctxt "@label"
+#~ msgid "Unknown"
+#~ msgstr "Okänd"
 
 #~ msgid "Position of output %s is negative, that is not supported"
 #~ msgstr "Positionen för utdata %s är negativ, vilket inte stöds"

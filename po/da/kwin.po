@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-18 00:46+0000\n"
+"POT-Creation-Date: 2026-04-21 00:47+0000\n"
 "PO-Revision-Date: 2026-03-20 21:54+0100\n"
 "Last-Translator: Rasmus Rosendahl-Kaa <rasmus@rosendahl-kaa.name>\n"
 "Language-Team: Danish <kde-i18n-doc@kde.org>\n"
@@ -70,7 +70,7 @@ msgstr "Tryk på højre kontrol for at gribe input"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland-kompositør"
 
-#: compositor.cpp:590
+#: compositor.cpp:662
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "Skrivebordseffekter blev genstartet pga. grafiknulstilling"
@@ -2433,12 +2433,6 @@ msgstr "Suspendér/gendan nattelys"
 msgid "Color Temperature Preview"
 msgstr "Forhåndsvisningaf farvetemperatur"
 
-#: plugins/outputlocator/outputlocator.cpp:50
-#, kde-format
-msgctxt "@label"
-msgid "Unknown"
-msgstr "Ukendt"
-
 #: plugins/overview/kcm/overvieweffectkcm.cpp:40
 #, kde-format
 msgctxt "@action Overview and Grid View are the name of KWin effects"
@@ -2961,19 +2955,19 @@ msgid "Toggle Present Windows (Current desktop)"
 msgstr "Slå prænsentér vinduer til/fra (aktuelt skrivebord)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:46
-#: plugins/windowview/windowvieweffect.cpp:56
+#: plugins/windowview/windowvieweffect.cpp:57
 #, kde-format
 msgid "Toggle Present Windows (All desktops)"
 msgstr "Slå præsentér vinduer til/fra (alle skriveborde)"
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:51
-#: plugins/windowview/windowvieweffect.cpp:64
+#: plugins/windowview/windowvieweffect.cpp:66
 #, kde-format
 msgid "Toggle Present Windows (Window class)"
 msgstr "Slå præsentér vinduer til/fra (vinduesklasse) "
 
 #: plugins/windowview/kcm/windowvieweffectkcm.cpp:56
-#: plugins/windowview/windowvieweffect.cpp:72
+#: plugins/windowview/windowvieweffect.cpp:75
 #, kde-format
 msgid "Toggle Present Windows (Window class on current desktop)"
 msgstr "Slå prænsentér vinduer til/fra (vinduesklasser på aktuelle skrivebord)"
@@ -4355,7 +4349,7 @@ msgstr "Driveren afviste outputkonfigurationen"
 msgid "The session is not active"
 msgstr "Alt-tasten er nu aktiv."
 
-#: window.cpp:3129
+#: window.cpp:3132
 #, kde-format
 msgctxt "Application is not responding, appended to window title"
 msgid "(Not Responding)"
@@ -4390,6 +4384,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland har brudt ned"
+
+#~ msgctxt "@label"
+#~ msgid "Unknown"
+#~ msgstr "Ukendt"
 
 #~ msgid "Buttons"
 #~ msgstr "Knapper"
