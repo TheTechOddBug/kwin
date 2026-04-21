@@ -10,7 +10,6 @@
 #include "pluginmanager.h"
 #include "wayland_server.h"
 
-#include <KWayland/Client/keyboard.h>
 #include <KWayland/Client/pointer.h>
 #include <KWayland/Client/seat.h>
 
@@ -126,7 +125,7 @@ void TestInputCapture::testInputCapture()
     int timestamp = 0;
 
     QVERIFY(Test::waitForWaylandPointer());
-    std::unique_ptr<KWayland::Client::Keyboard> keyboard(Test::waylandSeat()->createKeyboard());
+    std::unique_ptr<Test::WlKeyboard> keyboard(Test::kwinSeat()->getKeyboard());
     std::unique_ptr<KWayland::Client::Pointer> pointer(Test::waylandSeat()->createPointer());
     auto surface = Test::createSurface();
     auto shellSurface = Test::createXdgToplevelSurface(surface.get());
@@ -140,13 +139,13 @@ void TestInputCapture::testInputCapture()
 
     Test::pointerMotion(mousePos, ++timestamp);
     Test::waylandSync();
-    QCOMPARE(keyboard->enteredSurface(), surface.get());
+    QCOMPARE(keyboard->focusedSurface(), surface.get());
     QCOMPARE(pointer->enteredSurface(), surface.get());
 
     QSignalSpy motionSpy(pointer.get(), &KWayland::Client::Pointer::motion);
     QSignalSpy buttonSpy(pointer.get(), &KWayland::Client::Pointer::buttonStateChanged);
     QSignalSpy axisSpy(pointer.get(), &KWayland::Client::Pointer::axisChanged);
-    QSignalSpy keySpy(keyboard.get(), &KWayland::Client::Keyboard::keyChanged);
+    QSignalSpy keySpy(keyboard.get(), &Test::WlKeyboard::key);
     QVERIFY(motionSpy.isValid());
     QVERIFY(buttonSpy.isValid());
     QVERIFY(axisSpy.isValid());

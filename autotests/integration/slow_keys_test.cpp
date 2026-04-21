@@ -14,9 +14,6 @@
 #include "window.h"
 #include "workspace.h"
 
-#include <KWayland/Client/keyboard.h>
-#include <KWayland/Client/seat.h>
-
 #include <linux/input.h>
 #include <qtestsupport_core.h>
 
@@ -67,7 +64,7 @@ void SlowKeysTest::cleanup()
 
 void SlowKeysTest::testSlow()
 {
-    std::unique_ptr<KWayland::Client::Keyboard> keyboard(Test::waylandSeat()->createKeyboard());
+    std::unique_ptr<Test::WlKeyboard> keyboard(Test::kwinSeat()->getKeyboard());
 
     std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
     QVERIFY(surface != nullptr);
@@ -77,10 +74,10 @@ void SlowKeysTest::testSlow()
     QVERIFY(waylandWindow);
 
     QVERIFY(keyboard);
-    QSignalSpy enteredSpy(keyboard.get(), &KWayland::Client::Keyboard::entered);
+    QSignalSpy enteredSpy(keyboard.get(), &Test::WlKeyboard::enter);
     QVERIFY(enteredSpy.wait());
 
-    QSignalSpy keySpy(keyboard.get(), &KWayland::Client::Keyboard::keyChanged);
+    QSignalSpy keySpy(keyboard.get(), &Test::WlKeyboard::key);
     QVERIFY(keySpy.isValid());
 
     quint32 timestamp = 0;
@@ -96,15 +93,15 @@ void SlowKeysTest::testSlow()
     // Press a key, verify that it *does* go through with a time greater than the interval
     Test::keyboardKeyPressed(KEY_A, timestamp++);
     QVERIFY(keySpy.wait(750));
-    QCOMPARE(keySpy.first()[0], KEY_A);
-    QCOMPARE(keySpy.first()[1].value<KWayland::Client::Keyboard::KeyState>(), KWayland::Client::Keyboard::KeyState::Pressed);
+    QCOMPARE(keySpy.first()[2], KEY_A);
+    QCOMPARE(keySpy.first()[3].value<Test::WlKeyboard::key_state>(), Test::WlKeyboard::key_state::key_state_pressed);
     keySpy.clear();
 
     // Since we accepted the "key pressed" event, we *should* get a "key released" event
     Test::keyboardKeyReleased(KEY_A, timestamp++);
     QVERIFY(keySpy.wait());
-    QCOMPARE(keySpy.first()[0], KEY_A);
-    QCOMPARE(keySpy.first()[1].value<KWayland::Client::Keyboard::KeyState>(), KWayland::Client::Keyboard::KeyState::Released);
+    QCOMPARE(keySpy.first()[2], KEY_A);
+    QCOMPARE(keySpy.first()[3].value<Test::WlKeyboard::key_state>(), Test::WlKeyboard::key_state::key_state_released);
     keySpy.clear();
 }
 

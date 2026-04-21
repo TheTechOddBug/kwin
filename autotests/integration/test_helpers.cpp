@@ -2437,24 +2437,63 @@ WlKeyboard::~WlKeyboard()
     release();
 }
 
+KWayland::Client::Surface *WlKeyboard::focusedSurface() const
+{
+    return m_focusedSurface;
+}
+
+QSet<quint32> WlKeyboard::heldKeys() const
+{
+    return m_heldKeys;
+}
+
 void WlKeyboard::keyboard_keymap(uint32_t format, int32_t fd, uint32_t size)
 {
+    Q_EMIT keymap(format, fd, size);
     ::close(fd);
 }
 
 void WlKeyboard::keyboard_enter(uint32_t serial, ::wl_surface *surface, wl_array *keys)
 {
-    Q_EMIT enter(serial, surface);
+    m_focusedSurface = KWayland::Client::Surface::get(surface);
+    m_heldKeys.clear();
+
+    const uint32_t *keyData = static_cast<const uint32_t *>(keys->data);
+    const size_t keyCount = keys->size / sizeof(uint32_t);
+    for (size_t i = 0; i < keyCount; ++i) {
+        m_heldKeys.insert(keyData[i]);
+    }
+    Q_EMIT enter(serial, m_focusedSurface);
 }
 
 void WlKeyboard::keyboard_leave(uint32_t serial, ::wl_surface *surface)
 {
-    Q_EMIT leave(serial, surface);
+    KWayland::Client::Surface *const focusedSurface = KWayland::Client::Surface::get(surface);
+    m_focusedSurface = nullptr;
+    m_heldKeys.clear();
+    Q_EMIT leave(serial, focusedSurface);
 }
 
 void WlKeyboard::keyboard_key(uint32_t serial, uint32_t time, uint32_t keyValue, uint32_t state)
 {
+    if (state == key_state_pressed) {
+        Q_ASSERT(!m_heldKeys.contains(keyValue));
+        m_heldKeys.insert(keyValue);
+    } else if (state == key_state_released) {
+        Q_ASSERT(m_heldKeys.contains(keyValue));
+        m_heldKeys.remove(keyValue);
+    }
     Q_EMIT key(serial, time, keyValue, key_state(state));
+}
+
+void WlKeyboard::keyboard_modifiers(uint32_t serial, uint32_t depressed, uint32_t latched, uint32_t locked, uint32_t group)
+{
+    Q_EMIT modifiers(serial, depressed, latched, locked, group);
+}
+
+void WlKeyboard::keyboard_repeat_info(int32_t rate, int32_t delay)
+{
+    Q_EMIT repeatInfo(rate, delay);
 }
 
 WlPointer::WlPointer(::wl_pointer *object)

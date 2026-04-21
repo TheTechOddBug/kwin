@@ -14,9 +14,6 @@
 #include "window.h"
 #include "workspace.h"
 
-#include <KWayland/Client/keyboard.h>
-#include <KWayland/Client/seat.h>
-
 #include <linux/input.h>
 
 #include <QDBusConnection>
@@ -160,7 +157,7 @@ void A11yKeyboardMonitorTest::cleanup()
 
 void A11yKeyboardMonitorTest::testWatchKeyboard()
 {
-    std::unique_ptr<KWayland::Client::Keyboard> keyboard(Test::waylandSeat()->createKeyboard());
+    std::unique_ptr<Test::WlKeyboard> keyboard(Test::kwinSeat()->getKeyboard());
 
     std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
     QVERIFY(surface != nullptr);
@@ -169,12 +166,12 @@ void A11yKeyboardMonitorTest::testWatchKeyboard()
     Window *waylandWindow = Test::renderAndWaitForShown(surface.get(), QSize(10, 10), Qt::blue);
     QVERIFY(waylandWindow);
 
+    A11yKeyboardWatcher watcher;
+
     quint32 timestamp = 0;
     Test::keyboardKeyPressed(KEY_A, ++timestamp);
 
-    A11yKeyboardWatcher watcher;
-
-    QSignalSpy clientKeySpy(keyboard.get(), &KWayland::Client::Keyboard::keyChanged);
+    QSignalSpy clientKeySpy(keyboard.get(), &Test::WlKeyboard::key);
     QSignalSpy a11ySpy(&watcher, &A11yKeyboardWatcher::keyEvent);
     QVERIFY(a11ySpy.wait());
     QCOMPARE(a11ySpy.first()[0], false);
@@ -186,8 +183,8 @@ void A11yKeyboardMonitorTest::testWatchKeyboard()
 
     QVERIFY(Test::waylandSync());
     QCOMPARE(clientKeySpy.count(), 1);
-    QCOMPARE(clientKeySpy.first()[0], KEY_A);
-    QCOMPARE(clientKeySpy.first()[1].value<KWayland::Client::Keyboard::KeyState>(), KWayland::Client::Keyboard::KeyState::Pressed);
+    QCOMPARE(clientKeySpy.first()[2], KEY_A);
+    QCOMPARE(clientKeySpy.first()[3].value<Test::WlKeyboard::key_state>(), Test::WlKeyboard::key_state::key_state_pressed);
     clientKeySpy.clear();
 
     Test::keyboardKeyReleased(KEY_A, ++timestamp);
@@ -201,14 +198,14 @@ void A11yKeyboardMonitorTest::testWatchKeyboard()
 
     QVERIFY(Test::waylandSync());
     QCOMPARE(clientKeySpy.count(), 1);
-    QCOMPARE(clientKeySpy.first()[0], KEY_A);
-    QCOMPARE(clientKeySpy.first()[1].value<KWayland::Client::Keyboard::KeyState>(), KWayland::Client::Keyboard::KeyState::Released);
+    QCOMPARE(clientKeySpy.first()[2], KEY_A);
+    QCOMPARE(clientKeySpy.first()[3].value<Test::WlKeyboard::key_state>(), Test::WlKeyboard::key_state::key_state_released);
     clientKeySpy.clear();
 }
 
 void A11yKeyboardMonitorTest::testGrabKeyboard()
 {
-    std::unique_ptr<KWayland::Client::Keyboard> keyboard(Test::waylandSeat()->createKeyboard());
+    std::unique_ptr<Test::WlKeyboard> keyboard(Test::kwinSeat()->getKeyboard());
 
     std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
     QVERIFY(surface != nullptr);
@@ -222,7 +219,7 @@ void A11yKeyboardMonitorTest::testGrabKeyboard()
     quint32 timestamp = 0;
     Test::keyboardKeyPressed(KEY_A, ++timestamp);
 
-    QSignalSpy clientKeySpy(keyboard.get(), &KWayland::Client::Keyboard::keyChanged);
+    QSignalSpy clientKeySpy(keyboard.get(), &Test::WlKeyboard::key);
     QSignalSpy a11ySpy(&watcher, &A11yKeyboardGrabber::keyEvent);
     QVERIFY(a11ySpy.wait());
     QCOMPARE(a11ySpy.first()[0], false);
@@ -252,7 +249,7 @@ void A11yKeyboardMonitorTest::testGrabKeyboard()
 
 void A11yKeyboardMonitorTest::testKeyGrabs()
 {
-    std::unique_ptr<KWayland::Client::Keyboard> keyboard(Test::waylandSeat()->createKeyboard());
+    std::unique_ptr<Test::WlKeyboard> keyboard(Test::kwinSeat()->getKeyboard());
 
     std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
     QVERIFY(surface != nullptr);
@@ -273,20 +270,20 @@ void A11yKeyboardMonitorTest::testKeyGrabs()
     quint32 timestamp = 0;
     Test::keyboardKeyPressed(KEY_A, ++timestamp);
 
-    QSignalSpy clientKeySpy(keyboard.get(), &KWayland::Client::Keyboard::keyChanged);
+    QSignalSpy clientKeySpy(keyboard.get(), &Test::WlKeyboard::key);
 
     QVERIFY(Test::waylandSync());
     QCOMPARE(clientKeySpy.count(), 1);
-    QCOMPARE(clientKeySpy.first()[0], KEY_A);
-    QCOMPARE(clientKeySpy.first()[1].value<KWayland::Client::Keyboard::KeyState>(), KWayland::Client::Keyboard::KeyState::Pressed);
+    QCOMPARE(clientKeySpy.first()[2], KEY_A);
+    QCOMPARE(clientKeySpy.first()[3].value<Test::WlKeyboard::key_state>(), Test::WlKeyboard::key_state::key_state_pressed);
     clientKeySpy.clear();
 
     Test::keyboardKeyReleased(KEY_A, ++timestamp);
 
     QVERIFY(Test::waylandSync());
     QCOMPARE(clientKeySpy.count(), 1);
-    QCOMPARE(clientKeySpy.first()[0], KEY_A);
-    QCOMPARE(clientKeySpy.first()[1].value<KWayland::Client::Keyboard::KeyState>(), KWayland::Client::Keyboard::KeyState::Released);
+    QCOMPARE(clientKeySpy.first()[2], KEY_A);
+    QCOMPARE(clientKeySpy.first()[3].value<Test::WlKeyboard::key_state>(), Test::WlKeyboard::key_state::key_state_released);
     clientKeySpy.clear();
 
     QSignalSpy a11ySpy(&grabber, &A11yKeyboardStrokeGrabber::keyEvent);
@@ -324,7 +321,7 @@ void A11yKeyboardMonitorTest::testKeyGrabs()
 // make it get processed as normal key, i.e. forward to the client
 void A11yKeyboardMonitorTest::testPressCapslockTwice()
 {
-    std::unique_ptr<KWayland::Client::Keyboard> keyboard(Test::waylandSeat()->createKeyboard());
+    std::unique_ptr<Test::WlKeyboard> keyboard(Test::kwinSeat()->getKeyboard());
 
     std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
     QVERIFY(surface != nullptr);
@@ -345,7 +342,7 @@ void A11yKeyboardMonitorTest::testPressCapslockTwice()
     quint32 timestamp = 0;
     Test::keyboardKeyPressed(KEY_CAPSLOCK, ++timestamp);
 
-    QSignalSpy clientKeySpy(keyboard.get(), &KWayland::Client::Keyboard::keyChanged);
+    QSignalSpy clientKeySpy(keyboard.get(), &Test::WlKeyboard::key);
     QSignalSpy a11ySpy(&grabber, &A11yKeyboardStrokeGrabber::keyEvent);
     QVERIFY(a11ySpy.wait());
     QCOMPARE(a11ySpy.first()[0], false);

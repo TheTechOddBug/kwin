@@ -1080,16 +1080,27 @@ public:
     explicit WlKeyboard(::wl_keyboard *object);
     ~WlKeyboard() override;
 
+    KWayland::Client::Surface *focusedSurface() const;
+    QSet<quint32> heldKeys() const;
+
 Q_SIGNALS:
-    void enter(uint32_t serial, ::wl_surface *surface);
-    void leave(uint32_t serial, ::wl_surface *surface);
+    void keymap(uint32_t format, int32_t fd, uint32_t size);
+    void enter(uint32_t serial, KWayland::Client::Surface *surface);
+    void leave(uint32_t serial, KWayland::Client::Surface *surface);
     void key(uint32_t serial, uint32_t time, uint32_t key, key_state state);
+    void modifiers(uint32_t serial, uint32_t depressed, uint32_t latched, uint32_t locked, uint32_t group);
+    void repeatInfo(int32_t rate, int32_t delay);
 
 private:
     void keyboard_keymap(uint32_t format, int32_t fd, uint32_t size) override;
     void keyboard_enter(uint32_t serial, ::wl_surface *surface, wl_array *keys) override;
     void keyboard_leave(uint32_t serial, ::wl_surface *surface) override;
     void keyboard_key(uint32_t serial, uint32_t time, uint32_t key, uint32_t state) override;
+    void keyboard_modifiers(uint32_t serial, uint32_t depressed, uint32_t latched, uint32_t locked, uint32_t group) override;
+    void keyboard_repeat_info(int32_t rate, int32_t delay) override;
+
+    KWayland::Client::Surface *m_focusedSurface = nullptr;
+    QSet<quint32> m_heldKeys;
 };
 
 class WlPointer : public QObject, public QtWayland::wl_pointer

@@ -17,8 +17,6 @@
 #include "workspace.h"
 
 #include <KConfigGroup>
-#include <KWayland/Client/keyboard.h>
-#include <KWayland/Client/seat.h>
 #include <KWayland/Client/surface.h>
 
 #include <linux/input.h>
@@ -256,9 +254,9 @@ void TabBoxTest::testKeyboardFocus()
 
     QVERIFY(Test::waitForWaylandKeyboard());
 
-    std::unique_ptr<KWayland::Client::Keyboard> keyboard(Test::waylandSeat()->createKeyboard());
-    QSignalSpy enteredSpy(keyboard.get(), &KWayland::Client::Keyboard::entered);
-    QSignalSpy leftSpy(keyboard.get(), &KWayland::Client::Keyboard::left);
+    std::unique_ptr<Test::WlKeyboard> keyboard(Test::kwinSeat()->getKeyboard());
+    QSignalSpy enteredSpy(keyboard.get(), &Test::WlKeyboard::enter);
+    QSignalSpy leftSpy(keyboard.get(), &Test::WlKeyboard::leave);
 
     // add a window
     std::unique_ptr<KWayland::Client::Surface> surface(Test::createSurface());
