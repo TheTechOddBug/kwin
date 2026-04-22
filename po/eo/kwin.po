@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-21 00:47+0000\n"
+"POT-Creation-Date: 2026-04-22 00:47+0000\n"
 "PO-Revision-Date: 2025-03-15 10:38+0100\n"
 "Last-Translator: Oliver Kellogg <olivermkellogg@gmail.com>\n"
 "Language-Team: esperanto <kde-i18n-eo@kde.org>\n"
@@ -35,30 +35,30 @@ msgstr ""
 "wolfram@steloj.de,Steffen.Pietsch@BerlinOnline.de,matthias@peick.de,"
 "cfmckee@gmail.com,olivermkellogg@gmail.com"
 
-#: backends/wayland/wayland_output.cpp:481
+#: backends/wayland/wayland_output.cpp:482
 #, kde-format
 msgid "Press right control to ungrab pointer"
 msgstr "Premu dekstran Ctrl-klavon por malkapti montrilon"
 
-#: backends/wayland/wayland_output.cpp:483
+#: backends/wayland/wayland_output.cpp:484
 #, kde-format
 msgid "Press right control key to grab pointer"
 msgstr "Premu dekstran Ctrl-klavon por kapti montrilon"
 
-#: backends/wayland/wayland_output.cpp:487
+#: backends/wayland/wayland_output.cpp:488
 #, kde-format
 msgctxt ""
 "Title of nested KWin Wayland with Wayland socket identifier as argument"
 msgid "KDE Wayland Compositor %1"
 msgstr "KDE Wayland Komponilo %1"
 
-#: backends/wayland/wayland_output.cpp:490
+#: backends/wayland/wayland_output.cpp:491
 #, fuzzy, kde-format
 #| msgid "- Output disabled"
 msgid "- Output disabled"
 msgstr "- Eligo malebligita"
 
-#: backends/wayland/wayland_output.cpp:492
+#: backends/wayland/wayland_output.cpp:493
 #, fuzzy, kde-format
 #| msgid "- Output dimmed"
 msgid "- Output dimmed"
@@ -4311,52 +4311,52 @@ msgstr "Iri al suba labortablo"
 msgid "Switch to Desktop %1"
 msgstr "Ŝanĝi al labortablo %1"
 
-#: wayland/outputmanagement_v2.cpp:603
+#: wayland/outputmanagement_v2.cpp:604
 #, kde-format
 msgid "One of the relevant outputs is no longer available"
 msgstr "Unu el la rilataj eligoj ne plu disponeblas"
 
-#: wayland/outputmanagement_v2.cpp:621
+#: wayland/outputmanagement_v2.cpp:622
 #, kde-format
 msgid "Disabling all outputs through configuration changes is not allowed"
 msgstr "Malebligi ĉiujn eligojn per agordoŝanĝoj ne estas permesita"
 
-#: wayland/outputmanagement_v2.cpp:631
+#: wayland/outputmanagement_v2.cpp:632
 #, kde-format
 msgid "%1 cannot mirror itself"
 msgstr ""
 
-#: wayland/outputmanagement_v2.cpp:638
+#: wayland/outputmanagement_v2.cpp:639
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
 msgstr ""
 
-#: wayland/outputmanagement_v2.cpp:642
+#: wayland/outputmanagement_v2.cpp:643
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr ""
 
-#: wayland/outputmanagement_v2.cpp:653
+#: wayland/outputmanagement_v2.cpp:654
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
 msgstr ""
 
-#: wayland/outputmanagement_v2.cpp:656
+#: wayland/outputmanagement_v2.cpp:657
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
 msgstr ""
 
-#: wayland/outputmanagement_v2.cpp:660
+#: wayland/outputmanagement_v2.cpp:661
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
 msgstr ""
 
-#: wayland/outputmanagement_v2.cpp:677
+#: wayland/outputmanagement_v2.cpp:678
 #, kde-format
 msgid "The driver rejected the output configuration"
 msgstr "La pelilo malakceptis la eligan agordon"
 
-#: wayland/outputmanagement_v2.cpp:680
+#: wayland/outputmanagement_v2.cpp:681
 #, fuzzy, kde-format
 #| msgid "The Alt key is now active."
 msgid "The session is not active"

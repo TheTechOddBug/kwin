@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-21 00:47+0000\n"
+"POT-Creation-Date: 2026-04-22 00:47+0000\n"
 "PO-Revision-Date: 2026-04-11 07:31+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -54,29 +54,29 @@ msgstr ""
 "cousin@kde.org,gerard@delafond.org, yann.verley@free.fr, nicolas."
 "ternisien@gmail.com,renard@kde.org,sdepiets@gmail.com, xavier.besnard@kde.org"
 
-#: backends/wayland/wayland_output.cpp:481
+#: backends/wayland/wayland_output.cpp:482
 #, kde-format
 msgid "Press right control to ungrab pointer"
 msgstr "Appuyez sur la touche de contrôle droit pour libérer le pointeur"
 
-#: backends/wayland/wayland_output.cpp:483
+#: backends/wayland/wayland_output.cpp:484
 #, kde-format
 msgid "Press right control key to grab pointer"
 msgstr "Appuyez sur la touche de contrôle droit pour saisir le pointeur"
 
-#: backends/wayland/wayland_output.cpp:487
+#: backends/wayland/wayland_output.cpp:488
 #, kde-format
 msgctxt ""
 "Title of nested KWin Wayland with Wayland socket identifier as argument"
 msgid "KDE Wayland Compositor %1"
 msgstr "Compositeur %1 Wayland de KDE"
 
-#: backends/wayland/wayland_output.cpp:490
+#: backends/wayland/wayland_output.cpp:491
 #, kde-format
 msgid "- Output disabled"
 msgstr "- Sortie désactivée"
 
-#: backends/wayland/wayland_output.cpp:492
+#: backends/wayland/wayland_output.cpp:493
 #, kde-format
 msgid "- Output dimmed"
 msgstr "- Sortie ajustée"
@@ -4300,56 +4300,56 @@ msgstr "Passer au bureau du dessous"
 msgid "Switch to Desktop %1"
 msgstr "Passer au bureau %1"
 
-#: wayland/outputmanagement_v2.cpp:603
+#: wayland/outputmanagement_v2.cpp:604
 #, kde-format
 msgid "One of the relevant outputs is no longer available"
 msgstr "L'une des sorties pertinentes n'est plus disponible."
 
-#: wayland/outputmanagement_v2.cpp:621
+#: wayland/outputmanagement_v2.cpp:622
 #, kde-format
 msgid "Disabling all outputs through configuration changes is not allowed"
 msgstr ""
 "La désactivation de toutes les sorties grâce à des modifications de "
 "configuration n'est pas autorisée."
 
-#: wayland/outputmanagement_v2.cpp:631
+#: wayland/outputmanagement_v2.cpp:632
 #, kde-format
 msgid "%1 cannot mirror itself"
 msgstr "Il est impossible à %1 de se répliquer en miroir "
 
-#: wayland/outputmanagement_v2.cpp:638
+#: wayland/outputmanagement_v2.cpp:639
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
 msgstr "Impossible d'ajouter un mode personnalisé avec une taille vide"
 
-#: wayland/outputmanagement_v2.cpp:642
+#: wayland/outputmanagement_v2.cpp:643
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr ""
 "Impossible d'ajouter un mode personnalisé avec une fréquence de "
 "rafraîchissement de 0 Hz"
 
-#: wayland/outputmanagement_v2.cpp:653
+#: wayland/outputmanagement_v2.cpp:654
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
 msgstr "La position de la sortie %1 est bien trop en négatif (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:656
+#: wayland/outputmanagement_v2.cpp:657
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
 msgstr "La position de la sortie activée %1 est négative (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:660
+#: wayland/outputmanagement_v2.cpp:661
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
 msgstr "La position de la sortie %1 est bien trop grande (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:677
+#: wayland/outputmanagement_v2.cpp:678
 #, kde-format
 msgid "The driver rejected the output configuration"
 msgstr "Le pilote a rejeté la configuration de sortie."
 
-#: wayland/outputmanagement_v2.cpp:680
+#: wayland/outputmanagement_v2.cpp:681
 #, kde-format
 msgid "The session is not active"
 msgstr "La session est inactive."

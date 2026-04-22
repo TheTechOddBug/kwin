@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-21 00:47+0000\n"
+"POT-Creation-Date: 2026-04-22 00:47+0000\n"
 "PO-Revision-Date: 2026-04-09 09:32-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
@@ -46,29 +46,29 @@ msgstr ""
 "alvarenga@kde.org, camila.moura@kde.org, elchevive@opensuse.org, "
 "geraldosimiao@fedoraproject.org, guimarcalsilva@gmail.com"
 
-#: backends/wayland/wayland_output.cpp:481
+#: backends/wayland/wayland_output.cpp:482
 #, kde-format
 msgid "Press right control to ungrab pointer"
 msgstr "Pressione o control direito para soltar o cursor"
 
-#: backends/wayland/wayland_output.cpp:483
+#: backends/wayland/wayland_output.cpp:484
 #, kde-format
 msgid "Press right control key to grab pointer"
 msgstr "Pressione a tecla control direita para capturar o cursor"
 
-#: backends/wayland/wayland_output.cpp:487
+#: backends/wayland/wayland_output.cpp:488
 #, kde-format
 msgctxt ""
 "Title of nested KWin Wayland with Wayland socket identifier as argument"
 msgid "KDE Wayland Compositor %1"
 msgstr "Compositor KDE Wayland %1"
 
-#: backends/wayland/wayland_output.cpp:490
+#: backends/wayland/wayland_output.cpp:491
 #, kde-format
 msgid "- Output disabled"
 msgstr "- Saída desabilitada"
 
-#: backends/wayland/wayland_output.cpp:492
+#: backends/wayland/wayland_output.cpp:493
 #, kde-format
 msgid "- Output dimmed"
 msgstr "- Saída esmaecida"
@@ -4269,56 +4269,56 @@ msgstr "Mudar para a área de trabalho abaixo"
 msgid "Switch to Desktop %1"
 msgstr "Mudar para a área de trabalho %1"
 
-#: wayland/outputmanagement_v2.cpp:603
+#: wayland/outputmanagement_v2.cpp:604
 #, kde-format
 msgid "One of the relevant outputs is no longer available"
 msgstr "Uma das saídas relevantes não está mais disponível"
 
-#: wayland/outputmanagement_v2.cpp:621
+#: wayland/outputmanagement_v2.cpp:622
 #, kde-format
 msgid "Disabling all outputs through configuration changes is not allowed"
 msgstr ""
 "Não é permitido desabilitar todas as saídas por meio de alterações de "
 "configuração"
 
-#: wayland/outputmanagement_v2.cpp:631
+#: wayland/outputmanagement_v2.cpp:632
 #, kde-format
 msgid "%1 cannot mirror itself"
 msgstr "%1 não pode espelhar a si mesmo"
 
-#: wayland/outputmanagement_v2.cpp:638
+#: wayland/outputmanagement_v2.cpp:639
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
 msgstr "Não é possível adicionar um modo personalizado com um tamanho vazio"
 
-#: wayland/outputmanagement_v2.cpp:642
+#: wayland/outputmanagement_v2.cpp:643
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr ""
 "Não é possível adicionar um modo personalizado com uma taxa de atualização "
 "de zero Hz"
 
-#: wayland/outputmanagement_v2.cpp:653
+#: wayland/outputmanagement_v2.cpp:654
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
 msgstr "A posição da saída %1 é muito negativa (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:656
+#: wayland/outputmanagement_v2.cpp:657
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
 msgstr "A posição da saída habilitada %1 é negativa (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:660
+#: wayland/outputmanagement_v2.cpp:661
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
 msgstr "A posição da saída %1 é muito grande (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:677
+#: wayland/outputmanagement_v2.cpp:678
 #, kde-format
 msgid "The driver rejected the output configuration"
 msgstr "O driver rejeitou a configuração de saída"
 
-#: wayland/outputmanagement_v2.cpp:680
+#: wayland/outputmanagement_v2.cpp:681
 #, kde-format
 msgid "The session is not active"
 msgstr "A sessão não está ativa"

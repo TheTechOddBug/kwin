@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-21 00:47+0000\n"
+"POT-Creation-Date: 2026-04-22 00:47+0000\n"
 "PO-Revision-Date: 2026-04-09 08:47+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -34,29 +34,29 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "rysin@kde.org,kov@tokyo.email.ne.jp,iip@telus.net"
 
-#: backends/wayland/wayland_output.cpp:481
+#: backends/wayland/wayland_output.cpp:482
 #, kde-format
 msgid "Press right control to ungrab pointer"
 msgstr "Натисніть праву клавішу Ctrl для скасування захоплення вказівника"
 
-#: backends/wayland/wayland_output.cpp:483
+#: backends/wayland/wayland_output.cpp:484
 #, kde-format
 msgid "Press right control key to grab pointer"
 msgstr "Натисніть праву клавішу Ctrl для захоплення вказівника"
 
-#: backends/wayland/wayland_output.cpp:487
+#: backends/wayland/wayland_output.cpp:488
 #, kde-format
 msgctxt ""
 "Title of nested KWin Wayland with Wayland socket identifier as argument"
 msgid "KDE Wayland Compositor %1"
 msgstr "Засіб композиції KDE для %1"
 
-#: backends/wayland/wayland_output.cpp:490
+#: backends/wayland/wayland_output.cpp:491
 #, kde-format
 msgid "- Output disabled"
 msgstr "- Виведення вимкнено"
 
-#: backends/wayland/wayland_output.cpp:492
+#: backends/wayland/wayland_output.cpp:493
 #, kde-format
 msgid "- Output dimmed"
 msgstr "- Виведення притлумлено"
@@ -4263,52 +4263,52 @@ msgstr "Однією стільницею вниз"
 msgid "Switch to Desktop %1"
 msgstr "Перемкнутися до стільниці %1"
 
-#: wayland/outputmanagement_v2.cpp:603
+#: wayland/outputmanagement_v2.cpp:604
 #, kde-format
 msgid "One of the relevant outputs is no longer available"
 msgstr "Одне із пов'язаних виведень стало недоступним"
 
-#: wayland/outputmanagement_v2.cpp:621
+#: wayland/outputmanagement_v2.cpp:622
 #, kde-format
 msgid "Disabling all outputs through configuration changes is not allowed"
 msgstr "Вимикання усіх виведень за допомогою змін у налаштуваннях заборонено"
 
-#: wayland/outputmanagement_v2.cpp:631
+#: wayland/outputmanagement_v2.cpp:632
 #, kde-format
 msgid "%1 cannot mirror itself"
 msgstr "%1 не може віддзеркалювати самого себе"
 
-#: wayland/outputmanagement_v2.cpp:638
+#: wayland/outputmanagement_v2.cpp:639
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
 msgstr "Неможливо додати нетиповий режим із порожнім розміром"
 
-#: wayland/outputmanagement_v2.cpp:642
+#: wayland/outputmanagement_v2.cpp:643
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr "Неможливо додати нетиповий режим із частотою оновлення у нуль герців"
 
-#: wayland/outputmanagement_v2.cpp:653
+#: wayland/outputmanagement_v2.cpp:654
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
 msgstr "Позиція виведення %1 є надто великою від'ємною (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:656
+#: wayland/outputmanagement_v2.cpp:657
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
 msgstr "Позиція дозволеного виведення %1 є від'ємною (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:660
+#: wayland/outputmanagement_v2.cpp:661
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
 msgstr "Позиція виведення %1 є надто великою (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:677
+#: wayland/outputmanagement_v2.cpp:678
 #, kde-format
 msgid "The driver rejected the output configuration"
 msgstr "Драйвером відмовлено у налаштовування виведення"
 
-#: wayland/outputmanagement_v2.cpp:680
+#: wayland/outputmanagement_v2.cpp:681
 #, kde-format
 msgid "The session is not active"
 msgstr "Сеанс не є активним"

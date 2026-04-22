@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-21 00:47+0000\n"
+"POT-Creation-Date: 2026-04-22 00:47+0000\n"
 "PO-Revision-Date: 2026-04-13 13:13+0100\n"
 "Last-Translator: Sergiu Bivol <sergiu@cip.md>\n"
 "Language-Team: Romanian <kde-i18n-ro@kde.org>\n"
@@ -31,29 +31,29 @@ msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr "sergiu@cip.md,lbuz@rolix.org"
 
-#: backends/wayland/wayland_output.cpp:481
+#: backends/wayland/wayland_output.cpp:482
 #, kde-format
 msgid "Press right control to ungrab pointer"
 msgstr "Apăsați Ctrl drept pentru a elibera indicatorul"
 
-#: backends/wayland/wayland_output.cpp:483
+#: backends/wayland/wayland_output.cpp:484
 #, kde-format
 msgid "Press right control key to grab pointer"
 msgstr "Apăsați tasta Ctrl dreaptă pentru a acapara indicatorul"
 
-#: backends/wayland/wayland_output.cpp:487
+#: backends/wayland/wayland_output.cpp:488
 #, kde-format
 msgctxt ""
 "Title of nested KWin Wayland with Wayland socket identifier as argument"
 msgid "KDE Wayland Compositor %1"
 msgstr "Compozitor KDE Wayland %1"
 
-#: backends/wayland/wayland_output.cpp:490
+#: backends/wayland/wayland_output.cpp:491
 #, kde-format
 msgid "- Output disabled"
 msgstr "- Ieșire dezactivată"
 
-#: backends/wayland/wayland_output.cpp:492
+#: backends/wayland/wayland_output.cpp:493
 #, kde-format
 msgid "- Output dimmed"
 msgstr "- Ieșire estompată"
@@ -4251,53 +4251,53 @@ msgstr "Schimbă cu un birou în jos"
 msgid "Switch to Desktop %1"
 msgstr "Schimbă la biroul %1"
 
-#: wayland/outputmanagement_v2.cpp:603
+#: wayland/outputmanagement_v2.cpp:604
 #, kde-format
 msgid "One of the relevant outputs is no longer available"
 msgstr "Unul dintre afișajele relevante nu mai e disponibil"
 
-#: wayland/outputmanagement_v2.cpp:621
+#: wayland/outputmanagement_v2.cpp:622
 #, kde-format
 msgid "Disabling all outputs through configuration changes is not allowed"
 msgstr ""
 "Dezactivarea tuturor afișajelor prin modificarea configurărilor nu e permisă"
 
-#: wayland/outputmanagement_v2.cpp:631
+#: wayland/outputmanagement_v2.cpp:632
 #, kde-format
 msgid "%1 cannot mirror itself"
 msgstr "%1 nu se poate oglindi pe sine însăși"
 
-#: wayland/outputmanagement_v2.cpp:638
+#: wayland/outputmanagement_v2.cpp:639
 #, kde-format
 msgid "Cannot add a custom mode with an empty size"
 msgstr "Nu se poate adăuga regim personalizat cu dimensiune goală"
 
-#: wayland/outputmanagement_v2.cpp:642
+#: wayland/outputmanagement_v2.cpp:643
 #, kde-format
 msgid "Cannot add a custom mode with a refresh rate of zero Hz"
 msgstr "Nu se poate adăuga regim personalizat cu rată de împrospătare zero Hz"
 
-#: wayland/outputmanagement_v2.cpp:653
+#: wayland/outputmanagement_v2.cpp:654
 #, kde-format
 msgid "Position of output %1 is way too negative (%2, %3)"
 msgstr "Poziția ieșirii %1 e mult prea negativă (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:656
+#: wayland/outputmanagement_v2.cpp:657
 #, kde-format
 msgid "Position of enabled output %1 is negative (%2, %3)"
 msgstr "Poziția ieșirii active %1 e negativă (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:660
+#: wayland/outputmanagement_v2.cpp:661
 #, kde-format
 msgid "Position of output %1 is way too large (%2, %3)"
 msgstr "Poziția ieșirii %1 e mult prea mare (%2, %3)"
 
-#: wayland/outputmanagement_v2.cpp:677
+#: wayland/outputmanagement_v2.cpp:678
 #, kde-format
 msgid "The driver rejected the output configuration"
 msgstr "Driver-ul a respins configurația ieșirilor"
 
-#: wayland/outputmanagement_v2.cpp:680
+#: wayland/outputmanagement_v2.cpp:681
 #, kde-format
 msgid "The session is not active"
 msgstr "Sesiunea nu e activă"
