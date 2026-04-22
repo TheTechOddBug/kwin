@@ -32,8 +32,15 @@ RegionScreenCastSource::RegionScreenCastSource(const Rect &region, qreal scale, 
     Q_ASSERT(m_region.isValid());
     Q_ASSERT(m_scale > 0);
 
-    // TODO once the layer doesn't depend on the output anymore, remove this?
-    connect(workspace(), &Workspace::outputsChanged, this, &RegionScreenCastSource::close);
+    connect(workspace(), &Workspace::outputRemoved, this, [this](LogicalOutput *output) {
+        if (output->geometryF().intersects(m_region)) {
+            close();
+        } else if (m_sceneView && m_sceneView->logicalOutput() == output) {
+            // TODO once the layer doesn't depend on the output anymore, remove this
+            pause();
+            resume();
+        }
+    });
 }
 
 RegionScreenCastSource::~RegionScreenCastSource()
