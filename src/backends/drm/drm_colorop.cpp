@@ -296,9 +296,9 @@ std::optional<DrmAbstractColorOp::Priority> DrmLutColorOp16::colorOpPreference(c
         || std::holds_alternative<ColorTonemapper>(op) || std::holds_alternative<std::shared_ptr<ColorTransformation>>(op)) {
         // the required resolution depends heavily on the function and on the input and output ranges / multipliers
         // but this is good enough for now
-        if (m_maxSize >= 256) {
+        if (m_maxSize >= 1024) {
             return Priority::Normal;
-        } else {
+        } else if (m_maxSize >= 256) {
             return Priority::Low;
         }
         // TODO also check matrices for scaling + offset only, which can be represented just fine!
@@ -431,9 +431,9 @@ std::optional<DrmAbstractColorOp::Priority> DrmLutColorOp32::colorOpPreference(c
         || std::holds_alternative<ColorTonemapper>(op) || std::holds_alternative<std::shared_ptr<ColorTransformation>>(op)) {
         // the required resolution depends heavily on the function and on the input and output ranges / multipliers
         // but this is good enough for now
-        if (m_maxSize >= 256) {
+        if (m_maxSize >= 1024) {
             return Priority::Normal;
-        } else {
+        } else if (m_maxSize >= 256) {
             return Priority::Low;
         }
         // TODO also check matrices for scaling + offset only, which can be represented just fine!
