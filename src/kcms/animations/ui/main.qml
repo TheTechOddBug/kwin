@@ -47,15 +47,29 @@ KCM.SimpleKCM {
                 QQC2.Slider {
                     id: animationSpeedSlider
                     Layout.fillWidth: true
-                    from: -4
-                    to: 4
-                    stepSize: 0.5
+
+                    // Use same values as plasma-desktop/kcms/landingpage/ui/main.qml
+                    property var valueMapping: [
+                        4,
+                        2,
+                        1.5,
+                        1,
+                        0.75,
+                        0.5,
+                        0,
+                    ]
+
+                    from: 0
+                    to: valueMapping.length - 1
+                    stepSize: 1
+                    Kirigami.StyleHints.tickMarkStepSize: stepSize
                     snapMode: QQC2.Slider.SnapAlways
-                    onMoved: kcm.globalsSettings.animationDurationFactor =
-                             (value === to) ? 0 : (1.0 / Math.pow(2, value))
-                    value: (kcm.globalsSettings.animationDurationFactor === 0)
-                           ? animationSpeedSlider.to
-                           : -(Math.log(kcm.globalsSettings.animationDurationFactor) / Math.log(2))
+                    onMoved: kcm.globalsSettings.animationDurationFactor = valueMapping[value]
+                    value: {
+                        let factor = kcm.globalsSettings.animationDurationFactor
+                        let index = valueMapping.findIndex(item => item <= factor)
+                        return index >= 0 ? index : valueMapping.length - 1
+                    }
 
                     KCM.SettingStateBinding {
                         configObject: kcm.globalsSettings
