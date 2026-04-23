@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-04-09 10:58+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
@@ -76,7 +76,7 @@ msgstr "Premeu la tecla «Ctrl» dret per a agafar l'entrada"
 msgid "KDE Wayland Compositor"
 msgstr "Compositor de Wayland de KDE"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2418,7 +2418,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Circula entre la vista general i la vista de quadrícula"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2454,19 +2454,19 @@ msgstr "Organitza les finestres en la vista de quadrícula:"
 msgid "Search results include filtered windows:"
 msgstr "El resultat de la busca inclou les finestres filtrades:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Circula entre la vista general i la vista de quadrícula"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Canvia la vista general"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2601,12 +2601,6 @@ msgid ""
 msgstr ""
 "Creeu una captura de pantalla amb el clic esquerre o la tecla de retorn.\n"
 "La tecla d'escapada o clic dret per a cancel·lar."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Composició"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4357,6 +4351,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "XWayland ha fallat"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Composició"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

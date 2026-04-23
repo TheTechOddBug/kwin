@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:53+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2025-04-25 09:18+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
@@ -29,7 +29,7 @@ msgstr "Немає"
 msgid "Global animation speed:"
 msgstr "Загальна швидкість анімації:"
 
-#: ui/main.qml:69
+#: ui/main.qml:83
 #, kde-kuit-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -43,74 +43,74 @@ msgstr ""
 "анімації, якщо встановлено <interface>швидкість анімації</interface> "
 "<interface>Миттєва</interface>."
 
-#: ui/main.qml:76
+#: ui/main.qml:90
 #, kde-format
 msgctxt "Animation speed"
 msgid "Slow"
 msgstr "Повільна"
 
-#: ui/main.qml:85
+#: ui/main.qml:99
 #, kde-format
 msgctxt "Animation speed"
 msgid "Instant"
 msgstr "Миттєва"
 
-#: ui/main.qml:93
+#: ui/main.qml:107
 #, kde-format
 msgctxt "@title:group"
 msgid "Desktop animations"
 msgstr "Анімації стільниці"
 
-#: ui/main.qml:97
+#: ui/main.qml:111
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window open/close:"
 msgstr "Відкриття/Закриття вікна:"
 
-#: ui/main.qml:98
+#: ui/main.qml:112
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window maximize:"
 msgstr "Максимізація вікна:"
 
-#: ui/main.qml:99
+#: ui/main.qml:113
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window minimize:"
 msgstr "Мінімізація вікна:"
 
-#: ui/main.qml:100
+#: ui/main.qml:114
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window full screen:"
 msgstr "Повноекранне вікно:"
 
-#: ui/main.qml:101
+#: ui/main.qml:115
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Peek at desktop:"
 msgstr "Показати стільницю:"
 
-#: ui/main.qml:102
+#: ui/main.qml:116
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Virtual desktop switching:"
 msgstr "Перемикання віртуальних стільниць:"
 
-#: ui/main.qml:130 ui/main.qml:197
+#: ui/main.qml:144 ui/main.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Configure…"
 msgstr "Налаштувати…"
 
-#: ui/main.qml:157
+#: ui/main.qml:171
 #, kde-format
 msgctxt ""
 "@option:check %1 is the name of an animation, e.g. 'Login' or 'Logout'"
 msgid "%1:"
 msgstr "%1:"
 
-#: ui/main.qml:225
+#: ui/main.qml:239
 #, kde-format
 msgctxt "@title:group translate as short as possible"
 msgid "More effects settings:"

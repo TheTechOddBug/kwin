@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kdeorg\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2024-04-22 15:58\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
@@ -69,7 +69,7 @@ msgstr "按右 Ctrl 键抓取输入"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland 显示特效混合器"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "由于显卡重置，桌面效果已重启。"
@@ -2370,7 +2370,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "循环显示桌面概览和网格视图"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2406,19 +2406,19 @@ msgstr "使用网格视图组织窗口："
 msgid "Search results include filtered windows:"
 msgstr "搜索结果包括过滤后的窗口："
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "循环显示桌面概览和网格视图"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "显示/隐藏桌面总览"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2552,12 +2552,6 @@ msgid ""
 msgstr ""
 "点击左键或按回车键截图。\n"
 "点击右键或按 Esc 键取消。"
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "显示特效合成"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4288,6 +4282,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland 已崩溃"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "显示特效合成"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

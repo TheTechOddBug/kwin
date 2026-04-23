@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-02-03 23:54+0100\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr "오른쪽 Ctrl 키를 누르면 입력을 잡음"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland 컴포지터"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "그래픽 초기화로 인하여 데스크톱 효과가 다시 시작됨"
@@ -2408,7 +2408,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "한눈에 보기와 모눈 보기 순환"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2444,19 +2444,19 @@ msgstr "모눈 보기에서 창 정렬:"
 msgid "Search results include filtered windows:"
 msgstr "검색 결과에 필터된 창 포함됨:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "한눈에 보기와 모눈 보기 순환"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "한눈에 보기 전환"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2591,12 +2591,6 @@ msgid ""
 msgstr ""
 "왼쪽 단추를 누르거나 Enter 키를 누르면 스크린샷을 찍습니다.\n"
 "Esc 키나 오른쪽 단추를 누르면 취소합니다."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "컴포지팅"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4337,6 +4331,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland가 충돌함"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "컴포지팅"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

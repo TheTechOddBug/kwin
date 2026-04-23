@@ -1,7 +1,7 @@
 # translation of kwin.po to
 # Translation of kwin.po to Slovenian
 # Copyright (C) 2001, 2003, 2004, 2005, 2007 Free Software Foundation, Inc.
-# $Id: kwin.po 1735063 2026-04-22 01:29:47Z scripty $
+# $Id: kwin.po 1735147 2026-04-23 01:28:33Z scripty $
 # $Source$
 #
 #
@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-04-09 07:14+0200\n"
 "Last-Translator: Matjaž Jeran <matjaz.jeran@amis.net>\n"
 "Language-Team: Slovenian <lugos-slo@lugos.si>\n"
@@ -85,7 +85,7 @@ msgstr "Pritisnite puščico desno da zgrabite vhod"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland Compositor"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2414,7 +2414,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Kroži skozi splošni pregled in mrežni pogled"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2450,19 +2450,19 @@ msgstr "Organiziraj okna v mrežnem pogledu:"
 msgid "Search results include filtered windows:"
 msgstr "Rezultati iskanja vsebujejo filtrirana okna:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Kroži skozi splošni pregled in mrežni pogled"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Preklopi splošni pregled"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2596,12 +2596,6 @@ msgid ""
 msgstr ""
 "Ustvarite posnetek zaslona z levim klikom ali pritiskom tipke Enter.\n"
 "Tipka Escape ali desni klik za preklic."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Upravljanje skladnje"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4343,6 +4337,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland se je sesul"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Upravljanje skladnje"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

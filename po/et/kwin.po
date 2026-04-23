@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2022-11-14 01:16+0100\n"
 "Last-Translator: Mihkel Tõnnov <mihhkel@gmail.com>\n"
 "Language-Team: Estonian <>\n"
@@ -74,7 +74,7 @@ msgstr ""
 msgid "KDE Wayland Compositor"
 msgstr ""
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "Töölauaefektid taaskäivitati graafika lähtestamise tõttu"
@@ -2516,7 +2516,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr ""
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2555,20 +2555,20 @@ msgstr ""
 msgid "Search results include filtered windows:"
 msgstr ""
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr ""
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, fuzzy, kde-format
 #| msgid "Toggle Invert Effect"
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Inverteerimisefekti lülitamine"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, fuzzy, kde-format
 #| msgid "Toggle Invert Effect"
 msgctxt "@action Grid view is the name of a Kwin effect"
@@ -2724,13 +2724,6 @@ msgid ""
 msgstr ""
 "Vali jõuga suletav aken vasakklõpsu või Enteriga.\n"
 "Loobumiseks tee paremklõps või vajuta Escape."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, fuzzy, kde-format
-#| msgid "Block Compositing"
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Komposiidi blokkimine"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, fuzzy, kde-format
@@ -4543,6 +4536,12 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Block Compositing"
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Komposiidi blokkimine"
 
 #, fuzzy
 #~| msgctxt "The input device of the event is not known"

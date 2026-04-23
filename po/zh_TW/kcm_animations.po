@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2025-11-17 11:53+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2025-04-30 02:45+0900\n"
 "Last-Translator: Kisaragi Hiu <mail@kisaragi-hiu.com>\n"
 "Language-Team: Traditional Chinese <zh-l10n@lists.slat.org>\n"
@@ -28,7 +28,7 @@ msgstr "無"
 msgid "Global animation speed:"
 msgstr "全域動畫速度："
 
-#: ui/main.qml:69
+#: ui/main.qml:83
 #, kde-kuit-format
 msgctxt "@info:tooltip"
 msgid ""
@@ -41,74 +41,74 @@ msgstr ""
 "過它們仍然會在<interface>動畫速度</interface>為<interface>立即</interface>時"
 "停用動畫。"
 
-#: ui/main.qml:76
+#: ui/main.qml:90
 #, kde-format
 msgctxt "Animation speed"
 msgid "Slow"
 msgstr "慢"
 
-#: ui/main.qml:85
+#: ui/main.qml:99
 #, kde-format
 msgctxt "Animation speed"
 msgid "Instant"
 msgstr "立即"
 
-#: ui/main.qml:93
+#: ui/main.qml:107
 #, kde-format
 msgctxt "@title:group"
 msgid "Desktop animations"
 msgstr "桌面動畫"
 
-#: ui/main.qml:97
+#: ui/main.qml:111
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window open/close:"
 msgstr "視窗開啟/關閉："
 
-#: ui/main.qml:98
+#: ui/main.qml:112
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window maximize:"
 msgstr "視窗最大化："
 
-#: ui/main.qml:99
+#: ui/main.qml:113
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window minimize:"
 msgstr "視窗最小化："
 
-#: ui/main.qml:100
+#: ui/main.qml:114
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Window full screen:"
 msgstr "視窗全螢幕："
 
-#: ui/main.qml:101
+#: ui/main.qml:115
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Peek at desktop:"
 msgstr "看一下桌面："
 
-#: ui/main.qml:102
+#: ui/main.qml:116
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Virtual desktop switching:"
 msgstr "虛擬桌面切換："
 
-#: ui/main.qml:130 ui/main.qml:197
+#: ui/main.qml:144 ui/main.qml:211
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Configure…"
 msgstr "設定…"
 
-#: ui/main.qml:157
+#: ui/main.qml:171
 #, kde-format
 msgctxt ""
 "@option:check %1 is the name of an animation, e.g. 'Login' or 'Logout'"
 msgid "%1:"
 msgstr "%1："
 
-#: ui/main.qml:225
+#: ui/main.qml:239
 #, kde-format
 msgctxt "@title:group translate as short as possible"
 msgid "More effects settings:"

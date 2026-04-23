@@ -18,7 +18,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-04-13 08:02+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
@@ -82,7 +82,7 @@ msgstr "לחיצה על ה־Ctrl הימני לאחיזת קלט"
 msgid "KDE Wayland Compositor"
 msgstr "מנהל חלונאי KDE Wayland"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "אפקטים של שולחן עבודה הופעלן מחגד"
@@ -2396,7 +2396,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "החלפה מעגלית בין סקירה ותצוגת רשת"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2432,19 +2432,19 @@ msgstr "ארגון חלונות בתצוגת רשת:"
 msgid "Search results include filtered windows:"
 msgstr "תוצאות חיפוש כוללות חלונות מסוננים:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "החלפה מעגלית בין סקירה ותצוגת רשת"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "החלפת מצב סקירה"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2578,12 +2578,6 @@ msgid ""
 msgstr ""
 "צילום המסך בלחיצה שמאלית או enter.\n"
 "Escape או לחיצה ימנית לביטול."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "ניהול חלונאי"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4314,6 +4308,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland קרס"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "ניהול חלונאי"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

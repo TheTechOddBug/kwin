@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-04-18 18:42+0300\n"
 "Last-Translator: Moo <<>>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr "Paspauskite dešinįjį valdymo klavišą norėdami pagriebti įvestį"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland kompozitorius"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "Darbalaukio efektai buvo paleisti iš naujo dėl grafikos atstatymo"
@@ -2409,7 +2409,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Perjunginėti tarp apžvalgos ir tinklelio rodinio"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2445,19 +2445,19 @@ msgstr "Susisteminti langus į tinklelio rodinį:"
 msgid "Search results include filtered windows:"
 msgstr "Įtraukti filtruotus langus į paieškos rezultatus:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Perjunginėti tarp apžvalgos ir tinklelio rodinio"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Perjungti apžvalgą"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2595,12 +2595,6 @@ msgstr ""
 "naudodami kairiojo pelės mygtuko spustelėjimą ar Įvedimo (Enter) klavišą.\n"
 "Norėdami atsisakyti, paspauskite Grįžties (Escape) klavišą arba\n"
 "spustelėkite dešiniuoju pelės mygtuku."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Komponavimas"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4347,6 +4341,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland užstrigo"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Komponavimas"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

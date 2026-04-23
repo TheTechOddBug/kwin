@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-01-23 20:54+0100\n"
 "Last-Translator: Stefan Asserhäll <stefan.asserhall@gmail.com>\n"
 "Language-Team: Swedish <kde-i18n-doc@kde.org>\n"
@@ -74,7 +74,7 @@ msgstr "Tryck på höger kontrolltangent för att greppa inmatning"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland-sammansättning"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "Skrivbordseffekter startades om på grund av grafikåterställning"
@@ -2423,7 +2423,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Gå igenom översikt och rutnätsvy"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2459,19 +2459,19 @@ msgstr "Organisera fönster i rutnätsvy:"
 msgid "Search results include filtered windows:"
 msgstr "Sökresultat inkluderar filtrerade fönster:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Gå igenom översikt och rutnätsvy"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Visa eller dölj översikt"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2606,12 +2606,6 @@ msgid ""
 msgstr ""
 "Ta skärmbild med vänsterklick eller returtangenten.\n"
 "Esc eller högerklick för att avbryta."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Sammansättning"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4364,6 +4358,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland har kraschat"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Sammansättning"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

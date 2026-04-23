@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: KDE 4.2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2025-05-30 23:12+0200\n"
 "Last-Translator: Kristof Kiszel <ulysses@fsf.hu>\n"
 "Language-Team: Hungarian <kde-l10n-hu@kde.org>\n"
@@ -72,7 +72,7 @@ msgstr "Nyomja meg a jobb Controlt a bemenet elkapásához"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland kompozitor"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2456,7 +2456,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Áttekintés és Rácsnézet ciklikusan"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2492,19 +2492,19 @@ msgstr "Ablakok rendezése a Rácsnézetben:"
 msgid "Search results include filtered windows:"
 msgstr "Keresési eredmények tartalmazzák a szűrt ablakokat is:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Áttekintés és Rácsnézet ciklikusan"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Áttekintés ki-be"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2640,12 +2640,6 @@ msgid ""
 msgstr ""
 "Készítsen képernyőképet bal egérgombbal vagy Enterrel.\n"
 "Megszakításhoz nyomja meg az Escape-et vagy a jobb egérgombot."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Kompozitálás"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4386,6 +4380,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Az Xwayland összeomlott"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Kompozitálás"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

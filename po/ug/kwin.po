@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-02-17 23:24-0500\n"
 "Last-Translator: Abduqadir Abliz <sahranbay@gmail.com>\n"
 "Language-Team: Uyghur Computer Science Association <UKIJ@yahoogroups.com>\n"
@@ -70,7 +70,7 @@ msgstr "ئوڭ Ctrl بېسىلسا كىرگۈزۈشكە ئېرىشىدۇ"
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland بىرىكتۈرگۈچ"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2435,7 +2435,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "ئىخچام كۆرۈنۈش ۋە شادا كۆرۈنۈشنى دەۋرىي ئالماشتۇر"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2471,19 +2471,19 @@ msgstr "شادا كۆرۈنۈشتىكى كۆزنەكنى تەشكىللەيدۇ:
 msgid "Search results include filtered windows:"
 msgstr "ئىزدەش نەتىجىسىدە سۈزۈلگەن كۆزنەك بار:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "ئىخچام كۆرۈنۈش ۋە شادا كۆرۈنۈشنى دەۋرىي ئالماشتۇر"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "ئىخچام كۆرۈنۈشنى ئالماشتۇر"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2619,12 +2619,6 @@ msgid ""
 msgstr ""
 "چاشقىنەك سول توپچىسى چېكىلىپ ياكى enter بېسىلىپ، ئېكران تۇتىلىدۇ.\n"
 "چاشقىنەك ئوڭ توپچىسى چېكىلسە ياكى Escape بېسىلسا ۋاز كېچىدۇ."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "كىرىشتۈرۈش"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4377,6 +4371,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland يىمىرىلدى"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "كىرىشتۈرۈش"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-02-06 14:38+0200\n"
 "Last-Translator: Toms Trasuns <toms.trasuns@posteo.net>\n"
 "Language-Team: Latvian <kde-i18n-doc@kde.org>\n"
@@ -76,7 +76,7 @@ msgstr "Lai paņemtu ievadi, spiediet labo „Ctr“ taustiņu"
 msgid "KDE Wayland Compositor"
 msgstr "KDE „Wayland“ kompozitors"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "Darbvirsmas efekti ir pārstartēti grafikas atiestatīšanas rezultātā"
@@ -2427,7 +2427,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Iet cauri pārskata un režģa skatam"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2463,19 +2463,19 @@ msgstr "Logus izkārtot režģa skatā:"
 msgid "Search results include filtered windows:"
 msgstr "Starp meklēšanas rezultātiem ir filtrētie logi:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Iet cauri pārskatam un režģa skatam"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Ieslēgt/izslēgt pārskatu"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2611,12 +2611,6 @@ msgid ""
 msgstr ""
 "Uzņemiet ekrānattēlu, spiežot peles kreiso pogu vai „Enter“.\n"
 "Lai atceltu darbību, spiediet „Escape“ vai peles labo pogu."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Kompozitē"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4368,6 +4362,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "„Xwayland“ ir avarējis"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Kompozitē"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-04-09 06:15+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -70,7 +70,7 @@ msgstr "შეყვანის ჩასაჭერად მარჯვე�
 msgid "KDE Wayland Compositor"
 msgstr "KDE Wayland კომპოზიტორი"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr "სამუშაო მაგიდის ეფექტები დარესტარტდა გრაფიკის გადატვირთვის გამო"
@@ -2395,7 +2395,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "გადახედვისა და ბადის ხედებს შორის გადართვა"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2431,19 +2431,19 @@ msgstr "ფანჯრების დალაგება ბადის ხ
 msgid "Search results include filtered windows:"
 msgstr "ძებნის შედეგები გაფილტრულ ფანჯრებს შეიცავს:"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "გადახედვისა და ბადის ხედებს შორის გადართვა"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "გადახედვის გადართვა"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2577,12 +2577,6 @@ msgid ""
 msgstr ""
 "ეკრანის ანაბეჭდის მარცხენა წკაპით ან Enter-ით გადაღება.\n"
 "გასაუქმებლად Esc ან მარჯვენა წკაპი."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "კომპოზიცია"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4327,6 +4321,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland ავარიულად დასრულდა"
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "კომპოზიცია"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"

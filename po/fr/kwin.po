@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2026-04-22 00:47+0000\n"
+"POT-Creation-Date: 2026-04-23 00:45+0000\n"
 "PO-Revision-Date: 2026-04-11 07:31+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: fr\n"
@@ -96,7 +96,7 @@ msgstr "Appuyez sur la touche de contrôle droite pour saisir l'entrée"
 msgid "KDE Wayland Compositor"
 msgstr "Compositeur Wayland de KDE"
 
-#: compositor.cpp:662
+#: compositor.cpp:658
 #, kde-format
 msgid "Desktop effects were restarted due to a graphics reset"
 msgstr ""
@@ -2446,7 +2446,7 @@ msgid "Cycle through Overview and Grid View"
 msgstr "Faire défiler les vues en aperçu et en grille"
 
 #: plugins/overview/kcm/overvieweffectkcm.cpp:45
-#: plugins/overview/overvieweffect.cpp:141
+#: plugins/overview/overvieweffect.cpp:145
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Grid View and Overview"
@@ -2482,19 +2482,19 @@ msgstr "Permettre d'organiser les fenêtres dans la vue en grille :"
 msgid "Search results include filtered windows:"
 msgstr "Les résultats de recherche intègre les fenêtres filtrées :"
 
-#: plugins/overview/overvieweffect.cpp:135
+#: plugins/overview/overvieweffect.cpp:139
 #, kde-format
 msgctxt "@action Grid View and Overview are the name of KWin effects"
 msgid "Cycle through Overview and Grid View"
 msgstr "Faire défiler les vues en aperçu et en grille"
 
-#: plugins/overview/overvieweffect.cpp:146
+#: plugins/overview/overvieweffect.cpp:150
 #, kde-format
 msgctxt "@action Overview is the name of a Kwin effect"
 msgid "Toggle Overview"
 msgstr "Basculer vers l'aperçu"
 
-#: plugins/overview/overvieweffect.cpp:152
+#: plugins/overview/overvieweffect.cpp:156
 #, kde-format
 msgctxt "@action Grid view is the name of a Kwin effect"
 msgid "Toggle Grid View"
@@ -2630,12 +2630,6 @@ msgstr ""
 "Créer une copie d'écran avec un clic gauche ou un appui sur la touche "
 "« Entrée ».\n"
 "Appuyez sur la touche « Échap » ou faire un clic droit pour annuler."
-
-#: plugins/showcompositing/qml/Main.qml:12
-#, kde-format
-msgctxt "@label"
-msgid "Compositing"
-msgstr "Composition"
 
 #: plugins/showfps/qml/Fallback.qml:26 plugins/showfps/qml/Main.qml:192
 #, kde-format
@@ -4389,6 +4383,10 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "XWayland s'est planté."
+
+#~ msgctxt "@label"
+#~ msgid "Compositing"
+#~ msgstr "Composition"
 
 #~ msgctxt "@label"
 #~ msgid "Unknown"
