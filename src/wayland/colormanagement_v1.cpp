@@ -16,8 +16,7 @@ namespace KWin
 
 ColorManagerV1::ColorManagerV1(Display *display, QObject *parent)
     : QObject(parent)
-    // HACK to work around https://bugzilla.mozilla.org/show_bug.cgi?id=2008777 in Firefox based software (Thunderbird and Zen Browser)
-    , QtWaylandServer::wp_color_manager_v1(*display, 1)
+    , QtWaylandServer::wp_color_manager_v1(*display, 2)
 {
 }
 
