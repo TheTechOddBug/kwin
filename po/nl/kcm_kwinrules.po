@@ -7,7 +7,7 @@
 # Rinse de Vries <rinsedevries@kde.nl>, 2004, 2005, 2007, 2008.
 # Wilbert Berendsen <wbsoft@xs4all.nl>, 2004.
 # Bram Schoenmakers <bramschoenmakers@kde.nl>, 2004, 2006, 2007.
-# SPDX-FileCopyrightText: 2009, 2010, 2024, 2025, 2026 Freek de Kruijf <f.de.kruijf@hetnet.nl>
+# SPDX-FileCopyrightText: 2009-2010, 2024-2026 Freek de Kruijf <f.de.kruijf@hetnet.nl>
 # Freek de Kruijf <freek@opensuse.org>, 2009.
 # Freek de Kruijf <freekdekruijf@kde.nl>, 2009, 2010, 2011, 2012.
 # Freek de Kruijf <freekdekruijf@kde.nl>, 2011, 2013, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023.
@@ -16,14 +16,14 @@ msgstr ""
 "Project-Id-Version: kcmkwinrules\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-24 00:45+0000\n"
-"PO-Revision-Date: 2026-02-20 13:45+0100\n"
+"PO-Revision-Date: 2026-04-24 12:31+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: \n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 26.04.0\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
 #: kcmrules.cpp:228
@@ -64,7 +64,7 @@ msgstr "Reguliere expressie"
 #: optionsmodel.cpp:205
 #, kde-format
 msgid "Match"
-msgstr ""
+msgstr "Overeenkomst"
 
 #: optionsmodel.cpp:210
 #, kde-format
@@ -253,10 +253,9 @@ msgid "Window tag"
 msgstr "Venstertag"
 
 #: rulesmodel.cpp:446
-#, fuzzy, kde-format
-#| msgid "On main window"
+#, kde-format
 msgid "Has parent window"
-msgstr "Op hoofdvenster"
+msgstr "Heeft oudervenster"
 
 #: rulesmodel.cpp:452
 #, kde-format

@@ -3106,18 +3106,15 @@ msgstr "窗口标签字符串匹配类型"
 
 #. i18n: ectx: label, entry (hastransientparent), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:78
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder no entries in the task switcher"
-#| msgid "No open windows"
+#, kde-format
 msgid "Has parent window"
-msgstr "没有打开的窗口"
+msgstr ""
 
 #. i18n: ectx: label, entry (hastransientparentmatch), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:82
-#, fuzzy, kde-format
-#| msgid "Machine string match type"
+#, kde-format
 msgid "Has parent window match type"
-msgstr "机器字符串匹配类型"
+msgstr ""
 
 #. i18n: ectx: label, entry (types), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:89
@@ -4297,11 +4294,3 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "Xwayland 已崩溃"
-
-#~ msgctxt "@label"
-#~ msgid "Compositing"
-#~ msgstr "显示特效合成"
-
-#~ msgctxt "@label"
-#~ msgid "Unknown"
-#~ msgstr "未知"

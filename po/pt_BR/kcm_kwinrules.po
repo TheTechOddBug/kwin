@@ -2,7 +2,7 @@
 # Copyright (C) 2004-2019 This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2004, 2025, 2026 Marcus Gama <marcus_gama@uol.com.br>
+# SPDX-FileCopyrightText: 2004, 2025-2026 Marcus Gama <marcus_gama@uol.com.br>
 # Lisiane Sztoltz Teixeira <lisiane@kdemail.net>, 2004, 2005.
 # Marcus Gama <marcus.gama@gmail.com>, 2006.
 # Diniz Bortolotto <diniz.bortolotto@gmail.com>, 2007, 2008.
@@ -16,7 +16,7 @@ msgstr ""
 "Project-Id-Version: kcmkwinrules\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-24 00:45+0000\n"
-"PO-Revision-Date: 2026-02-20 09:11-0300\n"
+"PO-Revision-Date: 2026-04-24 08:55-0300\n"
 "Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 25.12.2\n"
+"X-Generator: Lokalize 26.04.0\n"
 
 #: kcmrules.cpp:228
 #, kde-format
@@ -64,7 +64,7 @@ msgstr "Expressão regular"
 #: optionsmodel.cpp:205
 #, kde-format
 msgid "Match"
-msgstr ""
+msgstr "Corresponder"
 
 #: optionsmodel.cpp:210
 #, kde-format
@@ -253,10 +253,9 @@ msgid "Window tag"
 msgstr "Rótulo da  janela"
 
 #: rulesmodel.cpp:446
-#, fuzzy, kde-format
-#| msgid "On main window"
+#, kde-format
 msgid "Has parent window"
-msgstr "Na janela principal"
+msgstr "Possui janela pai"
 
 #: rulesmodel.cpp:452
 #, kde-format

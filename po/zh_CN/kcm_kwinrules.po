@@ -232,10 +232,9 @@ msgid "Window tag"
 msgstr "窗口标签"
 
 #: rulesmodel.cpp:446
-#, fuzzy, kde-format
-#| msgid "On main window"
+#, kde-format
 msgid "Has parent window"
-msgstr "主窗口"
+msgstr ""
 
 #: rulesmodel.cpp:452
 #, kde-format

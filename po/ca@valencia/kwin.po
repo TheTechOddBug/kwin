@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-24 00:45+0000\n"
-"PO-Revision-Date: 2026-04-09 10:58+0200\n"
+"PO-Revision-Date: 2026-04-24 09:47+0200\n"
 "Last-Translator: Josep M. Ferrer <txemaq@gmail.com>\n"
 "Language-Team: Catalan <kde-i18n-ca@kde.org>\n"
 "Language: ca@valencia\n"
@@ -3167,18 +3167,15 @@ msgstr "Tipus de coincidència de la cadena etiqueta de la finestra"
 
 #. i18n: ectx: label, entry (hastransientparent), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:78
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder no entries in the task switcher"
-#| msgid "No open windows"
+#, kde-format
 msgid "Has parent window"
-msgstr "Cap finestra oberta"
+msgstr "Té una finestra pare"
 
 #. i18n: ectx: label, entry (hastransientparentmatch), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:82
-#, fuzzy, kde-format
-#| msgid "Machine string match type"
+#, kde-format
 msgid "Has parent window match type"
-msgstr "Tipus de coincidència de la cadena màquina"
+msgstr "Té un tipus de coincidència de finestra pare"
 
 #. i18n: ectx: label, entry (types), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:89
@@ -4366,11 +4363,3 @@ msgstr ""
 #, kde-format
 msgid "Xwayland has crashed"
 msgstr "XWayland ha fallat"
-
-#~ msgctxt "@label"
-#~ msgid "Compositing"
-#~ msgstr "Composició"
-
-#~ msgctxt "@label"
-#~ msgid "Unknown"
-#~ msgstr "Desconegut"

@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kcm_kwinrules\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-24 00:45+0000\n"
-"PO-Revision-Date: 2026-02-20 08:12+0200\n"
+"PO-Revision-Date: 2026-04-24 08:23+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
@@ -61,7 +61,7 @@ msgstr "Формальний вираз"
 #: optionsmodel.cpp:205
 #, kde-format
 msgid "Match"
-msgstr ""
+msgstr "Відповідність"
 
 #: optionsmodel.cpp:210
 #, kde-format
@@ -250,10 +250,9 @@ msgid "Window tag"
 msgstr "Мітка вікна"
 
 #: rulesmodel.cpp:446
-#, fuzzy, kde-format
-#| msgid "On main window"
+#, kde-format
 msgid "Has parent window"
-msgstr "На головному вікні"
+msgstr "Має батьківське вікно"
 
 #: rulesmodel.cpp:452
 #, kde-format
