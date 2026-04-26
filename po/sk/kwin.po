@@ -3156,18 +3156,15 @@ msgstr "Typ zhody reťazca názvu okna"
 
 #. i18n: ectx: label, entry (hastransientparent), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:78
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder no entries in the task switcher"
-#| msgid "No open windows"
+#, kde-format
 msgid "Has parent window"
-msgstr "Žiadne okná"
+msgstr "Má nadradené okno"
 
 #. i18n: ectx: label, entry (hastransientparentmatch), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:82
-#, fuzzy, kde-format
-#| msgid "Set window type to"
+#, kde-format
 msgid "Has parent window match type"
-msgstr "Nastaviť typ okna na"
+msgstr "Typ zhody nadradeného okna"
 
 #. i18n: ectx: label, entry (types), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:89

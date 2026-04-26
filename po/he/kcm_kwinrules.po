@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: kcmkwinrules\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-24 00:45+0000\n"
-"PO-Revision-Date: 2026-04-13 08:05+0300\n"
+"PO-Revision-Date: 2026-04-25 07:50+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -59,7 +59,7 @@ msgstr "ביטוי רגולרי"
 #: optionsmodel.cpp:205
 #, kde-format
 msgid "Match"
-msgstr ""
+msgstr "התאמה"
 
 #: optionsmodel.cpp:210
 #, kde-format
@@ -238,10 +238,9 @@ msgid "Window tag"
 msgstr "תגית חלון"
 
 #: rulesmodel.cpp:446
-#, fuzzy, kde-format
-#| msgid "On main window"
+#, kde-format
 msgid "Has parent window"
-msgstr "בחלון הראש"
+msgstr "יש חלון הורה"
 
 #: rulesmodel.cpp:452
 #, kde-format

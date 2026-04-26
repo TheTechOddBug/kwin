@@ -60,7 +60,7 @@ msgstr "Regulárny výraz"
 #: optionsmodel.cpp:205
 #, kde-format
 msgid "Match"
-msgstr ""
+msgstr "Zhoda"
 
 #: optionsmodel.cpp:210
 #, kde-format
@@ -244,10 +244,9 @@ msgid "Window tag"
 msgstr "Tag okna"
 
 #: rulesmodel.cpp:446
-#, fuzzy, kde-format
-#| msgid "On main window"
+#, kde-format
 msgid "Has parent window"
-msgstr "Na hlavné okno"
+msgstr "Má nadradené okno"
 
 #: rulesmodel.cpp:452
 #, kde-format

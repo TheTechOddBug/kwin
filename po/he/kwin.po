@@ -19,7 +19,7 @@ msgstr ""
 "Project-Id-Version: kwin\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-04-24 00:45+0000\n"
-"PO-Revision-Date: 2026-04-21 14:10+0300\n"
+"PO-Revision-Date: 2026-04-25 07:50+0300\n"
 "Last-Translator: Yaron Shahrabani <sh.yaron@gmail.com>\n"
 "Language-Team: צוות התרגום של KDE ישראל\n"
 "Language: he\n"
@@ -3132,18 +3132,15 @@ msgstr "סוג לכידת מחרוזת תגית חלון"
 
 #. i18n: ectx: label, entry (hastransientparent), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:78
-#, fuzzy, kde-format
-#| msgctxt "@info:placeholder no entries in the task switcher"
-#| msgid "No open windows"
+#, kde-format
 msgid "Has parent window"
-msgstr "אין חלונות פתוחים"
+msgstr "יש חלון הורה"
 
 #. i18n: ectx: label, entry (hastransientparentmatch), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:82
-#, fuzzy, kde-format
-#| msgid "Set window type to"
+#, kde-format
 msgid "Has parent window match type"
-msgstr "הגדרת סוג החלון לכדי"
+msgstr "יש סוג התאמת חלון הורה"
 
 #. i18n: ectx: label, entry (types), group ($(ruleDescriptionOrNumber))
 #: rulesettings.kcfg:89
